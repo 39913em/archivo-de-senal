@@ -59,7 +59,8 @@ async function init() {
       throw new Error("El JSON no contiene un array válido de entradas");
     }
 
-    const entradas = [...lista].sort((a, b) => a.fecha < b.fecha ? 1 : -1);
+    // 🔥 ORDEN: del más nuevo al más viejo (reciente arriba)
+    const entradas = [...lista].sort((a, b) => a.fecha > b.fecha ? 1 : -1);
 
     if (entradas.length === 0) {
       archive.innerHTML = `<p class="empty-state">Todavía no hay piezas publicadas. Vuelve pronto.</p>`;
