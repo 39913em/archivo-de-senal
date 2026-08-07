@@ -5,17 +5,18 @@
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
-    {
-      "id": "arquitectura-sonora-entornos-virtuales",
-      "archivo": "arquitectura-sonora.json",
-      "pieza": "39913EM-DOC-001",
-      "titulo": "Arquitectura sonora en entornos virtuales",
-      "subtitulo": "La transformación del espacio a través de la tecnología",
-      "fecha": "2026-06-01",
+        {
+      "id": "cultura-no-se-torrentea",
+      "archivo": "cultura-no-se-torrentea.json",
+      "pieza": "39913EM-DOC-003",
+      "titulo": "Si la cultura no se torrentea, la cultura se netflixea",
+      "subtitulo": "Piratería, streaming y la batalla por el acceso en América Latina",
+      "fecha": "2026",
       "categoria": "Ensayo",
-      "extracto": "Los espacios virtuales han transformado la creación contemporánea al ofrecer nuevas formas de explorar la relación entre el sonido, el entorno y la experiencia estética. Estas plataformas permiten diseñar entornos inmersivos que expanden los límites sensoriales mediante tecnologías como el audio tridimensional y la espacialización sonora, reconfigurando profundamente la percepción del espacio arquitectónico virtual. Sin embargo, esta transformación no es neutral: plantea tensiones técnicas, conceptuales y culturales —sobre la autenticidad de la experiencia, la distribución desigual de los recursos tecnológicos y la posible reducción del sonido a mero decorado auditivo— que este texto examina de manera crítica. El arte sonoro digital se consolida así como un campo en constante evolución que no solo amplía los horizontes estéticos, sino que también los interroga.",
-      "tags": ["arte sonoro", "espacios virtuales", "arquitectura sonora", "audio 3D", "espacialización sonora", "entornos inmersivos", "arte digital", "escucha reducida", "campo expandido", "percepción sensorial"]
+      "extracto": "El 8 de enero de 1986, un joven llamado Loyd Blankenship fue arrestado por la policía de Texas. Ese mismo chico escribió un texto breve que terminaría publicado en Phrack, la revista clandestina de la escena hacker, bajo su alias, 'The Mentor'. Lo tituló 'La conciencia de un hacker', aunque hoy se le conoce simplemente como el Manifiesto Hacker. 'Mi crimen es la curiosidad'. The mentor hablaba de acceso, de la frustración de tener enfrente un sistema al que no se le permitía entrar, y de la convicción de que esa restricción era el verdadero problema. El streaming prometió resolver el acceso con una tarjeta de crédito. Lo que entregó fue un sistema que paga migajas a los creadores, que financia tecnología de guerra con las ganancias, y que convierte al usuario en un inquilino perpetuo de su propia cultura. La piratería, en su esencia más pura, es una respuesta a una estructura que ha hecho del acceso un privilegio y del conocimiento un bien transable.",
+      "tags": ["piratería", "streaming", "Spotify", "acceso cultural", "América Latina", "Taringa", "Bandcamp", "boicot", "memoria digital", "preservación"]
     },
+    
     {
       "id": "memoria-rota",
       "archivo": "memoria-rota.json",
@@ -27,10 +28,23 @@
       "extracto": "La pérdida de archivos digitales rara vez responde a un accidente puntual, sino que suele estar enredada dentro de una lógica mucho más amplia, relacionada con la forma en que las plataformas y las empresas terminan decidiendo, casi siempre sin decirlo abiertamente, qué es lo que consideran digno de conservarse y qué no. En 2019, MySpace perdió doce años de música, cerca de cincuenta millones de canciones. La empresa migró de servidores, y en ese traslado los archivos se fueron corrompiendo hasta perderse para siempre. Este ensayo examina las condiciones materiales y políticas del archivo digital, la obsolescencia programada, y la fragilidad de la memoria en la era de la datificación, explorando casos como el cierre de Adobe Flash y las prácticas de preservación en América Latina.",
       "tags": ["archivo", "memoria digital", "preservación", "obsolescencia programada", "net.art", "MySpace", "Adobe Flash", "ciberseguridad", "patrimonio cultural", "arte sonoro", "brecha digital", "América Latina"]
     },
+    
+    {
+      "id": "arquitectura-sonora-entornos-virtuales",
+      "archivo": "arquitectura-sonora.json",
+      "pieza": "39913EM-DOC-001",
+      "titulo": "Arquitectura sonora en entornos virtuales",
+      "subtitulo": "La transformación del espacio a través de la tecnología",
+      "fecha": "2026-06-01",
+      "categoria": "Ensayo",
+      "extracto": "Los espacios virtuales han transformado la creación contemporánea al ofrecer nuevas formas de explorar la relación entre el sonido, el entorno y la experiencia estética. Estas plataformas permiten diseñar entornos inmersivos que expanden los límites sensoriales mediante tecnologías como el audio tridimensional y la espacialización sonora, reconfigurando profundamente la percepción del espacio arquitectónico virtual. Sin embargo, esta transformación no es neutral: plantea tensiones técnicas, conceptuales y culturales —sobre la autenticidad de la experiencia, la distribución desigual de los recursos tecnológicos y la posible reducción del sonido a mero decorado auditivo— que este texto examina de manera crítica. El arte sonoro digital se consolida así como un campo en constante evolución que no solo amplía los horizontes estéticos, sino que también los interroga.",
+      "tags": ["arte sonoro", "espacios virtuales", "arquitectura sonora", "audio 3D", "espacialización sonora", "entornos inmersivos", "arte digital", "escucha reducida", "campo expandido", "percepción sensorial"]
+    },
+    
     {
       "id": "datos-masivos",
       "archivo": "datos-masivos.json",
-      "pieza": "39913EM-DOC-003",
+      "pieza": "39913EM-DOC-000",
       "titulo": "DATARTVERSO",
       "subtitulo": "Practicas-Artisticas-y-La-Visualidad-de-Datos-Masivos",
       "fecha": "2021-05-30",
