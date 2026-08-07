@@ -60,7 +60,7 @@ async function init() {
     }
 
     // 🔥 ORDEN: del más nuevo al más viejo (reciente arriba)
-    const entradas = [...lista].sort((a, b) => a.fecha > b.fecha ? 1 : -1);
+    const entradas = [...lista].sort((a, b) => a.fecha < b.fecha ? 1 : -1);
 
     if (entradas.length === 0) {
       archive.innerHTML = `<p class="empty-state">Todavía no hay piezas publicadas. Vuelve pronto.</p>`;
