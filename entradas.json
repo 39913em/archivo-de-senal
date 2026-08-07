@@ -5,17 +5,6 @@
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
-        {
-      "id": "cultura-no-se-torrentea",
-      "archivo": "cultura-no-se-torrentea.json",
-      "pieza": "39913EM-DOC-003",
-      "titulo": "Si la cultura no se torrentea, la cultura se netflixea",
-      "subtitulo": "Piratería, streaming y la batalla por el acceso en América Latina",
-      "fecha": "2026-09-01",
-      "categoria": "Ensayo",
-      "extracto": "El 8 de enero de 1986, un joven llamado Loyd Blankenship fue arrestado por la policía de Texas. Ese mismo chico escribió un texto breve que terminaría publicado en Phrack, la revista clandestina de la escena hacker, bajo su alias, 'The Mentor'. Lo tituló 'La conciencia de un hacker', aunque hoy se le conoce simplemente como el Manifiesto Hacker. 'Mi crimen es la curiosidad'. The mentor hablaba de acceso, de la frustración de tener enfrente un sistema al que no se le permitía entrar, y de la convicción de que esa restricción era el verdadero problema. El streaming prometió resolver el acceso con una tarjeta de crédito. Lo que entregó fue un sistema que paga migajas a los creadores, que financia tecnología de guerra con las ganancias, y que convierte al usuario en un inquilino perpetuo de su propia cultura. La piratería, en su esencia más pura, es una respuesta a una estructura que ha hecho del acceso un privilegio y del conocimiento un bien transable.",
-      "tags": ["piratería", "streaming", "Spotify", "acceso cultural", "América Latina", "Taringa", "Bandcamp", "boicot", "memoria digital", "preservación"]
-    },
     
     {
       "id": "memoria-rota",
