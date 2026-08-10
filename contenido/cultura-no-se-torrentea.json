@@ -2,11 +2,43 @@
   "cuerpo": [
     {
       "tipo": "parrafo",
-      "texto": "El 8 de enero de 1986, un joven llamado Loyd Blankenship fue arrestado por la policía de Texas. Ese mismo chico escribió un texto breve que terminaría publicado en [[Phrack|https://phrack.org/]], la revista clandestina de la escena hacker, bajo su alias, 'The Mentor'. Lo tituló 'La conciencia de un hacker', aunque hoy se le conoce simplemente como el [[Manifiesto Hacker|https://en.wikipedia.org/wiki/The_Hacker_Manifesto]]. 'Mi crimen es la curiosidad'. The mentor hablaba de acceso, de la frustración de tener enfrente un sistema al que no se le permitía entrar, y de la convicción de que esa restricción era el verdadero problema."
+      "texto": "El 8 de enero de 1986, la prensa de Texas salía con el titular de un adolescente arrestado por meterse donde no debía. Era la época posterior a [[Juegos de guerra|https://es.wikipedia.org/wiki/Juegos_de_guerra]], la película de 1983 que había fijado, en la imaginación pública, una idea sobre lo que hacía alguien capaz de entrar a un sistema ajeno y provocar una guerra nuclear sin querer. El Servicio Secreto y el FBI ya perseguían a grupos como [[Legion of Doom|https://en.wikipedia.org/wiki/Legion_of_Doom_(hacking)]], tratando cada línea telefónica gratuita robada como delito federal."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Loyd Blankenship, que en ese grupo se hacía llamar 'The Mentor', acababa de ser detenido. Unos días después escribió un texto breve, publicado en la revista [[Phrack|https://phrack.org/]]. Lo tituló 'La conciencia de un hacker', aunque hoy se le conoce simplemente como el [[Manifiesto Hacker|https://en.wikipedia.org/wiki/The_Hacker_Manifesto]]."
     },
     {
       "tipo": "destacado",
-      "texto": "Esa idea es la que terminó organizando buena parte de la cultura digital latinoamericana veinte años después."
+      "texto": "El texto no defiende el hackeo como travesura ni como delito con estilo. Lloyd arma su argumento sobre la premisa de los que fuimos juzgados por nuestras calificaciones, no por lo que sabíamos hacer; exploramos un mundo que la sociedad era demasiado floja para explorar; y por eso, dice, 'mi crimen es la curiosidad'."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esa frase terminó teniendo vida propia. Apareció, citada casi palabra por palabra, en la película [[Hackers|https://en.wikipedia.org/wiki/Hackers_(film)]] de 1995. Se puede ver enmarcada en la habitación de Mark Zuckerberg en [[La red social|https://en.wikipedia.org/wiki/The_Social_Network]]. [[Edward Snowden|https://en.wikipedia.org/wiki/Edward_Snowden]] la menciona en su propia memoria, [[Permanent Record|https://en.wikipedia.org/wiki/Permanent_Record_(autobiography)]]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Hoy sigue siendo, dentro de la cultura hacker, el documento ético más citado que existe, no porque diga cómo hackear, sino porque explica por qué alguien lo haría sin ganar nada a cambio."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Sin embargo, la idea no se quedó dentro del círculo hacker. En la época existieron varios grupos clandestinos que se conocían como la [[escena Warez|https://en.wikipedia.org/wiki/Warez_scene]]. Competían por filtrar música, películas, videojuegos y software antes de su fecha oficial de venta. Estos grupos adoptaron el mismo lenguaje, haciendo énfasis en que el acceso no debería depender de quién puede pagarlo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En 2004, el teórico [[McKenzie Wark|https://en.wikipedia.org/wiki/McKenzie_Wark]] llevó esa intuición un paso más allá, en un libro que también tituló [[A Hacker Manifesto|https://en.wikipedia.org/wiki/A_Hacker_Manifesto]], donde planteó que existe una clase entera de personas, la clase hacker, que produce información, arte y conocimiento, enfrentada a una clase poseedora dedicada a monopolizar lo que esa primera clase crea."
+    },
+    {
+      "tipo": "cita",
+      "texto": "'La información quiere ser libre, pero está encadenada por todas partes' (Wark)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Conviene no idealizar demasiado esa escena. Investigaciones académicas recientes sobre la cultura warez, como las de [[Martin Paul Eve|https://en.wikipedia.org/wiki/Martin_Paul_Eve]] en [[Warez: The Infrastructure and Aesthetics of Piracy|https://punctumbooks.com/titles/warez/]] (2021), han mostrado que, detrás del discurso de acceso igualitario al conocimiento, convivía también una cultura de rankings, competencia y ego entre grupos de piratas, no solo comunidad desinteresada."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Pero el núcleo de la idea —que el acceso restringido casi nunca es neutral, que alguien se beneficia de que la puerta permanezca cerrada— es exactamente la lógica que terminó organizando buena parte de la cultura digital latinoamericana veinte años después. No como una copia del manifiesto, sino como la misma pregunta, resuelta con las herramientas que la región tenía a mano."
     },
     {
       "tipo": "parrafo",
@@ -14,11 +46,11 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Taringa no era la culminación digital de una práctica mucho más antigua en la región: desde décadas anteriores, el acceso a materiales culturales originales (CDs, DVDs, videojuegos, software, libros) había sido un privilegio reservado para quienes podían costearlos. Los precios de los productos culturales, fijados muchas veces con estándares internacionales, resultaban inaccesibles para la mayoría de la población latinoamericana. En este escenario, la piratería no apareció como una elección, sino como la única vía posible para acceder a una cultura que, de otro modo, quedaría fuera del alcance de millones de personas."
+      "texto": "Taringa no era la culminación digital de una práctica mucho más antigua en la región. Desde décadas anteriores, el acceso a materiales culturales originales (CDs, DVDs, videojuegos, software, libros) había sido un privilegio reservado para quienes podían costearlos. Los precios de los productos culturales, fijados muchas veces con estándares internacionales, resultaban inaccesibles para la mayoría de la población latinoamericana. En este escenario, la piratería no apareció como una elección, sino como la única vía posible para acceder a una cultura que, de otro modo, quedaría fuera del alcance de millones de personas."
     },
     {
       "tipo": "destacado",
-      "texto": "Lo que trascendía entre los países de la región eran lógicas de consumo basadas en el compartir: la compra y venta de películas y CDs pirateados en puestos callejeros, el intercambio de archivos a través de redes P2P como Napster, Ares o eMule, y más tarde la centralización de enlaces en plataformas como Megaupload y Rapidshare."
+      "texto": "Lo que trascendía entre los países de la región eran lógicas de consumo basadas en el compartir formatos físicos, así como la compra y venta de películas y CDs pirateados en puestos callejeros, el intercambio de archivos a través de redes P2P como [[Napster|https://en.wikipedia.org/wiki/Napster]], [[Ares|https://en.wikipedia.org/wiki/Ares_Galaxy]] o [[eMule|https://en.wikipedia.org/wiki/EMule]], y más tarde la centralización de enlaces en plataformas como [[Megaupload|https://en.wikipedia.org/wiki/Megaupload]] y [[Rapidshare|https://en.wikipedia.org/wiki/RapidShare]]."
     },
     {
       "tipo": "parrafo",
@@ -34,7 +66,7 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Hubo, antes incluso de que existiera Spotify, quien ya había peleado esa batalla desde adentro de la industria. En 1993, en plena disputa por los derechos de su propio catálogo con Warner Bros., [[Prince|https://en.wikipedia.org/wiki/Prince_(musician)]] se presentó en público con la palabra 'esclavo' escrita en la mejilla y anunció que cambiaría su nombre por un símbolo impronunciable, como forma de despojarse de la identidad que, según él, la discográfica había convertido en propiedad corporativa. 'El sistema es viejo y ya no funciona. Es el pasado', diría años después, ya reconciliado con el sello. La pelea no terminó ahí: en 2015, ya bien entrada la era del streaming, Prince retiró su catálogo de casi todas las plataformas y lo dejó exclusivamente en Tidal, el servicio que ofrecía las regalías más altas por reproducción de la industria. Solo después de su muerte, en 2016, su patrimonio autorizó que la música volviera a distribuirse en todas las plataformas."
+      "texto": "Hubo, antes incluso de que existiera Spotify, quien ya había peleado esa batalla desde adentro de la industria. En 1993, en plena disputa por los derechos de su propio catálogo con Warner Bros., [[Prince|https://en.wikipedia.org/wiki/Prince_(musician)]] se presentó en público con la palabra 'esclavo' escrita en la mejilla y anunció que cambiaría su nombre por un símbolo impronunciable, como forma de despojarse de la identidad que, según él, la discográfica había convertido en propiedad corporativa. 'El sistema es viejo y ya no funciona. Es el pasado', diría años después, ya reconciliado con el sello. La pelea no terminó ahí: en 2015, ya bien entrada la era del streaming, Prince retiró su catálogo de casi todas las plataformas y lo dejó exclusivamente en [[Tidal|https://tidal.com/]], el servicio que ofrecía las regalías más altas por reproducción de la industria. Solo después de su muerte, en 2016, su patrimonio autorizó que la música volviera a distribuirse en todas las plataformas."
     },
     {
       "tipo": "destacado",
@@ -62,7 +94,7 @@
     },
     {
       "tipo": "destacado",
-      "texto": "El mensaje era claro. El acceso universal era bienvenido siempre que no afectara las ganancias de quienes controlan la plataforma."
+      "texto": "El mensaje era claro. El acceso universal era bienvenido siempre que no afectara las ganancias de quienes controlan la plataforma. Es la misma lección que Blankenship había anticipado casi cuarenta años antes, solo que esta vez quien decide qué acceso es legítimo no es un juez ni un gobierno, sino la empresa que controla la infraestructura."
     },
     {
       "tipo": "subtitulo",
@@ -95,6 +127,10 @@
     {
       "tipo": "parrafo",
       "texto": "Sin embargo, para Café Tacvba, la precariedad económica y la complicidad ética no eran dos temas distintos, sino la misma estructura, vista desde dos ángulos. Como señalaría más tarde el grupo en sus declaraciones, el problema no era solo que Spotify pagara mal, sino que incluso ese dinero mal pagado terminara financiando cosas que ningún artista había autorizado."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Blankenship escribió su manifiesto para defender la curiosidad de quien exploraba un sistema ajeno. Cuarenta años después, son los propios creadores, no ya los usuarios, quienes tienen que defenderse de un sistema que exploró su trabajo sin permiso."
     },
     {
       "tipo": "subtitulo",
@@ -134,7 +170,7 @@
     },
     {
       "tipo": "cita",
-      "texto": "Sin embargo, Groys señala una paradoja central: no somos capaces de controlar nuestra imagen. La producción de nuestros cuerpos públicos, lo que mostramos en redes sociales, lo que escuchamos, lo que consumimos, es un proceso colectivo que no depende exclusivamente de la propia voluntad. Nos convertimos en artistas de nuestro propio YO usando el smartphone como cincel, pincel o pluma, pero esa autoproducción se da en un entorno donde el control real está en manos de las plataformas."
+      "texto": "Sin embargo, Groys señala una paradoja central; no somos capaces de controlar nuestra imagen. La producción de nuestros cuerpos públicos, lo que mostramos en redes sociales, lo que escuchamos, lo que consumimos, es un proceso colectivo que no depende exclusivamente de la propia voluntad. Nos convertimos en artistas de nuestro propio YO usando el smartphone como cincel, pincel o pluma, pero esa autoproducción se da en un entorno donde el control real está en manos de las plataformas."
     },
     {
       "tipo": "parrafo",
@@ -150,7 +186,7 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Y en paralelo, la piratería misma vuelve a asomar, aunque ya no como la solución ingeniosa de un adolescente porteño en 2004, sino como un gesto casi de principio, frente a plataformas cuyo costo mensual sube cada año y cuyas ganancias, ahora se sabe con nombre y apellido, no siempre van a donde el oyente cree que van. Nuevos canales de distribución como [[Telegram|https://telegram.org/]], [[Discord|https://discord.com/]] y [[Twitch|https://twitch.tv/]] han cambiado la forma de consumo audiovisual y de resguardo, permitiendo el intercambio inmediato de materiales. También existen bibliotecas no indexadas accesibles a través de Tor que albergan material valioso, como la biblioteca de Minecraft de Reporteros Sin Fronteras y otras organizaciones que operan en la clandestinidad para preservar la información."
+      "texto": "Y en paralelo, la piratería misma vuelve a asomar, aunque ya no como la solución ingeniosa de un adolescente porteño en 2004, sino como un gesto casi de principio, frente a plataformas cuyo costo mensual sube cada año y cuyas ganancias, ahora se sabe con nombre y apellido, no siempre van a donde el oyente cree que van. Nuevos canales de distribución como [[Telegram|https://telegram.org/]], [[Discord|https://discord.com/]] y [[Twitch|https://twitch.tv/]] han cambiado la forma de consumo audiovisual y de resguardo, permitiendo el intercambio inmediato de materiales. También existen bibliotecas no indexadas accesibles a través de [[Tor|https://www.torproject.org/]] que albergan material valioso, como la biblioteca de Minecraft de Reporteros Sin Fronteras y otras organizaciones que operan en la clandestinidad para preservar la información."
     },
     {
       "tipo": "destacado",
@@ -166,11 +202,11 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Un caso reciente ilustra hasta dónde puede llegar ese poder de decidir qué sobrevive. En noviembre de 2023, Warner Bros. Discovery archivó [[Coyote vs. Acme|https://en.wikipedia.org/wiki/Coyote_vs._Acme]], una película ya terminada, con proyecciones de prueba favorables y un presupuesto de 70 millones de dólares, únicamente para poder deducir 30 millones en impuestos. No hubo ningún problema de calidad: fue una decisión contable. La reacción del público, la campaña #ReleaseCoyoteVsAcme presionó lo suficiente como para que Warner revirtiera el archivo y vendiera los derechos a una distribuidora independiente en 2025. La película finalmente llegará a los cines en agosto de 2026. Pero *Coyote vs. Acme* es la excepción. En el mismo recorte, *Batgirl* y *Scoob! Holiday Haunt* corrieron la suerte contraria; archivadas por el mismo cálculo fiscal, sin presión pública suficiente, y hasta hoy sin fecha de estreno."
+      "texto": "Un caso reciente ilustra hasta dónde puede llegar ese poder de decidir qué sobrevive. En noviembre de 2023, Warner Bros. Discovery archivó [[Coyote vs. Acme|https://en.wikipedia.org/wiki/Coyote_vs._Acme]], una película ya terminada, con proyecciones de prueba favorables y un presupuesto de 70 millones de dólares, únicamente para poder deducir 30 millones en impuestos. No hubo ningún problema de calidad: fue una decisión contable. La reacción del público, la campaña #ReleaseCoyoteVsAcme, presionó lo suficiente como para que Warner revirtiera el archivo y vendiera los derechos a una distribuidora independiente en 2025. La película finalmente llegará a los cines en agosto de 2026. Pero *Coyote vs. Acme* es la excepción. En el mismo recorte, *Batgirl* y *Scoob! Holiday Haunt* corrieron la suerte contraria; archivadas por el mismo cálculo fiscal, sin presión pública suficiente, y hasta hoy sin fecha de estreno. Nadie sabe si alguna vez se verán."
     },
     {
       "tipo": "destacado",
-      "texto": "Ahí es donde el argumento deja de ser hipotético: ni siquiera el escándalo público garantiza que una obra terminada sobreviva a una decisión corporativa; la piratería deja de ser solo un atajo de acceso y se vuelve, en los hechos, el único mecanismo de memoria disponible para lo que una empresa decide que no vale la pena mostrar."
+      "texto": "Ahí es donde el argumento deja de ser hipotético: ni siquiera el escándalo público garantiza que una obra terminada sobreviva a una decisión corporativa. La piratería deja de ser solo un atajo de acceso y se vuelve, en los hechos, el único mecanismo de memoria disponible para lo que una empresa decide que no vale la pena mostrar."
     },
     {
       "tipo": "subtitulo",
@@ -178,23 +214,23 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "El dilema que el Manifiesto Hacker planteó en 1986 fue siempre sobre quién decide qué acceso es legítimo y bajo qué condiciones; sobre todo qué hace ese mismo poder cuando el acceso ya no le conviene, como en Uruguay, o cuando el dinero que genera termina en un lugar que nadie autorizó, como con Helsing."
+      "texto": "Blankenship no escribió un manual. Escribió una advertencia. El problema no es la tecnología. Es quién controla la puerta."
     },
     {
       "tipo": "destacado",
-      "texto": "El streaming prometió resolver el acceso con una tarjeta de crédito. Lo que entregó fue un sistema que paga migajas a los creadores, que financia tecnología de guerra con las ganancias, y que convierte al usuario en un inquilino perpetuo de su propia cultura."
+      "texto": "El streaming demostró que tenía razón. No democratizó el acceso. Lo convirtió en renta. La cultura en contenido. La memoria en un gasto amortizable."
     },
     {
       "tipo": "parrafo",
-      "texto": "La piratería, en su esencia más pura, es una respuesta a una estructura que ha hecho del acceso un privilegio y del conocimiento un bien transable. Es, como dijo The Mentor, la curiosidad de quien se niega a aceptar que un sistema le diga qué puede ver y qué no."
+      "texto": "Y cuando la puerta se cierra, la piratería no es un delito. Es el único archivo que queda."
     },
     {
-      "tipo": "destacado",
-      "texto": "Si la cultura no se torrentea, la cultura se netflixea; se convierte en contenido, se fragmenta en suscripciones, se diluye en el algoritmo y termina financiando cosas que nadie eligió financiar."
+      "tipo": "cita",
+      "texto": "'Sigan llamándonos delincuentes. Nosotros seguiremos leyendo.'"
     },
     {
       "tipo": "parrafo",
-      "texto": "La piratería no es la enemiga de la cultura; es su archivo, su memoria, su garantía de que las obras no desaparezcan cuando un servidor se apague o una licencia caduque. En un mundo donde la propiedad es una ilusión y el acceso es una renta, piratear es preservar."
+      "texto": "Esa frase no necesita explicación."
     },
     {
       "tipo": "subtitulo",
@@ -203,6 +239,14 @@
     {
       "tipo": "parrafo",
       "texto": "• Blankenship, L. ('The Mentor'). (1986). [[The Conscience of a Hacker|https://en.wikipedia.org/wiki/The_Hacker_Manifesto]] (Manifiesto Hacker). Phrack, Volumen 1, Número 7, Phile 3."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Wark, M. (2004). [[A Hacker Manifesto|https://en.wikipedia.org/wiki/A_Hacker_Manifesto]]. Harvard University Press."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Eve, M. S. (2021). [[Warez: The Infrastructure and Aesthetics of Piracy|https://punctumbooks.com/titles/warez/]]. Punctum Books."
     },
     {
       "tipo": "parrafo",
@@ -230,7 +274,19 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• Cobertura periodística sobre la fundación (2004), crecimiento, litigio con la Cámara Argentina del Libro (2009-2018) y cierre definitivo (25 de marzo de 2024)."
+      "texto": "• Wikipedia. [[Hacker Manifesto|https://en.wikipedia.org/wiki/Hacker_Manifesto]] — legado cultural, apariciones en Hackers (1995), The Social Network, y Permanent Record de Edward Snowden."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Hackaday|https://hackaday.com/]]. 'Hacking And Philosophy: The Mentor's Manifesto' (2013), incluye declaraciones de Blankenship sobre el contexto post-WarGames de su arresto."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Darknet Diaries|https://darknetdiaries.com/]]. Episodio sobre Legion of Doom (LoD), con testimonio directo de Loyd Blankenship."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Cobertura periodística sobre la fundación (2004), crecimiento, litigio con la Cámara Argentina del Libro (2009-2018) y cierre definitivo (25 de marzo de 2024) de Taringa!"
     },
     {
       "tipo": "parrafo",
@@ -263,10 +319,6 @@
     {
       "tipo": "parrafo",
       "texto": "• [[Xataka|https://www.xataka.com/]]. 'Spotify ha tenido que eliminar 75 millones de canciones hechas con IA. Bandcamp ha decidido no tener ese problema' (enero 2026), cifras de comisión y pagos históricos de Bandcamp."
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Boicot a Spotify por inversión en Helsing (2025-2026):"
     },
     {
       "tipo": "parrafo",
