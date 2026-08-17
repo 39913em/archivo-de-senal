@@ -1,25 +1,23 @@
 /* ============================================================
-   ARCHIVO DE SEÑAL — sistema de tokens
-   ============================================================ */
+ARCHIVO DE SEÑAL --- sistema de tokens
+============================================================ */
 
 :root {
   /* Color */
-  --bg:          #0B1320;
+  --bg: #0B1320;
   --bg-elevated: #121C2E;
-  --bg-panel:    #162132;
-  --line:        #233047;
-  --teal:        #0EA5A4;
-  --teal-dim:    #0B7E7D;
-  --coral:       #F2545B;
-  --text:        #E8EDF3;
-  --text-dim:    #9BA8BC;
-  --text-faint:  #5B6679;
-
+  --bg-panel: #162132;
+  --line: #233047;
+  --teal: #0EA5A4;
+  --teal-dim: #0B7E7D;
+  --coral: #F2545B;
+  --text: #E8EDF3;
+  --text-dim: #9BA8BC;
+  --text-faint: #5B6679;
   /* Type */
-  --serif:  Cambria, "Times New Roman", serif;
-  --sans:   Arial, Helvetica, sans-serif;
-  --mono:   "Courier New", Courier, monospace;
-
+  --serif: Cambria, "Times New Roman", serif;
+  --sans: Arial, Helvetica, sans-serif;
+  --mono: "Courier New", Courier, monospace;
   /* Layout */
   --col-read: 820px;
   --col-wide: 1080px;
@@ -45,14 +43,16 @@ a {
   color: var(--teal);
   text-decoration: none;
 }
+
 a:hover { text-decoration: underline; }
+
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--teal);
   outline-offset: 3px;
 }
 
-/* ---------- Ambient backdrop ---------- */
+/* -------- Ambient backdrop -------- */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -60,6 +60,7 @@ button:focus-visible {
   overflow: hidden;
   pointer-events: none;
 }
+
 .backdrop::before,
 .backdrop::after {
   content: "";
@@ -67,11 +68,13 @@ button:focus-visible {
   border-radius: 50%;
   filter: blur(2px);
 }
+
 .backdrop::before {
   width: 720px; height: 720px;
   top: -260px; right: -200px;
   background: radial-gradient(circle, rgba(14,165,164,0.16), transparent 70%);
 }
+
 .backdrop::after {
   width: 600px; height: 600px;
   bottom: -240px; left: -160px;
@@ -87,7 +90,7 @@ button:focus-visible {
   pointer-events: none;
 }
 
-/* ---------- Header ---------- */
+/* -------- Header -------- */
 .site-header {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -98,23 +101,27 @@ button:focus-visible {
   gap: 1rem;
   flex-wrap: wrap;
 }
+
 .brand {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
 }
+
 .brand-mark {
   font-family: var(--mono);
   font-size: 0.8rem;
   color: var(--teal);
   letter-spacing: 0.08em;
 }
+
 .brand-name {
   font-family: var(--serif);
   font-weight: 700;
   font-size: 1.5rem;
   color: var(--text);
 }
+
 .site-tagline {
   font-family: var(--mono);
   font-size: 0.78rem;
@@ -122,7 +129,7 @@ button:focus-visible {
   letter-spacing: 0.02em;
 }
 
-/* ---------- Index page ---------- */
+/* -------- Index page -------- */
 .intro {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -133,6 +140,7 @@ button:focus-visible {
   gap: 2rem;
   align-items: end;
 }
+
 .intro h1 {
   font-family: var(--serif);
   font-size: clamp(2rem, 4vw, 3rem);
@@ -141,11 +149,13 @@ button:focus-visible {
   margin: 0 0 0.9rem;
   max-width: 18ch;
 }
+
 .intro p {
   color: var(--text-dim);
   max-width: 52ch;
   font-size: 1.02rem;
 }
+
 .intro-stat {
   font-family: var(--mono);
   font-size: 0.78rem;
@@ -154,6 +164,7 @@ button:focus-visible {
   white-space: nowrap;
   padding-bottom: 0.3rem;
 }
+
 .intro-stat strong {
   display: block;
   font-family: var(--serif);
@@ -178,6 +189,7 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2.5rem 1.5rem 5rem;
 }
+
 .archive-label {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -197,10 +209,12 @@ button:focus-visible {
   color: inherit;
   transition: background 0.15s ease;
 }
+
 .entry-row:hover {
   background: rgba(14,165,164,0.04);
   text-decoration: none;
 }
+
 .entry-row:hover .entry-title { color: var(--teal); }
 
 .entry-piece {
@@ -209,7 +223,9 @@ button:focus-visible {
   color: var(--teal-dim);
   padding-top: 0.15rem;
 }
+
 .entry-main { min-width: 0; }
+
 .entry-title {
   font-family: var(--serif);
   font-size: 1.35rem;
@@ -218,24 +234,28 @@ button:focus-visible {
   color: var(--text);
   transition: color 0.15s ease;
 }
+
 .entry-sub {
   color: var(--text-dim);
   font-size: 0.95rem;
   margin: 0 0 0.6rem;
   font-style: italic;
 }
+
 .entry-extract {
   color: var(--text-dim);
   font-size: 0.92rem;
   max-width: 62ch;
   margin: 0;
 }
+
 .entry-tags {
   margin-top: 0.7rem;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
+
 .tag {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -244,6 +264,7 @@ button:focus-visible {
   border-radius: 3px;
   padding: 0.15rem 0.5rem;
 }
+
 .entry-meta {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -252,6 +273,7 @@ button:focus-visible {
   white-space: nowrap;
   padding-top: 0.2rem;
 }
+
 .entry-meta .cat {
   display: inline-block;
   margin-top: 0.4rem;
@@ -265,12 +287,11 @@ button:focus-visible {
   font-size: 0.9rem;
 }
 
-/* ---------- Reading page ---------- */
-/* El contenido se inyecta dentro de #contenido (main) */
+/* -------- Reading page -------- */
 #contenido {
   max-width: var(--col-read);
   margin: 0 auto;
-  padding: 2rem 4rem 6rem;   /* ← PADDING LATERAL DE 4rem para que respire */
+  padding: 2rem 4rem 6rem;
   font-size: 1.08rem;
   line-height: 1.75;
 }
@@ -330,7 +351,7 @@ button:focus-visible {
   border-top: 1px solid var(--line);
 }
 
-/* ---------- Footer ---------- */
+/* -------- Footer -------- */
 .site-footer {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -342,6 +363,7 @@ button:focus-visible {
   gap: 1rem;
   flex-wrap: wrap;
 }
+
 .site-footer p {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -349,7 +371,7 @@ button:focus-visible {
   margin: 0;
 }
 
-/* ---------- Responsive ---------- */
+/* -------- Responsive -------- */
 @media (max-width: 640px) {
   .entry-row {
     grid-template-columns: 1fr;
@@ -359,7 +381,7 @@ button:focus-visible {
   .entry-meta { text-align: left; }
   .site-header { padding-top: 2rem; }
   #contenido {
-    padding: 1.5rem 1.5rem 6rem;   /* ← en móvil se reduce el padding */
+    padding: 1.5rem 1.5rem 6rem;
   }
 }
 
@@ -367,20 +389,21 @@ button:focus-visible {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
 
-/* ---------- Enlaces tipo Wikipedia ---------- */
+/* -------- Enlaces tipo Wikipedia -------- */
 .wikilink {
   color: var(--teal);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s ease, color 0.15s ease;
 }
+
 .wikilink:hover {
   border-bottom-color: var(--teal);
   color: var(--teal);
   text-decoration: none;
 }
 
-/* ---------- Bloque destacado ---------- */
+/* -------- Bloque destacado -------- */
 .destacado {
   font-family: var(--serif);
   font-size: 1.2rem;
@@ -393,4 +416,20 @@ button:focus-visible {
   border-radius: 0 4px 4px 0;
   line-height: 1.6;
   font-style: italic;
+}
+
+/* --- Estilo para el nuevo logo --- */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.4rem;
+  line-height: 0;
+}
+
+.brand-logo img {
+  display: block;
+  height: auto;
+  width: auto;
+  max-height: 40px;
+  border-radius: 4px;
 }
