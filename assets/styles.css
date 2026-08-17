@@ -1426,3 +1426,50 @@ button:focus-visible {
     animation: none;
   }
 }
+/* -------- About Section -------- */
+.about-section {
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-contenido {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.about-contenido h2 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--text);
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.about-contenido p {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin: 0 0 1.2rem;
+}
+
+.about-contenido p strong {
+  color: var(--text);
+}
+
+.about-contenido p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .about-section {
+    padding: 1.5rem 1rem;
+  }
+  .about-contenido h2 {
+    font-size: 1.3rem;
+  }
+  .about-contenido p {
+    font-size: 0.95rem;
+  }
+}
