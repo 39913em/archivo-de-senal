@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Archivo de Señal</title>
-<meta name="description" content="Cultura, arte digital y electrónico — crítica y difusión.">
+<meta name="description" content="Cultura, arte digital y electrónico --- crítica y difusión.">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+
 <div class="backdrop" aria-hidden="true"></div>
+
 <svg class="waveform" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
 <path d="M0,60 L20,60 L25,30 L30,90 L35,15 L40,100 L45,45 L50,60 L70,60
 L75,40 L80,75 L85,20 L90,95 L95,55 L100,60 L120,60
@@ -16,33 +18,43 @@ L125,35 L130,80 L135,10 L140,105 L145,50 L150,60 L1440,60"
 fill="none" stroke="#0EA5A4" stroke-width="1"
 style="stroke-dasharray: 6 4;" />
 </svg>
+
 <header class="site-header">
-<div class="brand">
-<span class="brand-mark">[ 39913 ]</span>
-<span class="brand-name">Archivo de Señal</span>
-</div>
-<span class="site-tagline">cultura · arte digital · electrónico</span>
+  <div class="brand">
+    <a href="index.html" class="brand-logo" aria-label="Página de inicio">
+      <img src="assets/img/logo.png"
+           srcset="assets/img/logo.png 1x, assets/img/logo@2x.png 2x"
+           alt="Logotipo de Archivo de Señal"
+           width="40" height="40">
+    </a>
+    <span class="brand-name">Archivo de Señal</span>
+  </div>
+  <span class="site-tagline">cultura · arte digital · electrónico</span>
 </header>
+
 <section class="intro">
-<div>
-<h1 id="site-h1">Crítica y difusión de arte digital y electrónico</h1>
-<p>Ensayos, notas y análisis sobre la escena de cultura digital.</p>
-</div>
-<div class="intro-stat">
-<strong id="entry-count">---</strong>
-piezas archivadas
-</div>
+  <div>
+    <h1 id="site-h1">Crítica y difusión de arte digital y electrónico</h1>
+    <p>Ensayos, notas y análisis sobre la escena de cultura digital.</p>
+  </div>
+  <div class="intro-stat">
+    <strong id="entry-count">---</strong>
+    piezas archivadas
+  </div>
 </section>
+
 <main class="archive">
-<p class="archive-label">ARCHIVO — ORDENADO POR FECHA</p>
-<div id="archive-list">
-<p class="empty-state">Cargando archivo...</p>
-</div>
+  <p class="archive-label">ARCHIVO --- ORDENADO POR FECHA</p>
+  <div id="archive-list">
+    <p class="empty-state">Cargando archivo...</p>
+  </div>
 </main>
+
 <footer class="site-footer">
-<p>Eduardo Manuel Gutierrez Orduña</p>
-<p>Sitio estático · Autónomo · de consulta abierta</p>
+  <p>Eduardo Manuel Gutierrez Orduña</p>
+  <p>Sitio estático · Autónomo · de consulta abierta</p>
 </footer>
+
 <script src="assets/index.js"></script>
 </body>
 </html>
