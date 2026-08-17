@@ -1,14 +1,13 @@
 // lectura.js
+
 document.addEventListener('DOMContentLoaded', function() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-
   if (!id) {
     document.getElementById('contenido').innerHTML = '<p>No se especificó ID.</p>';
     return;
   }
 
-  // PRIMERO: cargar el índice para obtener el nombre del archivo
   fetch('entradas.json')
     .then(res => res.json())
     .then(data => {
@@ -17,14 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('contenido').innerHTML = '<p>Entrada no encontrada.</p>';
         return;
       }
-      // SEGUNDO: cargar el archivo individual de la entrada
       return fetch(`contenido/${entradaMeta.archivo}`)
         .then(res => {
           if (!res.ok) throw new Error('No se pudo cargar el contenido');
           return res.json();
         })
         .then(entradaCompleta => {
-          // Combinar metadatos del índice con el cuerpo de la entrada
           const entrada = { ...entradaMeta, ...entradaCompleta };
           renderEntrada(entrada);
         });
@@ -38,10 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function renderEntrada(entrada) {
   const contenedor = document.getElementById('contenido');
   let html = '';
-
   html += `<h1>${escapeHtml(entrada.titulo)}</h1>`;
   html += `<h2>${escapeHtml(entrada.subtitulo)}</h2>`;
-
   let fecha = entrada.fecha || '';
   if (fecha.length === 7) {
     const [year, month] = fecha.split('-');
@@ -52,17 +47,13 @@ function renderEntrada(entrada) {
     const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     fecha = `${parseInt(parts[2])} de ${meses[parseInt(parts[1])-1]} de ${parts[0]}`;
   }
-
   html += `<p class="meta-fecha">${fecha} · ${escapeHtml(entrada.categoria)}</p>`;
-
   if (entrada.tags && entrada.tags.length > 0) {
     html += `<div class="tags">${entrada.tags.map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(' ')}</div>`;
   }
-
   entrada.cuerpo.forEach(bloque => {
     let texto = bloque.texto || '';
     let contenidoProcesado = procesarWikilinks(texto);
-
     if (bloque.tipo === 'parrafo') {
       html += `<p>${contenidoProcesado}</p>`;
     } else if (bloque.tipo === 'subtitulo') {
@@ -73,7 +64,6 @@ function renderEntrada(entrada) {
       html += `<div class="destacado">${contenidoProcesado}</div>`;
     }
   });
-
   contenedor.innerHTML = html;
 }
 
