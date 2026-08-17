@@ -121,7 +121,7 @@ function renderTransmedia(transmedia) {
   let html = `
     <div class="transmedia-section">
       <div class="transmedia-header">
-        <h3>📡 Ruta Transmedial</h3>
+        <h3>📡</h3>
         <p class="transmedia-sub"></p>
         ${transmedia.hashtag ? `<p class="transmedia-hashtag">🔗 Sigue la conversación en <strong>${transmedia.hashtag}</strong></p>` : ''}
       </div>
@@ -185,8 +185,7 @@ function renderTransmedia(transmedia) {
       </div>
       
       <div class="transmedia-footer">
-        <p>💡 <strong></strong> Cada mes publicamos un ensayo y videos que exploran conceptos clave
-        <a href="index.html">Todos los ensayos →</a></p>
+        <p>💡 <strong></strong> <a href="index.html">Todos los ensayos →</a></p>
       </div>
     </div>
   `;
@@ -267,7 +266,7 @@ function renderEntrada(entrada) {
   const shares = getShareUrls(titulo, url);
   
   html += `<div class="share-section">`;
-  html += `<p class="share-label">📤 Compartir esta pieza</p>`;
+  html += `<p class="share-label">📤 Compartir</p>`;
   html += `<div class="share-buttons">`;
   html += `<a href="${shares.twitter}" target="_blank" rel="noopener noreferrer" class="share-btn twitter">🐦 X</a>`;
   html += `<a href="${shares.bluesky}" target="_blank" rel="noopener noreferrer" class="share-btn bluesky">🦋 Bluesky</a>`;
