@@ -10,13 +10,13 @@
 
 <!-- Open Graph / Social Media -->
 <meta property="og:title" content="Archivo de Señal">
-<meta property="og:description" content="Cultura, arte digital y electrónico — crítica y difusión. Ensayos, notas y análisis sobre la escena de cultura digital.">
+<meta property="og:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
 <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
 <meta property="og:url" content="https://39913em.github.io/archivo-de-senal/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Archivo de Señal">
-<meta name="twitter:description" content="Cultura, arte digital y electrónico — crítica y difusión.">
+<meta name="twitter:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
 <meta name="twitter:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
 
 <link rel="stylesheet" href="assets/styles.css">
@@ -72,13 +72,25 @@
       </a>
     </div>
 
-    <div class="footer-imagen">
+    <div class="footer-imagen" id="footer-easter-egg">
       <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
     </div>
   </div>
 </footer>
 
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
+
+<script>
+// Easter egg: click en la imagen del footer → about.html
+document.addEventListener('DOMContentLoaded', function() {
+  const footerImg = document.getElementById('footer-easter-egg');
+  if (footerImg) {
+    footerImg.addEventListener('click', function() {
+      window.location.href = 'about.html';
+    });
+  }
+});
+</script>
 
 <script src="assets/lectura.js"></script>
 </body>
