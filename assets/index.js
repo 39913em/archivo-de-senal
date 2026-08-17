@@ -157,16 +157,19 @@ function initBackToTop() {
 
 // ============================================================
 // MAPA CONCEPTUAL - Force-Directed Graph con D3.js
+// CON DISCRIMINACIÓN INTELIGENTE DE NODOS
 // ============================================================
 
 function generarMapaConceptual(entradas) {
   const container = document.getElementById('mapa-container');
   if (!container) return;
   
-  // --- 1. Procesar tags ---
+  // --- 1. Procesar tags con criterios inteligentes ---
   const tagCount = {};
   const tagEntries = {};
+  const tagConnections = {};
   
+  // Primera pasada: contar frecuencias y entradas
   entradas.forEach(entrada => {
     (entrada.tags || []).forEach(tag => {
       tagCount[tag] = (tagCount[tag] || 0) + 1;
@@ -175,40 +178,66 @@ function generarMapaConceptual(entradas) {
     });
   });
   
-  const tags = Object.keys(tagCount);
-  
-  if (tags.length < 2) {
-    container.innerHTML = `
-      <div class="mapa-empty">
-        <span>🌱</span>
-        <p>Agrega más entradas con tags para ver el mapa conceptual.</p>
-        <p style="font-size:0.7rem; opacity:0.6;">Necesitas al menos 2 tags diferentes.</p>
-      </div>
-    `;
-    return;
-  }
-  
-  // --- 2. Crear nodos ---
-  const maxCount = Math.max(...Object.values(tagCount));
-  
-  const nodes = tags.map(tag => ({
-    id: tag,
-    group: 1,
-    size: 8 + (tagCount[tag] / maxCount) * 28,
-    count: tagCount[tag],
-    entries: tagEntries[tag] || []
-  }));
-  
-  // --- 3. Crear conexiones ---
-  const links = [];
-  const linkSet = new Set();
-  
+  // Segunda pasada: contar conexiones entre tags (co-ocurrencia)
   entradas.forEach(entrada => {
     const entryTags = entrada.tags || [];
     for (let i = 0; i < entryTags.length; i++) {
       for (let j = i + 1; j < entryTags.length; j++) {
         const a = entryTags[i];
         const b = entryTags[j];
+        if (!tagConnections[a]) tagConnections[a] = new Set();
+        if (!tagConnections[b]) tagConnections[b] = new Set();
+        tagConnections[a].add(b);
+        tagConnections[b].add(a);
+      }
+    }
+  });
+  
+  // --- 2. Filtrar nodos con criterios ---
+  // Criterio 1: Frecuencia mínima (aparece al menos en 2 entradas)
+  // Criterio 2: Tiene al menos 1 conexión con otro tag
+  const tagsFiltrados = Object.keys(tagCount).filter(tag => {
+    const frecuencia = tagCount[tag] || 0;
+    const conexiones = tagConnections[tag] ? tagConnections[tag].size : 0;
+    return frecuencia >= 2 && conexiones >= 1;
+  });
+  
+  // Si hay menos de 3 tags significativos, mostrar mensaje
+  if (tagsFiltrados.length < 3) {
+    container.innerHTML = `
+      <div class="mapa-empty">
+        <span>🌱</span>
+        <p>Todavía no hay suficientes conexiones entre temas.</p>
+        <p style="font-size:0.7rem; opacity:0.6;">Se necesitan al menos 3 tags que se repitan en diferentes entradas.</p>
+      </div>
+    `;
+    return;
+  }
+  
+  // --- 3. Crear nodos solo con tags filtrados ---
+  const maxCount = Math.max(...tagsFiltrados.map(t => tagCount[t]));
+  
+  const nodes = tagsFiltrados.map(tag => ({
+    id: tag,
+    group: 1,
+    size: 10 + (tagCount[tag] / maxCount) * 30,
+    count: tagCount[tag],
+    entries: tagEntries[tag] || []
+  }));
+  
+  // --- 4. Crear conexiones solo entre nodos filtrados ---
+  const links = [];
+  const linkSet = new Set();
+  const tagsSet = new Set(tagsFiltrados);
+  
+  entradas.forEach(entrada => {
+    const entryTags = entrada.tags || [];
+    // Solo considerar tags que pasaron el filtro
+    const filteredEntryTags = entryTags.filter(t => tagsSet.has(t));
+    for (let i = 0; i < filteredEntryTags.length; i++) {
+      for (let j = i + 1; j < filteredEntryTags.length; j++) {
+        const a = filteredEntryTags[i];
+        const b = filteredEntryTags[j];
         const key = [a, b].sort().join('|');
         if (!linkSet.has(key)) {
           linkSet.add(key);
@@ -224,7 +253,7 @@ function generarMapaConceptual(entradas) {
     }
   });
   
-  // --- 4. Configurar D3 ---
+  // --- 5. Configurar D3 ---
   const width = container.clientWidth || 800;
   const height = container.clientHeight || 500;
   
@@ -243,7 +272,6 @@ function generarMapaConceptual(entradas) {
   const gLinks = svg.append('g').attr('class', 'links-group');
   const gNodes = svg.append('g').attr('class', 'nodes-group');
   
-  // --- 5. Colores ---
   const colors = [
     '#0EA5A4', '#F2545B', '#E8EDF3', '#9BA8BC', 
     '#5B6679', '#34D399', '#FBBF24', '#F472B6',
@@ -254,24 +282,22 @@ function generarMapaConceptual(entradas) {
     return colors[index % colors.length];
   }
   
-  // --- 6. Simulación ---
   const simulation = d3.forceSimulation(nodes)
     .force('link', d3.forceLink(links)
       .id(d => d.id)
-      .distance(d => 80 + (d.value * 10))
+      .distance(d => 100 + (d.value * 15))
     )
     .force('charge', d3.forceManyBody()
-      .strength(d => -200 - (d.count * 10))
+      .strength(d => -250 - (d.count * 15))
     )
     .force('center', d3.forceCenter(width / 2, height / 2))
     .force('collision', d3.forceCollide()
-      .radius(d => d.size + 8)
+      .radius(d => d.size + 10)
       .iterations(2)
     )
     .force('x', d3.forceX(width / 2).strength(0.02))
     .force('y', d3.forceY(height / 2).strength(0.02));
   
-  // --- 7. Dibujar links ---
   const link = gLinks
     .selectAll('line')
     .data(links)
@@ -280,9 +306,8 @@ function generarMapaConceptual(entradas) {
     .attr('class', 'link')
     .attr('stroke', 'var(--line)')
     .attr('stroke-opacity', 0.3)
-    .attr('stroke-width', d => 0.8 + (d.value * 0.5));
+    .attr('stroke-width', d => 1 + (d.value * 0.5));
   
-  // --- 8. Dibujar nodos ---
   const node = gNodes
     .selectAll('g')
     .data(nodes)
@@ -305,14 +330,14 @@ function generarMapaConceptual(entradas) {
   
   node.append('text')
     .text(d => d.id)
-    .style('font-size', d => d.size > 20 ? '11px' : '8px')
-    .style('fill', d => d.size > 22 ? '#0B1320' : 'var(--text)')
-    .style('font-weight', d => d.size > 22 ? '700' : '500')
-    .style('text-shadow', d => d.size > 22 ? 'none' : '0 1px 4px rgba(0,0,0,0.8)')
+    .style('font-size', d => d.size > 22 ? '11px' : '8px')
+    .style('fill', d => d.size > 24 ? '#0B1320' : 'var(--text)')
+    .style('font-weight', d => d.size > 24 ? '700' : '500')
+    .style('text-shadow', d => d.size > 24 ? 'none' : '0 1px 4px rgba(0,0,0,0.8)')
     .style('pointer-events', 'none')
     .style('user-select', 'none');
   
-  // --- 9. Eventos ---
+  // Eventos
   node.on('mouseenter', function(event, d) {
     d3.select(this).select('circle')
       .transition()
@@ -321,7 +346,7 @@ function generarMapaConceptual(entradas) {
       .attr('opacity', 1);
     
     d3.select(this).select('text')
-      .style('font-size', d.size > 20 ? '13px' : '10px')
+      .style('font-size', d.size > 22 ? '13px' : '10px')
       .style('fill', '#fff');
     
     link
@@ -369,14 +394,14 @@ function generarMapaConceptual(entradas) {
       .attr('opacity', 0.85);
     
     d3.select(this).select('text')
-      .style('font-size', d => d.size > 20 ? '11px' : '8px')
-      .style('fill', d => d.size > 22 ? '#0B1320' : 'var(--text)');
+      .style('font-size', d => d.size > 22 ? '11px' : '8px')
+      .style('fill', d => d.size > 24 ? '#0B1320' : 'var(--text)');
     
     link
       .transition()
       .duration(200)
       .attr('stroke-opacity', 0.3)
-      .attr('stroke-width', d => 0.8 + (d.value * 0.5))
+      .attr('stroke-width', d => 1 + (d.value * 0.5))
       .attr('stroke', 'var(--line)');
     
     tooltip.classList.remove('visible');
@@ -394,7 +419,6 @@ function generarMapaConceptual(entradas) {
     }
   });
   
-  // --- 10. Tick ---
   simulation.on('tick', () => {
     link
       .attr('x1', d => d.source.x)
@@ -406,7 +430,6 @@ function generarMapaConceptual(entradas) {
       .attr('transform', d => `translate(${d.x},${d.y})`);
   });
   
-  // --- 11. Drag ---
   function dragstarted(event, d) {
     if (!event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
@@ -424,7 +447,6 @@ function generarMapaConceptual(entradas) {
     d.fy = null;
   }
   
-  // --- 12. Redimensionar ---
   const resizeObserver = new ResizeObserver(() => {
     const newWidth = container.clientWidth || 800;
     const newHeight = container.clientHeight || 500;
@@ -474,7 +496,7 @@ async function init() {
       count.textContent = String(entradas.length).padStart(2, "0");
     }
     
-    // --- Generar mapa conceptual ---
+    // --- Generar mapa conceptual con discriminación inteligente ---
     generarMapaConceptual(entradas);
     
   } catch (err) {
