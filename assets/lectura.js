@@ -186,7 +186,7 @@ function renderTransmedia(transmedia) {
       
       <div class="transmedia-footer">
         <p>💡 <strong></strong> Cada mes publicamos un ensayo y videos que exploran conceptos clave
-        <a href="index.html">Explora todos los ensayos →</a></p>
+        <a href="index.html">Todos los ensayos →</a></p>
       </div>
     </div>
   `;
