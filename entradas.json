@@ -1,14 +1,14 @@
 {
   "sitio": {
     "titulo": "Archivo de Señal",
-    "subtitulo": "Cultura, arte digital y electrónico — crítica y difusión",
+    "subtitulo": "Cultura, arte digital y electrónico --- crítica y difusión",
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
-    
     {
       "id": "memoria-rota",
       "archivo": "memoria-rota.json",
+      "portada": "assets/img/memoriarota.png",
       "pieza": "39913EM-DOC-002",
       "titulo": "Memoria rota",
       "subtitulo": "Persistencia, pérdida y archivo en sistemas digitales",
@@ -17,22 +17,22 @@
       "extracto": "La pérdida de archivos digitales rara vez responde a un accidente puntual, sino que suele estar enredada dentro de una lógica mucho más amplia, relacionada con la forma en que las plataformas y las empresas terminan decidiendo, casi siempre sin decirlo abiertamente, qué es lo que consideran digno de conservarse y qué no. En 2019, MySpace perdió doce años de música, cerca de cincuenta millones de canciones. La empresa migró de servidores, y en ese traslado los archivos se fueron corrompiendo hasta perderse para siempre. Este ensayo examina las condiciones materiales y políticas del archivo digital, la obsolescencia programada, y la fragilidad de la memoria en la era de la datificación, explorando casos como el cierre de Adobe Flash y las prácticas de preservación en América Latina.",
       "tags": ["archivo", "memoria digital", "preservación", "obsolescencia programada", "net.art", "MySpace", "Adobe Flash", "ciberseguridad", "patrimonio cultural", "arte sonoro", "brecha digital", "América Latina"]
     },
-    
     {
       "id": "arquitectura-sonora-entornos-virtuales",
       "archivo": "arquitectura-sonora.json",
+      "portada": "assets/img/arquitectura.png",
       "pieza": "39913EM-DOC-001",
       "titulo": "Arquitectura sonora en entornos virtuales",
       "subtitulo": "La transformación del espacio a través de la tecnología",
       "fecha": "2026-07-01",
       "categoria": "Ensayo",
-      "extracto": "Los espacios virtuales han transformado la creación contemporánea al ofrecer nuevas formas de explorar la relación entre el sonido, el entorno y la experiencia estética. Estas plataformas permiten diseñar entornos inmersivos que expanden los límites sensoriales mediante tecnologías como el audio tridimensional y la espacialización sonora, reconfigurando profundamente la percepción del espacio arquitectónico virtual. Sin embargo, esta transformación no es neutral: plantea tensiones técnicas, conceptuales y culturales —sobre la autenticidad de la experiencia, la distribución desigual de los recursos tecnológicos y la posible reducción del sonido a mero decorado auditivo— que este texto examina de manera crítica. El arte sonoro digital se consolida así como un campo en constante evolución que no solo amplía los horizontes estéticos, sino que también los interroga.",
+      "extracto": "Los espacios virtuales han transformado la creación contemporánea al ofrecer nuevas formas de explorar la relación entre el sonido, el entorno y la experiencia estética. Estas plataformas permiten diseñar entornos inmersivos que expanden los límites sensoriales mediante tecnologías como el audio tridimensional y la espacialización sonora, reconfigurando profundamente la percepción del espacio arquitectónico virtual. Sin embargo, esta transformación no es neutral: plantea tensiones técnicas, conceptuales y culturales ---sobre la autenticidad de la experiencia, la distribución desigual de los recursos tecnológicos y la posible reducción del sonido a mero decorado auditivo--- que este texto examina de manera crítica. El arte sonoro digital se consolida así como un campo en constante evolución que no solo amplía los horizontes estéticos, sino que también los interroga.",
       "tags": ["arte sonoro", "espacios virtuales", "arquitectura sonora", "audio 3D", "espacialización sonora", "entornos inmersivos", "arte digital", "escucha reducida", "campo expandido", "percepción sensorial"]
     },
-    
     {
       "id": "datos-masivos",
       "archivo": "datos-masivos.json",
+      "portada": "assets/img/dataverso.png",
       "pieza": "39913EM-DOC-000",
       "titulo": "DATARTVERSO",
       "subtitulo": "Practicas-Artisticas-y-La-Visualidad-de-Datos-Masivos",
