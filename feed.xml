@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archivo de Señal</title>
+    <link>https://39913em.github.io/archivo-de-senal/</link>
+    <description>Cultura, arte digital y electrónico — crítica y difusión</description>
+    <language>es</language>
+    <lastBuildDate>Mon, 16 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <atom:link href="https://39913em.github.io/archivo-de-senal/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <!-- ENTRADA 1 -->
+    <item>
+      <title>Memoria rota</title>
+      <link>https://39913em.github.io/archivo-de-senal/lectura.html?id=memoria-rota</link>
+      <guid>https://39913em.github.io/archivo-de-senal/lectura.html?id=memoria-rota</guid>
+      <pubDate>Sat, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[
+        La pérdida de archivos digitales rara vez responde a un accidente puntual, sino que suele estar enredada dentro de una lógica mucho más amplia...
+      ]]></description>
+      <category>Ensayo</category>
+    </item>
+
+    <!-- ENTRADA 2 -->
+    <item>
+      <title>Arquitectura sonora en entornos virtuales</title>
+      <link>https://39913em.github.io/archivo-de-senal/lectura.html?id=arquitectura-sonora-entornos-virtuales</link>
+      <guid>https://39913em.github.io/archivo-de-senal/lectura.html?id=arquitectura-sonora-entornos-virtuales</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[
+        Los espacios virtuales han transformado la creación contemporánea al ofrecer nuevas formas de explorar la relación entre el sonido...
+      ]]></description>
+      <category>Ensayo</category>
+    </item>
+
+    <!-- ENTRADA 3 -->
+    <item>
+      <title>DATARTVERSO</title>
+      <link>https://39913em.github.io/archivo-de-senal/lectura.html?id=datos-masivos</link>
+      <guid>https://39913em.github.io/archivo-de-senal/lectura.html?id=datos-masivos</guid>
+      <pubDate>Sun, 30 May 2021 12:00:00 GMT</pubDate>
+      <description><![CDATA[
+        La digitalización de las actividades diarias creció exponencialmente durante el confinamiento pandémico...
+      ]]></description>
+      <category>Ensayo</category>
+    </item>
+
+  </channel>
+</rss>
