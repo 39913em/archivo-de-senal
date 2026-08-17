@@ -108,8 +108,8 @@ function getShareUrls(titulo, url) {
     whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
     reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
-    instagram: `https://www.instagram.com/`, // Redirige a la app de Instagram (no se puede compartir directamente)
-    substack: `https://substack.com/` // Redirige a Substack
+    instagram: `https://www.instagram.com/39913em/`,
+    substack: `https://substack.com/`
   };
 }
 
@@ -151,113 +151,4 @@ function renderEntrada(entrada) {
     fecha = `${meses[parseInt(month)-1]} de ${year}`;
   } else if (fecha.length === 10) {
     const parts = fecha.split('-');
-    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    fecha = `${parseInt(parts[2])} de ${meses[parseInt(parts[1])-1]} de ${parts[0]}`;
-  }
-  html += `<p class="meta-fecha">${fecha} · ${escapeHtml(entrada.categoria)}</p>`;
-  
-  // --- Tiempo de lectura ---
-  const textoCompleto = entrada.cuerpo.map(b => b.texto || '').join(' ');
-  const { palabras, minutos } = calcularTiempoLectura(textoCompleto);
-  html += `<p class="meta-lectura">📖 ${palabras} palabras · ${minutos} min de lectura</p>`;
-  
-  // --- Tags ---
-  if (entrada.tags && entrada.tags.length > 0) {
-    html += `<div class="tags">${entrada.tags.map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(' ')}</div>`;
-  }
-  
-  // --- Cuerpo ---
-  entrada.cuerpo.forEach(bloque => {
-    let texto = bloque.texto || '';
-    let contenidoProcesado = procesarWikilinks(texto);
-    
-    if (bloque.tipo === 'parrafo') {
-      html += `<p>${contenidoProcesado}</p>`;
-    } else if (bloque.tipo === 'subtitulo') {
-      html += `<h3>${contenidoProcesado}</h3>`;
-    } else if (bloque.tipo === 'cita') {
-      html += `<blockquote>${contenidoProcesado}</blockquote>`;
-    } else if (bloque.tipo === 'destacado') {
-      html += `<div class="destacado">${contenidoProcesado}</div>`;
-    } else if (bloque.tipo === 'imagen') {
-      let imgHtml = `<figure class="imagen-ensayo">`;
-      imgHtml += `<img src="${escapeHtml(bloque.src)}" alt="${escapeHtml(bloque.alt || '')}" loading="lazy">`;
-      if (bloque.pie) {
-        imgHtml += `<figcaption>${escapeHtml(bloque.pie)}</figcaption>`;
-      }
-      imgHtml += `</figure>`;
-      html += imgHtml;
-    }
-  });
-  
-  // --- Botones de compartir ---
-  const url = window.location.href;
-  const titulo = entrada.titulo || 'Archivo de Señal';
-  const shares = getShareUrls(titulo, url);
-  
-  html += `<div class="share-section">`;
-  html += `<p class="share-label">📤 Compartir esta pieza</p>`;
-  html += `<div class="share-buttons">`;
-  html += `<a href="${shares.twitter}" target="_blank" rel="noopener noreferrer" class="share-btn twitter">🐦 X</a>`;
-  html += `<a href="${shares.bluesky}" target="_blank" rel="noopener noreferrer" class="share-btn bluesky">🦋 Bluesky</a>`;
-  html += `<a href="${shares.linkedin}" target="_blank" rel="noopener noreferrer" class="share-btn linkedin">🔗 LinkedIn</a>`;
-  html += `<a href="${shares.whatsapp}" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp">📱 WhatsApp</a>`;
-  html += `<a href="${shares.facebook}" target="_blank" rel="noopener noreferrer" class="share-btn facebook">📘 Facebook</a>`;
-  html += `<a href="${shares.reddit}" target="_blank" rel="noopener noreferrer" class="share-btn reddit">🤖 Reddit</a>`;
-  html += `<a href="${shares.instagram}" target="_blank" rel="noopener noreferrer" class="share-btn instagram">📷 Instagram</a>`;
-  html += `<a href="${shares.substack}" target="_blank" rel="noopener noreferrer" class="share-btn substack">📬 Substack</a>`;
-  html += `</div>`;
-  html += `</div>`;
-  
-  contenedor.innerHTML = html;
-  
-  // Re-aplicar filtro de tags después de renderizar
-  document.querySelectorAll('#contenido .tag').forEach(tag => {
-    tag.style.cursor = 'pointer';
-    tag.addEventListener('click', function() {
-      const tagName = this.textContent.replace('#', '');
-      window.location.href = `index.html?tag=${encodeURIComponent(tagName)}`;
-    });
-  });
-}
-
-// --- Cargar entrada ---
-document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar funciones de UI
-  initThemeToggle();
-  initBackToTop();
-  
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-  
-  if (!id) {
-    document.getElementById('contenido').innerHTML = '<p>No se especificó ID.</p>';
-    return;
-  }
-
-  fetch('entradas.json')
-    .then(res => res.json())
-    .then(data => {
-      const entradaMeta = data.entradas.find(e => e.id === id);
-      if (!entradaMeta) {
-        document.getElementById('contenido').innerHTML = '<p>Entrada no encontrada.</p>';
-        return;
-      }
-      return fetch(`contenido/${entradaMeta.archivo}`)
-        .then(res => {
-          if (!res.ok) throw new Error('No se pudo cargar el contenido');
-          return res.json();
-        })
-        .then(entradaCompleta => {
-          const entrada = { ...entradaMeta, ...entradaCompleta };
-          renderEntrada(entrada);
-        });
-    })
-    .catch(err => {
-      const contenedor = document.getElementById('contenido');
-      const skeleton = contenedor.querySelector('.skeleton-reading');
-      if (skeleton) skeleton.remove();
-      contenedor.innerHTML = '<p>Error cargando el archivo.</p>';
-      console.error(err);
-    });
-});
+    const meses = ['Enero', 'Febrero
