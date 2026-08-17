@@ -574,4 +574,332 @@ button:focus-visible {
 #contenido {
   max-width: var(--col-read);
   margin: 0 auto;
-  padding: 
+  padding: 2rem 4rem 6rem;
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+#contenido .portada {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+#contenido p {
+  margin: 0 0 1.5rem;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+#contenido h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.18;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+#contenido h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2.6rem 0 1.2rem;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+#contenido h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 2.6rem 0 1.2rem;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+#contenido blockquote {
+  margin: 2rem 0;
+  padding: 0.3rem 0 0.3rem 1.3rem;
+  border-left: 2px solid var(--teal);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+#contenido .meta-fecha {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+#contenido .meta-lectura {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+#contenido .tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+  transition: border-color 0.3s ease;
+}
+
+/* -------- Compartir en redes sociales -------- */
+.share-buttons {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+  transition: border-color 0.3s ease;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.share-btn.twitter:hover {
+  background: #1DA1F2;
+  color: #fff;
+  border-color: #1DA1F2;
+}
+
+.share-btn.bluesky:hover {
+  background: #1185FE;
+  color: #fff;
+  border-color: #1185FE;
+}
+
+.share-btn.linkedin:hover {
+  background: #0A66C2;
+  color: #fff;
+  border-color: #0A66C2;
+}
+
+.share-btn.whatsapp:hover {
+  background: #25D366;
+  color: #fff;
+  border-color: #25D366;
+}
+
+/* -------- Imágenes dentro de los ensayos -------- */
+.imagen-ensayo {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+.imagen-ensayo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px var(--shadow);
+  border: 1px solid var(--line);
+  transition: border-color 0.3s ease;
+}
+
+.imagen-ensayo figcaption {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 0.6rem;
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+/* -------- Footer -------- */
+.site-footer {
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  border-top: 1px solid var(--line);
+  transition: border-color 0.3s ease;
+}
+
+.footer-contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+.footer-texto {
+  text-align: center;
+}
+
+.footer-texto p {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  margin: 0.3rem 0;
+  transition: color 0.3s ease;
+}
+
+.footer-imagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-imagen img {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.footer-imagen img:hover {
+  opacity: 1;
+}
+
+/* -------- Back to top button -------- */
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--bg);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(14,165,164,0.3);
+  z-index: 999;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#back-to-top:hover {
+  transform: scale(1.1);
+  background: var(--teal-dim);
+}
+
+/* -------- Enlaces tipo Wikipedia -------- */
+.wikilink {
+  color: var(--teal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.wikilink:hover {
+  border-bottom-color: var(--teal);
+  color: var(--teal);
+  text-decoration: none;
+}
+
+/* -------- Bloque destacado -------- */
+.destacado {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  padding: 1.25rem 1.8rem;
+  margin: 2rem 0;
+  border-left: 4px solid var(--teal);
+  background: rgba(14, 165, 164, 0.06);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+  font-style: italic;
+  transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+/* -------- Responsive -------- */
+@media (max-width: 640px) {
+  .entry-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .entry-piece { order: -1; }
+  .entry-meta { text-align: left; }
+  .site-header { padding-top: 2rem; }
+  #contenido {
+    padding: 1.5rem 1.5rem 6rem;
+  }
+  .skeleton-entry {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .skeleton-meta {
+    align-items: flex-start;
+  }
+  .skeleton-reading {
+    padding: 1.5rem 1.5rem 6rem;
+  }
+  .footer-imagen img {
+    max-width: 150px;
+  }
+  .archive-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-input {
+    width: 100%;
+  }
+  .archive-actions {
+    flex-wrap: wrap;
+  }
+  #back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  .entry-row {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .skeleton {
+    animation: none;
+  }
+}
