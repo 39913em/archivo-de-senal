@@ -60,7 +60,7 @@ function initBackToTop() {
 // --- Actualizar meta tags para compartir ---
 function actualizarMetaTags(entrada) {
   const titulo = entrada.titulo || 'Archivo de Señal';
-  const descripcion = entrada.extracto || entrada.subtitulo || 'Cultura, arte digital y electrónico';
+  const descripcion = entrada.extracto || entrada.subtitulo || 'Arte electrónico, tecnología experimental y pensamiento crítico ';
   const imagen = entrada.portada || 'https://39913em.github.io/archivo-de-senal/assets/img/logo.png';
   const url = window.location.href;
   const sitio = 'Archivo de Señal';
