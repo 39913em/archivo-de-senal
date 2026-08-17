@@ -65,7 +65,11 @@ function getShareUrls(titulo, url) {
     twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
     bluesky: `https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedUrl}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-    whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`
+    whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
+    reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
+    instagram: `https://www.instagram.com/`, // No se puede compartir directamente, solo redirige al perfil
+    substack: `https://substack.com/` // No tiene share directo, redirige a la app
   };
 }
 
@@ -148,11 +152,18 @@ function renderEntrada(entrada) {
   const titulo = entrada.titulo || 'Archivo de Señal';
   const shares = getShareUrls(titulo, url);
   
+  html += `<div class="share-section">`;
+  html += `<p class="share-label">📤 Compartir esta pieza</p>`;
   html += `<div class="share-buttons">`;
   html += `<a href="${shares.twitter}" target="_blank" rel="noopener noreferrer" class="share-btn twitter">🐦 X</a>`;
   html += `<a href="${shares.bluesky}" target="_blank" rel="noopener noreferrer" class="share-btn bluesky">🦋 Bluesky</a>`;
   html += `<a href="${shares.linkedin}" target="_blank" rel="noopener noreferrer" class="share-btn linkedin">🔗 LinkedIn</a>`;
   html += `<a href="${shares.whatsapp}" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp">📱 WhatsApp</a>`;
+  html += `<a href="${shares.facebook}" target="_blank" rel="noopener noreferrer" class="share-btn facebook">📘 Facebook</a>`;
+  html += `<a href="${shares.reddit}" target="_blank" rel="noopener noreferrer" class="share-btn reddit">🤖 Reddit</a>`;
+  html += `<a href="${shares.instagram}" target="_blank" rel="noopener noreferrer" class="share-btn instagram">📷 Instagram</a>`;
+  html += `<a href="${shares.substack}" target="_blank" rel="noopener noreferrer" class="share-btn substack">📬 Substack</a>`;
+  html += `</div>`;
   html += `</div>`;
   
   contenedor.innerHTML = html;
