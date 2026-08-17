@@ -112,6 +112,89 @@ function calcularTiempoLectura(texto) {
   return { palabras, minutos };
 }
 
+// --- Renderizar ruta transmedial ---
+function renderTransmedia(transmedia) {
+  if (!transmedia || !transmedia.videos || transmedia.videos.length === 0) {
+    return '';
+  }
+  
+  let html = `
+    <div class="transmedia-section">
+      <div class="transmedia-header">
+        <h3>📡 Ruta Transmedial</h3>
+        <p class="transmedia-sub">Este ensayo está acompañado por videos que exploran conceptos clave.</p>
+        ${transmedia.hashtag ? `<p class="transmedia-hashtag">🔗 Sigue la conversación en <strong>${transmedia.hashtag}</strong></p>` : ''}
+      </div>
+      
+      <div class="transmedia-timeline">
+  `;
+  
+  transmedia.videos.forEach((video, index) => {
+    const icon = video.plataforma === 'instagram' ? '📷' : '🎵';
+    const platformClass = video.plataforma === 'instagram' ? 'instagram' : 'tiktok';
+    
+    // Generar QR automáticamente con la API
+    const qrUrl = video.url && video.url !== '#' 
+      ? `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(video.url)}`
+      : '';
+    
+    html += `
+      <div class="transmedia-item">
+        <div class="transmedia-semana">
+          <span class="semana-numero">${video.semana || index + 1}</span>
+          <span class="semana-label">Semana ${video.semana || index + 1}</span>
+        </div>
+        
+        <div class="transmedia-content">
+          <div class="transmedia-info">
+            <div class="transmedia-title">
+              <span class="platform-icon ${platformClass}">${icon}</span>
+              <h4>${escapeHtml(video.titulo)}</h4>
+            </div>
+            <p class="transmedia-extracto">${escapeHtml(video.extracto)}</p>
+            
+            <div class="transmedia-actions">
+              ${video.url && video.url !== '#' ? `
+                <a href="${video.url}" target="_blank" rel="noopener noreferrer" class="btn-ver-video ${platformClass}">
+                  ${icon} Ver en ${video.plataforma === 'instagram' ? 'Instagram' : 'TikTok'}
+                </a>
+              ` : `
+                <span class="btn-ver-video disabled">⏳ Próximamente</span>
+              `}
+              
+              ${qrUrl ? `
+                <div class="qr-mini">
+                  <img src="${qrUrl}" alt="QR Code para ${video.titulo}" loading="lazy" width="60" height="60">
+                  <span class="qr-label">Escanea para ver</span>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          
+          ${video.embed ? `
+            <div class="transmedia-embed">
+              <iframe src="${video.embed}" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy"></iframe>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  });
+  
+  html += `
+      </div>
+      
+      <div class="transmedia-footer">
+        <p>💡 <strong>¿Cómo funciona esto?</strong> Cada mes publicamos un ensayo y videos que exploran conceptos clave. 
+        Los videos son independientes pero complementan el ensayo. 
+        <a href="index.html">Explora todos los ensayos →</a></p>
+      </div>
+    </div>
+  `;
+  
+  return html;
+}
+
 function renderEntrada(entrada) {
   const contenedor = document.getElementById('contenido');
   
@@ -174,6 +257,12 @@ function renderEntrada(entrada) {
     }
   });
   
+  // --- SECCIÓN TRANSMEDIAL ---
+  if (entrada.transmedia) {
+    html += renderTransmedia(entrada.transmedia);
+  }
+  
+  // --- Botones de compartir ---
   const url = window.location.href;
   const titulo = entrada.titulo || 'Archivo de Señal';
   const shares = getShareUrls(titulo, url);
