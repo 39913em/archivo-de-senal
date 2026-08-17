@@ -750,47 +750,57 @@ button:focus-visible {
 
 /* -------- Redes sociales del autor (footer) -------- */
 .social-footer {
-  margin-top: 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  margin: 0.5rem 0 0.5rem 0;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  width: 100%;
 }
 
-.social-footer a {
+.social-footer .social-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--text-faint);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg-elevated);
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 0.3rem 0.8rem;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
   text-decoration: none;
+  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
 }
 
-.social-footer a:hover {
-  color: var(--teal);
-  border-color: var(--teal);
-  transform: translateY(-2px);
+.social-footer .social-btn:hover {
+  transform: translateY(-3px);
   text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
-.social-footer a.instagram:hover {
-  color: #E4405F;
+/* Colores al hacer hover */
+.social-footer .social-btn.instagram:hover {
+  background: #E4405F;
+  color: #fff;
   border-color: #E4405F;
 }
 
-.social-footer a.tiktok:hover {
-  color: #000000;
+.social-footer .social-btn.tiktok:hover {
+  background: #000000;
+  color: #ffffff;
   border-color: #000000;
-  background: #ffffff;
 }
 
-.social-footer a.demoreel:hover {
-  color: var(--teal);
+.social-footer .social-btn.demoreel:hover {
+  background: var(--teal);
+  color: var(--bg);
   border-color: var(--teal);
 }
 
@@ -977,11 +987,13 @@ button:focus-visible {
     padding: 0.3rem 0.6rem;
   }
   .social-footer {
-    gap: 0.6rem;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
   }
-  .social-footer a {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
+  .social-footer .social-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    gap: 0.3rem;
   }
 }
 
