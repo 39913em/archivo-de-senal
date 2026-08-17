@@ -57,6 +57,46 @@ function initBackToTop() {
   });
 }
 
+// --- Actualizar meta tags para compartir ---
+function actualizarMetaTags(entrada) {
+  const titulo = entrada.titulo || 'Archivo de Señal';
+  const descripcion = entrada.extracto || entrada.subtitulo || 'Cultura, arte digital y electrónico';
+  const imagen = entrada.portada || 'https://39913em.github.io/archivo-de-senal/assets/img/logo.png';
+  const url = window.location.href;
+  const sitio = 'Archivo de Señal';
+  
+  // Actualizar og:title
+  let meta = document.querySelector('meta[property="og:title"]');
+  if (meta) meta.content = `${titulo} — ${sitio}`;
+  
+  // Actualizar og:description
+  meta = document.querySelector('meta[property="og:description"]');
+  if (meta) meta.content = descripcion;
+  
+  // Actualizar og:image
+  meta = document.querySelector('meta[property="og:image"]');
+  if (meta) meta.content = imagen;
+  
+  // Actualizar og:url
+  meta = document.querySelector('meta[property="og:url"]');
+  if (meta) meta.content = url;
+  
+  // Actualizar twitter:title
+  meta = document.querySelector('meta[name="twitter:title"]');
+  if (meta) meta.content = `${titulo} — ${sitio}`;
+  
+  // Actualizar twitter:description
+  meta = document.querySelector('meta[name="twitter:description"]');
+  if (meta) meta.content = descripcion;
+  
+  // Actualizar twitter:image
+  meta = document.querySelector('meta[name="twitter:image"]');
+  if (meta) meta.content = imagen;
+  
+  // Actualizar título de la pestaña
+  document.title = `${titulo} — ${sitio}`;
+}
+
 // --- Compartir en redes ---
 function getShareUrls(titulo, url) {
   const encodedTitle = encodeURIComponent(titulo);
@@ -68,8 +108,8 @@ function getShareUrls(titulo, url) {
     whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
     reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
-    instagram: `https://www.instagram.com/`, // No se puede compartir directamente, solo redirige al perfil
-    substack: `https://substack.com/` // No tiene share directo, redirige a la app
+    instagram: `https://www.instagram.com/`, // Redirige a la app de Instagram (no se puede compartir directamente)
+    substack: `https://substack.com/` // Redirige a Substack
   };
 }
 
@@ -86,6 +126,9 @@ function renderEntrada(entrada) {
   // Eliminar skeleton
   const skeleton = contenedor.querySelector('.skeleton-reading');
   if (skeleton) skeleton.remove();
+  
+  // Actualizar meta tags para compartir
+  actualizarMetaTags(entrada);
   
   let html = '';
   
