@@ -169,7 +169,6 @@ function generarMapaConceptual(entradas) {
   const tagEntries = {};
   const tagConnections = {};
   
-  // Primera pasada: contar frecuencias y entradas
   entradas.forEach(entrada => {
     (entrada.tags || []).forEach(tag => {
       tagCount[tag] = (tagCount[tag] || 0) + 1;
@@ -178,7 +177,6 @@ function generarMapaConceptual(entradas) {
     });
   });
   
-  // Segunda pasada: contar conexiones entre tags (co-ocurrencia)
   entradas.forEach(entrada => {
     const entryTags = entrada.tags || [];
     for (let i = 0; i < entryTags.length; i++) {
@@ -194,15 +192,12 @@ function generarMapaConceptual(entradas) {
   });
   
   // --- 2. Filtrar nodos con criterios ---
-  // Criterio 1: Frecuencia mínima (aparece al menos en 2 entradas)
-  // Criterio 2: Tiene al menos 1 conexión con otro tag
   const tagsFiltrados = Object.keys(tagCount).filter(tag => {
     const frecuencia = tagCount[tag] || 0;
     const conexiones = tagConnections[tag] ? tagConnections[tag].size : 0;
     return frecuencia >= 2 && conexiones >= 1;
   });
   
-  // Si hay menos de 3 tags significativos, mostrar mensaje
   if (tagsFiltrados.length < 3) {
     container.innerHTML = `
       <div class="mapa-empty">
@@ -214,7 +209,7 @@ function generarMapaConceptual(entradas) {
     return;
   }
   
-  // --- 3. Crear nodos solo con tags filtrados ---
+  // --- 3. Crear nodos ---
   const maxCount = Math.max(...tagsFiltrados.map(t => tagCount[t]));
   
   const nodes = tagsFiltrados.map(tag => ({
@@ -225,14 +220,13 @@ function generarMapaConceptual(entradas) {
     entries: tagEntries[tag] || []
   }));
   
-  // --- 4. Crear conexiones solo entre nodos filtrados ---
+  // --- 4. Crear conexiones ---
   const links = [];
   const linkSet = new Set();
   const tagsSet = new Set(tagsFiltrados);
   
   entradas.forEach(entrada => {
     const entryTags = entrada.tags || [];
-    // Solo considerar tags que pasaron el filtro
     const filteredEntryTags = entryTags.filter(t => tagsSet.has(t));
     for (let i = 0; i < filteredEntryTags.length; i++) {
       for (let j = i + 1; j < filteredEntryTags.length; j++) {
@@ -337,7 +331,6 @@ function generarMapaConceptual(entradas) {
     .style('pointer-events', 'none')
     .style('user-select', 'none');
   
-  // Eventos
   node.on('mouseenter', function(event, d) {
     d3.select(this).select('circle')
       .transition()
@@ -496,7 +489,7 @@ async function init() {
       count.textContent = String(entradas.length).padStart(2, "0");
     }
     
-    // --- Generar mapa conceptual con discriminación inteligente ---
+    // --- Generar mapa conceptual ---
     generarMapaConceptual(entradas);
     
   } catch (err) {
