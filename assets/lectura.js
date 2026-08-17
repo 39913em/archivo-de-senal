@@ -122,7 +122,7 @@ function renderTransmedia(transmedia) {
     <div class="transmedia-section">
       <div class="transmedia-header">
         <h3>📡 Ruta Transmedial</h3>
-        <p class="transmedia-sub">Este ensayo está acompañado por videos que exploran conceptos clave.</p>
+        <p class="transmedia-sub"></p>
         ${transmedia.hashtag ? `<p class="transmedia-hashtag">🔗 Sigue la conversación en <strong>${transmedia.hashtag}</strong></p>` : ''}
       </div>
       
@@ -185,8 +185,7 @@ function renderTransmedia(transmedia) {
       </div>
       
       <div class="transmedia-footer">
-        <p>💡 <strong>¿Cómo funciona esto?</strong> Cada mes publicamos un ensayo y videos que exploran conceptos clave. 
-        Los videos son independientes pero complementan el ensayo. 
+        <p>💡 <strong></strong> Cada mes publicamos un ensayo y videos que exploran conceptos clave
         <a href="index.html">Explora todos los ensayos →</a></p>
       </div>
     </div>
