@@ -65,35 +65,27 @@ function actualizarMetaTags(entrada) {
   const url = window.location.href;
   const sitio = 'Archivo de Señal';
   
-  // Actualizar og:title
   let meta = document.querySelector('meta[property="og:title"]');
   if (meta) meta.content = `${titulo} — ${sitio}`;
   
-  // Actualizar og:description
   meta = document.querySelector('meta[property="og:description"]');
   if (meta) meta.content = descripcion;
   
-  // Actualizar og:image
   meta = document.querySelector('meta[property="og:image"]');
   if (meta) meta.content = imagen;
   
-  // Actualizar og:url
   meta = document.querySelector('meta[property="og:url"]');
   if (meta) meta.content = url;
   
-  // Actualizar twitter:title
   meta = document.querySelector('meta[name="twitter:title"]');
   if (meta) meta.content = `${titulo} — ${sitio}`;
   
-  // Actualizar twitter:description
   meta = document.querySelector('meta[name="twitter:description"]');
   if (meta) meta.content = descripcion;
   
-  // Actualizar twitter:image
   meta = document.querySelector('meta[name="twitter:image"]');
   if (meta) meta.content = imagen;
   
-  // Actualizar título de la pestaña
   document.title = `${titulo} — ${sitio}`;
 }
 
@@ -123,27 +115,22 @@ function calcularTiempoLectura(texto) {
 function renderEntrada(entrada) {
   const contenedor = document.getElementById('contenido');
   
-  // Eliminar skeleton
   const skeleton = contenedor.querySelector('.skeleton-reading');
   if (skeleton) skeleton.remove();
   
-  // Actualizar meta tags para compartir
   actualizarMetaTags(entrada);
   
   let html = '';
   
-  // --- Imagen de portada ---
   if (entrada.portada && entrada.portada !== '') {
     html += `<img src="${escapeHtml(entrada.portada)}" alt="${escapeHtml(entrada.titulo || 'Portada')}" class="portada" loading="lazy">`;
   }
   
-  // --- Título y subtítulo ---
   html += `<h1>${escapeHtml(entrada.titulo)}</h1>`;
   if (entrada.subtitulo) {
     html += `<h2>${escapeHtml(entrada.subtitulo)}</h2>`;
   }
   
-  // --- Fecha y categoría ---
   let fecha = entrada.fecha || '';
   if (fecha.length === 7) {
     const [year, month] = fecha.split('-');
@@ -156,17 +143,14 @@ function renderEntrada(entrada) {
   }
   html += `<p class="meta-fecha">${fecha} · ${escapeHtml(entrada.categoria)}</p>`;
   
-  // --- Tiempo de lectura ---
   const textoCompleto = entrada.cuerpo.map(b => b.texto || '').join(' ');
   const { palabras, minutos } = calcularTiempoLectura(textoCompleto);
   html += `<p class="meta-lectura">📖 ${palabras} palabras · ${minutos} min de lectura</p>`;
   
-  // --- Tags ---
   if (entrada.tags && entrada.tags.length > 0) {
     html += `<div class="tags">${entrada.tags.map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(' ')}</div>`;
   }
   
-  // --- Cuerpo ---
   entrada.cuerpo.forEach(bloque => {
     let texto = bloque.texto || '';
     let contenidoProcesado = procesarWikilinks(texto);
@@ -190,7 +174,6 @@ function renderEntrada(entrada) {
     }
   });
   
-  // --- Botones de compartir ---
   const url = window.location.href;
   const titulo = entrada.titulo || 'Archivo de Señal';
   const shares = getShareUrls(titulo, url);
@@ -211,7 +194,6 @@ function renderEntrada(entrada) {
   
   contenedor.innerHTML = html;
   
-  // Re-aplicar filtro de tags después de renderizar
   document.querySelectorAll('#contenido .tag').forEach(tag => {
     tag.style.cursor = 'pointer';
     tag.addEventListener('click', function() {
@@ -223,7 +205,6 @@ function renderEntrada(entrada) {
 
 // --- Cargar entrada ---
 document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar funciones de UI
   initThemeToggle();
   initBackToTop();
   
