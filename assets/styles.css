@@ -661,24 +661,33 @@ button:focus-visible {
 }
 
 /* -------- Compartir en redes sociales -------- */
-.share-buttons {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 2rem;
+.share-section {
+  margin-top: 2.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
+}
+
+.share-label {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin-bottom: 1rem;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.6rem;
   flex-wrap: wrap;
-  transition: border-color 0.3s ease;
 }
 
 .share-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 1rem;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 6px;
   font-family: var(--mono);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text);
   background: var(--bg-elevated);
   border: 1px solid var(--line);
@@ -713,6 +722,76 @@ button:focus-visible {
   background: #25D366;
   color: #fff;
   border-color: #25D366;
+}
+
+.share-btn.facebook:hover {
+  background: #1877F2;
+  color: #fff;
+  border-color: #1877F2;
+}
+
+.share-btn.reddit:hover {
+  background: #FF4500;
+  color: #fff;
+  border-color: #FF4500;
+}
+
+.share-btn.instagram:hover {
+  background: #E4405F;
+  color: #fff;
+  border-color: #E4405F;
+}
+
+.share-btn.substack:hover {
+  background: #FF6719;
+  color: #fff;
+  border-color: #FF6719;
+}
+
+/* -------- Redes sociales del autor (footer) -------- */
+.social-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.social-footer a:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.social-footer a.instagram:hover {
+  color: #E4405F;
+  border-color: #E4405F;
+}
+
+.social-footer a.tiktok:hover {
+  color: #000000;
+  border-color: #000000;
+  background: #ffffff;
+}
+
+.social-footer a.demoreel:hover {
+  color: var(--teal);
+  border-color: var(--teal);
 }
 
 /* -------- Imágenes dentro de los ensayos -------- */
@@ -889,6 +968,20 @@ button:focus-visible {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
+  }
+  .share-buttons {
+    gap: 0.4rem;
+  }
+  .share-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .social-footer {
+    gap: 0.6rem;
+  }
+  .social-footer a {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
   }
 }
 
