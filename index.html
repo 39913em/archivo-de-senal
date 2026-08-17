@@ -29,7 +29,9 @@ style="stroke-dasharray: 6 4;" />
     </a>
     <span class="brand-name">Archivo de Señal</span>
   </div>
-  <span class="site-tagline">cultura · arte digital · electrónico</span>
+  <div class="header-controls">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+  </div>
 </header>
 
 <section class="intro">
@@ -44,9 +46,65 @@ style="stroke-dasharray: 6 4;" />
 </section>
 
 <main class="archive">
-  <p class="archive-label">ARCHIVO --- ORDENADO POR FECHA</p>
+  <div class="archive-controls">
+    <p class="archive-label">ARCHIVO --- ORDENADO POR FECHA</p>
+    <div class="archive-actions">
+      <input type="text" id="search-input" placeholder="🔍 Buscar piezas..." class="search-input" aria-label="Buscar entradas">
+      <button id="view-toggle" class="view-toggle" aria-label="Cambiar vista">⊞</button>
+    </div>
+  </div>
   <div id="archive-list">
-    <p class="empty-state">Cargando archivo...</p>
+    <!-- Skeleton screens -->
+    <div class="skeleton-entry">
+      <div class="skeleton-piece skeleton"></div>
+      <div class="skeleton-main">
+        <div class="skeleton-title skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text short skeleton"></div>
+        <div class="skeleton-tags">
+          <span class="skeleton-tag skeleton"></span>
+          <span class="skeleton-tag skeleton"></span>
+          <span class="skeleton-tag skeleton"></span>
+        </div>
+      </div>
+      <div class="skeleton-meta">
+        <div class="skeleton-date skeleton"></div>
+        <div class="skeleton-cat skeleton"></div>
+      </div>
+    </div>
+    <div class="skeleton-entry">
+      <div class="skeleton-piece skeleton"></div>
+      <div class="skeleton-main">
+        <div class="skeleton-title skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-text short skeleton"></div>
+        <div class="skeleton-tags">
+          <span class="skeleton-tag skeleton"></span>
+          <span class="skeleton-tag skeleton"></span>
+        </div>
+      </div>
+      <div class="skeleton-meta">
+        <div class="skeleton-date skeleton"></div>
+        <div class="skeleton-cat skeleton"></div>
+      </div>
+    </div>
+    <div class="skeleton-entry">
+      <div class="skeleton-piece skeleton"></div>
+      <div class="skeleton-main">
+        <div class="skeleton-title skeleton"></div>
+        <div class="skeleton-text skeleton"></div>
+        <div class="skeleton-tags">
+          <span class="skeleton-tag skeleton"></span>
+          <span class="skeleton-tag skeleton"></span>
+          <span class="skeleton-tag skeleton"></span>
+          <span class="skeleton-tag skeleton"></span>
+        </div>
+      </div>
+      <div class="skeleton-meta">
+        <div class="skeleton-date skeleton"></div>
+        <div class="skeleton-cat skeleton"></div>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -54,13 +112,15 @@ style="stroke-dasharray: 6 4;" />
   <div class="footer-contenido">
     <div class="footer-texto">
       <p>Eduardo Manuel Gutierrez Orduña</p>
-      <p>Sitio Autónomo · de consulta abierta</p>
+      <p>Sitio estático · Autónomo · de consulta abierta</p>
     </div>
     <div class="footer-imagen">
       <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
     </div>
   </div>
 </footer>
+
+<button id="back-to-top" aria-label="Volver arriba">↑</button>
 
 <script src="assets/index.js"></script>
 </body>
