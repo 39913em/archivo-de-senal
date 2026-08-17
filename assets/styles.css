@@ -660,6 +660,224 @@ button:focus-visible {
   transition: border-color 0.3s ease;
 }
 
+/* -------- Sección Transmedial -------- */
+.transmedia-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--line);
+}
+
+.transmedia-header h3 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.transmedia-sub {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin-bottom: 0.5rem;
+}
+
+.transmedia-hashtag {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--teal);
+  margin-bottom: 1.5rem;
+}
+
+.transmedia-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.transmedia-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  border-left: 3px solid var(--teal);
+  transition: all 0.2s ease;
+}
+
+.transmedia-item:hover {
+  background: var(--bg-panel);
+  transform: translateX(4px);
+}
+
+.transmedia-semana {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.semana-numero {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+}
+
+.semana-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  margin-top: 0.2rem;
+}
+
+.transmedia-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.transmedia-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.transmedia-title h4 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.platform-icon {
+  font-size: 1.2rem;
+}
+
+.platform-icon.instagram {
+  color: #E4405F;
+}
+
+.platform-icon.tiktok {
+  color: #ffffff;
+}
+
+.transmedia-extracto {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  margin: 0;
+  font-style: italic;
+}
+
+.transmedia-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+.btn-ver-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-ver-video:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.btn-ver-video.instagram:hover {
+  background: #E4405F;
+  color: #fff;
+  border-color: #E4405F;
+}
+
+.btn-ver-video.tiktok:hover {
+  background: #000000;
+  color: #fff;
+  border-color: #000000;
+}
+
+.btn-ver-video.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn-ver-video.disabled:hover {
+  transform: none;
+  background: var(--bg);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.qr-mini {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qr-mini img {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+
+.qr-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-faint);
+}
+
+.transmedia-embed {
+  margin-top: 0.5rem;
+}
+
+.transmedia-embed iframe {
+  width: 100%;
+  max-width: 400px;
+  height: 480px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
+.transmedia-footer {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  background: rgba(14, 165, 164, 0.06);
+  border-radius: 8px;
+  border-left: 3px solid var(--teal);
+}
+
+.transmedia-footer p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.transmedia-footer a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.transmedia-footer a:hover {
+  text-decoration: underline;
+}
+
 /* -------- Compartir en redes sociales -------- */
 .share-section {
   margin-top: 2.5rem;
@@ -785,7 +1003,6 @@ button:focus-visible {
   box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
-/* Colores al hacer hover */
 .social-footer .social-btn.instagram:hover {
   background: #E4405F;
   color: #fff;
@@ -1168,6 +1385,33 @@ button:focus-visible {
   }
   .node text {
     font-size: 7px;
+  }
+  .transmedia-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  .transmedia-semana {
+    flex-direction: row;
+    gap: 0.8rem;
+    justify-content: flex-start;
+  }
+  .semana-numero {
+    font-size: 1.2rem;
+  }
+  .semana-label {
+    font-size: 0.7rem;
+  }
+  .transmedia-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .qr-mini img {
+    width: 40px;
+    height: 40px;
+  }
+  .transmedia-embed iframe {
+    height: 300px;
   }
 }
 
