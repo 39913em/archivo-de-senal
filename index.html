@@ -63,17 +63,6 @@ style="stroke-dasharray: 6 4;" />
   </div>
 </section>
 
-<!-- Sección About -->
-<section class="about-section" id="about">
-  <div class="about-contenido">
-    <h2>📖 Sobre el Archivo de Señal</h2>
-    <p>El Archivo de Señal es una plataforma transmedial que explora las intersecciones entre arte, tecnología experimental y pensamiento crítico. Desde una perspectiva rizomática y disidente, propone disolver las fronteras entre medios, técnicas y narrativas para imaginar formas de creación que desvían la funcionalidad convencional de las tecnologías digitales.</p>
-    <p>Impulsamos prácticas como el <strong>circuit bending</strong>, el <strong>hackeo cultural</strong>, el <strong>DIY/DIT</strong>, la <strong>reparación libre</strong>, el <strong>arte generativo</strong> y las <strong>tecnologías afectivas</strong>. La tecnología se asume como un material vivo, abierto al error, a la afectividad, al desvío y a la intervención poética.</p>
-    <p>El Archivo de Señal también funciona como un espacio de curaduría, documentación y diseminación. Articulamos obras, textos, datos, esquemas y procesos experimentales de artistas, hacktivistas, programadores, educadores y pensadores disidentes que activan una relación creativa y crítica con las herramientas digitales.</p>
-    <p>Más que soluciones cerradas, nos interesan las <strong>fracturas, los errores y las derivas creativas</strong>: esos momentos donde la máquina, el código, la interfaz o la imagen se expanden hacia nuevos sentidos posibles.</p>
-  </div>
-</section>
-
 <!-- Mapa conceptual -->
 <section class="mapa-conceptual" id="mapa-section">
   <h2>🌐 Mapa conceptual</h2>
@@ -164,13 +153,25 @@ style="stroke-dasharray: 6 4;" />
       </a>
     </div>
 
-    <div class="footer-imagen">
+    <div class="footer-imagen" id="footer-easter-egg">
       <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
     </div>
   </div>
 </footer>
 
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
+
+<script>
+// Easter egg: click en la imagen del footer → about.html
+document.addEventListener('DOMContentLoaded', function() {
+  const footerImg = document.getElementById('footer-easter-egg');
+  if (footerImg) {
+    footerImg.addEventListener('click', function() {
+      window.location.href = 'about.html';
+    });
+  }
+});
+</script>
 
 <script src="assets/index.js"></script>
 </body>
