@@ -20,6 +20,9 @@
 <meta name="twitter:description" content="Cultura, arte digital y electrónico — crítica y difusión.">
 <meta name="twitter:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
 
+<!-- D3.js para el mapa conceptual -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -58,6 +61,14 @@ style="stroke-dasharray: 6 4;" />
     <strong id="entry-count">---</strong>
     piezas archivadas
   </div>
+</section>
+
+<!-- Mapa conceptual -->
+<section class="mapa-conceptual" id="mapa-section">
+  <h2>🌐 Mapa conceptual</h2>
+  <p class="mapa-desc">Cada nodo es un tema. Las conexiones muestran entradas que comparten conceptos.</p>
+  <div id="mapa-container"></div>
+  <p class="mapa-leyenda">🖱️ Arrastra los nodos · Haz clic para buscar</p>
 </section>
 
 <main class="archive">
