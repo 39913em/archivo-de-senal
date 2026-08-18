@@ -28,7 +28,12 @@ function crearFilaEntrada(entrada) {
   a.className = "entry-row";
   a.href = `lectura.html?id=${encodeURIComponent(entrada.id || "")}`;
   
-  const tagsHtml = (entrada.tags || [])
+  // --- Guardar tags como atributo para filtrado exacto ---
+  const tagsList = (entrada.tags || []);
+  a.dataset.tags = tagsList.join('|').toLowerCase();
+  // --------------------------------------------------------
+  
+  const tagsHtml = tagsList
     .slice(0, 4)
     .map(t => `<span class="tag">#${escapeHtml(t)}</span>`)
     .join("");
@@ -68,7 +73,7 @@ function initThemeToggle() {
   });
 }
 
-// --- Búsqueda en tiempo real ---
+// --- Búsqueda en tiempo real (MEJORADA) ---
 function initSearch() {
   const searchInput = document.getElementById('search-input');
   if (!searchInput) return;
@@ -79,8 +84,27 @@ function initSearch() {
     let visibleCount = 0;
     
     rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      if (query === '' || text.includes(query)) {
+      const tagsData = row.dataset.tags || '';
+      const tagsArray = tagsData.split('|');
+      let found = false;
+      
+      if (query === '') {
+        found = true;
+      } else {
+        // Buscar en texto completo (título, extracto, etc.)
+        const text = row.textContent.toLowerCase();
+        if (text.includes(query)) {
+          found = true;
+        }
+        // Buscar coincidencia EXACTA en tags
+        tagsArray.forEach(tag => {
+          if (tag === query || tag.includes(query)) {
+            found = true;
+          }
+        });
+      }
+      
+      if (found) {
         row.style.display = '';
         visibleCount++;
       } else {
@@ -103,16 +127,48 @@ function initSearch() {
   });
 }
 
-// --- Tags clickeables ---
+// --- Tags clickeables (MEJORADO) ---
 function initTagFilter() {
   document.addEventListener('click', function(e) {
     const tag = e.target.closest('.tag');
     if (!tag) return;
-    const tagName = tag.textContent.replace('#', '');
+    const tagName = tag.textContent.replace('#', '').trim();
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
       searchInput.value = tagName;
-      searchInput.dispatchEvent(new Event('input'));
+      // Filtrar por coincidencia EXACTA en tags
+      const rows = document.querySelectorAll('.entry-row');
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const tagsData = row.dataset.tags || '';
+        const tagsArray = tagsData.split('|');
+        const found = tagsArray.some(t => t === tagName.toLowerCase());
+        if (found) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      
+      const archiveList = document.getElementById('archive-list');
+      let emptyMsg = archiveList.querySelector('.search-empty');
+      if (visibleCount === 0) {
+        if (!emptyMsg) {
+          emptyMsg = document.createElement('p');
+          emptyMsg.className = 'empty-state search-empty';
+          emptyMsg.textContent = 'No se encontraron piezas con este tag.';
+          archiveList.appendChild(emptyMsg);
+        }
+      } else {
+        if (emptyMsg) emptyMsg.remove();
+      }
+      
+      document.querySelector('.archive')?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   });
 }
@@ -400,11 +456,40 @@ function generarMapaConceptual(entradas) {
     tooltip.classList.remove('visible');
   });
   
+  // --- CLICK EN NODO DEL MAPA (MEJORADO) ---
   node.on('click', function(event, d) {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
       searchInput.value = d.id;
-      searchInput.dispatchEvent(new Event('input'));
+      // Filtrar por coincidencia EXACTA en tags
+      const rows = document.querySelectorAll('.entry-row');
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const tagsData = row.dataset.tags || '';
+        const tagsArray = tagsData.split('|');
+        const found = tagsArray.some(t => t === d.id.toLowerCase());
+        if (found) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      
+      const archiveList = document.getElementById('archive-list');
+      let emptyMsg = archiveList.querySelector('.search-empty');
+      if (visibleCount === 0) {
+        if (!emptyMsg) {
+          emptyMsg = document.createElement('p');
+          emptyMsg.className = 'empty-state search-empty';
+          emptyMsg.textContent = 'No se encontraron piezas con este tag.';
+          archiveList.appendChild(emptyMsg);
+        }
+      } else {
+        if (emptyMsg) emptyMsg.remove();
+      }
+      
       document.querySelector('.archive')?.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
