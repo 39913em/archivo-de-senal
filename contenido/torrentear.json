@@ -2,7 +2,7 @@
   "cuerpo": [
     {
       "tipo": "parrafo",
-      "texto": "El 8 de enero de 1986, la prensa de Texas salía con el titular de un adolescente arrestado por meterse donde no debía. Era la época posterior a [[Juegos de guerra|https://es.wikipedia.org/wiki/Juegos_de_guerra]], la película de 1983 que había fijado, en la imaginación pública, una idea sobre lo que hacía alguien capaz de entrar a un sistema ajeno y provocar una guerra nuclear sin querer. El Servicio Secreto y el FBI ya perseguían a grupos como [[Legion of Doom|https://en.wikipedia.org/wiki/Legion_of_Doom_(hacking)]], tratando cada línea telefónica gratuita robada como delito federal."
+      "texto": "El 8 de enero de 1986, la prensa de Texas salía con el titular de un adolescente arrestado por meterse donde no debía. Era la época posterior a [[Juegos de guerra|https://es.wikipedia.org/wiki/Juegos_de_guerra]], la película de 1983 que había fijado en la imaginación pública una idea sobre lo que hacía alguien capaz de entrar a un sistema ajeno y provocar una guerra nuclear sin querer. El Servicio Secreto y el FBI ya perseguían a grupos como [[Legion of Doom|https://en.wikipedia.org/wiki/Legion_of_Doom_(hacking)]], tratando cada línea telefónica gratuita robada como delito federal."
     },
     {
       "tipo": "parrafo",
@@ -10,55 +10,51 @@
     },
     {
       "tipo": "destacado",
-      "texto": "Este documento no defiende el hackeo como travesura ni como delito con estilo. Lloyd arma su argumento sobre la premisa de los que fuimos juzgados por nuestras calificaciones, no por lo que sabíamos hacer; exploramos un mundo que la sociedad era demasiado floja para explorar; y por eso, 'mi crimen es la curiosidad'."
+      "texto": "Este documento no defiende el hackeo como travesura ni como delito con estilo. Lloyd arma su argumento sobre la premisa de los que fuimos juzgados por nuestras calificaciones, no por lo que sabíamos hacer. Exploramos un mundo que la sociedad era demasiado floja para explorar; y por eso, mi crimen es la curiosidad."
     },
     {
       "tipo": "parrafo",
-      "texto": "Esa frase terminó teniendo vida propia. Apareció, citada casi palabra por palabra, en la película [[Hackers|https://en.wikipedia.org/wiki/Hackers_(film)]] de 1995. Se puede ver enmarcada en la habitación de Mark Zuckerberg en [[La red social|https://en.wikipedia.org/wiki/The_Social_Network]]. [[Edward Snowden|https://en.wikipedia.org/wiki/Edward_Snowden]] la menciona en su propia memoria, [[Permanent Record|https://en.wikipedia.org/wiki/Permanent_Record_(autobiography)]]."
+      "texto": "Esa frase terminó teniendo vida propia. Apareció, citada casi palabra por palabra, en la película [[Hackers|https://en.wikipedia.org/wiki/Hackers_(film)]] (1995). Se puede ver enmarcada en la habitación de Mark Zuckerberg en [[La red social|https://en.wikipedia.org/wiki/The_Social_Network]]. [[Edward Snowden|https://en.wikipedia.org/wiki/Edward_Snowden]] la menciona en su propia memoria, [[Permanent Record|https://en.wikipedia.org/wiki/Permanent_Record_(autobiography)]]. Hoy sigue siendo, dentro de la cultura hacker, el documento ético más citado que existe, aunque no explique cómo hackear, sino por ofrecer una razón para hacerlo sin ganar nada a cambio."
     },
     {
       "tipo": "parrafo",
-      "texto": "Hoy sigue siendo, dentro de la cultura hacker, el documento ético más citado que existe, no porque diga cómo hackear, sino porque explica por qué alguien lo haría sin ganar nada a cambio."
+      "texto": "Sin embargo, la idea no se quedó dentro del círculo hacker. En esa época existieron varios grupos clandestinos que se les conocía como [[escena Warez|https://en.wikipedia.org/wiki/Warez_scene]]. Competían por filtrar música, películas, videojuegos y software antes de su fecha oficial de venta. Estos grupos adoptaron el mismo lenguaje, enfatizando que el acceso no debería depender de quién puede pagarlo."
     },
     {
       "tipo": "parrafo",
-      "texto": "Sin embargo, la idea no se quedó dentro del círculo hacker. En la época existieron varios grupos clandestinos que se conocían como la [[escena Warez|https://en.wikipedia.org/wiki/Warez_scene]]. Competían por filtrar música, películas, videojuegos y software antes de su fecha oficial de venta. Estos grupos adoptaron el mismo lenguaje, haciendo énfasis en que el acceso no debería depender de quién puede pagarlo."
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "En 2004, el teórico [[McKenzie Wark|https://en.wikipedia.org/wiki/McKenzie_Wark]] llevó esa intuición un paso más allá, en un libro que también tituló [[A Hacker Manifesto|https://en.wikipedia.org/wiki/A_Hacker_Manifesto]], donde planteó que existe una clase entera de personas, la clase hacker, que produce información, arte y conocimiento, enfrentada a una clase poseedora dedicada a monopolizar lo que esa primera clase crea."
+      "texto": "En 2004, el teórico [[McKenzie Wark|https://en.wikipedia.org/wiki/McKenzie_Wark]] escribió un libro que tituló [[A Hacker Manifesto|https://en.wikipedia.org/wiki/A_Hacker_Manifesto]], donde planteó que existe una clase entera de personas —la clase hacker— que produce información, arte y conocimiento, enfrentada a una clase poseedora dedicada a monopolizar lo que esa primera clase crea."
     },
     {
       "tipo": "cita",
-      "texto": "'La información quiere ser libre, pero está encadenada por todas partes' (Wark)"
+      "texto": "'La información quiere ser libre, pero está encadenada por todas partes' (Wark)."
     },
     {
       "tipo": "parrafo",
-      "texto": "Conviene no idealizar demasiado esa escena. Investigaciones académicas recientes sobre la cultura warez, como las de [[Martin Paul Eve|https://en.wikipedia.org/wiki/Martin_Paul_Eve]] en [[Warez: The Infrastructure and Aesthetics of Piracy|https://punctumbooks.com/titles/warez/]] (2021), han mostrado que, detrás del discurso de acceso igualitario al conocimiento, convivía también una cultura de rankings, competencia y ego entre grupos de piratas, no solo una comunidad desinteresada."
+      "texto": "Conviene no idealizar demasiado esa escena. [[Martin Paul Eve|https://en.wikipedia.org/wiki/Martin_Paul_Eve]], en su libro [[Warez: The Infrastructure and Aesthetics of Piracy|https://punctumbooks.com/titles/warez/]] (2021), documenta cómo, detrás del discurso de acceso igualitario al conocimiento, existía una cultura de rankings y competencia entre grupos. La escena Warez más que una comunidad desinteresada era una jerarquía con sus propias reglas de participación. Ahí la reputación y el prestigio importaban tanto como el acceso al conocimiento. Alf Mikael Rehn, en un estudio de 2004, describe esta dinámica como una economía del don o potlatch, un sistema de intercambio competitivo donde el prestigio se gana dando."
     },
     {
       "tipo": "destacado",
-      "texto": "Pero el núcleo de la idea —de que el acceso restringido casi nunca es neutral, que alguien se beneficia de que la escena permanezca cerrada— es exactamente la lógica que terminó organizando buena parte de la cultura digital latinoamericana veinte años después. No como una copia del manifiesto, sino apropiando la misma pregunta y resolviéndola con las herramientas que la región tenía a mano."
+      "texto": "El núcleo de la idea —que el acceso restringido casi nunca es neutral, que alguien se beneficia de que la puerta permanezca cerrada— es exactamente la lógica que terminó organizando buena parte de la cultura digital latinoamericana contemporánea. Sin intentar ser una copia del manifiesto, sino más bien apropiando disyuntivas semejantes, pero resolviéndolas con las herramientas que la región tenía a mano."
     },
     {
       "tipo": "parrafo",
-      "texto": "[[Taringa!|https://www.taringa.net/]], fundado el 8 de junio de 2004 en Buenos Aires por Fernando Sanz, que se hacía llamar 'Cypher', nació como algo más que un sitio de piratería; nació como un espacio de 'inteligencia colectiva': un lugar para compartir apuntes, tutoriales, curiosidades. Es así como, con el tiempo, y sobre todo gracias a sus propios usuarios, terminó convertido en uno de los portales más grandes de habla hispana para compartir enlaces a descargas de música, películas y software. El portal llegó a ser, entre 2013 y 2014, la segunda página más visitada de Argentina después de Facebook. La Cámara Argentina del Libro los demandó en 2009, y el litigio se extendió durante nueve años, hasta 2018. El sitio cerró sus servidores de manera definitiva el 25 de marzo de 2024."
+      "texto": "En este sentido y como fruto de ese pensamiento surge [[Taringa!|https://www.taringa.net/]], fundado el 8 de junio de 2004 en Buenos Aires por Fernando Sanz 'Cypher'. La plataforma nació como algo más que un sitio de piratería, al convertirse en un espacio de 'inteligencia colectiva', un lugar para compartir apuntes, tutoriales, curiosidades o materiales de consulta. Con el tiempo, y sobre todo gracias a sus propios usuarios, terminó convirtiéndose en uno de los portales más grandes de habla hispana para compartir enlaces a descargas de música, películas y software de manera no legal. El portal llegó a ser, entre 2013 y 2014, la segunda página más visitada de Argentina después de Facebook. La Cámara Argentina del Libro los demandó en 2009 y el litigio se extendió durante nueve años, hasta 2018. El sitio cerró de manera definitiva sus servidores el 25 de marzo de 2024."
     },
     {
       "tipo": "parrafo",
-      "texto": "Taringa no era la culminación digital de una práctica mucho más antigua en la región. Desde décadas anteriores, el acceso a materiales culturales originales (Cassettes, VHS, CDs, DVDs, videojuegos, software, libros) había sido un privilegio reservado para quienes podían costearlos. Los precios de los productos culturales, fijados muchas veces con estándares internacionales, resultaban inaccesibles para la mayoría de la población latinoamericana. En este escenario, la piratería no apareció como una elección, sino como la única vía posible para acceder a una cultura que, de otro modo, quedaría fuera del alcance de millones de personas."
+      "texto": "Taringa no fue la culminación digital de una práctica mucho más antigua en la región. Desde décadas anteriores, el acceso a materiales culturales originales (cassettes, VHS, CDs, DVDs, videojuegos, software y libros) había sido un privilegio reservado para quienes podían costearlos. Los precios de los productos culturales, fijados muchas veces con estándares internacionales, resultaban inaccesibles para la mayoría de la población latinoamericana. En ese escenario, la piratería no apareció como una elección, se convirtió en la única vía posible para acceder a una cultura que, de otro modo, quedaría fuera del alcance de millones de personas."
     },
     {
       "tipo": "destacado",
-      "texto": "Lo que trascendía entre los países de la región eran lógicas de consumo basadas en el compartir formatos físicos, así como la compra y venta de películas y CDs pirateados en puestos callejeros, el intercambio de archivos a través de redes P2P como [[Napster|https://en.wikipedia.org/wiki/Napster]], [[Ares|https://en.wikipedia.org/wiki/Ares_Galaxy]] o [[eMule|https://en.wikipedia.org/wiki/EMule]], y la centralización de enlaces en plataformas como [[Megaupload|https://en.wikipedia.org/wiki/Megaupload]] y [[Rapidshare|https://en.wikipedia.org/wiki/RapidShare]]."
+      "texto": "Lo que trascendía entre los países de la región eran lógicas de consumo basadas en el compartir formatos físicos, así como la compra y venta de películas VHS, DVD y CDs pirateados en puestos callejeros. También estaba el intercambio de archivos mediante redes P2P como [[Napster|https://en.wikipedia.org/wiki/Napster]], [[Ares|https://en.wikipedia.org/wiki/Ares_Galaxy]] o [[eMule|https://en.wikipedia.org/wiki/EMule]], y la centralización de enlaces en plataformas como [[Megaupload|https://en.wikipedia.org/wiki/Megaupload]] y [[Rapidshare|https://en.wikipedia.org/wiki/RapidShare]]."
     },
     {
       "tipo": "parrafo",
-      "texto": "El auge de los torrents terminó de consolidar un ecosistema donde cualquier material, por oscuro que fuera, podía encontrarse con la búsqueda adecuada. Lo que se ponía en juego era la posibilidad de que la gente pudiera acceder a esa cultura que tanto le atraía, y a su vez, permitir que en la actualidad, ya sin materiales físicos en su mayoría, el público siga siendo seguidor de esos artistas, creadores, desarrolladores o empresas que, sin la piratería, quizás nunca se habrían conocido en todas estas regiones."
+      "texto": "El auge de los torrents terminó de consolidar un ecosistema donde cualquier material, por oscuro que fuera, podía encontrarse con la búsqueda adecuada. Lo que se ponía en juego era la posibilidad de que la gente accediera a esa cultura que tanto le atraía. Y, a su vez, permitir que hoy, ya sin materiales físicos en su mayoría, el público siguiera como seguidor de artistas, creadores, desarrolladores o empresas a quienes, quizá, nunca habría conocido sin la piratería."
     },
     {
       "tipo": "parrafo",
-      "texto": "El streaming llegó entonces con la promesa de resolver ese problema de acceso de una vez por todas. Pagar por el acceso legal, de manera simple y barata, para que ya no hiciera falta buscar el enlace en un foro."
+      "texto": "En la brecha de formatos y con la cada vez más cercana desaparición de formatos físicos inicia la digitalización de materiales audiovisuales y con esto el streaming llegó entonces con la promesa de resolver ese problema de acceso de una vez por todas: pagar por el acceso legal, de manera simple y barata, para que ya no hiciera falta buscar el enlace en un foro o salir a una tienda en busca de un formato físico que cada día era más obsoleto."
     },
     {
       "tipo": "subtitulo",
@@ -66,39 +62,39 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Hubo, antes incluso de que existiera Spotify, quien ya había peleado esa batalla desde adentro de la industria. En 1993, en plena disputa por los derechos de su propio catálogo con Warner Bros., [[Prince|https://en.wikipedia.org/wiki/Prince_(musician)]] se presentó en público con la palabra 'esclavo' escrita en la mejilla y anunció que cambiaría su nombre por un símbolo impronunciable, como forma de despojarse de la identidad que, según él, la discográfica había convertido en propiedad corporativa."
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "'El sistema es viejo y ya no funciona. Es el pasado', diría años después, ya reconciliado con el sello. La pelea no terminó ahí: en 2015, ya bien entrada la era del streaming, Prince retiró su catálogo de casi todas las plataformas y lo dejó exclusivamente en [[Tidal|https://tidal.com/]], el servicio que ofrecía las regalías más altas por reproducción de la industria. Solo después de su muerte, en 2016, se autorizó que su música volviera a distribuirse en todas las plataformas."
+      "texto": "Hubo, antes incluso de que existiera Spotify, quien ya había peleado una primera gran batalla desde adentro de la industria. En 1993, en plena disputa por los derechos de su propio catálogo con Warner Bros., [[Prince|https://en.wikipedia.org/wiki/Prince_(musician)]] se presentó en público con la palabra 'esclavo' escrita en la mejilla y anunció que cambiaría su nombre por un símbolo impronunciable, como forma de despojarse de una identidad que en sus palabras la discográfica había convertido en propiedad corporativa. 'El sistema es viejo y ya no funciona. Es el pasado', diría años después, ya reconciliado con el sello. La pelea no terminó ahí. En 2015, ya bien entrada la era del streaming, Prince retiró su catálogo de casi todas las plataformas y lo dejó exclusivamente en [[Tidal|https://tidal.com/]], el servicio que ofrecía las regalías más altas por reproducción dentro de la industria. Solo después de su muerte, en 2016, se autorizó que su música volviera a distribuirse en todas las plataformas."
     },
     {
       "tipo": "destacado",
-      "texto": "Prince entendió algo que el streaming se encargaría de confirmar. El problema no era la tecnología, sino quién controlaba la distribución y cómo se repartían las ganancias."
+      "texto": "Prince entendió algo que el streaming se encargaría de confirmar: el problema no era la tecnología, sino quién controlaba la distribución y cómo se repartían las ganancias."
     },
     {
       "tipo": "parrafo",
-      "texto": "[[Spotify|https://www.spotify.com/]] paga, según cifras de la propia industria, un promedio de entre 0.003 y 0.005 dólares por reproducción, calculados no como una tarifa fija, sino como una fracción del fondo total de ingresos repartido según la cuota de reproducciones de cada titular de derechos. La organización [[United Musicians and Allied Workers|https://www.umaw.org/]] calcula que, bajo ese esquema, un músico necesitaría cerca de 658,000 reproducciones al mes, por integrante de la banda, para alcanzar el equivalente al salario mínimo estadounidense."
+      "texto": "[[Spotify|https://www.spotify.com/]] paga, según cifras de la propia industria, un promedio entre 0.003 y 0.005 dólares por reproducción. Esos cálculos no se basan en una tarifa fija, son una fracción del fondo total de ingresos repartidos según la cuota de reproducciones de cada titular de derechos. La organización [[United Musicians and Allied Workers|https://www.umaw.org/]] calcula que, bajo ese esquema, un músico necesitaría cerca de 658,000 reproducciones al mes, por integrante de la banda, para alcanzar el equivalente al salario mínimo estadounidense."
     },
     {
       "tipo": "parrafo",
-      "texto": "En América Latina, el problema se multiplica. En Colombia, el cantautor [[Edson Velandia|https://en.wikipedia.org/wiki/Edson_Velandia]] retiró por completo su catálogo de la plataforma, mientras que [[Bomba Estéreo|https://bombaestereo.com/]] y [[Monsieur Periné|https://monsieurperine.com/]] han señalado públicamente que el pago por reproducción no permite sostener una carrera, y que el modelo concentra visibilidad sin redistribuir el ingreso de manera proporcional. No es un problema de falta de popularidad, es estructural."
+      "texto": "El streaming abrió puertas que antes estaban cerradas. Artistas independientes llegaron a públicos que de otro modo no habrían alcanzado. Pero la promesa de que eso se traduciría en sostenibilidad fue falsa."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En América Latina, el problema se multiplica. En Colombia, el cantautor [[Edson Velandia|https://en.wikipedia.org/wiki/Edson_Velandia]] retiró por completo su catálogo de la plataforma. Mientras tanto, [[Bomba Estéreo|https://bombaestereo.com/]] y [[Monsieur Periné|https://monsieurperine.com/]] han señalado públicamente que el pago por reproducción no permite sostener una carrera y que el modelo concentra visibilidad sin redistribuir el ingreso de manera proporcional. No es un problema de falta de popularidad: es estructural. Lo que pasa en América Latina no es una excepción. Es la lógica del streaming llevada a su extremo. Aquí el precio de la suscripción pesa más y el ingreso de los creadores pesa menos."
     },
     {
       "tipo": "cita",
-      "texto": "Angela McRobbie (2016) ya había puesto nombre a este mecanismo una década antes, en Be Creative: Making a Living in the New Culture Industries: la industria creativa contemporánea funciona convenciendo a quien produce arte de que la pasión y la 'exposición' son compensación suficiente por condiciones de trabajo que, en cualquier otro sector, se reconocerían de inmediato como precarias."
+      "texto": "Angela McRobbie (2016) expone este mecanismo en Be Creative: Making a Living in the New Culture Industries: la industria creativa contemporánea funciona convenciendo a quien produce arte de que la pasión y la 'exposición' son una compensación suficiente para condiciones de trabajo que, en cualquier otro sector, se reconocerían como precarias."
     },
     {
       "tipo": "parrafo",
-      "texto": "Martin Kretschmer, director del centro de investigación [[CREATe|https://www.create.ac.uk/]] en la Universidad de Glasgow, fue todavía más específico cuando Spotify anunció, en 2023, que dejaría de pagar regalías a las canciones con menos de mil reproducciones anuales, preguntándose en voz alta qué impide que ese umbral se convierta en diez mil, o en cien mil, en el futuro; permitir que una entidad privada fije unilateralmente estos límites, dijo, puede ser como abrir la caja de Pandora."
+      "texto": "Por otro lado, Martin Kretschmer, director del centro de investigación [[CREATe|https://www.create.ac.uk/]] en la Universidad de Glasgow, expuso cuando Spotify anunció en 2023 que dejaría de pagar regalías a canciones con menos de mil reproducciones anuales. Kretschmer se preguntó qué impide que ese umbral se convierta en diez mil, o en cien mil, en el futuro. Y asegura que permitir que una entidad privada fije unilateralmente estos límites puede ser como abrir la caja de Pandora."
     },
     {
       "tipo": "parrafo",
-      "texto": "El caso de Uruguay lleva esa misma lógica a su extremo más evidente. A finales de 2023, el gobierno uruguayo aprobó una reforma que hubiera obligado a Spotify a pagar dos veces por el uso de las mismas canciones, una vez a las disqueras y editoriales, y otra vez de forma independiente. La empresa, en lugar de negociar bajo esas condiciones, decidió retirarse por completo del país a partir de enero de 2024. No fue un boicot de artistas; fue la plataforma misma abandonando un mercado entero antes que ceder terreno en la estructura de pago que sostiene su modelo de negocio."
+      "texto": "En un panorama más radical está el caso de Uruguay, donde a finales de 2023 el gobierno uruguayo aprobó una reforma que habría obligado a Spotify a pagar dos veces por el uso de las mismas canciones: una vez a las disqueras y editoriales y otra de forma independiente. La empresa, en lugar de negociar bajo esas condiciones, decidió retirarse por completo del país a partir de enero de 2024. La plataforma abandonó un mercado entero antes que ceder terreno en la estructura de pago que sostiene su modelo de negocio. Para ellos el acceso universal era bienvenido siempre que no afectara las ganancias de quienes controlan la plataforma."
     },
     {
       "tipo": "destacado",
-      "texto": "El acceso universal era bienvenido siempre que no afectara las ganancias de quienes controlan la plataforma. Es la misma lección que Blankenship había anticipado, solo que esta vez quien decide qué acceso es legítimo no es un juez ni un gobierno, sino la empresa que controla la infraestructura."
+      "texto": "El Estado uruguayo intentó regular. Spotify prefirió irse. En el resto de la región, el Estado no aparece. Y esa ausencia no es neutral. Es una decisión política. No intervenir también es una forma de intervenir. El caso de Uruguay muestra que cuando el Estado intenta poner límites, la plataforma prefiere irse antes que ceder."
     },
     {
       "tipo": "subtitulo",
@@ -106,23 +102,23 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Hay otra dimensión del modelo que tiene menos que ver con la economía y más con hacia dónde termina yendo ese dinero. En junio de 2025 se supo que [[Daniel Ek|https://en.wikipedia.org/wiki/Daniel_Ek]], cofundador y hasta entonces director ejecutivo de Spotify, había liderado, a través de su firma de inversión Prima Materia, una ronda de financiamiento de 600 millones de euros hacia [[Helsing|https://helsing.ai/]], una empresa alemana especializada en inteligencia artificial militar, drones de combate y sistemas autónomos de defensa, ya vinculada para entonces con el suministro de drones a Ucrania y con contratos firmados con varios gobiernos europeos. Ek, de hecho, preside el consejo de administración de Helsing."
+      "texto": "Hay otra dimensión del modelo que tiene menos que ver con la economía y más con hacia dónde termina yendo ese dinero. En junio de 2025 se supo que [[Daniel Ek|https://en.wikipedia.org/wiki/Daniel_Ek]], cofundador y hasta entonces director ejecutivo de Spotify, había liderado a través de su firma de inversión Prima Materia una ronda de financiamiento de 600 millones de euros hacia [[Helsing|https://helsing.ai/]], una empresa alemana especializada en inteligencia artificial militar, drones de combate y sistemas autónomos de defensa. Helsing ya estaba vinculada, en ese momento, con el suministro de drones a Ucrania y con contratos firmados con varios gobiernos europeos. Ek preside el consejo de administración de Helsing."
     },
     {
       "tipo": "parrafo",
-      "texto": "La reacción no se hizo esperar, y lo que ocurrió a continuación demostró que el conflicto no era entre artistas y tecnología, sino entre creadores y una estructura que usa su trabajo para fines que nunca autorizaron. [[Massive Attack|https://massiveattack.com/]], [[Björk|https://bjork.com/]], [[Lorde|https://lorde.co.nz/]], [[Deerhoof|https://deerhoof.net/]], [[King Gizzard and the Lizard Wizard|https://kinggizzardandthelizardwizard.com/]], [[Xiu Xiu|https://xiuxiu.org/]], [[Godspeed You! Black Emperor|https://en.wikipedia.org/wiki/Godspeed_You!_Black_Emperor]] y [[Paramore|https://paramore.net/]] retiraron su música de la plataforma o hicieron un llamado público al boicot en cuestión de meses. Massive Attack, en septiembre de 2025, se convirtió en el primer acto de un sello discográfico grande en sumarse, y explicó su decisión citando una 'carga moral y ética' impuesta sobre los artistas cuyo trabajo termina financiando, aunque sea de forma indirecta, tecnología letal."
+      "texto": "La reacción no se hizo esperar. Y lo que ocurrió después demostró que el conflicto no era entre artistas y tecnología, sino entre creadores y una estructura que utiliza su trabajo para fines que ellos no autorizaron. [[Massive Attack|https://massiveattack.com/]], [[Björk|https://bjork.com/]], [[Lorde|https://lorde.co.nz/]], [[Deerhoof|https://deerhoof.net/]], [[King Gizzard and the Lizard Wizard|https://kinggizzardandthelizardwizard.com/]], [[Xiu Xiu|https://xiuxiu.org/]], [[Godspeed You! Black Emperor|https://en.wikipedia.org/wiki/Godspeed_You!_Black_Emperor]] y [[Paramore|https://paramore.net/]] retiraron su música de la plataforma o hicieron un llamado público al boicot en cuestión de meses. Massive Attack, en septiembre de 2025, se convirtió en el primer acto de un sello discográfico grande en sumarse y explicó su decisión citando una 'carga moral y ética' impuesta sobre los artistas, cuyo trabajo termina financiando, aunque sea de forma indirecta, tecnología letal."
     },
     {
       "tipo": "parrafo",
-      "texto": "En América Latina, el movimiento encontró un eco particularmente resonante. En México, [[Rubén Albarrán|https://en.wikipedia.org/wiki/Rub%C3%A9n_Albarr%C3%A1n]], vocalista de [[Café Tacvba|https://www.cafetacvba.com/]], publicó un comunicado pidiendo que se retirara el catálogo completo de la banda. En ese mismo texto, sin separarlas, como si fueran capítulos distintos de un mismo problema, mencionó todo junto: las inversiones en armamento, la publicidad de ICE que la plataforma seguía mostrando, un 'Royalty Pool totalmente injusto', y sus propias 'regalías de miseria'."
+      "texto": "En América Latina, el movimiento encontró un personaje particularmente resonante. En México, [[Rubén Albarrán|https://en.wikipedia.org/wiki/Rub%C3%A9n_Albarr%C3%A1n]], vocalista de [[Café Tacvba|https://www.cafetacvba.com/]], publicó un comunicado pidiendo el retiro del catálogo completo de la banda. En ese mismo texto, sin separar los capítulos de un mismo problema, mencionó juntas todas las piezas: las inversiones en armamento, la publicidad de ICE que la plataforma seguía mostrando, un 'Royalty Pool totalmente injusto' y sus propias 'regalías de miseria'."
     },
     {
       "tipo": "cita",
-      "texto": "'No queremos que nuestras regalías, el dinero que nos quitan, sean usadas para financiar guerras y acciones por demás reprobables', declaró el vocalista. Albarrán calificó a ICE como una 'organización terrorista' por sembrar el terror en comunidades latinas e inmigrantes, y enfatizó que la música debería ser 'una medicina y refugio para la gente, no usarse contra comunidades y violarlas'."
+      "texto": "'No queremos que nuestras regalías, el dinero que nos quitan, sea usado para financiar guerras y acciones por demás reprobables', declaró Albarrán. El vocalista calificó a ICE como una 'organización terrorista' por sembrar el terror en comunidades latinas e inmigrantes y enfatizó que la música debería ser 'una medicina y refugio para la gente, no usarse contra comunidades y violarlas'."
     },
     {
       "tipo": "parrafo",
-      "texto": "La banda mexicana envió cartas formales a Universal Music México y Warner Music México solicitando el retiro de todo su catálogo de Spotify. La decisión se tomó como grupo, buscando que su obra no estuviera vinculada, ni siquiera indirectamente, con conflictos armados en regiones como Sudán, Congo, Palestina y Ucrania. Actualmente, Café Tacvba cuenta con más de 7.4 millones de oyentes mensuales en la plataforma, y sus grandes éxitos acumulan más de mil millones de reproducciones combinadas."
+      "texto": "La banda mexicana envió cartas formales a Universal Music México y Warner Music México solicitando el retiro de todo su catálogo de Spotify. La decisión se tomó como grupo, buscando que su obra no estuviera vinculada, ni siquiera indirectamente, con conflictos armados en regiones como Sudán, Congo, Palestina y Ucrania. Actualmente, Café Tacvba cuenta con más de 7.4 millones de oyentes mensuales en la plataforma y sus grandes éxitos acumulan más de mil millones de reproducciones combinadas."
     },
     {
       "tipo": "destacado",
@@ -130,11 +126,11 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Sin embargo, para Café Tacvba, la precariedad económica y la complicidad ética no eran dos temas distintos, sino la misma estructura, vista desde dos ángulos. Como señalaría más tarde el grupo en sus declaraciones, el problema no era solo que Spotify pagara mal, sino que incluso ese dinero mal pagado terminara financiando cosas que ningún artista había autorizado."
+      "texto": "Sin embargo, para Café Tacvba, la precariedad económica y la complicidad ética no eran dos temas distintos en una misma estructura. Como señaló después el grupo en sus declaraciones, el problema no era solo que Spotify pagara mal, sino que incluso ese dinero terminara financiando cosas que ningún artista había autorizado."
     },
     {
       "tipo": "destacado",
-      "texto": "Blankenship escribió su manifiesto para defender la curiosidad de quien exploraba un sistema ajeno. En la actualidad, son los propios creadores quienes tienen que defenderse de un sistema que explotó su trabajo sin permiso."
+      "texto": "Blankenship escribió su manifiesto para defender la curiosidad de quien exploraba un sistema ajeno. Pero hoy, son los propios creadores quienes deben defenderse de un sistema que explota su trabajo sin permiso."
     },
     {
       "tipo": "subtitulo",
@@ -142,43 +138,67 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "El paso del consumo físico al streaming no solo transformó la economía de la industria musical. También modificó la relación del público con la cultura. Antes existía un ritual en torno a la adquisición de música; ir a una tienda de discos, buscar en la zona de prueba, escuchar antes de comprar, hojear las carátulas y leer los créditos. No se trata solo de nostalgia. Los creadores se tomaban el tiempo para generar producciones con una intención intrínseca, pensadas como obras completas, y no como un relleno obsesivo de contenido. Lo que se pierde con el streaming no es solo el soporte físico, sino la relación con la obra que implicaba tiempo, elección y pertenencia."
+      "texto": "El paso del consumo físico al streaming no solo transformó la economía de la industria musical. También modificó la relación del público con la cultura. Antes existía un ritual en torno a la adquisición de música: ir a una tienda de discos, buscar en la zona de prueba, escuchar antes de comprar, hojear las carátulas y leer los créditos. No se trata solo de nostalgia. Los creadores se tomaban el tiempo de generar producciones con una intención intrínseca, pensadas como obras completas y no como un relleno obsesivo de contenido suelto. Lo que se pierde con el streaming no es solo el soporte físico, sino la relación con la obra que implicaba tiempo, elección, pertenencia e incluso identidad."
     },
     {
       "tipo": "parrafo",
-      "texto": "Esa pérdida responde a una dinámica que [[Jean Baudrillard|https://en.wikipedia.org/wiki/Jean_Baudrillard]] identificó como lo 'pornográfico'. No en el sentido sexual, sino como hipervisibilidad que aniquila el misterio. Para Baudrillard, la pornografía es la exhibición obscena de lo que debería permanecer en el ámbito del secreto; la mostración excesiva que convierte cualquier objeto en un dato plano, desprovisto de densidad. El streaming opera bajo esa misma lógica. Hace visible y disponible cualquier obra en el mismo instante. La arranca de su tiempo de producción y la arroja a un flujo constante donde una canción es indistinguible de la siguiente. El oyente ya no elige un disco, lo pone de fondo. Ya no escucha una obra completa, la navega de manera superficial y en su formato individual. La saturación ya no es un accidente del modelo, se vuelve su condición de funcionamiento."
+      "texto": "Esa pérdida responde a una dinámica que [[Jean Baudrillard|https://en.wikipedia.org/wiki/Jean_Baudrillard]] identificó como lo 'pornográfico', no en el sentido sexual, sino como hipervisibilidad que aniquila el misterio. Para Baudrillard, la pornografía es la exhibición obscena de lo que debería permanecer en el ámbito del secreto; la mostración excesiva que convierte cualquier objeto en un dato plano, desprovisto de densidad. El streaming opera bajo esa lógica, ya que hace visible y disponible cualquier obra en el mismo instante. La arranca de su tiempo de producción y la arroja a un flujo constante, donde una producción es bastante similar de la siguiente. El oyente ya no elige un disco, elige listas de reproducción automatizadas que pone de fondo. Ya no escucha una obra completa, la navega de manera superficial. La saturación deja de ser un accidente del modelo y se vuelve su condición de funcionamiento."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Pero esa misma lógica de saturación no solo afecta al consumo. También redefine la producción. Si cualquier obra es indistinta y está disponible al instante, la frontera entre quien crea y quien consume se vuelve difusa. La promesa de que esa saturación traería una democratización del consumo y la producción cultural encontró su formulación más temprana en el concepto de 'prosumidor' que [[Alvin Toffler|https://en.wikipedia.org/wiki/Alvin_Toffler]] acuñó en los años ochenta. Toffler imaginaba un futuro donde la frontera entre productor y consumidor se desdibujaba, y donde los individuos participaban activamente en la creación de aquello que consumían. En la era digital, esa idea se ha hecho presente en plataformas como YouTube, TikTok, Instagram o Snapchat: cualquiera con un dispositivo puede generar su propio contenido."
     },
     {
       "tipo": "destacado",
-      "texto": "La promesa de que esa saturación traería una democratización del consumo y la producción cultural encontró su formulación más temprana en el concepto de 'prosumidor' que Alvin Toffler acuñó en los años ochenta."
+      "texto": "Pero el prosumo no ha traído la horizontalidad que Toffler imaginó. El usuario que crea contenido no es un productor. El oyente escucha, crea playlists, comparte, genera métricas que Spotify vende a anunciantes. Esa participación no se traduce en poder, sino en explotación. El usuario paga por producir su propia vigilancia."
     },
     {
       "tipo": "parrafo",
-      "texto": "Toffler imaginaba un futuro donde la frontera entre productor y consumidor se desdibujaba, y donde los individuos participaban activamente en la creación de aquello que consumían. En la era digital, esa idea se ha hecho presente en plataformas como YouTube, TikTok, Instagram o Snapchat. Cualquier persona con un dispositivo puede generar su propio contenido. Pero el prosumo no ha traído la horizontalidad que Toffler imaginó. El usuario que crea contenido no es un productor; es un trabajador que genera datos, audiencia y valor para las grandes corporaciones, en su mayoría, sin recibir compensación o como es conocido, monetizar. En el streaming, el oyente es un prosumidor: escucha, crea playlists, comparte, genera métricas que Spotify vende a anunciantes. Esa participación no se traduce en poder, sino en una forma más sofisticada de explotación. El usuario paga por producir su propia vigilancia."
+      "texto": "No todo es explotación pura. Algunos creadores logran monetizar en plataformas como YouTube. Pero eso no cambia la estructura. La excepción no invalida la regla. El prosumidor no es solo un explotado, pero el hecho de que algunos escapen de esa lógica no significa que la lógica haya desaparecido."
     },
     {
       "tipo": "parrafo",
-      "texto": "Este proceso de convertir la obra en dato, y al oyente en generador de datos, tiene un correlato en lo que [[Joan Fontcuberta|https://en.wikipedia.org/wiki/Joan_Fontcuberta]] ha descrito como el 'metabolismo' de las imágenes. Fontcuberta explora cómo las imágenes nacen, se transforman y mueren, alejándose con el tiempo de su origen, autor e intención. En la era digital, esa vulnerabilidad se acentúa. Las imágenes se modifican sin cesar, pierden su sentido inicial y adquieren nuevos significados. Para Fontcuberta, la fotografía no es un reflejo de la verdad, sino una construcción que puede ser tan ficticia como real; una 'mentira plausible' que se presenta con los protocolos de lo verídico. Su trabajo consiste en fomentar la duda y criticar el poder de la imagen. En el streaming, esa crítica se vuelve urgente. La obra se convierte en un flujo constante de datos que se consume y se descarta. El oyente pierde la capacidad de distinguir entre lo que vale y lo que es ruido. Fontcuberta advierte sobre la carencia de educación visual que conduce a la indiferencia y la pasividad, un diagnóstico que se extiende sin dificultad al consumo musical."
+      "texto": "[[Joan Fontcuberta|https://en.wikipedia.org/wiki/Joan_Fontcuberta]] describe ese mismo proceso, pero en el ámbito de la imagen. Lo llama el 'metabolismo' de las fotografías: nacen, se transforman y mueren, alejándose de su origen, de su autor, de su intención. En la era digital, esa vulnerabilidad se acentúa. Las imágenes se modifican continuamente, pierden el sentido que tenían y adquieren otros. Dejan de ser reflejo de la verdad para volverse construcciones que pueden ser tan ficticias como reales. Fontcuberta advierte sobre la carencia de educación visual que conduce a la indiferencia y la pasividad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Ese diagnóstico no se limita a la fotografía; la música y el video corren la misma suerte: la obra se convierte en un flujo de datos que se consume y se descarta, y el consumidor pierde la capacidad de distinguir entre lo que vale y lo que es ruido."
     },
     {
       "tipo": "destacado",
-      "texto": "El resultado es que el usuario ha dejado de ser propietario para convertirse en 'arrendatario'. La propiedad se ha diluido en un contrato de uso que la empresa puede modificar unilateralmente en cualquier momento."
+      "texto": "La consecuencia directa de esa pérdida de sentido es la pérdida de propiedad. El usuario ya no es dueño de lo que paga. Es un arrendatario. La propiedad se ha diluido en un contrato de uso que la empresa puede modificar unilateralmente en cualquier momento."
     },
     {
       "tipo": "parrafo",
-      "texto": "Si Sony decide apagar los servidores de PlayStation 3, los juegos digitales adquiridos desaparecen. Si Apple introduce actualizaciones que ralentizan dispositivos, el usuario no tiene derecho a reclamar. Este es el verdadero negocio del streaming: no vender acceso, sino administrar una deuda perpetua con el usuario, que debe pagar cada mes para no perder lo que ya había 'comprado'."
+      "texto": "Si Sony decide apagar los servidores de PlayStation 3, los juegos digitales adquiridos desaparecen. Si Apple introduce actualizaciones que ralentizan los dispositivos, el usuario no tiene derecho a reclamar. Este es el verdadero negocio de las plataformas digitales: no vender acceso, sino administrar una deuda perpetua con el usuario, que debe pagar cada mes para no perder lo que ya había 'comprado'."
     },
     {
       "tipo": "parrafo",
-      "texto": "[[Boris Groys|https://en.wikipedia.org/wiki/Boris_Groys]], filósofo y crítico de arte, ofrece otra dimensión para entender esta transformación. Para Groys, la historia moderna es una historia de estetizaciones. Estetizamos y queremos proteger casi todo, la Tierra, los océanos, la atmósfera. Los humanos no somos la excepción. También nos presentamos como objetos de contemplación que merecen admiración y cuidado. Durante el siglo XX, artistas e intelectuales lucharon por el derecho soberano de exhibirse en sociedad a su manera, convertirse en obras de arte creadas por ellos mismos. Hoy, sostiene Groys, todo el mundo tiene no solo el derecho, sino también la obligación de practicar el autodiseño. Somos responsables del modo en que nos mostramos ante los demás y no podemos deshacernos de esta responsabilidad estética."
+      "texto": "Este modelo de renta perpetua no es exclusivo del streaming. En el software, el mismo mecanismo se ha normalizado con suscripciones mensuales o anuales. Pero antes de que todo fuera por suscripción, existía otra dinámica. Programas como [[WinRAR|https://www.win-rar.com/]] o [[Reaper|https://www.reaper.fm/]] funcionan con licencia perpetua: puedes usarlos indefinidamente sin pagar y solo lo haces si quieres apoyar al creador o si tu uso genera ingresos. [[Da Vinci Resolve|https://www.blackmagicdesign.com/products/davinciresolve]] es gratuito hasta que empiezas a monetizar tu trabajo con él. Ahí la decisión de pagar es un acuerdo ético con quien hizo la herramienta. Estos son modelos que todavía reconocen que el software puede ser una herramienta que entiende a su usuario."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El extremo opuesto. [[Adobe Creative Suite 6|https://en.wikipedia.org/wiki/Adobe_Creative_Suite]], lanzada en mayo de 2012, fue la última versión con licencia perpetua. Un año después, en mayo de 2013, Adobe anunció que [[Adobe Creative Cloud|https://www.adobe.com/creativecloud.html]] sería el único modelo a futuro. Las ventas de licencias perpetuas de CS6 continuaron hasta enero de 2017. Creative Cloud no ofrece la opción de comprar y conservar. Pagas mientras quieras usarlo. Si dejas de pagar, pierdes el acceso. El plan 'anual, facturado mensualmente' incluye una penalización del 50% del saldo restante si cancelas después de 14 días."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Ya no hay licencia perpetua ni versión gratuita para uso no comercial. La única opción es pagar cada mes o perder el acceso. Es el mismo mecanismo que las plataformas publicitarias utilizaban en la televisión abierta, con cortes comerciales; la única diferencia es que el contenido seguía siendo accesible sin pagar directamente. Las plataformas digitales con publicidad mantuvieron el formato en sus inicios, con la promesa que logró atraer público; dejaron de lado el segmento del corte comercial por lo que duplicaron sus ganancias. Tiempo después cobran al usuario por ver contenido con anuncios, al anunciante por mostrarlos y si quieres evitar esos cortes debes subir tu suscripción a una de un pago más elevado. El resultado es un modelo que extrae valor por todos lados y devuelve migajas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esas acciones no se limitan a la música o al cine. Se extienden a la forma en que nos relacionamos con nuestra propia imagen y con lo que mostramos de nosotros en el entorno digital. [[Boris Groys|https://en.wikipedia.org/wiki/Boris_Groys]], filósofo y crítico de arte, sostiene que la historia moderna es una historia de estetizaciones. Estetizamos y queremos proteger casi todo: la Tierra, los océanos, la atmósfera. Los humanos no somos la excepción. También nos presentamos como objetos de contemplación que merecen admiración y cuidado. Durante el siglo XX, artistas e intelectuales lucharon por el derecho soberano de exhibirse en sociedad a su manera: convertirse en obras de arte creadas por ellos mismos."
     },
     {
       "tipo": "cita",
-      "texto": "Sin embargo, Groys señala una paradoja central; no somos capaces de controlar nuestra imagen. La producción de nuestros cuerpos públicos, lo que mostramos en redes sociales, lo que escuchamos, lo que consumimos, es un proceso colectivo que no depende exclusivamente de la propia voluntad. Nos convertimos en artistas de nuestro propio YO usando el smartphone como cincel, pincel o pluma, pero esa autoproducción se da en un entorno donde el control real está en manos de las plataformas."
+      "texto": "Para Groys, todo el mundo tiene no solo el derecho, sino también la obligación de practicar el autodiseño. Somos responsables del modo en que nos mostramos ante los demás y no podemos deshacernos de esta responsabilidad estética. Sin embargo, también señala una paradoja central: no somos capaces de controlar nuestra imagen. La producción de nuestros cuerpos públicos, lo que mostramos en redes sociales, lo que escuchamos, lo que consumimos, es un proceso colectivo que no depende exclusivamente de la propia voluntad. Nos convertimos en artistas de nuestro propio YO usando el smartphone como cincel, pincel o pluma, pero esa autoproducción ocurre en un entorno donde el control real está en manos de las plataformas."
     },
     {
       "tipo": "parrafo",
-      "texto": "Groys lo sintetiza al señalar que, junto con los libros y obras de arte que creamos, se están generando de forma permanente documentos, fotos, videos y copias de correos electrónicos que son 'extensiones de nuestros cuerpos y constituirán los cadáveres públicos destinados a sucedernos en un más allá material que no se detiene con la muerte'. En el streaming, esos cadáveres públicos son nuestras playlists, nuestros historiales de escucha, los datos que las plataformas cosechan y monetizan mientras nosotros pagamos por el privilegio de ser usuarios."
+      "texto": "Lo que Groys describe como autodiseño es la otra cara del régimen escópico. La vigilancia ya no viene solo del Estado. También viene de nosotros, cuando nos mostramos como obras de arte en plataformas que monetizan esa exposición. El ojo que nos mira ya no es solo el del poder estatal. Es el nuestro, y el de los algoritmos que miden nuestro valor."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Groys lo sintetiza al señalar que, junto con los libros y obras de arte que creamos, se están generando de forma permanente documentos, fotos, videos y copias de correos electrónicos que son 'extensiones de nuestros cuerpos y constituirán los cadáveres públicos destinados a sucedernos en un más allá material que no se detiene con la muerte'. En la digitalidad, esos cadáveres públicos son nuestras playlists, nuestros historiales de escucha y los datos que las plataformas cosechan y monetizan mientras nosotros pagamos por el privilegio de ser usuarios."
     },
     {
       "tipo": "subtitulo",
@@ -191,6 +211,10 @@
     {
       "tipo": "parrafo",
       "texto": "Y en paralelo, la piratería misma vuelve a asomar, aunque ya no como la solución ingeniosa de un adolescente porteño en 2004, sino como un gesto casi de principio, frente a plataformas cuyo costo mensual sube cada año y cuyas ganancias, ahora se sabe con nombre y apellido, no siempre van a donde el oyente cree que van. Nuevos canales de distribución como [[Telegram|https://telegram.org/]], [[Discord|https://discord.com/]] y [[Twitch|https://twitch.tv/]] han cambiado la forma de consumo audiovisual y de resguardo, permitiendo el intercambio inmediato de materiales. También existen bibliotecas no indexadas accesibles a través de [[Tor|https://www.torproject.org/]] que albergan material valioso, como la biblioteca de Minecraft de Reporteros Sin Fronteras y otras organizaciones que operan en la clandestinidad para preservar la información."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La piratería no es un espacio limpio. También hay extracción, malware, publicidad encubierta. La escena warez no era una comunidad desinteresada, era una jerarquía con sus propias reglas de participación, donde la reputación y el prestigio importaban tanto como el acceso al conocimiento. Pero cuando una obra desaparece por decisión contable, la piratería es el único archivo que queda. Eso no la redime. Eso la hace necesaria."
     },
     {
       "tipo": "destacado",
@@ -206,11 +230,11 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Un caso reciente ilustra hasta dónde puede llegar ese poder de decidir qué sobrevive. En noviembre de 2023, Warner Bros. Discovery archivó [[Coyote vs. Acme|https://en.wikipedia.org/wiki/Coyote_vs._Acme]], una película ya terminada, con proyecciones de prueba favorables y un presupuesto de 70 millones de dólares, únicamente para poder deducir 30 millones en impuestos. No hubo ningún problema de calidad: fue una decisión contable. La reacción del público, la campaña #ReleaseCoyoteVsAcme, presionó lo suficiente como para que Warner revirtiera el archivo y vendiera los derechos a una distribuidora independiente en 2025. La película finalmente llegará a los cines en agosto de 2026. Pero *Coyote vs. Acme* es la excepción. En el mismo recorte, *Batgirl* y *Scoob! Holiday Haunt* corrieron la suerte contraria; archivadas por el mismo cálculo fiscal, sin presión pública suficiente, y hasta hoy sin fecha de estreno. Nadie sabe si alguna vez se verán."
+      "texto": "[[Coyote vs. Acme|https://en.wikipedia.org/wiki/Coyote_vs._Acme]] es la excepción. Tuvo una campaña pública y una distribuidora que la rescató. La mayoría de las obras archivadas no tienen eso. Para ellas, la piratería es el único archivo posible. El Estado no intervino. La película se salvó por presión pública, no por ley. Esa ausencia también es política."
     },
     {
       "tipo": "destacado",
-      "texto": "Ahí es donde el argumento deja de ser hipotético: ni siquiera el escándalo público garantiza que una obra terminada sobreviva a una decisión corporativa. La piratería deja de ser solo un atajo de acceso y se vuelve, en los hechos, el único mecanismo de memoria disponible para lo que una empresa decide que no vale la pena mostrar."
+      "texto": "No hay una salida limpia. La piratería perjudica a los creadores. El streaming también. La pregunta no es cuál es el menos dañino. Es por qué esa es la única opción. Y si no hay salida limpia, entonces la decisión no es entre dos modelos, sino entre dos formas de precariedad."
     },
     {
       "tipo": "subtitulo",
@@ -218,21 +242,20 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "Blankenship no escribió un manual. Escribió una advertencia. El problema no es la tecnología. Es quién controla la puerta."
+      "texto": "El delito ya no es entrar a un sistema por una puerta trasera o detectar su vulnerabilidad. El delito es pensar que el acceso no debería depender de quién tiene el control. Porque resulta que sí depende. Una mesa directiva decide si tu catálogo sigue disponible mañana, si tu obra se estrena o se archiva, si tu trabajo como creador vale algo o nada."
     },
     {
       "tipo": "destacado",
-      "texto": "El streaming demostró que tenía razón. No democratizó el acceso. Lo convirtió en renta. La cultura en contenido. La memoria en un gasto amortizable."
+      "texto": "Cuando una obra desaparece por una decisión contable, alguien tiene que tener una copia. Aunque esté albergada en el mundo online, el formato físico también puede salvarnos, pero la memoria no puede depender solo de lo que una empresa decida recordar. El problema no está en la tecnología ni en su obsolescencia, sino en una cuestión política que responde a dinámicas económicas."
     },
     {
       "tipo": "parrafo",
-      "texto": "Y cuando la puerta se cierra, la piratería no es un delito. Es el único archivo que queda."
+      "texto": "Si queremos resolver todo con tecnología, también debemos comprender que nadie puede decidir por nosotros entre qué podemos consumir y qué no."
     },
     {
       "tipo": "cita",
       "texto": "'Sigan llamándonos delincuentes. Nosotros seguiremos leyendo.'"
     },
-   
     {
       "tipo": "subtitulo",
       "texto": "Referencias"
@@ -243,15 +266,19 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• Wark, M. (2004). [[A Hacker Manifesto|https://en.wikipedia.org/wiki/A_Hacker_Manifesto]]. Harvard University Press."
+      "texto": "• Wark, M. (2004). [[A Hacker Manifesto|https://en.wikipedia.org/wiki/A_Hacker_Manifesto]]. Cambridge, MA: Harvard University Press."
     },
     {
       "tipo": "parrafo",
-      "texto": "• Eve, M. S. (2021). [[Warez: The Infrastructure and Aesthetics of Piracy|https://punctumbooks.com/titles/warez/]]. Punctum Books."
+      "texto": "• Eve, M. P. (2021). [[Warez: The Infrastructure and Aesthetics of Piracy|https://punctumbooks.com/titles/warez/]]. Punctum Books."
     },
     {
       "tipo": "parrafo",
-      "texto": "• McRobbie, A. (2016). [[Be Creative: Making a Living in the New Culture Industries|https://www.politybooks.com/bookdetail?isbn=9780745661951]]. Polity."
+      "texto": "• Rehn, A. (2004). 'The politics of contraband — The honor economies of the warez scene'. The Journal of Socio-Economics, Vol. 33, No. 3, pp. 359-374."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• McRobbie, A. (2016). [[Be Creative: Making a Living in the New Culture Industries|https://www.politybooks.com/bookdetail?isbn=9780745661951]]. Polity Press."
     },
     {
       "tipo": "parrafo",
@@ -275,7 +302,7 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• Wikipedia. [[Hacker Manifesto|https://en.wikipedia.org/wiki/Hacker_Manifesto]] — legado cultural, apariciones en Hackers (1995), The Social Network, y Permanent Record de Edward Snowden."
+      "texto": "• [[Wikipedia|https://en.wikipedia.org/wiki/Hacker_Manifesto]]. 'Hacker Manifesto' — legado cultural, apariciones en Hackers (1995), The Social Network, y Permanent Record de Edward Snowden."
     },
     {
       "tipo": "parrafo",
@@ -287,31 +314,27 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• Cobertura periodística sobre la fundación (2004), crecimiento, litigio con la Cámara Argentina del Libro (2009-2018) y cierre definitivo (25 de marzo de 2024) de Taringa!"
+      "texto": "• Cobertura periodística sobre Taringa!: fundación (2004), crecimiento, litigio con la Cámara Argentina del Libro (2009-2018) y cierre definitivo (25 de marzo de 2024)."
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[Copyright Alliance|https://copyrightalliance.org/]]. 'The Legacy of Prince: How He Spoke Up for the Creative Community'."
+      "texto": "• [[Copyright Alliance|https://copyrightalliance.org/]] / CBS News / AP. Cobertura sobre Prince, la palabra 'esclavo' en su mejilla (1993), su retiro de plataformas y su alianza con Tidal (2015), y la redistribución de su catálogo tras su muerte (2016)."
     },
     {
       "tipo": "parrafo",
-      "texto": "• CBS News / AP. 'Prince's Warner Bros. catalog goes to all streaming services' (2017)."
+      "texto": "• [[Spotify|https://support.spotify.com/]]. 'Regalías', página oficial de soporte para artistas — cifras de pago por reproducción (0.003 - 0.005 USD) y modelo de reparto."
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[Spotify|https://support.spotify.com/]]. 'Regalías', página oficial de soporte para artistas."
+      "texto": "• [[United Musicians and Allied Workers (UMAW)|https://www.umaw.org/]]. Campaña 'Justice at Spotify' — cálculo de 658,000 reproducciones al mes para alcanzar el salario mínimo estadounidense."
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[United Musicians and Allied Workers (UMAW)|https://www.umaw.org/]]. Campaña 'Justice at Spotify'."
+      "texto": "• [[CREATe|https://www.create.ac.uk/]], Universidad de Glasgow. 'Rethinking Royalties: Spotify's New Streaming Threshold' (2023) — declaraciones de Martin Kretschmer sobre el umbral de 1,000 reproducciones como posible 'caja de Pandora'."
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[CREATe|https://www.create.ac.uk/]], Universidad de Glasgow. 'Rethinking Royalties: Spotify's New Streaming Threshold' (2023), con declaraciones de Martin Kretschmer."
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "• [[Radiónica|https://www.radionica.rocks/]]. 'La tensión entre el Wrapped y el boicot a Spotify' (diciembre 2025), casos de Edson Velandia, Bomba Estéreo y Monsieur Periné."
+      "texto": "• [[Radiónica|https://www.radionica.rocks/]]. 'La tensión entre el Wrapped y el boicot a Spotify' (diciembre 2025) — casos de Edson Velandia, Bomba Estéreo y Monsieur Periné."
     },
     {
       "tipo": "parrafo",
@@ -319,7 +342,7 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[Xataka|https://www.xataka.com/]]. 'Spotify ha tenido que eliminar 75 millones de canciones hechas con IA. Bandcamp ha decidido no tener ese problema' (enero 2026), cifras de comisión y pagos históricos de Bandcamp."
+      "texto": "• [[Xataka|https://www.xataka.com/]]. 'Spotify ha tenido que eliminar 75 millones de canciones hechas con IA. Bandcamp ha decidido no tener ese problema' (enero 2026) — cifras de comisión (10%-15%) y pagos históricos de Bandcamp."
     },
     {
       "tipo": "parrafo",
@@ -335,11 +358,11 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[Wikipedia|https://en.wikipedia.org/wiki/Daniel_Ek]]. 'Daniel Ek', cronología de Prima Materia y la inversión en Helsing."
+      "texto": "• [[Wikipedia|https://en.wikipedia.org/wiki/Daniel_Ek]]. 'Daniel Ek' — cronología de Prima Materia y la inversión en Helsing."
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[Wikipedia|https://en.wikipedia.org/wiki/Coyote_vs._Acme]]. 'Coyote vs. Acme' — cronología del archivado (noviembre 2023), la deducción fiscal de 30 millones de dólares, y la adquisición por Ketchup Entertainment (marzo 2025)."
+      "texto": "• [[Wikipedia|https://en.wikipedia.org/wiki/Coyote_vs._Acme]]. 'Coyote vs. Acme' — cronología del archivado (noviembre 2023), deducción fiscal de 30 millones de dólares y adquisición por Ketchup Entertainment (marzo 2025)."
     },
     {
       "tipo": "parrafo",
@@ -347,7 +370,7 @@
     },
     {
       "tipo": "parrafo",
-      "texto": "• [[Excélsior|https://www.excelsior.com.mx/]] / [[El Comercio|https://elcomercio.pe/]] / [[Hollywood Reporter|https://www.hollywoodreporter.com/]] en español. Cobertura sobre la cancelación, la campaña #ReleaseCoyoteVsAcme, y la fecha de estreno confirmada (28 de agosto de 2026)."
+      "texto": "• [[Excélsior|https://www.excelsior.com.mx/]] / [[El Comercio|https://elcomercio.pe/]] / [[Hollywood Reporter|https://www.hollywoodreporter.com/]] en español. Cobertura sobre la cancelación, la campaña #ReleaseCoyoteVsAcme y la fecha de estreno confirmada (28 de agosto de 2026)."
     }
   ]
 }
