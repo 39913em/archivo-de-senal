@@ -8,6 +8,7 @@
     {
       "id": "cultura-no-se-torrentea",
       "archivo": "torrentear.json",
+      "portada": "assets/img/torrentear.png",
       "pieza": "39913EM-DOC-003",
       "titulo": "Si la cultura no se torrentea, la cultura se netflixea",
       "subtitulo": "Piratería, streaming y la batalla por el acceso a la cultura",
