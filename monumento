@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MONUMENTO SONORO CORRUPTIBLE</title>
+  <style>
+    body { margin:0; overflow:hidden; background:#0a0a0a; font-family:'Courier New',monospace; }
+    #info { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); color:#ff6b35; 
+            font-size:12px; text-align:center; background:rgba(0,0,0,0.8); padding:15px 30px;
+            border:1px solid #ff6b35; border-radius:10px; z-index:10; pointer-events:none; opacity:0.7; }
+    #sembrar { position:fixed; bottom:100px; left:50%; transform:translateX(-50%); 
+               padding:12px 30px; background:#ff6b35; color:#0a0a0a; border:none; 
+               border-radius:30px; font-weight:bold; cursor:pointer; z-index:10;
+               font-family:'Courier New',monospace; text-transform:uppercase; letter-spacing:2px;
+               box-shadow:0 0 30px rgba(255,107,53,0.3); transition:all 0.3s; display:none; }
+    #sembrar:hover { transform:translateX(-50%) scale(1.05); box-shadow:0 0 50px rgba(255,107,53,0.5); }
+    #estado { position:fixed; top:20px; right:20px; color:#666; font-size:11px; z-index:10; 
+              text-align:right; line-height:1.6; }
+    .glitch { animation:glitchText 0.3s infinite; }
+    @keyframes glitchText { 0%{opacity:1;} 50%{opacity:0.3; transform:translateX(3px);} }
+  </style>
+</head>
+<body>
+  <div id="estado">
+    <div>MONUMENTO VIVO</div>
+    <div id="visitas">VISITAS: 0</div>
+    <div id="integridad">INTEGRIDAD: 100%</div>
+  </div>
+  <button id="sembrar">SEMBRAR CULTURA</button>
+  <div id="info">ACÉRCATE A CADA COLUMNA PARA ESCUCHAR SU SONIDO</div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // --- CONFIGURACIÓN ---
+    const COLUMNAS = {
+      DATOS_MASIVOS: { color: 0xff6b35, audio: 'servers' },
+      ARQUITECTURA_SONORA: { color: 0x4fc3f7, audio: 'reverb' },
+      MEMORIA_ROTA: { color: 0xff1744, audio: 'glitch', rota: true },
+      CULTURA_NO_TORRENTEA: { color: 0x00e676, audio: 'voces' }
+    };
+
+    const TEXTS = {
+      'DATOS MASIVOS': 'El ruido de los servidores es el nuevo latido del mundo. Cada byte pesa, cada solicitud vibra. La infraestructura digital sostiene todo, pero su murmullo constante nos recuerda que la información nunca es gratis.',
+      'ARQUITECTURA SONORA': 'El sonido construye espacios invisibles. La reverb define el tamaño del templo, los silencios marcan sus límites. Escuchar es habitar. La arquitectura no se ve, se escucha.',
+      'MEMORIA ROTA': 'ERROR 404: Recuerdo no encontrado. Los fragmentos de memoria flotan como datos corruptos. El tiempo desgasta, el olvido agrieta. Lo que no se repite, se pierde en el ruido de fondo.',
+      'CULTURA NO SE TORRENTEA': 'Susurros compartidos, conocimiento que fluye. La cultura no se compra, se siembra. Cada voz es una semilla, cada escucha es un acto de resistencia.'
+    };
+
+    // --- ESCENA ---
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0a0a);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
+    camera.position.set(8, 6, 12);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    document.body.appendChild(renderer.domElement);
+
+    // --- CONTROLES (limitados para la experiencia) ---
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 4;
+    controls.maxDistance = 18;
+    controls.maxPolarAngle = Math.PI / 2.2;
+    controls.target.set(0, 1, 0);
+
+    // --- LUCES ---
+    const ambientLight = new THREE.AmbientLight(0x222244, 0.5);
+    scene.add(ambientLight);
+
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    mainLight.position.set(5, 10, 7);
+    mainLight.castShadow = true;
+    scene.add(mainLight);
+
+    const rimLight = new THREE.DirectionalLight(0xff6b35, 0.5);
+    rimLight.position.set(-5, 5, -7);
+    scene.add(rimLight);
+
+    // --- PERSONAJE (guardián) ---
+    function crearPersonaje() {
+      const group = new THREE.Group();
+      
+      // Cuerpo (cubo estilizado)
+      const cuerpo = new THREE.Mesh(
+        new THREE.BoxGeometry(0.8, 1.2, 0.6),
+        new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7 })
+      );
+      cuerpo.position.y = 0.6;
+      cuerpo.castShadow = true;
+      group.add(cuerpo);
+
+      // Cabeza
+      const cabeza = new THREE.Mesh(
+        new THREE.SphereGeometry(0.4, 8, 8),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.3 })
+      );
+      cabeza.position.y = 1.6;
+      cabeza.castShadow = true;
+      group.add(cabeza);
+
+      // Audífonos (aro)
+      const aro = new THREE.Mesh(
+        new THREE.TorusGeometry(0.5, 0.05, 8, 16),
+        new THREE.MeshStandardMaterial({ color: 0xff6b35, roughness: 0.2, metalness: 0.8 })
+      );
+      aro.position.y = 1.6;
+      aro.rotation.x = Math.PI / 3;
+      aro.rotation.z = 0.3;
+      group.add(aro);
+
+      // LED de "vida" en el pecho
+      const led = new THREE.Mesh(
+        new THREE.SphereGeometry(0.08, 6, 6),
+        new THREE.MeshStandardMaterial({ color: 0x00e676, emissive: 0x00e676, emissiveIntensity: 0.5 })
+      );
+      led.position.set(0, 0.7, 0.35);
+      group.add(led);
+
+      return group;
+    }
+
+    const guardian = crearPersonaje();
+    guardian.position.set(0, 0, 0);
+    scene.add(guardian);
+
+    // --- COLUMNAS ---
+    const columnas = [];
+    const posiciones = [
+      { x: -4, z: -2.5, label: 'DATOS MASIVOS', color: 0xff6b35, audio: 'servers' },
+      { x: 4, z: -2.5, label: 'ARQUITECTURA SONORA', color: 0x4fc3f7, audio: 'reverb' },
+      { x: -4, z: 3, label: 'MEMORIA ROTA', color: 0xff1744, audio: 'glitch' },
+      { x: 4, z: 3, label: 'CULTURA NO SE TORRENTEA', color: 0x00e676, audio: 'voces' }
+    ];
+
+    function crearColumna(pos, label, color, rota = false) {
+      const group = new THREE.Group();
+      
+      // Base
+      const base = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.6, 0.8, 0.2, 8),
+        new THREE.MeshStandardMaterial({ color: 0x333355, roughness: 0.7, metalness: 0.3 })
+      );
+      base.position.y = 0.1;
+      base.receiveShadow = true;
+      group.add(base);
+
+      // Columna principal (hecha de cubitos para DATOS MASIVOS)
+      let columnaMesh;
+      if (label === 'DATOS MASIVOS') {
+        const cubosGroup = new THREE.Group();
+        for (let i = 0; i < 20; i++) {
+          const cubo = new THREE.Mesh(
+            new THREE.BoxGeometry(0.35 + Math.random()*0.1, 0.2, 0.35 + Math.random()*0.1),
+            new THREE.MeshStandardMaterial({ 
+              color: color, 
+              roughness: 0.4, 
+              metalness: 0.6,
+              emissive: color,
+              emissiveIntensity: 0.1
+            })
+          );
+          cubo.position.y = 0.2 + i * 0.25;
+          cubo.position.x = (Math.random() - 0.5) * 0.3;
+          cubo.position.z = (Math.random() - 0.5) * 0.3;
+          cubo.castShadow = true;
+          cubosGroup.add(cubo);
+        }
+        columnaMesh = cubosGroup;
+      } else {
+        // Columnas lisas
+        columnaMesh = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.5, 0.6, 5, 12),
+          new THREE.MeshStandardMaterial({ 
+            color: color, 
+            roughness: 0.3, 
+            metalness: 0.7,
+            emissive: color,
+            emissiveIntensity: 0.05
+          })
+        );
+        columnaMesh.position.y = 2.5;
+        columnaMesh.castShadow = true;
+        
+        // Si es MEMORIA ROTA, añadir grietas visuales
+        if (label === 'MEMORIA ROTA') {
+          const grieta = new THREE.Mesh(
+            new THREE.BoxGeometry(0.1, 2.5, 0.1),
+            new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xff0000, emissiveIntensity: 0.3 })
+          );
+          grieta.position.set(0.3, 2.5, 0);
+          columnaMesh.add(grieta);
+          
+          const grieta2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.1, 1.5, 0.1),
+            new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xff0000, emissiveIntensity: 0.2 })
+          );
+          grieta2.position.set(-0.2, 3.2, 0.2);
+          grieta2.rotation.z = 0.3;
+          columnaMesh.add(grieta2);
+        }
+      }
+
+      if (label === 'DATOS MASIVOS') {
+        columnaMesh.position.y = 2.5;
+        group.add(columnaMesh);
+      } else {
+        group.add(columnaMesh);
+      }
+
+      // Texto flotante (sprite simple)
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(0,0,0,0)';
+      ctx.fillRect(0, 0, 256, 64);
+      ctx.font = 'Bold 20px Courier New';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(0,0,0,0.8)';
+      ctx.shadowBlur = 10;
+      ctx.fillText(label, 128, 32);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+      const sprite = new THREE.Sprite(spriteMat);
+      sprite.position.y = 5.8;
+      sprite.scale.set(2.5, 0.6, 1);
+      group.add(sprite);
+
+      group.position.set(pos.x, 0, pos.z);
+      
+      // Guardar datos para interacción
+      group.userData = {
+        label: label,
+        color: color,
+        rota: label === 'MEMORIA ROTA',
+        audio: label,
+        originalY: 0
+      };
+
+      return group;
+    }
+
+    // Crear columnas
+    posiciones.forEach((pos, i) => {
+      const col = crearColumna(pos, pos.label, pos.color, pos.label === 'MEMORIA ROTA');
+      scene.add(col);
+      columnas.push(col);
+    });
+
+    // --- SUELO (brutalista) ---
+    const suelo = new THREE.Mesh(
+      new THREE.PlaneGeometry(14, 12),
+      new THREE.MeshStandardMaterial({ 
+        color: 0x111122, 
+        roughness: 0.9, 
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.8
+      })
+    );
+    suelo.rotation.x = -Math.PI / 2;
+    suelo.position.set(0, -0.1, 0);
+    suelo.receiveShadow = true;
+    scene.add(suelo);
+
+    // Círculo base
+    const circulo = new THREE.Mesh(
+      new THREE.RingGeometry(2, 2.5, 32),
+      new THREE.MeshStandardMaterial({ 
+        color: 0xff6b35, 
+        emissive: 0xff6b35,
+        emissiveIntensity: 0.1,
+        transparent: true,
+        opacity: 0.2,
+        side: THREE.DoubleSide
+      })
+    );
+    circulo.rotation.x = -Math.PI / 2;
+    circulo.position.set(0, 0, 0);
+    scene.add(circulo);
+
+    // --- SISTEMA DE SONIDO (Web Audio) ---
+    let audioContext = null;
+    let osciladores = [];
+
+    function initAudio() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playSound(columnLabel, distance) {
+      if (!audioContext) return;
+      
+      // Limpiar sonidos anteriores
+      osciladores.forEach(osc => {
+        try { osc.stop(); } catch(e) {}
+      });
+      osciladores = [];
+
+      const volume = Math.max(0, 1 - distance / 10);
+      if (volume < 0.05) return;
+
+      let frecuencias = [];
+      let tipo = 'sine';
+      
+      switch(columnLabel) {
+        case 'DATOS MASIVOS':
+          frecuencias = [80, 120, 160, 200, 240];
+          tipo = 'sawtooth';
+          break;
+        case 'ARQUITECTURA SONORA':
+          frecuencias = [200, 300, 400];
+          tipo = 'sine';
+          break;
+        case 'MEMORIA ROTA':
+          frecuencias = [100, 150, 220, 310];
+          tipo = 'square';
+          break;
+        case 'CULTURA NO SE TORRENTEA':
+          frecuencias = [250, 350, 450, 550];
+          tipo = 'sine';
+          break;
+        default:
+          frecuencias = [200];
+      }
+
+      frecuencias.forEach((freq, i) => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.type = tipo;
+        osc.frequency.value = freq * (1 + (Math.random() - 0.5) * 0.02);
+        
+        gain.gain.value = volume * 0.08 / frecuencias.length;
+        
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        
+        osc.start();
+        osc.stop(audioContext.currentTime + 0.5);
+        
+        osciladores.push(osc);
+        
+        // Pequeño offset para crear textura
+        setTimeout(() => {
+          try {
+            const osc2 = audioContext.createOscillator();
+            const gain2 = audioContext.createGain();
+            osc2.type = tipo;
+            osc2.frequency.value = freq * 1.5;
+            gain2.gain.value = volume * 0.03 / frecuencias.length;
+            osc2.connect(gain2);
+            gain2.connect(audioContext.destination);
+            osc2.start();
+            osc2.stop(audioContext.currentTime + 0.3);
+            osciladores.push(osc2);
+          } catch(e) {}
+        }, 100 + i * 50);
+      });
+    }
+
+    // --- SISTEMA DE ESTADO ---
+    let integridad = 100;
+    let visitas = 0;
+    let ultimaVisita = localStorage.getItem('ultimaVisitaMonumento');
+    const ahora = Date.now();
+
+    // Detectar si nadie ha visitado en 24h
+    if (ultimaVisita && (ahora - parseInt(ultimaVisita)) > 86400000) {
+      integridad = 60;
+      document.getElementById('integridad').style.color = '#ff1744';
+      document.getElementById('estado').classList.add('glitch');
+    } else if (!ultimaVisita) {
+      integridad = 80;
+    }
+
+    localStorage.setItem('ultimaVisitaMonumento', ahora.toString());
+
+    // Actualizar UI
+    document.getElementById('visitas').textContent = `VISITAS: ${Math.floor(Math.random() * 100 + 1)}`;
+    document.getElementById('integridad').textContent = `INTEGRIDAD: ${integridad}%`;
+
+    // --- INTERACCIÓN CON COLUMNAS (Raycaster) ---
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let columnaSeleccionada = null;
+
+    renderer.domElement.addEventListener('pointermove', (event) => {
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    renderer.domElement.addEventListener('click', (event) => {
+      if (!audioContext) initAudio();
+      
+      raycaster.setFromCamera(pointer, camera);
+      
+      // Detectar columna clickeada
+      const intersects = raycaster.intersectObjects(columnas, true);
+      if (intersects.length > 0) {
+        let col = intersects[0].object;
+        while (col.parent && !col.userData.label) {
+          col = col.parent;
+        }
+        if (col.userData.label) {
+          mostrarTexto(col.userData.label);
+        }
+      }
+    });
+
+    // --- MOSTRAR TEXTO DE COLUMNA ---
+    function mostrarTexto(label) {
+      const texto = TEXTS[label] || '...';
+      const infoDiv = document.getElementById('info');
+      infoDiv.innerHTML = `📖 ${label}<br><span style="font-size:10px;opacity:0.7;display:block;max-width:500px;margin-top:5px;">${texto}</span>`;
+      infoDiv.style.opacity = '1';
+      infoDiv.style.padding = '20px';
+      
+      setTimeout(() => {
+        infoDiv.style.opacity = '0.7';
+        infoDiv.innerHTML = '🔊 ACÉRCATE A CADA COLUMNA PARA ESCUCHAR SU SONIDO';
+        infoDiv.style.padding = '15px 30px';
+      }, 8000);
+    }
+
+    // --- BOTÓN SEMBRAR ---
+    const sembrarBtn = document.getElementById('sembrar');
+    let sembrando = false;
+
+    sembrarBtn.addEventListener('click', () => {
+      if (sembrando) return;
+      sembrando = true;
+      
+      initAudio();
+      
+      // Generar .txt con ensayos
+      let contenido = '=== MONUMENTO SONORO CORRUPTIBLE ===\n\n';
+      contenido += 'DATOS MASIVOS\n';
+      contenido += TEXTS['DATOS MASIVOS'] + '\n\n';
+      contenido += 'ARQUITECTURA SONORA\n';
+      contenido += TEXTS['ARQUITECTURA SONORA'] + '\n\n';
+      contenido += 'MEMORIA ROTA\n';
+      contenido += TEXTS['MEMORIA ROTA'] + '\n\n';
+      contenido += 'CULTURA NO SE TORRENTEA\n';
+      contenido += TEXTS['CULTURA NO SE TORRENTEA'] + '\n\n';
+      contenido += '--- SEMBRADO EL ' + new Date().toLocaleString() + ' ---\n';
+      contenido += 'La cultura se siembra, no se torrentea.';
+      
+      // Descargar
+      const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `monumento_semilla_${Date.now()}.txt`;
+      link.click();
+      
+      // Copiar hash al portapapeles
+      const hash = '#CULTURA_NO_SE_TORRENTEA_' + Date.now().toString(36);
+      navigator.clipboard.writeText(hash).then(() => {
+        sembrarBtn.textContent = 'SEMILLA COPIADA!';
+        setTimeout(() => {
+          sembrarBtn.textContent = 'SEMBRAR CULTURA';
+          sembrando = false;
+        }, 3000);
+      }).catch(() => {
+        sembrarBtn.textContent = 'COPIA MANUAL: ' + hash;
+        setTimeout(() => {
+          sembrarBtn.textContent = 'SEMBRAR CULTURA';
+          sembrando = false;
+        }, 5000);
+      });
+      
+      // Reparar 10%
+      integridad = Math.min(100, integridad + 10);
+      document.getElementById('integridad').textContent = `INTEGRIDAD: ${integridad}%`;
+      if (integridad >= 90) {
+        document.getElementById('integridad').style.color = '#00e676';
+        document.getElementById('estado').classList.remove('glitch');
+      }
+      
+      // Cambiar pose del personaje (soldar)
+      const led = guardian.children.find(c => c.type === 'Mesh' && c.material && c.material.emissive);
+      if (led) {
+        led.material.color.setHex(0xff6b35);
+        led.material.emissive.setHex(0xff6b35);
+        led.material.emissiveIntensity = 1;
+        setTimeout(() => {
+          led.material.color.setHex(0x00e676);
+          led.material.emissive.setHex(0x00e676);
+          led.material.emissiveIntensity = 0.5;
+        }, 2000);
+      }
+    });
+
+    // Mostrar botón si integridad < 100
+    if (integridad < 100) {
+      sembrarBtn.style.display = 'block';
+    } else {
+      // Ocultar si está al 100%
+      setTimeout(() => {
+        sembrarBtn.style.display = 'none';
+      }, 3000);
+    }
+
+    // --- ANIMACIÓN Y DETECCIÓN DE PROXIMIDAD ---
+    let tiempo = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      tiempo += 0.01;
+      
+      // Rotación suave del personaje
+      guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
+      
+      // Movimiento de columnas
+      columnas.forEach((col, i) => {
+        const offset = i * 0.5;
+        col.position.y = Math.sin(tiempo * 0.5 + offset) * 0.05;
+        
+        // Columna de cultura flota más
+        if (col.userData.label === 'CULTURA NO SE TORRENTEA') {
+          col.position.y += Math.sin(tiempo * 0.7 + offset) * 0.08;
+          col.rotation.y = Math.sin(tiempo * 0.2 + offset) * 0.05;
+        }
+        
+        // MEMORIA ROTA parpadea
+        if (col.userData.label === 'MEMORIA ROTA') {
+          if (Math.sin(tiempo * 3) > 0.8) {
+            col.children.forEach(child => {
+              if (child.material && child.material.emissive) {
+                child.material.emissiveIntensity = 0.5 + Math.random() * 0.5;
+              }
+            });
+          }
+        }
+      });
+      
+      // Detectar proximidad de cámara a columnas
+      const camPos = camera.position;
+      let columnaCercana = null;
+      let distanciaMin = Infinity;
+      
+      columnas.forEach(col => {
+        const dist = camPos.distanceTo(col.position);
+        if (dist < 5 && dist < distanciaMin) {
+          distanciaMin = dist;
+          columnaCercana = col;
+        }
+      });
+      
+      if (columnaCercana && audioContext) {
+        playSound(columnaCercana.userData.label, distanciaMin);
+        
+        // Efecto visual de cercanía
+        columnaCercana.children.forEach(child => {
+          if (child.material && child.material.emissive) {
+            child.material.emissiveIntensity = 0.2 + (1 - distanciaMin/5) * 0.3;
+          }
+        });
+      }
+      
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // --- RESPONSIVE ---
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Inicializar audio al primer click
+    document.addEventListener('click', initAudio, { once: true });
+
+    console.log('MONUMENTO SONORO CORRUPTIBLE');
+    console.log('4 columnas: Datos Masivos, Arquitectura Sonora, Memoria Rota, Cultura No Se Torrentea');
+    console.log('Sembrar cultura para reparar la memoria');
+  </script>
+</body>
+</html>
