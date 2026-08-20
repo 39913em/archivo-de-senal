@@ -5,7 +5,7 @@
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
-       {
+    {
       "id": "cultura-no-se-torrentea",
       "archivo": "torrentear.json",
       "pieza": "39913EM-DOC-003",
@@ -14,12 +14,12 @@
       "fecha": "2026-09-01",
       "categoria": "Ensayo",
       "extracto": "El 8 de enero de 1986, la prensa de Texas salía con el titular de un adolescente arrestado por meterse donde no debía. Era la época posterior a Juegos de guerra, la película de 1983 que había fijado en la imaginación pública una idea sobre lo que hacía alguien capaz de entrar a un sistema ajeno y provocar una guerra nuclear sin querer. El Servicio Secreto y el FBI ya perseguían a grupos como Legion of Doom, tratando cada línea telefónica gratuita robada como delito federal. Loyd Blankenship, que en ese grupo se hacía llamar 'The Mentor', acababa de ser detenido. Unos días después escribió un texto breve, publicado en la revista Phrack. Lo tituló 'La conciencia de un hacker', aunque hoy se le conoce simplemente como el Manifiesto Hacker. Este documento no defiende el hackeo como travesura ni como delito con estilo. Lloyd arma su argumento sobre la premisa de los que fuimos juzgados por nuestras calificaciones, no por lo que sabíamos hacer. Exploramos un mundo que la sociedad era demasiado floja para explorar; y por eso, mi crimen es la curiosidad. El streaming prometió resolver el acceso con una tarjeta de crédito. Lo que entregó fue un sistema que paga migajas a los creadores, que financia tecnología de guerra con las ganancias, y que convierte al usuario en un inquilino perpetuo de su propia cultura. La piratería, en su esencia más pura, es una respuesta a una estructura que ha hecho del acceso un privilegio y del conocimiento un bien transable.",
-      "tags": ["piratería", "streaming", "Spotify", "acceso cultural", "América Latina", "Taringa", "Bandcamp", "boicot", "memoria digital", "preservación"]
-    } "transmedia": {
+      "tags": ["piratería", "streaming", "Spotify", "acceso cultural", "América Latina", "Taringa", "Bandcamp", "boicot", "memoria digital", "preservación"],
+      "transmedia": {
         "videos": [],
         "hashtag": ""
-      },
-    
+      }
+    },
     {
       "id": "memoria-rota",
       "archivo": "memoria-rota.json",
