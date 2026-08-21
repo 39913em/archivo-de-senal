@@ -124,12 +124,44 @@
     }
     #btn-sembrar:hover { box-shadow:0 0 50px rgba(255,107,53,0.6); }
 
-    #btn-cita {
+    #btn-rayar {
       bottom:160px; left:50%; transform:translateX(-50%);
       background:rgba(255,107,53,0.15); color:#ff6b35;
       border:1px solid #ff6b35;
     }
-    #btn-cita:hover { background:rgba(255,107,53,0.3); }
+    #btn-rayar:hover { background:rgba(255,107,53,0.3); }
+
+    /* ===== INPUT PARA RAYAR ===== */
+    #input-rayar {
+      position:fixed; bottom:220px; left:50%; transform:translateX(-50%);
+      z-index:95; background:rgba(10,10,10,0.95);
+      border:1px solid #ff6b35; border-radius:10px;
+      padding:15px 20px; max-width:400px; width:90%;
+      display:none; backdrop-filter:blur(10px);
+      box-shadow:0 0 40px rgba(0,0,0,0.9);
+    }
+    #input-rayar.visible { display:block; }
+    #input-rayar textarea {
+      width:100%; background:transparent; border:none;
+      color:#fff; font-family:'Courier New',monospace;
+      font-size:14px; resize:vertical; min-height:60px;
+      outline:none; padding:5px 0;
+    }
+    #input-rayar textarea::placeholder { color:#666; }
+    #input-rayar .btn-enviar-rayar {
+      margin-top:10px; padding:6px 20px;
+      background:#ff6b35; color:#0a0a0a; border:none;
+      border-radius:20px; font-family:'Courier New',monospace;
+      font-size:12px; font-weight:bold; cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    #input-rayar .btn-enviar-rayar:hover { transform:scale(1.05); }
+    #input-rayar .btn-cerrar-rayar {
+      position:absolute; top:8px; right:12px;
+      background:none; border:none; color:#666;
+      font-size:16px; cursor:pointer; font-family:inherit;
+    }
+    #input-rayar .btn-cerrar-rayar:hover { color:#ff6b35; }
 
     /* ===== PANEL DE CITA ===== */
     #panel-cita {
@@ -194,7 +226,7 @@
     }
     #mensaje-cita .btn-cerrar-mensaje:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,107,53,0.3); }
 
-    /* ===== OVERLAY DE MUERTE (interrumpe) ===== */
+    /* ===== OVERLAY DE MUERTE ===== */
     #overlay-muerte {
       position:fixed; top:0; left:0; width:100%; height:100%;
       z-index:300; background:rgba(0,0,0,0.92);
@@ -209,29 +241,16 @@
       background:rgba(10,10,10,0.95);
       box-shadow:0 0 80px rgba(255,23,68,0.2);
     }
-    #overlay-muerte .simbolo {
-      font-size:64px; margin-bottom:20px;
-      animation:parpadeo 2s infinite;
-    }
-    #overlay-muerte .titulo {
-      color:#ff1744; font-size:28px; font-weight:bold;
-      letter-spacing:4px; text-transform:uppercase;
-      margin-bottom:15px;
-    }
-    #overlay-muerte .texto {
-      color:#aaa; font-size:16px; line-height:1.8;
-      margin-bottom:25px;
-    }
+    #overlay-muerte .simbolo { font-size:64px; margin-bottom:20px; animation:parpadeo 2s infinite; }
+    #overlay-muerte .titulo { color:#ff1744; font-size:28px; font-weight:bold; letter-spacing:4px; text-transform:uppercase; margin-bottom:15px; }
+    #overlay-muerte .texto { color:#aaa; font-size:16px; line-height:1.8; margin-bottom:25px; }
     #overlay-muerte .btn-revivir {
-      padding:12px 35px; background:#ff6b35; color:#0a0a0a;
-      border:none; border-radius:30px; font-family:'Courier New',monospace;
+      padding:12px 35px; background:#ff6b35; color:#0a0a0a; border:none;
+      border-radius:30px; font-family:'Courier New',monospace;
       font-size:14px; font-weight:bold; cursor:pointer;
-      transition:all 0.3s ease; text-transform:uppercase;
-      letter-spacing:2px;
+      transition:all 0.3s ease; text-transform:uppercase; letter-spacing:2px;
     }
-    #overlay-muerte .btn-revivir:hover {
-      transform:scale(1.05); box-shadow:0 0 40px rgba(255,107,53,0.4);
-    }
+    #overlay-muerte .btn-revivir:hover { transform:scale(1.05); box-shadow:0 0 40px rgba(255,107,53,0.4); }
     #overlay-muerte .btn-cerrar-muerte {
       position:absolute; top:20px; right:30px;
       background:none; border:none; color:#666;
@@ -240,15 +259,47 @@
     }
     #overlay-muerte .btn-cerrar-muerte:hover { color:#ff1744; }
 
+    /* ===== OVERLAY DE RENACIMIENTO ===== */
+    #overlay-renacimiento {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      z-index:280; background:rgba(0,0,0,0.85);
+      display:none; justify-content:center; align-items:center;
+      backdrop-filter:blur(5px);
+      animation:fadeIn 0.8s ease;
+    }
+    #overlay-renacimiento.visible { display:flex; }
+    #overlay-renacimiento .contenido {
+      text-align:center; max-width:600px; padding:40px;
+      border:2px solid #ff6b35; border-radius:20px;
+      background:rgba(10,10,10,0.95);
+      box-shadow:0 0 80px rgba(255,107,53,0.3);
+      animation:luzPulso 2s infinite;
+    }
+    @keyframes luzPulso {
+      0%,100%{box-shadow:0 0 40px rgba(255,107,53,0.2);}
+      50%{box-shadow:0 0 80px rgba(255,107,53,0.5);}
+    }
+    #overlay-renacimiento .simbolo { font-size:64px; margin-bottom:20px; }
+    #overlay-renacimiento .titulo { color:#ff6b35; font-size:28px; font-weight:bold; letter-spacing:4px; text-transform:uppercase; margin-bottom:15px; }
+    #overlay-renacimiento .texto { color:#ccc; font-size:16px; line-height:1.8; margin-bottom:20px; }
+    #overlay-renacimiento .btn-cerrar-renacimiento {
+      padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none;
+      border-radius:30px; font-family:'Courier New',monospace;
+      font-size:13px; font-weight:bold; cursor:pointer;
+      transition:all 0.3s ease; text-transform:uppercase; letter-spacing:2px;
+    }
+    #overlay-renacimiento .btn-cerrar-renacimiento:hover { transform:scale(1.05); }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width:768px) {
       #panel-instrucciones { font-size:11px; padding:18px 16px; max-width:95%; }
       #estado { font-size:9px; padding:10px 12px; min-width:120px; top:70px; right:10px; }
       #btn-regreso { font-size:11px; padding:6px 12px; top:10px; left:10px; }
-      #btn-sembrar, #btn-cita { font-size:11px; padding:8px 16px; }
+      #btn-sembrar, #btn-rayar { font-size:11px; padding:8px 16px; }
       #btn-sembrar { bottom:80px; }
-      #btn-cita { bottom:130px; }
+      #btn-rayar { bottom:130px; }
       #btn-instrucciones { bottom:190px; font-size:9px; padding:4px 12px; }
+      #input-rayar { bottom:220px; max-width:95%; }
       #panel-cita { padding:20px 18px; max-width:95%; }
       #panel-cita .texto { font-size:15px; }
       #panel-cita .botones-compartir a { font-size:10px; padding:6px 12px; }
@@ -257,6 +308,8 @@
       #overlay-muerte .titulo { font-size:20px; }
       #overlay-muerte .texto { font-size:14px; }
       #overlay-muerte .simbolo { font-size:48px; }
+      #overlay-renacimiento .titulo { font-size:20px; }
+      #overlay-renacimiento .texto { font-size:14px; }
     }
   </style>
 </head>
@@ -274,11 +327,12 @@
     <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
     <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
     <div>PARTÍCULAS: <span id="particulas" class="valor">0</span></div>
-    <div class="tiempo-restante">TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
+    <div class="tiempo-restante">⏳ TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
     <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">💀 MUERTO</div>
     <div class="contador-compartido">SEMBRADO: <span id="veces-compartido">0</span>/5</div>
+    <div style="color:#888; font-size:10px; margin-top:2px;"><span id="contador-mensajes">0</span> mensajes</div>
   </div>
 
   <!-- ===== PANEL DE INSTRUCCIONES ===== -->
@@ -286,13 +340,13 @@
     <button id="cerrar-instrucciones">✕</button>
     <h4>CÓMO TRANSITAR EL MONUMENTO</h4>
     <p>
-      <span class="icono"></span> <strong>ACÉRCATE</strong> a cada columna<br>
-      <span class="icono"></span> Cada pilar <strong>suena distinto</strong> según tu distancia<br>
-      <span class="icono"></span> Al hacer clic en un pilar, <strong>descargarás su ensayo en PDF</strong><br>
-      <span class="icono"></span> <strong>"SEMBRAR CULTURA"</strong> genera una cita para compartir en redes<br>
-      <span class="icono"></span> <strong>"CITA BRUTALISTA"</strong> muestra un fragmento aleatorio<br>
-      <span class="icono">⚠️</span> Si nadie visita en 24h, <strong>TODOS los ensayos se corrompen</strong><br>
-      <span class="icono">🔓</span> Comparte <strong>5 veces</strong> para restaurar la memoria completa
+      <span class="icono"></span> <strong>ACÉRCATE</strong> a las columnas para escucharlas<br>
+      <span class="icono"></span> Haz clic en una columna para <strong>descargar su ensayo</strong><br>
+      <span class="icono"></span> <strong>"SEMBRAR CULTURA"</strong> genera una cita para compartir<br>
+      <span class="icono"></span> <strong>"RAYAR EL ARCHIVO"</strong> deja un mensaje anónimo flotante<br>
+      <span class="icono"></span> Las huellas <strong>consumen</strong> vida / Las siembras <strong>reparan</strong><br>
+      <span class="icono"></span> Si llega a 0 partículas, <strong>el archivo muere</strong><br>
+      <span class="icono"></span> Comparte <strong>5 citas</strong> para <strong>renacer</strong> el archivo
     </p>
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">🎧 Usa auriculares para mejor experiencia</p>
   </div>
@@ -302,15 +356,22 @@
 
   <!-- ===== BOTONES DE ACCIÓN ===== -->
   <button id="btn-sembrar" class="btn-accion">SEMBRAR CULTURA</button>
-  <button id="btn-cita" class="btn-accion">CITA BRUTALISTA</button>
+  <button id="btn-rayar" class="btn-accion">RAYAR EL ARCHIVO</button>
+
+  <!-- ===== INPUT PARA RAYAR ===== -->
+  <div id="input-rayar">
+    <button class="btn-cerrar-rayar" id="cerrar-rayar">✕</button>
+    <textarea id="mensaje-rayar" placeholder="Escribe tu mensaje... (máx 140 caracteres)" maxlength="140"></textarea>
+    <button class="btn-enviar-rayar" id="enviar-rayar">RAYAR</button>
+  </div>
 
   <!-- ===== PANEL DE CITA ===== -->
   <div id="panel-cita">
     <button id="cerrar-cita">✕</button>
     <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ FRAGMENTO DEL MONUMENTO ✦</div>
-    <div class="texto" id="cita-texto">"La cultura se siembra, no se torrentea."</div>
+    <div class="texto" id="cita-texto">"La cultura se siembra"</div>
     <div class="autor" id="cita-autor">— Monumento Sonoro</div>
-    <div id="contador-compartido-panel">Compartido: <span id="veces-compartido-panel">0</span>/5</div>
+    <div id="contador-compartido-panel">Semillas: <span id="veces-compartido-panel">0</span>/5</div>
     <div class="compartir-titulo">COMPARTE PARA SEMBRAR</div>
     <div class="botones-compartir" id="botones-compartir"></div>
   </div>
@@ -324,18 +385,32 @@
     <button class="btn-cerrar-mensaje" id="cerrar-mensaje-cita">✕ ENTRAR AL MONUMENTO</button>
   </div>
 
-  <!-- ===== OVERLAY DE MUERTE (interrumpe) ===== -->
+  <!-- ===== OVERLAY DE MUERTE ===== -->
   <div id="overlay-muerte">
     <button class="btn-cerrar-muerte" id="cerrar-overlay-muerte">✕</button>
     <div class="contenido">
       <div class="simbolo">💀</div>
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
       <div class="texto">
-        El silencio ha llegado. Las columnas se han agrietado.<br>
-        Los sonidos se han apagado. La memoria se ha corrompido.<br><br>
-        <strong>Deja una huella para revivirlo.</strong>
+        El silencio ha llegado<br>
+       La memoria se ha corrompido.<br><br>
+        <strong>Deja una huella o siembra cultura para revivirlo.</strong>
       </div>
       <button class="btn-revivir" id="btn-revivir">DEJAR HUELLA</button>
+    </div>
+  </div>
+
+  <!-- ===== OVERLAY DE RENACIMIENTO ===== -->
+  <div id="overlay-renacimiento">
+    <div class="contenido">
+      <div class="simbolo"></div>
+      <div class="titulo">EL ARCHIVO HA RENACIDO</div>
+      <div class="texto">
+       <br>
+        <br>
+        La memoria ha sido restaurada.
+      </div>
+      <button class="btn-cerrar-renacimiento" id="cerrar-renacimiento">✕ ENTRAR</button>
     </div>
   </div>
 
@@ -358,10 +433,10 @@
     // 0. FIREBASE IMPORTS (CDN)
     // ============================================================
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
-    import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+    import { getDatabase, ref, get, set, update, onValue, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
     // ============================================================
-    // FIREBASE CONFIG (copia exacta de tu consola)
+    // FIREBASE CONFIG
     // ============================================================
     const firebaseConfig = {
       apiKey: "AIzaSyD7UF2aM9q3-xN-VmEIgKOJsP88PiP0AwI",
@@ -373,7 +448,6 @@
       appId: "1:68225402050:web:e241cd5caa7a4c51d5675b"
     };
 
-    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const dbRef = ref(db, 'monumento');
@@ -467,7 +541,8 @@
       corrompido: false,
       muerto: false,
       ultimaVisita: null,
-      ultimaActualizacion: Date.now()
+      ultimaActualizacion: Date.now(),
+      mensajes: []
     };
 
     async function cargarEstadoGlobal() {
@@ -483,6 +558,7 @@
           ESTADO.muerto = data.muerto || false;
           ESTADO.ultimaVisita = data.ultimaVisita || Date.now();
           ESTADO.vecesCompartido = data.vecesCompartido || 0;
+          ESTADO.mensajes = data.mensajes || [];
         } else {
           await set(dbRef, {
             huellas: 0,
@@ -492,7 +568,8 @@
             corrompido: false,
             muerto: false,
             ultimaVisita: Date.now(),
-            vecesCompartido: 0
+            vecesCompartido: 0,
+            mensajes: []
           });
         }
       } catch (error) {
@@ -511,11 +588,22 @@
           corrompido: ESTADO.corrompido,
           muerto: ESTADO.muerto,
           ultimaVisita: ESTADO.ultimaVisita,
-          vecesCompartido: ESTADO.vecesCompartido
+          vecesCompartido: ESTADO.vecesCompartido,
+          mensajes: ESTADO.mensajes
         });
       } catch (error) {
         console.error('Error guardando en Firebase:', error);
       }
+    }
+
+    async function agregarMensaje(texto) {
+      if (!texto || texto.trim() === '') return;
+      const mensaje = texto.trim().substring(0, 140);
+      ESTADO.mensajes.push(mensaje);
+      await guardarEstadoGlobal();
+      // Crear fragmento flotante en 3D
+      crearMensajeFlotante(mensaje);
+      actualizarUI();
     }
 
     function escucharCambiosGlobales() {
@@ -523,6 +611,8 @@
         const data = snapshot.val();
         if (data) {
           const oldHuellas = ESTADO.huellas;
+          const oldMensajes = ESTADO.mensajes.length;
+          
           ESTADO.huellas = data.huellas || 0;
           ESTADO.siembras = data.siembras || 0;
           ESTADO.visitas = data.visitas || 0;
@@ -531,12 +621,31 @@
           ESTADO.muerto = data.muerto || false;
           ESTADO.ultimaVisita = data.ultimaVisita || Date.now();
           ESTADO.vecesCompartido = data.vecesCompartido || 0;
+          ESTADO.mensajes = data.mensajes || [];
           
+          // Si hay nuevos mensajes, crear fragmentos 3D
+          if (data.mensajes && data.mensajes.length > oldMensajes) {
+            const nuevoMensaje = data.mensajes[data.mensajes.length - 1];
+            crearMensajeFlotante(nuevoMensaje);
+          }
+          
+          // Si alguien dejó una huella, crear partícula visual
           if (data.huellas > oldHuellas) {
             const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
             if (col) crearHuella(col.label, col.color);
           }
+          
           actualizarUI();
+          
+          // Si el archivo ha muerto en Firebase, mostrar overlay
+          if (data.muerto && !ESTADO.muerto) {
+            mostrarOverlayMuerte();
+          }
+          
+          // Si el archivo ha renacido en Firebase (integridad 100 y no muerto)
+          if (data.integridad === 100 && !data.muerto && ESTADO.muerto) {
+            mostrarOverlayRenacimiento();
+          }
         }
       }, (error) => {
         console.error('Error en escucha Firebase:', error);
@@ -551,8 +660,7 @@
     }
 
     function calcularTiempoRestante() {
-      const particulas = calcularParticulasActivas();
-      return particulas;
+      return calcularParticulasActivas();
     }
 
     function actualizarCorrupcion() {
@@ -578,19 +686,31 @@
       }
 
       const particulas = calcularParticulasActivas();
+      
+      // Actualizar estado de corrupción según partículas
       if (particulas === 0 && !ESTADO.muerto) {
         ESTADO.muerto = true;
         ESTADO.corrompido = true;
         ESTADO.integridad = 0;
         guardarEstadoGlobal();
         mostrarOverlayMuerte();
+        // Limpiar fragmentos 3D
+        limpiarMensajesFlotantes();
       } else if (particulas > 0 && ESTADO.muerto) {
         ESTADO.muerto = false;
         ESTADO.corrompido = false;
         ESTADO.integridad = Math.min(100, ESTADO.integridad + 20);
         guardarEstadoGlobal();
         ocultarOverlayMuerte();
-        animarRenacimiento();
+        animarRenacimientoVisual();
+      } else if (particulas > 0 && particulas < 5) {
+        ESTADO.corrompido = true;
+        ESTADO.integridad = Math.max(10, particulas * 10);
+        guardarEstadoGlobal();
+      } else if (particulas >= 5) {
+        ESTADO.corrompido = false;
+        ESTADO.integridad = Math.min(100, 30 + particulas * 5);
+        guardarEstadoGlobal();
       }
 
       actualizarUI();
@@ -606,6 +726,22 @@
     function mostrarOverlayMuerte() {
       overlayMuerte.classList.add('visible');
       document.getElementById('estado-muerto').style.display = 'block';
+      // Reproducir sonido de muerte
+      if (audioContext) {
+        try {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(200, audioContext.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 1);
+          gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.start();
+          osc.stop(audioContext.currentTime + 1);
+        } catch(e) {}
+      }
     }
 
     function ocultarOverlayMuerte() {
@@ -618,20 +754,57 @@
     });
 
     btnRevivir.addEventListener('click', () => {
-      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      crearHuella(col.label, col.color);
-      ESTADO.huellas += 1;
-      ESTADO.ultimaActualizacion = Date.now();
-      guardarEstadoGlobal();
-      actualizarCorrupcion();
-      ocultarOverlayMuerte();
-      animarRenacimiento();
+      if (ESTADO.muerto) {
+        // Dejar una huella para revivir
+        const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+        crearHuella(col.label, col.color);
+        ESTADO.huellas += 1;
+        ESTADO.ultimaActualizacion = Date.now();
+        guardarEstadoGlobal();
+        actualizarCorrupcion();
+        animarRenacimientoVisual();
+      }
     });
 
     // ============================================================
-    // 8. ANIMACIÓN DE RENACIMIENTO
+    // 8. OVERLAY DE RENACIMIENTO
     // ============================================================
-    function animarRenacimiento() {
+    const overlayRenacimiento = document.getElementById('overlay-renacimiento');
+    const cerrarRenacimiento = document.getElementById('cerrar-renacimiento');
+
+    function mostrarOverlayRenacimiento() {
+      overlayRenacimiento.classList.add('visible');
+      // Sonido de renacimiento
+      if (audioContext) {
+        try {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(200, audioContext.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 2);
+          gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 2);
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.start();
+          osc.stop(audioContext.currentTime + 2);
+        } catch(e) {}
+      }
+    }
+
+    function ocultarOverlayRenacimiento() {
+      overlayRenacimiento.classList.remove('visible');
+    }
+
+    cerrarRenacimiento.addEventListener('click', () => {
+      ocultarOverlayRenacimiento();
+    });
+
+    // ============================================================
+    // 9. ANIMACIÓN DE RENACIMIENTO VISUAL
+    // ============================================================
+    function animarRenacimientoVisual() {
+      // Luz que sube desde el centro
       const luz = new THREE.Mesh(
         new THREE.SphereGeometry(0.1, 8, 8),
         new THREE.MeshBasicMaterial({ color: 0xff6b35, transparent: true, opacity: 1 })
@@ -659,34 +832,74 @@
         }
       }, 50);
 
-      if (audioContext) {
-        try {
-          const osc = audioContext.createOscillator();
-          const gain = audioContext.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(200, audioContext.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 1);
-          gain.gain.setValueAtTime(0.1, audioContext.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-          osc.connect(gain);
-          gain.connect(audioContext.destination);
-          osc.start();
-          osc.stop(audioContext.currentTime + 1);
-        } catch(e) {}
+      // Partículas doradas
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const particula = new THREE.Mesh(
+            new THREE.SphereGeometry(0.03 + Math.random() * 0.03, 4, 4),
+            new THREE.MeshBasicMaterial({ 
+              color: 0xffd700, 
+              transparent: true, 
+              opacity: 0.8 
+            })
+          );
+          const angulo = Math.random() * Math.PI * 2;
+          const radio = 2 + Math.random() * 4;
+          particula.position.set(
+            Math.cos(angulo) * radio,
+            0.5 + Math.random() * 3,
+            Math.sin(angulo) * radio
+          );
+          particula.userData = {
+            velocidad: 0.5 + Math.random() * 0.5,
+            radio: radio,
+            alturaBase: particula.position.y,
+            angulo: angulo
+          };
+          scene.add(particula);
+          // Animar partícula
+          const animarParticula = () => {
+            const data = particula.userData;
+            data.angulo += 0.02 * data.velocidad;
+            const altura = data.alturaBase + Math.sin(Date.now() * 0.001 * data.velocidad) * 0.5;
+            particula.position.x = Math.cos(data.angulo) * data.radio;
+            particula.position.z = Math.sin(data.angulo) * data.radio;
+            particula.position.y = altura;
+            particula.material.opacity -= 0.002;
+            if (particula.material.opacity > 0) {
+              requestAnimationFrame(animarParticula);
+            } else {
+              scene.remove(particula);
+            }
+          };
+          animarParticula();
+        }, i * 100);
       }
     }
 
     // ============================================================
-    // 9. FUNCIONES DE UTILIDAD
+    // 10. FUNCIONES DE UTILIDAD
     // ============================================================
     function corromperTexto(texto, nivel = 0.3) {
       if (!texto) return texto;
+      if (ESTADO.muerto) {
+        // Si está muerto, texto completamente ilegible
+        return texto.split('').map(() => {
+          const chars = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join('');
+      }
+      
       const chars = texto.split('');
       const resultado = [];
-      const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊', '◌', '◍', '◎', '●', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗'];
+      const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
       const letrasRojas = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
+      
+      // Ajustar nivel según integridad
+      const nivelCorrupcion = Math.max(0.1, nivel * (1 - ESTADO.integridad / 100));
+      
       for (let i = 0; i < chars.length; i++) {
-        if (Math.random() < nivel) {
+        if (Math.random() < nivelCorrupcion) {
           if (Math.random() < 0.5) {
             resultado.push(caracteresRotos[Math.floor(Math.random() * caracteresRotos.length)]);
           } else {
@@ -704,13 +917,19 @@
       return resultado.join('');
     }
 
-    async function generarPDF(label, corrupto = false) {
+    async function generarPDF(label) {
       const data = TEXTOS_COMPLETOS[label];
       if (!data) return;
       const titulo = data.titulo || label;
       const subtitulo = data.subtitulo || '';
       let cuerpo = data.cuerpo || 'Contenido no disponible.';
-      if (corrupto) { cuerpo = corromperTexto(cuerpo, 0.35); }
+      
+      // Corromper si está muerto o corrupto
+      if (ESTADO.muerto) {
+        cuerpo = '⚠️ EL ARCHIVO HA MUERTO. No hay texto disponible.';
+      } else if (ESTADO.corrompido || ESTADO.integridad < 80) {
+        cuerpo = corromperTexto(cuerpo, 0.4);
+      }
 
       const element = document.createElement('div');
       element.style.padding = '40px';
@@ -726,22 +945,32 @@
           <p style="font-size:12px; color:#666; letter-spacing:2px; text-transform:uppercase;">Archivo de Señal · 39913EM</p>
         </div>
       `;
-      if (corrupto) {
+      
+      if (ESTADO.muerto) {
         html += `
-          <div style="background:#ffebee; border:2px solid #ff1744; padding:15px; border-radius:8px; margin-bottom:20px; text-align:center;">
+          <div style="background:#ffebee; border:2px solid #ff1744; padding:20px; border-radius:8px; margin-bottom:20px; text-align:center;">
+            <span style="font-size:48px;">💀</span>
+            <p style="font-weight:bold; color:#c62828; font-size:20px; margin:10px 0;">EL ARCHIVO HA MUERTO</p>
+            <p style="font-size:14px; color:#666;">El silencio ha llegado. Las columnas se han derrumbado.</p>
+            <p style="font-size:12px; color:#888;">Deja una huella o siembra para revivirlo.</p>
+          </div>
+        `;
+      } else if (ESTADO.corrompido || ESTADO.integridad < 80) {
+        html += `
+          <div style="background:#fff3e0; border:2px solid #ff6b35; padding:15px; border-radius:8px; margin-bottom:20px; text-align:center;">
             <span style="font-size:24px;">⚠️</span>
-            <p style="font-weight:bold; color:#c62828; margin:5px 0;">ESTE ARCHIVO HA SIDO CORROMPIDO</p>
-            <p style="font-size:12px; color:#666;">Comparte el enlace del monumento 5 veces para desbloquear la versión original.</p>
-            <p style="font-size:11px; color:#888;">Compartido: ${ESTADO.vecesCompartido}/5</p>
-            <p style="font-size:11px; color:#888; word-break:break-all;">${window.location.href}</p>
+            <p style="font-weight:bold; color:#e65100; margin:5px 0;">ESTE ARCHIVO ESTÁ CORROMPIDO</p>
+            <p style="font-size:12px; color:#666;">La integridad del archivo es del ${Math.round(ESTADO.integridad)}%. Comparte 5 citas para restaurarlo.</p>
+            <p style="font-size:11px; color:#888;">Semillas: ${ESTADO.vecesCompartido}/5</p>
           </div>
         `;
       }
+
       html += `
         <div style="margin-bottom:20px;">
           <h2 style="font-size:22px; margin:0 0 5px;">${titulo}</h2>
           ${subtitulo ? `<p style="font-size:16px; color:#555; font-style:italic; margin:0 0 10px;">${subtitulo}</p>` : ''}
-          <p style="font-size:12px; color:#999;">${label} · ${corrupto ? '🔒 VERSIÓN CORRUPTA' : 'VERSIÓN ORIGINAL'}</p>
+          <p style="font-size:12px; color:#999;">${label} · ${ESTADO.muerto ? '💀 MUERTO' : ESTADO.corrompido ? '🔒 CORRUPTO' : '📄 ORIGINAL'}</p>
         </div>
         <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">${cuerpo}</div>
         <div style="margin-top:30px; border-top:1px solid #ddd; padding-top:15px; text-align:center; font-size:11px; color:#999;">
@@ -753,7 +982,7 @@
       try {
         await html2pdf().set({
           margin: 10,
-          filename: `${label.toLowerCase().replace(/\s+/g, '_')}_${corrupto ? 'corrupto' : 'original'}.pdf`,
+          filename: `${label.toLowerCase().replace(/\s+/g, '_')}_${ESTADO.muerto ? 'muerto' : ESTADO.corrompido ? 'corrupto' : 'original'}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2, useCORS: true },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -874,7 +1103,7 @@
     }
 
     // ============================================================
-    // 10. ACTUALIZAR UI
+    // 11. ACTUALIZAR UI
     // ============================================================
     function actualizarUI() {
       const particulas = calcularParticulasActivas();
@@ -888,13 +1117,14 @@
       document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
       document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
       document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+      document.getElementById('contador-mensajes').textContent = ESTADO.mensajes.length;
 
       if (ESTADO.muerto) {
         document.getElementById('estado-muerto').style.display = 'block';
         document.getElementById('alerta-corrupcion').style.display = 'none';
         document.getElementById('integridad').style.color = '#ff1744';
         document.getElementById('estado').classList.add('alerta');
-      } else if (ESTADO.corrompido || ESTADO.integridad < 100) {
+      } else if (ESTADO.corrompido || ESTADO.integridad < 80) {
         document.getElementById('alerta-corrupcion').style.display = 'block';
         document.getElementById('estado-muerto').style.display = 'none';
         document.getElementById('integridad').style.color = '#ff1744';
@@ -907,7 +1137,7 @@
       }
 
       const btnSembrar = document.getElementById('btn-sembrar');
-      if (ESTADO.integridad < 100 || ESTADO.vecesCompartido < 5) {
+      if (ESTADO.muerto || ESTADO.vecesCompartido < 5) {
         btnSembrar.style.display = 'block';
       } else {
         btnSembrar.style.display = 'none';
@@ -915,7 +1145,7 @@
     }
 
     // ============================================================
-    // 11. THREE.JS - ESCENA
+    // 12. THREE.JS - ESCENA
     // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
@@ -940,7 +1170,7 @@
     controls.update();
 
     // ============================================================
-    // 12. LUCES
+    // 13. LUCES
     // ============================================================
     const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
     scene.add(ambientLight);
@@ -956,7 +1186,7 @@
     scene.add(fillLight);
 
     // ============================================================
-    // 13. PERSONAJE GUARDIÁN
+    // 14. PERSONAJE GUARDIÁN
     // ============================================================
     function crearPersonaje() {
       const group = new THREE.Group();
@@ -997,7 +1227,7 @@
     scene.add(guardian);
 
     // ============================================================
-    // 14. COLUMNAS
+    // 15. COLUMNAS
     // ============================================================
     const columnas = [];
     const datosColumna = [
@@ -1018,6 +1248,11 @@
       group.add(base);
 
       let columnaMesh;
+      let grietas = [];
+      let cubos = [];
+      let anillos = [];
+      let fragmentos = [];
+
       switch(forma) {
         case 'cubos':
           const cubosGroup = new THREE.Group();
@@ -1035,7 +1270,9 @@
             cubo.position.z = (Math.random() - 0.5) * 0.5;
             cubo.rotation.y = Math.random() * Math.PI;
             cubo.castShadow = true;
+            cubo.userData = { idx: i, originalY: cubo.position.y };
             cubosGroup.add(cubo);
+            cubos.push(cubo);
           }
           columnaMesh = cubosGroup;
           columnaMesh.position.y = 2.5;
@@ -1056,7 +1293,9 @@
             anillo.rotation.x = Math.PI / 2 + Math.sin(i * 0.3) * 0.2;
             anillo.rotation.z = Math.sin(i * 0.5) * 0.1;
             anillo.castShadow = true;
+            anillo.userData = { idx: i, originalY: anillo.position.y };
             ondasGroup.add(anillo);
+            anillos.push(anillo);
           }
           columnaMesh = ondasGroup;
           columnaMesh.position.y = 2.5;
@@ -1079,34 +1318,31 @@
           superior.rotation.x = 0.05;
           superior.castShadow = true;
           rotaGroup.add(superior);
-          const grietas = [];
-          for (let i = 0; i < 10; i++) {
+          for (let i = 0; i < 12; i++) {
             const grieta = new THREE.Mesh(
-              new THREE.BoxGeometry(0.02, 0.2 + Math.random() * 0.4, 0.02),
+              new THREE.BoxGeometry(0.02, 0.15 + Math.random() * 0.3, 0.02),
               new THREE.MeshStandardMaterial({
-                color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.3 + Math.random() * 0.5
+                color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.2 + Math.random() * 0.3
               })
             );
-            grieta.position.set((Math.random() - 0.5) * 0.7, 1.8 + Math.random() * 2.5, (Math.random() - 0.5) * 0.7);
+            grieta.position.set((Math.random() - 0.5) * 0.7, 1.5 + Math.random() * 3, (Math.random() - 0.5) * 0.7);
             grieta.rotation.z = (Math.random() - 0.5) * 0.3;
             grieta.rotation.x = (Math.random() - 0.5) * 0.3;
             rotaGroup.add(grieta);
             grietas.push(grieta);
           }
-          rotaGroup.userData.grietas = grietas;
           columnaMesh = rotaGroup;
           columnaMesh.position.y = 0;
           break;
         case 'flotante':
           const flotanteGroup = new THREE.Group();
-          const fragmentos = [];
           for (let i = 0; i < 25; i++) {
             const fragmento = new THREE.Mesh(
-              new THREE.OctahedronGeometry(0.1 + Math.random() * 0.15),
+              new THREE.OctahedronGeometry(0.08 + Math.random() * 0.12),
               new THREE.MeshStandardMaterial({
                 color: color, roughness: 0.2, metalness: 0.8,
                 emissive: color, emissiveIntensity: 0.1,
-                transparent: true, opacity: 0.7 + Math.random() * 0.3
+                transparent: true, opacity: 0.6 + Math.random() * 0.4
               })
             );
             const angulo = Math.random() * Math.PI * 2;
@@ -1124,13 +1360,27 @@
             flotanteGroup.add(fragmento);
             fragmentos.push(fragmento);
           }
-          flotanteGroup.userData.fragmentos = fragmentos;
           columnaMesh = flotanteGroup;
           columnaMesh.position.y = 0.5;
           break;
       }
       group.add(columnaMesh);
 
+      // Guardar referencias para animación
+      group.userData = { 
+        label, color, forma, 
+        mesh: columnaMesh, 
+        originalY: 0,
+        cubos: cubos,
+        anillos: anillos,
+        grietas: grietas,
+        fragmentos: fragmentos,
+        // Referencia a los elementos internos para corrupción
+        inferior: columnaMesh.children ? columnaMesh.children.find(c => c.isMesh && c.geometry.type === 'CylinderGeometry' && c.position.y === 1.3) : null,
+        superior: columnaMesh.children ? columnaMesh.children.find(c => c.isMesh && c.geometry.type === 'CylinderGeometry' && c.position.y === 3.5) : null
+      };
+
+      // Etiqueta
       const canvas = document.createElement('canvas');
       canvas.width = 256;
       canvas.height = 80;
@@ -1161,7 +1411,6 @@
 
       const pos = datosColumna.find(d => d.label === label);
       group.position.set(pos.x, 0, pos.z);
-      group.userData = { label, color, forma, mesh: columnaMesh, originalY: 0 };
       return group;
     }
 
@@ -1172,7 +1421,7 @@
     });
 
     // ============================================================
-    // 15. SUELO
+    // 16. SUELO
     // ============================================================
     const suelo = new THREE.Mesh(
       new THREE.PlaneGeometry(16, 14),
@@ -1195,7 +1444,7 @@
     scene.add(circulo);
 
     // ============================================================
-    // 16. PARTÍCULAS DE HUELLAS
+    // 17. PARTÍCULAS DE HUELLAS
     // ============================================================
     const huellasParticulas = [];
 
@@ -1246,7 +1495,98 @@
     }
 
     // ============================================================
-    // 17. SISTEMA DE SONIDO CON INTERACCIONES
+    // 18. MENSAJES FLOTANTES (intervenciones)
+    // ============================================================
+    const mensajesFlotantes = [];
+
+    function crearMensajeFlotante(texto) {
+      // Crear un canvas con el texto
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 512;
+      canvas.height = 128;
+      
+      ctx.fillStyle = 'rgba(0,0,0,0)';
+      ctx.fillRect(0, 0, 512, 128);
+      
+      ctx.font = '24px "Courier New", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#ff6b35';
+      ctx.shadowColor = 'rgba(255,107,53,0.5)';
+      ctx.shadowBlur = 20;
+      
+      // Dividir texto largo
+      const palabras = texto.split(' ');
+      let lineas = [];
+      let lineaActual = '';
+      for (const palabra of palabras) {
+        if ((lineaActual + ' ' + palabra).length < 30) {
+          lineaActual += (lineaActual ? ' ' : '') + palabra;
+        } else {
+          if (lineaActual) lineas.push(lineaActual);
+          lineaActual = palabra;
+        }
+      }
+      if (lineaActual) lineas.push(lineaActual);
+      
+      const lineHeight = 30;
+      const startY = 64 - ((lineas.length - 1) * lineHeight) / 2;
+      lineas.forEach((linea, i) => {
+        ctx.fillText(linea, 256, startY + i * lineHeight);
+      });
+      
+      const texture = new THREE.CanvasTexture(canvas);
+      const material = new THREE.SpriteMaterial({ 
+        map: texture, 
+        transparent: true, 
+        opacity: 0.8,
+        depthTest: false
+      });
+      const sprite = new THREE.Sprite(material);
+      
+      // Posición aleatoria en el espacio
+      const angulo = Math.random() * Math.PI * 2;
+      const radio = 1.5 + Math.random() * 3;
+      sprite.position.set(
+        Math.cos(angulo) * radio,
+        1 + Math.random() * 3,
+        Math.sin(angulo) * radio
+      );
+      sprite.scale.set(3, 0.75, 1);
+      
+      sprite.userData = {
+        velocidad: 0.1 + Math.random() * 0.2,
+        offset: Math.random() * Math.PI * 2,
+        radio: radio,
+        alturaBase: sprite.position.y,
+        angulo: angulo,
+        texto: texto,
+        id: Date.now() + Math.random()
+      };
+      
+      scene.add(sprite);
+      mensajesFlotantes.push(sprite);
+      return sprite;
+    }
+
+    function limpiarMensajesFlotantes() {
+      mensajesFlotantes.forEach(sprite => {
+        scene.remove(sprite);
+      });
+      mensajesFlotantes.length = 0;
+    }
+
+    function cargarMensajesGuardados() {
+      if (ESTADO.mensajes && ESTADO.mensajes.length > 0) {
+        ESTADO.mensajes.forEach(texto => {
+          crearMensajeFlotante(texto);
+        });
+      }
+    }
+
+    // ============================================================
+    // 19. SISTEMA DE SONIDO CON INTERACCIONES
     // ============================================================
     let audioContext = null;
     let osciladores = [];
@@ -1277,10 +1617,15 @@
     }
 
     function playPop() { playSound([800, 1200], 'sine', 0.2, 0.08); }
-    function playHum() { playSound([200], 'sine', 0.5, 0.04); }
-    function playDing() { playSound([1000, 1500], 'sine', 0.3, 0.06); }
     function playPageTurn() { playSound([300, 500], 'sawtooth', 0.2, 0.04); }
-    function playBoom() { playSound([100, 50], 'sine', 0.6, 0.1); }
+    function playRenacimiento() { 
+      // Acorde ascendente
+      playSound([200, 400, 600, 800, 1000], 'sine', 1.5, 0.08);
+      // Añadir un tono extra
+      setTimeout(() => {
+        playSound([1200, 1500], 'sine', 0.5, 0.04);
+      }, 500);
+    }
 
     function playSoundByProximity(columnLabel, distance) {
       if (!audioContext || ESTADO.muerto) return;
@@ -1293,6 +1638,8 @@
 
       let frecuencias = [];
       let tipo = 'sine';
+      const nivelCorrupcion = ESTADO.corrompido ? 0.3 : 0;
+      
       switch(columnLabel) {
         case 'DATOS MASIVOS':
           frecuencias = [80, 120, 160, 200, 240];
@@ -1318,7 +1665,7 @@
         const osc = audioContext.createOscillator();
         const gain = audioContext.createGain();
         osc.type = tipo;
-        const desviacion = ESTADO.corrompido ? 0.1 : 0.02;
+        const desviacion = ESTADO.corrompido ? 0.1 + nivelCorrupcion : 0.02;
         osc.frequency.value = freq * (1 + (Math.random() - 0.5) * desviacion);
         gain.gain.value = volume * 0.06 / frecuencias.length;
         osc.connect(gain);
@@ -1345,7 +1692,7 @@
     }
 
     // ============================================================
-    // 18. INTERACCIÓN CON COLUMNAS (click para PDF)
+    // 20. INTERACCIÓN CON COLUMNAS (click para PDF)
     // ============================================================
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -1357,25 +1704,26 @@
 
     renderer.domElement.addEventListener('click', async (event) => {
       if (!audioContext) initAudio();
+      
+      // Si está muerto, mostrar overlay
       if (ESTADO.muerto) {
         mostrarOverlayMuerte();
         return;
       }
+      
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(columnas, true);
       if (intersects.length > 0) {
         let col = intersects[0].object;
         while (col.parent && !col.userData.label) { col = col.parent; }
         if (col.userData.label) {
-          const label = col.userData.label;
-          const corrupto = ESTADO.corrompido || ESTADO.integridad < 100;
-          await generarPDF(label, corrupto);
+          await generarPDF(col.userData.label);
         }
       }
     });
 
     // ============================================================
-    // 19. INTERACCIÓN CON PARTÍCULAS (doble click = explosión)
+    // 21. INTERACCIÓN CON PARTÍCULAS (click = consumir vida)
     // ============================================================
     renderer.domElement.addEventListener('dblclick', (event) => {
       if (ESTADO.muerto) return;
@@ -1386,17 +1734,26 @@
       const intersects = raycaster.intersectObjects(huellasParticulas);
       if (intersects.length > 0) {
         const particula = intersects[0].object;
+        // Consumir la huella (reduce vida)
         playPop();
         const color = particula.material.color.getHex();
         const pos = particula.position.clone();
-        for (let i = 0; i < 5; i++) {
+        
+        // Efecto de explosión
+        for (let i = 0; i < 8; i++) {
           const peque = new THREE.Mesh(
             new THREE.SphereGeometry(0.02, 4, 4),
-            new THREE.MeshStandardMaterial({ color: color, emissive: color, emissiveIntensity: 0.5, transparent: true, opacity: 0.8 })
+            new THREE.MeshStandardMaterial({ 
+              color: color, 
+              emissive: color, 
+              emissiveIntensity: 0.5, 
+              transparent: true, 
+              opacity: 0.8 
+            })
           );
           peque.position.copy(pos);
           peque.userData = {
-            velocidad: 0.02 + Math.random() * 0.03,
+            velocidad: 0.02 + Math.random() * 0.04,
             direccion: new THREE.Vector3(
               (Math.random() - 0.5) * 2,
               Math.random() * 2,
@@ -1415,21 +1772,25 @@
           };
           animarExplosion();
         }
+        
+        // Eliminar la partícula y reducir vida
         eliminarHuella(particula);
         ESTADO.huellas -= 1;
+        // Reducir integridad (consumir vida)
+        ESTADO.integridad = Math.max(0, ESTADO.integridad - 5);
+        ESTADO.ultimaActualizacion = Date.now();
         guardarEstadoGlobal();
         actualizarCorrupcion();
       }
     });
 
     // ============================================================
-    // 20. PANEL DE CITA Y COMPARTIR
+    // 22. PANEL DE CITA Y COMPARTIR (unificado)
     // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
     const citaAutor = document.getElementById('cita-autor');
     const botonesCompartir = document.getElementById('botones-compartir');
-    const btnCita = document.getElementById('btn-cita');
     const btnSembrar = document.getElementById('btn-sembrar');
     const cerrarCita = document.getElementById('cerrar-cita');
 
@@ -1441,21 +1802,62 @@
     }
 
     function registrarCompartido() {
-      if (ESTADO.vecesCompartido >= 5) return;
+      if (ESTADO.muerto) {
+        mostrarOverlayMuerte();
+        return;
+      }
+      
+      if (ESTADO.vecesCompartido >= 5) {
+        // Ya está completo, mostrar mensaje
+        return;
+      }
+      
       ESTADO.vecesCompartido += 1;
-      guardarEstadoGlobal();
-      actualizarUI();
+      
+      // Si llega a 5, activar renacimiento
       if (ESTADO.vecesCompartido >= 5) {
         ESTADO.integridad = 100;
         ESTADO.corrompido = false;
         ESTADO.muerto = false;
         guardarEstadoGlobal();
         actualizarUI();
-        document.getElementById('panel-cita').style.borderColor = '#00e676';
+        ocultarOverlayMuerte();
+        mostrarOverlayRenacimiento();
+        animarRenacimientoVisual();
+        playRenacimiento();
+        // Poner el contador en 0 para reiniciar el ciclo
+        ESTADO.vecesCompartido = 0;
+        guardarEstadoGlobal();
+        actualizarUI();
+        // Actualizar el panel
+        document.getElementById('panel-cita').style.borderColor = '#ffd700';
         setTimeout(() => {
           document.getElementById('panel-cita').style.borderColor = '#ff6b35';
         }, 3000);
-        ocultarOverlayMuerte();
+      } else {
+        guardarEstadoGlobal();
+        actualizarUI();
+        // Efecto visual de siembra
+        const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+        const color = col.color;
+        const frag = new THREE.Mesh(
+          new THREE.BoxGeometry(0.2 + Math.random() * 0.15, 0.05, 0.2 + Math.random() * 0.15),
+          new THREE.MeshStandardMaterial({
+            color: 0xffd700,
+            emissive: 0xffd700,
+            emissiveIntensity: 0.3,
+            transparent: true,
+            opacity: 0.8
+          })
+        );
+        const angulo = Math.random() * Math.PI * 2;
+        const radio = 1 + Math.random() * 3;
+        frag.position.set(Math.cos(angulo) * radio, 2 + Math.random() * 2, Math.sin(angulo) * radio);
+        scene.add(frag);
+        setTimeout(() => {
+          scene.remove(frag);
+        }, 2000);
+        playPageTurn();
       }
     }
 
@@ -1490,7 +1892,9 @@
         enlace.target = '_blank';
         enlace.rel = 'noopener noreferrer';
         enlace.textContent = red.label;
-        enlace.addEventListener('click', () => { registrarCompartido(); });
+        enlace.addEventListener('click', (e) => {
+          registrarCompartido();
+        });
         botonesCompartir.appendChild(enlace);
       });
 
@@ -1512,48 +1916,20 @@
       document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
     }
 
-    btnCita.addEventListener('click', async () => {
-      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
-      const cita = generarCitaAleatoria();
-      await generarBotonesCompartir(cita.texto, cita.autor);
-      panelCita.classList.add('visible');
-    });
-
     btnSembrar.addEventListener('click', async () => {
-      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
+      if (ESTADO.muerto) { 
+        mostrarOverlayMuerte(); 
+        return; 
+      }
+      
+      // Si ya tiene 5 semillas, no hacer nada
+      if (ESTADO.vecesCompartido >= 5) {
+        return;
+      }
+      
       const cita = generarCitaAleatoria();
       await generarBotonesCompartir(cita.texto, cita.autor);
       panelCita.classList.add('visible');
-      ESTADO.siembras += 1;
-      guardarEstadoGlobal();
-      actualizarUI();
-      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      const color = col.color;
-      const frag = new THREE.Mesh(
-        new THREE.BoxGeometry(0.3 + Math.random() * 0.2, 0.05, 0.3 + Math.random() * 0.2),
-        new THREE.MeshStandardMaterial({
-          color: color,
-          emissive: color,
-          emissiveIntensity: 0.2,
-          transparent: true,
-          opacity: 0.6
-        })
-      );
-      const angulo = Math.random() * Math.PI * 2;
-      const radio = 1 + Math.random() * 3;
-      frag.position.set(Math.cos(angulo) * radio, 2 + Math.random() * 2, Math.sin(angulo) * radio);
-      frag.userData = {
-        velocidad: 0.1 + Math.random() * 0.2,
-        offset: Math.random() * Math.PI * 2,
-        radio: radio,
-        alturaBase: frag.position.y,
-        angulo: angulo
-      };
-      scene.add(frag);
-      setTimeout(() => {
-        scene.remove(frag);
-      }, 30000);
-      playPageTurn();
     });
 
     cerrarCita.addEventListener('click', () => { panelCita.classList.remove('visible'); });
@@ -1562,7 +1938,48 @@
     });
 
     // ============================================================
-    // 21. MENSAJE FLOTANTE DESDE CITA
+    // 23. INPUT PARA RAYAR EL ARCHIVO
+    // ============================================================
+    const inputRayar = document.getElementById('input-rayar');
+    const btnRayar = document.getElementById('btn-rayar');
+    const cerrarRayar = document.getElementById('cerrar-rayar');
+    const enviarRayar = document.getElementById('enviar-rayar');
+    const mensajeRayar = document.getElementById('mensaje-rayar');
+
+    btnRayar.addEventListener('click', () => {
+      if (ESTADO.muerto) {
+        mostrarOverlayMuerte();
+        return;
+      }
+      inputRayar.classList.toggle('visible');
+      if (inputRayar.classList.contains('visible')) {
+        mensajeRayar.focus();
+      }
+    });
+
+    cerrarRayar.addEventListener('click', () => {
+      inputRayar.classList.remove('visible');
+    });
+
+    enviarRayar.addEventListener('click', async () => {
+      const texto = mensajeRayar.value.trim();
+      if (texto === '') return;
+      await agregarMensaje(texto);
+      mensajeRayar.value = '';
+      inputRayar.classList.remove('visible');
+      // Efecto sonoro
+      playPageTurn();
+    });
+
+    mensajeRayar.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        enviarRayar.click();
+      }
+    });
+
+    // ============================================================
+    // 24. MENSAJE FLOTANTE DESDE CITA
     // ============================================================
     const mensajeCita = document.getElementById('mensaje-cita');
     const mensajeCitaTexto = document.getElementById('mensaje-cita-texto');
@@ -1595,7 +2012,7 @@
     }
 
     // ============================================================
-    // 22. INSTRUCCIONES
+    // 25. INSTRUCCIONES
     // ============================================================
     const panelInstrucciones = document.getElementById('panel-instrucciones');
     const cerrarInstrucciones = document.getElementById('cerrar-instrucciones');
@@ -1618,7 +2035,7 @@
     });
 
     // ============================================================
-    // 23. ANIMACIÓN Y LOOP
+    // 26. ANIMACIÓN Y LOOP (con corrupción visual)
     // ============================================================
     let tiempo = 0;
     let ultimoTickCorrupcion = Date.now();
@@ -1627,6 +2044,7 @@
       requestAnimationFrame(animate);
       tiempo += 0.01;
 
+      // Verificar corrupción cada 10 segundos
       if (Date.now() - ultimoTickCorrupcion > 10000) {
         ultimoTickCorrupcion = Date.now();
         actualizarCorrupcion();
@@ -1634,6 +2052,7 @@
 
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
 
+      // Animar partículas de huellas
       huellasParticulas.forEach((p, i) => {
         const data = p.userData;
         if (data) {
@@ -1646,102 +2065,178 @@
         }
       });
 
-      const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
+      // Animar mensajes flotantes
+      mensajesFlotantes.forEach((sprite, i) => {
+        const data = sprite.userData;
+        if (data) {
+          const nuevoAngulo = data.angulo + tiempo * data.velocidad * 0.01;
+          const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.3;
+          sprite.position.x = Math.cos(nuevoAngulo) * data.radio;
+          sprite.position.z = Math.sin(nuevoAngulo) * data.radio;
+          sprite.position.y = altura;
+          sprite.material.opacity = 0.6 + Math.sin(tiempo + i) * 0.2;
+        }
+      });
+
+      // ============================================================
+      // CORRUPCIÓN VISUAL EN COLUMNAS
+      // ============================================================
+      const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 80;
       const estaMuerto = ESTADO.muerto;
+      const nivelCorrupcion = ESTADO.muerto ? 1 : Math.max(0, 1 - ESTADO.integridad / 100);
 
       columnas.forEach((col, i) => {
         const offset = i * 0.5;
-        col.position.y = Math.sin(tiempo * 0.5 + offset) * 0.05;
-
         const forma = col.userData.forma;
-        const mesh = col.userData.mesh;
+        
+        // Movimiento base
+        col.position.y = estaMuerto ? -0.3 : Math.sin(tiempo * 0.5 + offset) * 0.05;
 
-        if (forma === 'cubos' && mesh) {
-          mesh.children.forEach((cubo, idx) => {
+        // ===== CUBOS (DATOS MASIVOS) =====
+        if (forma === 'cubos' && col.userData.cubos) {
+          col.userData.cubos.forEach((cubo, idx) => {
             if (cubo.isMesh) {
-              const vibracion = estaMuerto ? 0.05 : (estadoCorrupto ? 0.03 : 0.01);
-              cubo.position.x += (Math.random() - 0.5) * vibracion;
-              cubo.position.z += (Math.random() - 0.5) * vibracion;
               if (estaMuerto) {
+                // Muerto: gris, sin brillo
+                cubo.material.color.setHex(0x333333);
                 cubo.material.emissiveIntensity = 0;
-                cubo.material.color.setHex(0x222222);
+                cubo.position.x += (Math.random() - 0.5) * 0.02;
+                cubo.position.z += (Math.random() - 0.5) * 0.02;
               } else if (estadoCorrupto) {
-                cubo.material.emissiveIntensity = 0.2 + Math.random() * 0.3;
+                // Corrupto: vibración fuerte, brillo rojo
+                const vibracion = 0.02 + nivelCorrupcion * 0.05;
+                cubo.position.x += (Math.random() - 0.5) * vibracion;
+                cubo.position.z += (Math.random() - 0.5) * vibracion;
+                cubo.material.emissiveIntensity = 0.1 + nivelCorrupcion * 0.5;
+                cubo.material.color.setHex(
+                  new THREE.Color(color).multiplyScalar(1 - nivelCorrupcion * 0.5).getHex()
+                );
+                // Algunos cubos se caen
+                if (Math.random() < 0.001 && cubo.position.y > 1) {
+                  cubo.position.y -= 0.01;
+                }
               } else {
+                // Saludable
+                cubo.material.color.setHex(color);
                 cubo.material.emissiveIntensity = 0.05 + Math.sin(tiempo + idx) * 0.05;
               }
             }
           });
         }
 
-        if (forma === 'ondas' && mesh) {
-          mesh.children.forEach((anillo, idx) => {
+        // ===== ONDAS (ARQUITECTURA SONORA) =====
+        if (forma === 'ondas' && col.userData.anillos) {
+          col.userData.anillos.forEach((anillo, idx) => {
             if (anillo.isMesh) {
-              const escala = estaMuerto ? 0.5 : (estadoCorrupto ? 1 + Math.sin(tiempo * 2 + idx) * 0.1 : 1);
-              anillo.scale.x = escala;
-              anillo.scale.z = escala;
-              anillo.material.opacity = estaMuerto ? 0.1 : (estadoCorrupto ? 0.3 + Math.sin(tiempo * 3 + idx) * 0.2 : 0.6 + Math.sin(idx * 0.5) * 0.3);
+              if (estaMuerto) {
+                anillo.scale.x = 0.3;
+                anillo.scale.z = 0.3;
+                anillo.material.opacity = 0.05;
+                anillo.material.color.setHex(0x444444);
+                anillo.material.emissiveIntensity = 0;
+              } else if (estadoCorrupto) {
+                const distorsion = 1 + Math.sin(tiempo * 2 + idx * 0.5) * (0.2 + nivelCorrupcion * 0.5);
+                anillo.scale.x = distorsion;
+                anillo.scale.z = distorsion;
+                anillo.material.opacity = 0.2 + Math.sin(tiempo * 3 + idx) * 0.2;
+                anillo.material.color.setHex(
+                  new THREE.Color(color).multiplyScalar(1 - nivelCorrupcion * 0.3).getHex()
+                );
+                anillo.material.emissiveIntensity = 0.1 + nivelCorrupcion * 0.3;
+              } else {
+                const escala = 1 + Math.sin(tiempo * 0.5 + idx) * 0.05;
+                anillo.scale.x = escala;
+                anillo.scale.z = escala;
+                anillo.material.opacity = 0.6 + Math.sin(idx * 0.5) * 0.3;
+                anillo.material.color.setHex(color);
+                anillo.material.emissiveIntensity = 0.1;
+              }
             }
           });
         }
 
-        if (forma === 'rota' && mesh) {
-          const grietas = mesh.userData.grietas || [];
-          grietas.forEach((grieta, idx) => {
+        // ===== GRIETAS (MEMORIA ROTA y todas las columnas) =====
+        if (col.userData.grietas) {
+          col.userData.grietas.forEach((grieta, idx) => {
             if (estaMuerto) {
-              grieta.scale.y = 3;
-              grieta.material.emissiveIntensity = 0.1;
-              grieta.material.color.setHex(0x440000);
+              // Muerto: grietas enormes y oscuras
+              grieta.scale.y = 4 + Math.sin(tiempo + idx) * 0.5;
+              grieta.material.emissiveIntensity = 0.05;
+              grieta.material.color.setHex(0x220000);
             } else if (estadoCorrupto) {
-              const crecimiento = 1 + Math.sin(tiempo * 2 + idx) * 0.5;
+              // Corrupto: grietas crecen con el nivel de corrupción
+              const crecimiento = 1 + Math.sin(tiempo * 1.5 + idx) * (0.3 + nivelCorrupcion * 1.5);
               grieta.scale.y = crecimiento;
-              grieta.material.emissiveIntensity = 0.5 + Math.sin(tiempo * 3 + idx) * 0.5;
-              if (Math.sin(tiempo * 4 + idx) > 0.8) {
+              grieta.material.emissiveIntensity = 0.2 + Math.sin(tiempo * 2 + idx) * 0.3 + nivelCorrupcion * 0.5;
+              // Parpadeo rojo
+              if (Math.sin(tiempo * 4 + idx) > 0.7) {
                 grieta.material.color.setHex(0xff0000);
               } else {
                 grieta.material.color.setHex(0xff4444);
               }
             } else {
+              // Saludable: grietas mínimas
               grieta.scale.y = 1;
-              grieta.material.emissiveIntensity = 0.3;
+              grieta.material.emissiveIntensity = 0.15;
+              grieta.material.color.setHex(0xff2222);
             }
           });
         }
 
-        if (forma === 'flotante' && mesh) {
-          const fragmentos = mesh.userData.fragmentos || [];
-          fragmentos.forEach((frag, idx) => {
+        // ===== FRAGMENTOS FLOTANTES (CULTURA NO SE TORRENTEA) =====
+        if (forma === 'flotante' && col.userData.fragmentos) {
+          col.userData.fragmentos.forEach((frag, idx) => {
             const data = frag.userData;
             if (data) {
-              const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.3;
-              frag.position.y = estaMuerto ? 0 : altura;
-              if (!estaMuerto) {
+              if (estaMuerto) {
+                // Muerto: fragmentos caídos y apagados
+                frag.position.y = 0.1;
+                frag.material.opacity = 0.05;
+                frag.material.emissiveIntensity = 0;
+                frag.material.color.setHex(0x333333);
+              } else if (estadoCorrupto) {
+                // Corrupto: caída errática
+                const altura = data.alturaBase * (1 - nivelCorrupcion * 0.7) + 
+                              Math.sin(tiempo * data.velocidad + data.offset) * 0.2 * (1 - nivelCorrupcion);
+                frag.position.y = Math.max(0.1, altura);
+                frag.rotation.x += 0.02;
+                frag.rotation.z += 0.01;
+                frag.material.opacity = 0.3 + Math.sin(tiempo * 2 + idx) * 0.2;
+                frag.material.color.setHex(
+                  new THREE.Color(color).multiplyScalar(1 - nivelCorrupcion * 0.5).getHex()
+                );
+                frag.material.emissiveIntensity = 0.05 + nivelCorrupcion * 0.2;
+              } else {
+                // Saludable
+                const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.3;
+                frag.position.y = altura;
                 frag.rotation.x += 0.01;
                 frag.rotation.z += 0.005;
-              }
-              if (estaMuerto) {
-                frag.material.opacity = 0.1;
-                frag.material.emissiveIntensity = 0;
-              } else if (estadoCorrupto) {
-                frag.position.y += Math.sin(tiempo * 5 + idx) * 0.02;
-                frag.material.opacity = 0.4 + Math.sin(tiempo * 2 + idx) * 0.3;
+                frag.material.opacity = 0.6 + Math.sin(idx * 0.5) * 0.3;
+                frag.material.color.setHex(color);
+                frag.material.emissiveIntensity = 0.1;
               }
             }
           });
         }
 
+        // Flash de corrupción aleatorio
         if (estaMuerto && Math.random() < 0.005) {
           const flash = new THREE.Mesh(
             new THREE.SphereGeometry(0.3, 4, 4),
-            new THREE.MeshBasicMaterial({ color: 0x440000, transparent: true, opacity: 0.1 })
+            new THREE.MeshBasicMaterial({ color: 0x220000, transparent: true, opacity: 0.15 })
           );
           flash.position.set(0, 2.5 + Math.random() * 3, 0);
           col.add(flash);
           setTimeout(() => { col.remove(flash); }, 200);
         } else if (estadoCorrupto && !estaMuerto && Math.random() < 0.01) {
           const flash = new THREE.Mesh(
-            new THREE.SphereGeometry(0.5, 4, 4),
-            new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.2 })
+            new THREE.SphereGeometry(0.4 + nivelCorrupcion * 0.3, 4, 4),
+            new THREE.MeshBasicMaterial({ 
+              color: 0xff0000, 
+              transparent: true, 
+              opacity: 0.1 + nivelCorrupcion * 0.2 
+            })
           );
           flash.position.set(0, 2.5 + Math.random() * 3, 0);
           col.add(flash);
@@ -1749,6 +2244,9 @@
         }
       });
 
+      // ============================================================
+      // SONIDO POR PROXIMIDAD
+      // ============================================================
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
@@ -1772,7 +2270,7 @@
     animate();
 
     // ============================================================
-    // 24. RESPONSIVE
+    // 27. RESPONSIVE
     // ============================================================
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -1781,11 +2279,14 @@
     });
 
     // ============================================================
-    // 25. INICIALIZACIÓN
+    // 28. INICIALIZACIÓN
     // ============================================================
     await cargarTextosCompletos();
     await cargarEstadoGlobal();
     escucharCambiosGlobales();
+
+    // Cargar mensajes guardados como fragmentos 3D
+    cargarMensajesGuardados();
 
     // Añadir huella de esta visita (si no es desde cita)
     if (!citaParam) {
@@ -1797,14 +2298,17 @@
       actualizarUI();
     }
 
+    // Verificar estado inicial
     actualizarCorrupcion();
 
     console.log('MONUMENTO SONORO CON FIREBASE');
     console.log('Datos sincronizados globalmente');
     console.log('Huellas:', ESTADO.huellas);
     console.log('Siembras:', ESTADO.siembras);
+    console.log('Mensajes:', ESTADO.mensajes.length);
     console.log('Integridad:', ESTADO.integridad + '%');
     console.log('Muerto:', ESTADO.muerto);
+    console.log('Semillas:', ESTADO.vecesCompartido + '/5');
 
     document.addEventListener('click', initAudio, { once: true });
 
