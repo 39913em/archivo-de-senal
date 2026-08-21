@@ -327,7 +327,7 @@
     <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
     <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
     <div>PARTÍCULAS: <span id="particulas" class="valor">0</span></div>
-    <div class="tiempo-restante">TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
+    <div class="tiempo-restante">⏳ TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
     <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">💀 MUERTO</div>
@@ -369,7 +369,7 @@
   <div id="panel-cita">
     <button id="cerrar-cita">✕</button>
     <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ FRAGMENTO DEL MONUMENTO ✦</div>
-    <div class="texto" id="cita-texto">"La cultura se siembra, no se torrentea."</div>
+    <div class="texto" id="cita-texto">"La cultura se torrentea, si no se netflixea"</div>
     <div class="autor" id="cita-autor">— Monumento Sonoro</div>
     <div id="contador-compartido-panel">Semillas: <span id="veces-compartido-panel">0</span>/5</div>
     <div class="compartir-titulo">COMPARTE PARA SEMBRAR</div>
@@ -392,7 +392,7 @@
       <div class="simbolo">💀</div>
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
       <div class="texto">
-        El silencio ha llegado<br>
+        <br>
         La memoria se ha corrompido.<br><br>
         <strong>Deja una huella o siembra cultura para revivirlo.</strong>
       </div>
@@ -403,7 +403,7 @@
   <!-- ===== OVERLAY DE RENACIMIENTO ===== -->
   <div id="overlay-renacimiento">
     <div class="contenido">
-      <div class="simbolo">✨</div>
+      <div class="simbolo"></div>
       <div class="titulo">EL ARCHIVO HA RENACIDO</div>
       <div class="texto">
         5 semillas han sido sembradas.<br>
@@ -429,13 +429,13 @@
 
   <script type="module">
     // ============================================================
-    // 0. FIREBASE IMPORTS (CDN)
+    // 0. FIREBASE IMPORTS
     // ============================================================
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
     import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
     // ============================================================
-    // FIREBASE CONFIG
+    // 1. FIREBASE CONFIG
     // ============================================================
     const firebaseConfig = {
       apiKey: "AIzaSyD7UF2aM9q3-xN-VmEIgKOJsP88PiP0AwI",
@@ -454,13 +454,13 @@
     console.log('Firebase conectado');
 
     // ============================================================
-    // 1. THREE.JS IMPORTS
+    // 2. THREE.JS
     // ============================================================
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
     // ============================================================
-    // 2. TEXTOS COMPLETOS
+    // 3. TEXTOS COMPLETOS
     // ============================================================
     const TEXTOS_COMPLETOS = {};
 
@@ -497,7 +497,7 @@
     }
 
     // ============================================================
-    // 3. CITAS
+    // 4. CITAS
     // ============================================================
     const CITAS = [
       { texto: 'El dato masivo no es neutral: pesa, vibra, respira.', autor: 'DATARTVERSO — 39913EM-DOC-000' },
@@ -515,7 +515,7 @@
     ];
 
     // ============================================================
-    // 4. REDES SOCIALES
+    // 5. REDES SOCIALES
     // ============================================================
     const REDES = [
       { id: 'twitter', label: 'X', clase: 'btn-twitter', url: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}` },
@@ -529,7 +529,7 @@
     ];
 
     // ============================================================
-    // 5. ESTADO GLOBAL CON FIREBASE
+    // 6. ESTADO GLOBAL (Firebase + localStorage)
     // ============================================================
     const ESTADO = {
       integridad: 100,
@@ -543,6 +543,9 @@
       ultimaActualizacion: Date.now(),
       mensajes: []
     };
+
+    let datosCargados = false;
+    let cargando = true;
 
     async function cargarEstadoGlobal() {
       try {
@@ -574,10 +577,13 @@
       } catch (error) {
         console.error('Error cargando datos de Firebase:', error);
       }
+      datosCargados = true;
+      cargando = false;
       actualizarUI();
     }
 
     async function guardarEstadoGlobal() {
+      if (!datosCargados) return;
       try {
         await update(dbRef, {
           huellas: ESTADO.huellas,
@@ -607,9 +613,7 @@
       }
       
       mensajesActuales.push(mensaje);
-      
       await update(dbRef, { mensajes: mensajesActuales });
-      
       ESTADO.mensajes = mensajesActuales;
       crearMensajeFlotante(mensaje);
       actualizarUI();
@@ -618,7 +622,7 @@
     function escucharCambiosGlobales() {
       onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
-        if (data) {
+        if (data && datosCargados) {
           const oldHuellas = ESTADO.huellas;
           const oldMensajesCount = ESTADO.mensajes.length;
           const oldVecesCompartido = ESTADO.vecesCompartido;
@@ -679,7 +683,7 @@
     }
 
     // ============================================================
-    // 6. SISTEMA DE PARTÍCULAS ↔ CORRUPCIÓN
+    // 7. SISTEMA DE CORRUPCIÓN
     // ============================================================
     function calcularParticulasActivas() {
       return ESTADO.huellas + ESTADO.siembras;
@@ -690,7 +694,7 @@
     }
 
     function actualizarCorrupcion() {
-      if (Date.now() - ESTADO.ultimaActualizacion < 5000) return;
+      if (!datosCargados) return;
       
       const ahora = Date.now();
       const horasPasadas = (ahora - ESTADO.ultimaActualizacion) / (1000 * 60 * 60);
@@ -743,7 +747,7 @@
     }
 
     // ============================================================
-    // 7. OVERLAY DE MUERTE
+    // 8. OVERLAYS
     // ============================================================
     const overlayMuerte = document.getElementById('overlay-muerte');
     const cerrarOverlayMuerte = document.getElementById('cerrar-overlay-muerte');
@@ -752,21 +756,6 @@
     function mostrarOverlayMuerte() {
       overlayMuerte.classList.add('visible');
       document.getElementById('estado-muerto').style.display = 'block';
-      if (audioContext) {
-        try {
-          const osc = audioContext.createOscillator();
-          const gain = audioContext.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(200, audioContext.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 1);
-          gain.gain.setValueAtTime(0.1, audioContext.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-          osc.connect(gain);
-          gain.connect(audioContext.destination);
-          osc.start();
-          osc.stop(audioContext.currentTime + 1);
-        } catch(e) {}
-      }
     }
 
     function ocultarOverlayMuerte() {
@@ -787,12 +776,10 @@
         guardarEstadoGlobal();
         actualizarCorrupcion();
         animarRenacimientoVisual();
+        ocultarOverlayMuerte();
       }
     });
 
-    // ============================================================
-    // 8. OVERLAY DE RENACIMIENTO
-    // ============================================================
     const overlayRenacimiento = document.getElementById('overlay-renacimiento');
     const cerrarRenacimiento = document.getElementById('cerrar-renacimiento');
 
@@ -824,7 +811,7 @@
     });
 
     // ============================================================
-    // 9. ANIMACIÓN DE RENACIMIENTO VISUAL
+    // 9. ANIMACIONES
     // ============================================================
     function animarRenacimientoVisual() {
       const luz = new THREE.Mesh(
@@ -841,9 +828,7 @@
           escala += 0.05;
           luz.scale.set(escala, escala, escala);
           luz.material.opacity = Math.max(0, 1 - escala / 10);
-          if (escala > 8) {
-            creciendo = false;
-          }
+          if (escala > 8) { creciendo = false; }
         } else {
           escala -= 0.05;
           luz.scale.set(escala, escala, escala);
@@ -858,41 +843,24 @@
         setTimeout(() => {
           const particula = new THREE.Mesh(
             new THREE.SphereGeometry(0.03 + Math.random() * 0.03, 4, 4),
-            new THREE.MeshBasicMaterial({ 
-              color: 0xffd700, 
-              transparent: true, 
-              opacity: 0.8 
-            })
+            new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.8 })
           );
           const angulo = Math.random() * Math.PI * 2;
           const radio = 2 + Math.random() * 4;
-          particula.position.set(
-            Math.cos(angulo) * radio,
-            0.5 + Math.random() * 3,
-            Math.sin(angulo) * radio
-          );
-          particula.userData = {
-            velocidad: 0.5 + Math.random() * 0.5,
-            radio: radio,
-            alturaBase: particula.position.y,
-            angulo: angulo
-          };
+          particula.position.set(Math.cos(angulo) * radio, 0.5 + Math.random() * 3, Math.sin(angulo) * radio);
+          particula.userData = { velocidad: 0.5 + Math.random() * 0.5, radio, alturaBase: particula.position.y, angulo };
           scene.add(particula);
-          const animarParticula = () => {
-            const data = particula.userData;
-            data.angulo += 0.02 * data.velocidad;
-            const altura = data.alturaBase + Math.sin(Date.now() * 0.001 * data.velocidad) * 0.5;
-            particula.position.x = Math.cos(data.angulo) * data.radio;
-            particula.position.z = Math.sin(data.angulo) * data.radio;
-            particula.position.y = altura;
+          const animar = () => {
+            const d = particula.userData;
+            d.angulo += 0.02 * d.velocidad;
+            particula.position.x = Math.cos(d.angulo) * d.radio;
+            particula.position.z = Math.sin(d.angulo) * d.radio;
+            particula.position.y = d.alturaBase + Math.sin(Date.now() * 0.001 * d.velocidad) * 0.5;
             particula.material.opacity -= 0.002;
-            if (particula.material.opacity > 0) {
-              requestAnimationFrame(animarParticula);
-            } else {
-              scene.remove(particula);
-            }
+            if (particula.material.opacity > 0) { requestAnimationFrame(animar); } 
+            else { scene.remove(particula); }
           };
-          animarParticula();
+          animar();
         }, i * 100);
       }
     }
@@ -913,7 +881,6 @@
       const resultado = [];
       const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
       const letrasRojas = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
-      
       const nivelCorrupcion = Math.max(0.1, nivel * (1 - ESTADO.integridad / 100));
       
       for (let i = 0; i < chars.length; i++) {
@@ -968,7 +935,7 @@
           <div style="background:#ffebee; border:2px solid #ff1744; padding:20px; border-radius:8px; margin-bottom:20px; text-align:center;">
             <span style="font-size:48px;">💀</span>
             <p style="font-weight:bold; color:#c62828; font-size:20px; margin:10px 0;">EL ARCHIVO HA MUERTO</p>
-        
+            <p style="font-size:14px; color:#666;">El silencio ha llegado.</p>
             <p style="font-size:12px; color:#888;">Deja una huella o siembra para revivirlo.</p>
           </div>
         `;
@@ -1203,7 +1170,7 @@
     scene.add(fillLight);
 
     // ============================================================
-    // 14. PERSONAJE GUARDIÁN
+    // 14. PERSONAJE
     // ============================================================
     function crearPersonaje() {
       const group = new THREE.Group();
@@ -1287,7 +1254,6 @@
             cubo.position.z = (Math.random() - 0.5) * 0.5;
             cubo.rotation.y = Math.random() * Math.PI;
             cubo.castShadow = true;
-            cubo.userData = { idx: i, originalY: cubo.position.y };
             cubosGroup.add(cubo);
             cubos.push(cubo);
           }
@@ -1310,7 +1276,6 @@
             anillo.rotation.x = Math.PI / 2 + Math.sin(i * 0.3) * 0.2;
             anillo.rotation.z = Math.sin(i * 0.5) * 0.1;
             anillo.castShadow = true;
-            anillo.userData = { idx: i, originalY: anillo.position.y };
             ondasGroup.add(anillo);
             anillos.push(anillo);
           }
@@ -1383,17 +1348,7 @@
       }
       group.add(columnaMesh);
 
-      group.userData = { 
-        label, color, forma, 
-        mesh: columnaMesh, 
-        originalY: 0,
-        cubos: cubos,
-        anillos: anillos,
-        grietas: grietas,
-        fragmentos: fragmentos,
-        inferior: columnaMesh.children ? columnaMesh.children.find(c => c.isMesh && c.geometry.type === 'CylinderGeometry' && c.position.y === 1.3) : null,
-        superior: columnaMesh.children ? columnaMesh.children.find(c => c.isMesh && c.geometry.type === 'CylinderGeometry' && c.position.y === 3.5) : null
-      };
+      group.userData = { label, color, forma, mesh: columnaMesh, cubos, anillos, grietas, fragmentos };
 
       const canvas = document.createElement('canvas');
       canvas.width = 256;
@@ -1509,7 +1464,7 @@
     }
 
     // ============================================================
-    // 18. MENSAJES FLOTANTES (intervenciones)
+    // 18. MENSAJES FLOTANTES
     // ============================================================
     const mensajesFlotantes = [];
 
@@ -1647,7 +1602,6 @@
 
       let frecuencias = [];
       let tipo = 'sine';
-      const nivelCorrupcion = ESTADO.corrompido ? 0.3 : 0;
       
       switch(columnLabel) {
         case 'DATOS MASIVOS':
@@ -1674,7 +1628,7 @@
         const osc = audioContext.createOscillator();
         const gain = audioContext.createGain();
         osc.type = tipo;
-        const desviacion = ESTADO.corrompido ? 0.1 + nivelCorrupcion : 0.02;
+        const desviacion = ESTADO.corrompido ? 0.1 : 0.02;
         osc.frequency.value = freq * (1 + (Math.random() - 0.5) * desviacion);
         gain.gain.value = volume * 0.06 / frecuencias.length;
         osc.connect(gain);
@@ -1701,7 +1655,7 @@
     }
 
     // ============================================================
-    // 20. INTERACCIÓN CON COLUMNAS (click para PDF)
+    // 20. INTERACCIONES
     // ============================================================
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -1711,6 +1665,7 @@
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
     });
 
+    // Click en columna = PDF
     renderer.domElement.addEventListener('click', async (event) => {
       if (!audioContext) initAudio();
       
@@ -1730,9 +1685,7 @@
       }
     });
 
-    // ============================================================
-    // 21. INTERACCIÓN CON PARTÍCULAS (doble click = consumir vida)
-    // ============================================================
+    // Doble click en partícula = consumir vida
     renderer.domElement.addEventListener('dblclick', (event) => {
       if (ESTADO.muerto) return;
       pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -1789,7 +1742,7 @@
     });
 
     // ============================================================
-    // 22. PANEL DE CITA Y COMPARTIR
+    // 21. PANEL DE CITA Y COMPARTIR
     // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
@@ -1888,14 +1841,14 @@
 
       const copiar = document.createElement('a');
       copiar.className = 'btn-copiar';
-      copiar.textContent = 'Copiar cita + enlace';
+      copiar.textContent = '📋 Copiar cita + enlace';
       copiar.href = '#';
       copiar.addEventListener('click', (e) => {
         e.preventDefault();
         const textoCompleto = `${mensaje}\n\nExplora el monumento: ${urlCompleta}\n\nArchivo de Señal: ${blogUrl}`;
         navigator.clipboard.writeText(textoCompleto).then(() => {
           copiar.textContent = '✅ ¡Copiado!';
-          setTimeout(() => { copiar.textContent = 'Copiar cita + enlace'; }, 2000);
+          setTimeout(() => { copiar.textContent = '📋 Copiar cita + enlace'; }, 2000);
           registrarCompartido();
         });
       });
@@ -1909,7 +1862,8 @@
       });
     }
 
-    btnSembrar.addEventListener('click', async () => {
+    btnSembrar.addEventListener('click', async (event) => {
+      event.stopPropagation();
       if (ESTADO.muerto) { 
         mostrarOverlayMuerte(); 
         return; 
@@ -1936,7 +1890,7 @@
     });
 
     // ============================================================
-    // 23. INPUT PARA RAYAR EL ARCHIVO
+    // 22. INPUT PARA RAYAR
     // ============================================================
     const inputRayar = document.getElementById('input-rayar');
     const btnRayar = document.getElementById('btn-rayar');
@@ -1944,7 +1898,8 @@
     const enviarRayar = document.getElementById('enviar-rayar');
     const mensajeRayar = document.getElementById('mensaje-rayar');
 
-    btnRayar.addEventListener('click', () => {
+    btnRayar.addEventListener('click', (event) => {
+      event.stopPropagation();
       if (ESTADO.muerto) {
         mostrarOverlayMuerte();
         return;
@@ -1959,7 +1914,8 @@
       inputRayar.classList.remove('visible');
     });
 
-    enviarRayar.addEventListener('click', async () => {
+    enviarRayar.addEventListener('click', async (event) => {
+      event.stopPropagation();
       const texto = mensajeRayar.value.trim();
       if (texto === '') return;
       await agregarMensaje(texto);
@@ -1976,7 +1932,7 @@
     });
 
     // ============================================================
-    // 24. MENSAJE FLOTANTE DESDE CITA
+    // 23. MENSAJE FLOTANTE DESDE CITA
     // ============================================================
     const mensajeCita = document.getElementById('mensaje-cita');
     const mensajeCitaTexto = document.getElementById('mensaje-cita-texto');
@@ -2009,7 +1965,7 @@
     }
 
     // ============================================================
-    // 25. INSTRUCCIONES
+    // 24. INSTRUCCIONES
     // ============================================================
     const panelInstrucciones = document.getElementById('panel-instrucciones');
     const cerrarInstrucciones = document.getElementById('cerrar-instrucciones');
@@ -2032,7 +1988,7 @@
     });
 
     // ============================================================
-    // 26. ANIMACIÓN Y LOOP
+    // 25. ANIMACIÓN
     // ============================================================
     let tiempo = 0;
     let ultimoTickCorrupcion = Date.now();
@@ -2041,7 +1997,7 @@
       requestAnimationFrame(animate);
       tiempo += 0.01;
 
-      if (Date.now() - ultimoTickCorrupcion > 10000) {
+      if (Date.now() - ultimoTickCorrupcion > 10000 && datosCargados) {
         ultimoTickCorrupcion = Date.now();
         actualizarCorrupcion();
       }
@@ -2074,7 +2030,7 @@
 
       const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 80;
       const estaMuerto = ESTADO.muerto;
-      const nivelCorrupcion = ESTADO.muerto ? 1 : Math.max(0, 1 - ESTADO.integridad / 100);
+      const nivelCorrupcion = estaMuerto ? 1 : Math.max(0, 1 - ESTADO.integridad / 100);
 
       columnas.forEach((col, i) => {
         const offset = i * 0.5;
@@ -2241,7 +2197,7 @@
     animate();
 
     // ============================================================
-    // 27. RESPONSIVE
+    // 26. RESPONSIVE
     // ============================================================
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -2250,7 +2206,7 @@
     });
 
     // ============================================================
-    // 28. INICIALIZACIÓN
+    // 27. INICIALIZACIÓN
     // ============================================================
     await cargarTextosCompletos();
     await cargarEstadoGlobal();
@@ -2268,9 +2224,16 @@
       }
     }
 
+    // Esperar a que los datos estén cargados antes de corregir la corrupción
     setTimeout(() => {
-      actualizarCorrupcion();
-    }, 5000);
+      if (datosCargados) {
+        // Si el archivo está muerto, mostrar overlay pero no matarlo de nuevo
+        if (ESTADO.muerto) {
+          mostrarOverlayMuerte();
+        }
+        actualizarUI();
+      }
+    }, 3000);
 
     console.log('MONUMENTO SONORO CON FIREBASE');
     console.log('Datos sincronizados globalmente');
