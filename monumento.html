@@ -1,34 +1,236 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MONUMENTO SONORO CORRUPTIBLE</title>
+
+  <!-- ============================================================
+  ESTILOS PROPIOS (no afectan al blog)
+  ============================================================ -->
   <style>
-    body { margin:0; overflow:hidden; background:#0a0a0a; font-family:'Courier New',monospace; }
-    #info { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); color:#ff6b35; 
-            font-size:12px; text-align:center; background:rgba(0,0,0,0.8); padding:15px 30px;
-            border:1px solid #ff6b35; border-radius:10px; z-index:10; pointer-events:none; opacity:0.7; }
-    #sembrar { position:fixed; bottom:100px; left:50%; transform:translateX(-50%); 
-               padding:12px 30px; background:#ff6b35; color:#0a0a0a; border:none; 
-               border-radius:30px; font-weight:bold; cursor:pointer; z-index:10;
-               font-family:'Courier New',monospace; text-transform:uppercase; letter-spacing:2px;
-               box-shadow:0 0 30px rgba(255,107,53,0.3); transition:all 0.3s; display:none; }
-    #sembrar:hover { transform:translateX(-50%) scale(1.05); box-shadow:0 0 50px rgba(255,107,53,0.5); }
-    #estado { position:fixed; top:20px; right:20px; color:#666; font-size:11px; z-index:10; 
-              text-align:right; line-height:1.6; }
-    .glitch { animation:glitchText 0.3s infinite; }
-    @keyframes glitchText { 0%{opacity:1;} 50%{opacity:0.3; transform:translateX(3px);} }
+    /* ===== RESET ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      margin:0; overflow:hidden; background:#0a0a0a;
+      font-family:'Courier New', monospace; cursor:crosshair;
+      user-select:none;
+    }
+
+    /* ===== BOTÓN REGRESO (SIEMPRE VISIBLE) ===== */
+    #btn-regreso {
+      position:fixed; top:20px; left:20px; z-index:1000;
+      background:rgba(10,10,10,0.85); color:#ff6b35;
+      border:1px solid #ff6b35; padding:10px 20px;
+      border-radius:30px; font-family:'Courier New',monospace;
+      font-size:13px; text-decoration:none;
+      transition:all 0.3s ease; backdrop-filter:blur(10px);
+      letter-spacing:1px; display:flex; align-items:center; gap:8px;
+    }
+    #btn-regreso:hover {
+      background:#ff6b35; color:#0a0a0a;
+      box-shadow:0 0 30px rgba(255,107,53,0.3);
+      transform:scale(1.05);
+    }
+    #btn-regreso span { font-size:18px; }
+
+    /* ===== PANEL DE INSTRUCCIONES ===== */
+    #panel-instrucciones {
+      position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+      z-index:100; background:rgba(10,10,10,0.92);
+      border:1px solid #333; border-radius:15px;
+      padding:15px 25px; max-width:620px; width:90%;
+      backdrop-filter:blur(10px);
+      color:#aaa; font-size:12px; line-height:1.8;
+      text-align:center; transition:all 0.5s ease;
+      box-shadow:0 0 40px rgba(0,0,0,0.8);
+    }
+    #panel-instrucciones h4 {
+      color:#ff6b35; font-size:14px; margin-bottom:8px;
+      letter-spacing:2px; text-transform:uppercase;
+    }
+    #panel-instrucciones .key {
+      display:inline-block; background:#1a1a2e;
+      padding:2px 10px; border-radius:5px;
+      border:1px solid #333; color:#fff; font-size:11px;
+    }
+    #panel-instrucciones .icono { font-size:18px; }
+    #cerrar-instrucciones {
+      position:absolute; top:5px; right:10px;
+      background:none; border:none; color:#666;
+      font-size:18px; cursor:pointer; font-family:inherit;
+    }
+    #cerrar-instrucciones:hover { color:#ff6b35; }
+
+    /* ===== PANEL DE ESTADO ===== */
+    #estado {
+      position:fixed; top:20px; right:20px; z-index:100;
+      color:#666; font-size:11px; text-align:right; line-height:2;
+      background:rgba(10,10,10,0.85); padding:15px 20px;
+      border-radius:10px; border:1px solid #1a1a2e;
+      backdrop-filter:blur(10px); min-width:170px;
+    }
+    #estado .valor { color:#fff; font-weight:bold; }
+    #estado .alerta { color:#ff1744; animation:parpadeo 1s infinite; }
+    #estado .reparado { color:#00e676; }
+    .contador-compartido {
+      color:#ff6b35; font-size:13px; margin-top:5px;
+    }
+    @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    /* ===== BOTONES DE ACCIÓN ===== */
+    .btn-accion {
+      position:fixed; z-index:100;
+      padding:12px 25px; border:none; border-radius:30px;
+      font-family:'Courier New',monospace; font-weight:bold;
+      font-size:13px; letter-spacing:1px; text-transform:uppercase;
+      cursor:pointer; transition:all 0.3s ease;
+      backdrop-filter:blur(10px);
+    }
+    .btn-accion:hover { transform:scale(1.08); }
+
+    #btn-sembrar {
+      bottom:100px; left:50%; transform:translateX(-50%);
+      background:#ff6b35; color:#0a0a0a;
+      box-shadow:0 0 30px rgba(255,107,53,0.3);
+    }
+    #btn-sembrar:hover { box-shadow:0 0 50px rgba(255,107,53,0.6); }
+
+    #btn-cita {
+      bottom:160px; left:50%; transform:translateX(-50%);
+      background:rgba(255,107,53,0.15); color:#ff6b35;
+      border:1px solid #ff6b35;
+    }
+    #btn-cita:hover { background:rgba(255,107,53,0.3); }
+
+    /* ===== PANEL DE CITA / COMPARTIR ===== */
+    #panel-cita {
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      z-index:200; background:rgba(10,10,10,0.96);
+      border:2px solid #ff6b35; border-radius:20px;
+      padding:35px 40px; max-width:520px; width:90%;
+      display:none; text-align:center;
+      box-shadow:0 0 80px rgba(255,107,53,0.15);
+      backdrop-filter:blur(20px);
+      max-height:90vh; overflow-y:auto;
+    }
+    #panel-cita.visible { display:block; animation:fadeIn 0.3s ease; }
+    @keyframes fadeIn { from{opacity:0; transform:translate(-50%,-40%);} to{opacity:1; transform:translate(-50%,-50%);} }
+    #panel-cita .texto {
+      color:#fff; font-size:18px; line-height:1.8;
+      margin:15px 0; font-style:italic;
+    }
+    #panel-cita .autor {
+      color:#ff6b35; font-size:14px; letter-spacing:2px;
+    }
+    #panel-cita .botones-compartir {
+      display:flex; gap:8px; justify-content:center;
+      margin-top:20px; flex-wrap:wrap;
+    }
+    #panel-cita .botones-compartir a {
+      padding:8px 16px; border-radius:30px;
+      text-decoration:none; font-size:11px; font-weight:bold;
+      transition:all 0.3s ease; display:inline-flex;
+      align-items:center; gap:6px; font-family:inherit;
+    }
+    #panel-cita .botones-compartir a:hover { transform:scale(1.05); }
+    #panel-cita .compartir-titulo {
+      color:#888; font-size:11px; letter-spacing:2px;
+      text-transform:uppercase; margin-bottom:5px;
+    }
+    .btn-twitter { background:#1DA1F2; color:#fff; }
+    .btn-bluesky { background:#1185FE; color:#fff; }
+    .btn-linkedin { background:#0A66C2; color:#fff; }
+    .btn-whatsapp { background:#25D366; color:#fff; }
+    .btn-facebook { background:#1877F2; color:#fff; }
+    .btn-reddit { background:#FF4500; color:#fff; }
+    .btn-instagram { background:#E1306C; color:#fff; }
+    .btn-substack { background:#FF6719; color:#fff; }
+    .btn-copiar { background:#333; color:#fff; border:1px solid #555; }
+    #cerrar-cita {
+      position:absolute; top:10px; right:15px;
+      background:none; border:none; color:#666;
+      font-size:22px; cursor:pointer; font-family:inherit;
+    }
+    #cerrar-cita:hover { color:#ff6b35; }
+    #contador-compartido-panel {
+      color:#ff6b35; font-size:13px; margin-top:10px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:768px) {
+      #panel-instrucciones { font-size:10px; padding:10px 15px; bottom:15px; max-width:95%; }
+      #estado { font-size:9px; padding:10px 12px; min-width:120px; top:70px; }
+      #btn-regreso { font-size:11px; padding:6px 12px; top:10px; left:10px; }
+      #btn-sembrar, #btn-cita { font-size:11px; padding:8px 16px; }
+      #btn-sembrar { bottom:80px; }
+      #btn-cita { bottom:130px; }
+      #panel-cita { padding:20px 18px; max-width:95%; }
+      #panel-cita .texto { font-size:15px; }
+      #panel-cita .botones-compartir a { font-size:10px; padding:6px 12px; }
+    }
   </style>
 </head>
 <body>
-  <div id="estado">
-    <div>MONUMENTO VIVO</div>
-    <div id="visitas">VISITAS: 0</div>
-    <div id="integridad">INTEGRIDAD: 100%</div>
-  </div>
-  <button id="sembrar">SEMBRAR CULTURA</button>
-  <div id="info">ACÉRCATE A CADA COLUMNA PARA ESCUCHAR SU SONIDO</div>
 
+  <!-- ===== BOTÓN REGRESO AL BLOG ===== -->
+  <a id="btn-regreso" href="index.html">
+    <span>←</span> VOLVER AL ARCHIVO
+  </a>
+
+  <!-- ===== PANEL DE ESTADO ===== -->
+  <div id="estado">
+    <div><span class="valor">MONUMENTO VIVO</span></div>
+    <div>VISITAS: <span id="visitas" class="valor">0</span></div>
+    <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
+    <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">
+      CORRUPCIÓN ACTIVA
+    </div>
+    <div id="contador-compartido" class="contador-compartido">
+      SEMBRADO: <span id="veces-compartido">0</span>/5
+    </div>
+  </div>
+
+  <!-- ===== PANEL DE INSTRUCCIONES ===== -->
+  <div id="panel-instrucciones">
+    <button id="cerrar-instrucciones">✕</button>
+    <h4>🏛️ CÓMO HABITAR EL MONUMENTO</h4>
+    <p>
+      <span class="icono"></span> <strong>ACÉRCATE</strong> a cada columna<br>
+      <span class="icono"></span> Cada pilar <strong>suena distinto</strong> según tu distancia<br>
+      <span class="icono"></span> Al hacer clic en un pilar, <strong>descargarás su ensayo en PDF</strong><br>
+      <span class="icono"></span> <strong>"SEMBRAR CULTURA"</strong> genera una cita para compartir en redes<br>
+      <span class="icono"></span> <strong>"CITA BRUTALISTA"</strong> muestra un fragmento aleatorio<br>
+      <span class="icono"></span> Si nadie visita en 24h, <strong>TODOS los ensayos se corrompen</strong><br>
+      <span class="icono"></span> Comparte <strong>5 veces</strong> para restaurar la memoria completa
+    </p>
+    <p style="font-size:10px; opacity:0.5; margin-top:5px;">
+      🎧 Usa auriculares para mejor experiencia
+    </p>
+  </div>
+
+  <!-- ===== BOTONES DE ACCIÓN ===== -->
+  <button id="btn-sembrar" class="btn-accion">SEMBRAR CULTURA</button>
+  <button id="btn-cita" class="btn-accion">CITA BRUTALISTA</button>
+
+  <!-- ===== PANEL DE CITA / COMPARTIR ===== -->
+  <div id="panel-cita">
+    <button id="cerrar-cita">✕</button>
+    <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">
+      ✦ FRAGMENTO DEL MONUMENTO ✦
+    </div>
+    <div class="texto" id="cita-texto">"La cultura se siembra, no se torrentea."</div>
+    <div class="autor" id="cita-autor">— Monumento Sonoro Corruptible</div>
+    <div id="contador-compartido-panel">Compartido: <span id="veces-compartido-panel">0</span>/5</div>
+    <div class="compartir-titulo">COMPARTE PARA SEMBRAR</div>
+    <div class="botones-compartir" id="botones-compartir">
+      <!-- Generados por JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+  THREE.JS
+  ============================================================ -->
   <script type="importmap">
   {
     "imports": {
@@ -38,26 +240,275 @@
   }
   </script>
 
+  <!-- html2pdf para generar PDFs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    // --- CONFIGURACIÓN ---
-    const COLUMNAS = {
-      DATOS_MASIVOS: { color: 0xff6b35, audio: 'servers' },
-      ARQUITECTURA_SONORA: { color: 0x4fc3f7, audio: 'reverb' },
-      MEMORIA_ROTA: { color: 0xff1744, audio: 'glitch', rota: true },
-      CULTURA_NO_TORRENTEA: { color: 0x00e676, audio: 'voces' }
+    // ============================================================
+    // 1. CONFIGURACIÓN Y TEXTOS COMPLETOS (desde tus JSONs)
+    // ============================================================
+    const TEXTOS_COMPLETOS = {};
+
+    // Cargar los JSONs de contenido
+    async function cargarTextosCompletos() {
+      const archivos = [
+        { id: 'DATOS MASIVOS', path: 'contenido/datos-masivos.json' },
+        { id: 'ARQUITECTURA SONORA', path: 'contenido/arquitectura-sonora.json' },
+        { id: 'MEMORIA ROTA', path: 'contenido/memoria-rota.json' },
+        { id: 'CULTURA NO SE TORRENTEA', path: 'contenido/torrentear.json' }
+      ];
+
+      for (const item of archivos) {
+        try {
+          const res = await fetch(item.path);
+          if (!res.ok) throw new Error(`No se pudo cargar ${item.path}`);
+          const data = await res.json();
+          // Extraer el cuerpo completo como texto plano
+          let cuerpoCompleto = '';
+          if (data.cuerpo && Array.isArray(data.cuerpo)) {
+            cuerpoCompleto = data.cuerpo
+              .filter(b => b.tipo === 'parrafo' || b.tipo === 'subtitulo' || b.tipo === 'cita' || b.tipo === 'destacado')
+              .map(b => b.texto || '')
+              .join('\n\n');
+          }
+          TEXTOS_COMPLETOS[item.id] = {
+            titulo: data.titulo || item.id,
+            subtitulo: data.subtitulo || '',
+            cuerpo: cuerpoCompleto || 'Contenido no disponible.',
+            portada: data.portada || ''
+          };
+        } catch (e) {
+          console.warn(`Error cargando ${item.path}:`, e);
+          TEXTOS_COMPLETOS[item.id] = {
+            titulo: item.id,
+            subtitulo: '',
+            cuerpo: 'Contenido no disponible.',
+            portada: ''
+          };
+        }
+      }
+    }
+
+    // ============================================================
+    // 2. CITAS (extraídas de tus ensayos)
+    // ============================================================
+    const CITAS = [
+      { texto: 'El dato masivo no es neutral: pesa, vibra, respira.', autor: 'DATARTVERSO — 39913EM-DOC-000' },
+      { texto: 'El silencio también construye. La arquitectura no se ve, se escucha.', autor: 'Arquitectura Sonora — 39913EM-DOC-001' },
+      { texto: 'La memoria digital es frágil, pero el olvido está programado.', autor: 'Memoria Rota — 39913EM-DOC-002' },
+      { texto: 'La cultura se siembra, no se torrentea.', autor: 'Cultura No Se Torrentea — 39913EM-DOC-003' },
+      { texto: 'Cada byte pesa, cada solicitud vibra. La información nunca es gratis.', autor: 'DATARTVERSO — 39913EM-DOC-000' },
+      { texto: 'El sonido construye espacios invisibles. Escuchar es habitar.', autor: 'Arquitectura Sonora — 39913EM-DOC-001' },
+      { texto: 'Lo que no se repite, se pierde en el ruido de fondo.', autor: 'Memoria Rota — 39913EM-DOC-002' },
+      { texto: 'La piratería es una respuesta a un sistema que convierte al usuario en inquilino perpetuo de su propia cultura.', autor: 'Cultura No Se Torrentea — 39913EM-DOC-003' },
+      { texto: 'La obsolescencia programada también es una forma de censura.', autor: 'Memoria Rota — 39913EM-DOC-002' },
+      { texto: 'El streaming paga migajas a los creadores y financia tecnología de guerra con las ganancias.', autor: 'Cultura No Se Torrentea — 39913EM-DOC-003' },
+      { texto: 'Exploramos un mundo que la sociedad era demasiado floja para explorar; mi crimen es la curiosidad.', autor: 'Cultura No Se Torrentea — cita del Manifiesto Hacker' },
+      { texto: 'El archivo selecciona, decide qué sobrevive y qué se pierde.', autor: 'Memoria Rota — 39913EM-DOC-002' }
+    ];
+
+    // ============================================================
+    // 3. REDES SOCIALES (las mismas que tu blog)
+    // ============================================================
+    const REDES = [
+      { id: 'twitter', label: 'X', clase: 'btn-twitter', url: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}` },
+      { id: 'bluesky', label: 'Bluesky', clase: 'btn-bluesky', url: (t, u) => `https://bsky.app/intent/compose?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
+      { id: 'linkedin', label: 'LinkedIn', clase: 'btn-linkedin', url: (t, u) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}` },
+      { id: 'whatsapp', label: 'WhatsApp', clase: 'btn-whatsapp', url: (t, u) => `https://api.whatsapp.com/send?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
+      { id: 'facebook', label: 'Facebook', clase: 'btn-facebook', url: (t, u) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}&quote=${encodeURIComponent(t)}` },
+      { id: 'reddit', label: 'Reddit', clase: 'btn-reddit', url: (t, u) => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent(t)}` },
+      { id: 'instagram', label: 'Instagram', clase: 'btn-instagram', url: (t, u) => `https://www.instagram.com/39913em/` },
+      { id: 'substack', label: 'Substack', clase: 'btn-substack', url: (t, u) => `https://substack.com/` }
+    ];
+
+    // ============================================================
+    // 4. ESTADO DEL SISTEMA (con localStorage persistente)
+    // ============================================================
+    const ESTADO = {
+      integridad: 100,
+      visitas: 0,
+      vecesCompartido: 0,
+      corrompido: false,
+      ultimaVisita: null
     };
 
-    const TEXTS = {
-      'DATOS MASIVOS': 'El ruido de los servidores es el nuevo latido del mundo. Cada byte pesa, cada solicitud vibra. La infraestructura digital sostiene todo, pero su murmullo constante nos recuerda que la información nunca es gratis.',
-      'ARQUITECTURA SONORA': 'El sonido construye espacios invisibles. La reverb define el tamaño del templo, los silencios marcan sus límites. Escuchar es habitar. La arquitectura no se ve, se escucha.',
-      'MEMORIA ROTA': 'ERROR 404: Recuerdo no encontrado. Los fragmentos de memoria flotan como datos corruptos. El tiempo desgasta, el olvido agrieta. Lo que no se repite, se pierde en el ruido de fondo.',
-      'CULTURA NO SE TORRENTEA': 'Susurros compartidos, conocimiento que fluye. La cultura no se compra, se siembra. Cada voz es una semilla, cada escucha es un acto de resistencia.'
-    };
+    function cargarEstado() {
+      try {
+        const guardado = localStorage.getItem('monumento_estado');
+        if (guardado) {
+          const parsed = JSON.parse(guardado);
+          Object.assign(ESTADO, parsed);
+        }
+      } catch (e) {}
+    }
 
-    // --- ESCENA ---
+    function guardarEstado() {
+      try {
+        localStorage.setItem('monumento_estado', JSON.stringify(ESTADO));
+      } catch (e) {}
+    }
+
+    cargarEstado();
+
+    // Verificar si pasaron 24h sin visita
+    const ahora = Date.now();
+    if (ESTADO.ultimaVisita && (ahora - ESTADO.ultimaVisita) > 86400000) {
+      ESTADO.integridad = Math.min(ESTADO.integridad, 55);
+      ESTADO.corrompido = true;
+    }
+    ESTADO.ultimaVisita = ahora;
+    ESTADO.visitas += 1;
+    guardarEstado();
+
+    // Si ya fue compartido 5 veces, reparar
+    if (ESTADO.vecesCompartido >= 5) {
+      ESTADO.integridad = 100;
+      ESTADO.corrompido = false;
+      guardarEstado();
+    }
+
+    // Actualizar UI de estado
+    function actualizarUI() {
+      document.getElementById('visitas').textContent = ESTADO.visitas;
+      document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
+      document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
+      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+
+      if (ESTADO.corrompido || ESTADO.integridad < 100) {
+        document.getElementById('alerta-corrupcion').style.display = 'block';
+        document.getElementById('integridad').style.color = '#ff1744';
+        document.getElementById('estado').classList.add('alerta');
+      } else {
+        document.getElementById('alerta-corrupcion').style.display = 'none';
+        document.getElementById('integridad').style.color = '#00e676';
+        document.getElementById('estado').classList.remove('alerta');
+      }
+
+      // Mostrar/ocultar botón sembrar según necesidad
+      const btnSembrar = document.getElementById('btn-sembrar');
+      if (ESTADO.integridad < 100 || ESTADO.vecesCompartido < 5) {
+        btnSembrar.style.display = 'block';
+      } else {
+        btnSembrar.style.display = 'none';
+      }
+    }
+
+    actualizarUI();
+
+    // ============================================================
+    // 5. FUNCIÓN PARA CORROMPER UN TEXTO
+    // ============================================================
+    function corromperTexto(texto, nivel = 0.3) {
+      if (!texto) return texto;
+      const chars = texto.split('');
+      const resultado = [];
+      const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊', '◌', '◍', '◎', '●', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗'];
+      const letrasRojas = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
+
+      for (let i = 0; i < chars.length; i++) {
+        if (Math.random() < nivel) {
+          // Reemplazar con caracter roto
+          if (Math.random() < 0.5) {
+            resultado.push(caracteresRotos[Math.floor(Math.random() * caracteresRotos.length)]);
+          } else {
+            // Cambiar una vocal por otra o por símbolo
+            if (letrasRojas.includes(chars[i])) {
+              const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
+              resultado.push(vocales[Math.floor(Math.random() * vocales.length)]);
+            } else {
+              resultado.push(chars[i]);
+            }
+          }
+        } else {
+          resultado.push(chars[i]);
+        }
+      }
+      return resultado.join('');
+    }
+
+    // ============================================================
+    // 6. GENERACIÓN DE PDF (con o sin corrupción)
+    // ============================================================
+    async function generarPDF(label, corrupto = false) {
+      const data = TEXTOS_COMPLETOS[label];
+      if (!data) return;
+
+      const titulo = data.titulo || label;
+      const subtitulo = data.subtitulo || '';
+      let cuerpo = data.cuerpo || 'Contenido no disponible.';
+
+      // Corromper si es necesario
+      if (corrupto) {
+        cuerpo = corromperTexto(cuerpo, 0.35);
+      }
+
+      // Crear elemento temporal para el PDF
+      const element = document.createElement('div');
+      element.style.padding = '40px';
+      element.style.fontFamily = 'Georgia, serif';
+      element.style.color = '#1a1a1a';
+      element.style.background = '#fafafa';
+      element.style.maxWidth = '800px';
+      element.style.margin = '0 auto';
+
+      let html = `
+        <div style="text-align:center; border-bottom:2px solid #ff6b35; padding-bottom:20px; margin-bottom:20px;">
+          <h1 style="font-size:28px; margin:0; color:#0a0a0a;">MONUMENTO SONORO CORRUPTIBLE</h1>
+          <p style="font-size:12px; color:#666; letter-spacing:2px; text-transform:uppercase;">Archivo de Señal · 39913EM</p>
+        </div>
+      `;
+
+      if (corrupto) {
+        html += `
+          <div style="background:#ffebee; border:2px solid #ff1744; padding:15px; border-radius:8px; margin-bottom:20px; text-align:center;">
+            <span style="font-size:24px;">⚠️</span>
+            <p style="font-weight:bold; color:#c62828; margin:5px 0;">ESTE ARCHIVO HA SIDO CORROMPIDO</p>
+            <p style="font-size:12px; color:#666;">Comparte el enlace del monumento 5 veces para desbloquear la versión original.</p>
+            <p style="font-size:11px; color:#888;">Compartido: ${ESTADO.vecesCompartido}/5</p>
+            <p style="font-size:11px; color:#888; word-break:break-all;">${window.location.href}</p>
+          </div>
+        `;
+      }
+
+      html += `
+        <div style="margin-bottom:20px;">
+          <h2 style="font-size:22px; margin:0 0 5px;">${titulo}</h2>
+          ${subtitulo ? `<p style="font-size:16px; color:#555; font-style:italic; margin:0 0 10px;">${subtitulo}</p>` : ''}
+          <p style="font-size:12px; color:#999;">${label} · ${corrupto ? '🔒 VERSIÓN CORRUPTA' : '📄 VERSIÓN ORIGINAL'}</p>
+        </div>
+        <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">
+          ${cuerpo}
+        </div>
+        <div style="margin-top:30px; border-top:1px solid #ddd; padding-top:15px; text-align:center; font-size:11px; color:#999;">
+          Archivo de Señal · ${new Date().toLocaleDateString()} · ${window.location.origin}/archivo-de-senal/
+        </div>
+      `;
+
+      element.innerHTML = html;
+      document.body.appendChild(element);
+
+      try {
+        const opt = {
+          margin: 10,
+          filename: `${label.toLowerCase().replace(/\s+/g, '_')}_${corrupto ? 'corrupto' : 'original'}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        await html2pdf().set(opt).from(element).save();
+      } catch (e) {
+        console.error('Error generando PDF:', e);
+      } finally {
+        document.body.removeChild(element);
+      }
+    }
+
+    // ============================================================
+    // 7. THREE.JS - ESCENA
+    // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
 
@@ -65,49 +516,55 @@
     camera.position.set(8, 6, 12);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     document.body.appendChild(renderer.domElement);
 
-    // --- CONTROLES (limitados para la experiencia) ---
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.minDistance = 4;
+    controls.minDistance = 3;
     controls.maxDistance = 18;
-    controls.maxPolarAngle = Math.PI / 2.2;
-    controls.target.set(0, 1, 0);
+    controls.maxPolarAngle = Math.PI / 2.1;
+    controls.target.set(0, 1.5, 0);
+    controls.update();
 
-    // --- LUCES ---
-    const ambientLight = new THREE.AmbientLight(0x222244, 0.5);
+    // ============================================================
+    // 8. LUCES
+    // ============================================================
+    const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    mainLight.position.set(5, 10, 7);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    mainLight.position.set(5, 12, 7);
     mainLight.castShadow = true;
     scene.add(mainLight);
 
-    const rimLight = new THREE.DirectionalLight(0xff6b35, 0.5);
+    const rimLight = new THREE.DirectionalLight(0xff6b35, 0.6);
     rimLight.position.set(-5, 5, -7);
     scene.add(rimLight);
 
-    // --- PERSONAJE (guardián) ---
+    const fillLight = new THREE.DirectionalLight(0x4fc3f7, 0.3);
+    fillLight.position.set(-3, 0, 8);
+    scene.add(fillLight);
+
+    // ============================================================
+    // 9. PERSONAJE GUARDIÁN
+    // ============================================================
     function crearPersonaje() {
       const group = new THREE.Group();
-      
-      // Cuerpo (cubo estilizado)
+
       const cuerpo = new THREE.Mesh(
         new THREE.BoxGeometry(0.8, 1.2, 0.6),
-        new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7 })
+        new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7, emissive: 0x0a0a1a, emissiveIntensity: 0.2 })
       );
       cuerpo.position.y = 0.6;
       cuerpo.castShadow = true;
       group.add(cuerpo);
 
-      // Cabeza
       const cabeza = new THREE.Mesh(
         new THREE.SphereGeometry(0.4, 8, 8),
         new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.3 })
@@ -116,22 +573,21 @@
       cabeza.castShadow = true;
       group.add(cabeza);
 
-      // Audífonos (aro)
       const aro = new THREE.Mesh(
         new THREE.TorusGeometry(0.5, 0.05, 8, 16),
-        new THREE.MeshStandardMaterial({ color: 0xff6b35, roughness: 0.2, metalness: 0.8 })
+        new THREE.MeshStandardMaterial({ color: 0xff6b35, roughness: 0.2, metalness: 0.8, emissive: 0xff6b35, emissiveIntensity: 0.1 })
       );
       aro.position.y = 1.6;
       aro.rotation.x = Math.PI / 3;
       aro.rotation.z = 0.3;
       group.add(aro);
 
-      // LED de "vida" en el pecho
       const led = new THREE.Mesh(
         new THREE.SphereGeometry(0.08, 6, 6),
         new THREE.MeshStandardMaterial({ color: 0x00e676, emissive: 0x00e676, emissiveIntensity: 0.5 })
       );
       led.position.set(0, 0.7, 0.35);
+      led.name = 'led';
       group.add(led);
 
       return group;
@@ -141,142 +597,255 @@
     guardian.position.set(0, 0, 0);
     scene.add(guardian);
 
-    // --- COLUMNAS ---
+    // ============================================================
+    // 10. COLUMNAS CON IDENTIDAD VISUAL ÚNICA
+    // ============================================================
     const columnas = [];
-    const posiciones = [
-      { x: -4, z: -2.5, label: 'DATOS MASIVOS', color: 0xff6b35, audio: 'servers' },
-      { x: 4, z: -2.5, label: 'ARQUITECTURA SONORA', color: 0x4fc3f7, audio: 'reverb' },
-      { x: -4, z: 3, label: 'MEMORIA ROTA', color: 0xff1744, audio: 'glitch' },
-      { x: 4, z: 3, label: 'CULTURA NO SE TORRENTEA', color: 0x00e676, audio: 'voces' }
+    const datosColumna = [
+      { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, audio: 'servers', forma: 'cubos' },
+      { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, audio: 'reverb', forma: 'ondas' },
+      { label: 'MEMORIA ROTA', x: -4.5, z: 3.5, color: 0xff1744, audio: 'glitch', forma: 'rota' },
+      { label: 'CULTURA NO SE TORRENTEA', x: 4.5, z: 3.5, color: 0x00e676, audio: 'voces', forma: 'flotante' }
     ];
 
-    function crearColumna(pos, label, color, rota = false) {
+    function crearColumnaEspecifica(label, color, forma) {
       const group = new THREE.Group();
-      
+      const altura = 5;
+
       // Base
       const base = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.6, 0.8, 0.2, 8),
-        new THREE.MeshStandardMaterial({ color: 0x333355, roughness: 0.7, metalness: 0.3 })
+        new THREE.CylinderGeometry(0.8, 1, 0.2, 8),
+        new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 })
       );
       base.position.y = 0.1;
       base.receiveShadow = true;
       group.add(base);
 
-      // Columna principal (hecha de cubitos para DATOS MASIVOS)
       let columnaMesh;
-      if (label === 'DATOS MASIVOS') {
-        const cubosGroup = new THREE.Group();
-        for (let i = 0; i < 20; i++) {
-          const cubo = new THREE.Mesh(
-            new THREE.BoxGeometry(0.35 + Math.random()*0.1, 0.2, 0.35 + Math.random()*0.1),
-            new THREE.MeshStandardMaterial({ 
-              color: color, 
-              roughness: 0.4, 
-              metalness: 0.6,
+
+      switch(forma) {
+        case 'cubos':
+          const cubosGroup = new THREE.Group();
+          for (let i = 0; i < 25; i++) {
+            const size = 0.3 + Math.random() * 0.15;
+            const cubo = new THREE.Mesh(
+              new THREE.BoxGeometry(size, 0.18, size),
+              new THREE.MeshStandardMaterial({
+                color: color,
+                roughness: 0.3,
+                metalness: 0.6,
+                emissive: color,
+                emissiveIntensity: 0.05 + Math.random() * 0.1
+              })
+            );
+            cubo.position.y = 0.2 + i * 0.2;
+            cubo.position.x = (Math.random() - 0.5) * 0.5;
+            cubo.position.z = (Math.random() - 0.5) * 0.5;
+            cubo.rotation.y = Math.random() * Math.PI;
+            cubo.castShadow = true;
+            cubo.userData = { idx: i, originalY: cubo.position.y };
+            cubosGroup.add(cubo);
+          }
+          columnaMesh = cubosGroup;
+          columnaMesh.position.y = 2.5;
+          break;
+
+        case 'ondas':
+          const ondasGroup = new THREE.Group();
+          for (let i = 0; i < 12; i++) {
+            const radio = 0.4 + Math.sin(i * 0.8) * 0.2;
+            const anillo = new THREE.Mesh(
+              new THREE.TorusGeometry(radio, 0.04, 8, 20),
+              new THREE.MeshStandardMaterial({
+                color: color,
+                roughness: 0.1,
+                metalness: 0.9,
+                emissive: color,
+                emissiveIntensity: 0.1,
+                transparent: true,
+                opacity: 0.6 + Math.sin(i * 0.5) * 0.3
+              })
+            );
+            anillo.position.y = 0.3 + i * 0.4;
+            anillo.rotation.x = Math.PI / 2 + Math.sin(i * 0.3) * 0.2;
+            anillo.rotation.z = Math.sin(i * 0.5) * 0.1;
+            anillo.castShadow = true;
+            anillo.userData = { idx: i, originalY: anillo.position.y };
+            ondasGroup.add(anillo);
+          }
+          columnaMesh = ondasGroup;
+          columnaMesh.position.y = 2.5;
+          break;
+
+        case 'rota':
+          const rotaGroup = new THREE.Group();
+          // Mitad inferior
+          const inferior = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.5, 0.6, 2.5, 8),
+            new THREE.MeshStandardMaterial({
+              color: color,
+              roughness: 0.5,
+              metalness: 0.3,
+              emissive: color,
+              emissiveIntensity: 0.05
+            })
+          );
+          inferior.position.y = 1.3;
+          inferior.castShadow = true;
+          rotaGroup.add(inferior);
+
+          // Mitad superior (desplazada)
+          const superior = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.45, 0.5, 2.2, 8),
+            new THREE.MeshStandardMaterial({
+              color: color,
+              roughness: 0.6,
+              metalness: 0.2,
               emissive: color,
               emissiveIntensity: 0.1
             })
           );
-          cubo.position.y = 0.2 + i * 0.25;
-          cubo.position.x = (Math.random() - 0.5) * 0.3;
-          cubo.position.z = (Math.random() - 0.5) * 0.3;
-          cubo.castShadow = true;
-          cubosGroup.add(cubo);
-        }
-        columnaMesh = cubosGroup;
-      } else {
-        // Columnas lisas
-        columnaMesh = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.5, 0.6, 5, 12),
-          new THREE.MeshStandardMaterial({ 
-            color: color, 
-            roughness: 0.3, 
-            metalness: 0.7,
-            emissive: color,
-            emissiveIntensity: 0.05
-          })
-        );
-        columnaMesh.position.y = 2.5;
-        columnaMesh.castShadow = true;
-        
-        // Si es MEMORIA ROTA, añadir grietas visuales
-        if (label === 'MEMORIA ROTA') {
-          const grieta = new THREE.Mesh(
-            new THREE.BoxGeometry(0.1, 2.5, 0.1),
-            new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xff0000, emissiveIntensity: 0.3 })
-          );
-          grieta.position.set(0.3, 2.5, 0);
-          columnaMesh.add(grieta);
-          
-          const grieta2 = new THREE.Mesh(
-            new THREE.BoxGeometry(0.1, 1.5, 0.1),
-            new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xff0000, emissiveIntensity: 0.2 })
-          );
-          grieta2.position.set(-0.2, 3.2, 0.2);
-          grieta2.rotation.z = 0.3;
-          columnaMesh.add(grieta2);
-        }
+          superior.position.set(0.2, 3.5, 0.1);
+          superior.rotation.z = 0.08;
+          superior.rotation.x = 0.05;
+          superior.castShadow = true;
+          rotaGroup.add(superior);
+
+          // Grietas
+          const grietas = [];
+          for (let i = 0; i < 10; i++) {
+            const grieta = new THREE.Mesh(
+              new THREE.BoxGeometry(0.02, 0.2 + Math.random() * 0.4, 0.02),
+              new THREE.MeshStandardMaterial({
+                color: 0xff0000,
+                emissive: 0xff0000,
+                emissiveIntensity: 0.3 + Math.random() * 0.5
+              })
+            );
+            grieta.position.set(
+              (Math.random() - 0.5) * 0.7,
+              1.8 + Math.random() * 2.5,
+              (Math.random() - 0.5) * 0.7
+            );
+            grieta.rotation.z = (Math.random() - 0.5) * 0.3;
+            grieta.rotation.x = (Math.random() - 0.5) * 0.3;
+            grieta.userData = { originalScale: 1 };
+            rotaGroup.add(grieta);
+            grietas.push(grieta);
+          }
+          // Guardar grietas para animación
+          rotaGroup.userData.grietas = grietas;
+          columnaMesh = rotaGroup;
+          columnaMesh.position.y = 0;
+          break;
+
+        case 'flotante':
+          const flotanteGroup = new THREE.Group();
+          const fragmentos = [];
+          for (let i = 0; i < 25; i++) {
+            const fragmento = new THREE.Mesh(
+              new THREE.OctahedronGeometry(0.1 + Math.random() * 0.15),
+              new THREE.MeshStandardMaterial({
+                color: color,
+                roughness: 0.2,
+                metalness: 0.8,
+                emissive: color,
+                emissiveIntensity: 0.1,
+                transparent: true,
+                opacity: 0.7 + Math.random() * 0.3
+              })
+            );
+            const angulo = Math.random() * Math.PI * 2;
+            const radio = 0.3 + Math.random() * 0.7;
+            fragmento.position.set(
+              Math.cos(angulo) * radio,
+              0.3 + Math.random() * 4.5,
+              Math.sin(angulo) * radio
+            );
+            fragmento.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+            fragmento.castShadow = true;
+            fragmento.userData = {
+              velocidad: 0.3 + Math.random() * 0.5,
+              offset: Math.random() * Math.PI * 2,
+              radio: radio,
+              alturaBase: fragmento.position.y,
+              angulo: angulo
+            };
+            flotanteGroup.add(fragmento);
+            fragmentos.push(fragmento);
+          }
+          flotanteGroup.userData.fragmentos = fragmentos;
+          columnaMesh = flotanteGroup;
+          columnaMesh.position.y = 0.5;
+          break;
       }
 
-      if (label === 'DATOS MASIVOS') {
-        columnaMesh.position.y = 2.5;
-        group.add(columnaMesh);
-      } else {
-        group.add(columnaMesh);
-      }
+      group.add(columnaMesh);
 
-      // Texto flotante (sprite simple)
+      // Etiqueta
       const canvas = document.createElement('canvas');
       canvas.width = 256;
-      canvas.height = 64;
+      canvas.height = 80;
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = 'rgba(0,0,0,0)';
-      ctx.fillRect(0, 0, 256, 64);
-      ctx.font = 'Bold 20px Courier New';
-      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 256, 80);
+      ctx.font = 'Bold 16px Courier New';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(0,0,0,0.9)';
+      ctx.shadowBlur = 15;
+
+      const hexColor = '#' + color.toString(16).padStart(6, '0');
+      ctx.fillStyle = hexColor;
+      ctx.shadowColor = hexColor;
+      ctx.shadowBlur = 20;
+      ctx.fillText(label, 128, 30);
+
+      ctx.font = '12px Courier New';
+      ctx.fillStyle = '#888';
       ctx.shadowColor = 'rgba(0,0,0,0.8)';
       ctx.shadowBlur = 10;
-      ctx.fillText(label, 128, 32);
+      ctx.fillText('▼ acércate ▼', 128, 60);
 
       const texture = new THREE.CanvasTexture(canvas);
       const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
       const sprite = new THREE.Sprite(spriteMat);
-      sprite.position.y = 5.8;
-      sprite.scale.set(2.5, 0.6, 1);
+      sprite.position.y = 6.2;
+      sprite.scale.set(3, 0.9, 1);
       group.add(sprite);
 
-      group.position.set(pos.x, 0, pos.z);
-      
-      // Guardar datos para interacción
+      group.position.set(datosColumna.find(d => d.label === label).x, 0, datosColumna.find(d => d.label === label).z);
+
       group.userData = {
         label: label,
         color: color,
-        rota: label === 'MEMORIA ROTA',
+        forma: forma,
         audio: label,
-        originalY: 0
+        originalY: 0,
+        mesh: columnaMesh
       };
 
       return group;
     }
 
     // Crear columnas
-    posiciones.forEach((pos, i) => {
-      const col = crearColumna(pos, pos.label, pos.color, pos.label === 'MEMORIA ROTA');
+    datosColumna.forEach((pos) => {
+      const col = crearColumnaEspecifica(pos.label, pos.color, pos.forma);
       scene.add(col);
       columnas.push(col);
     });
 
-    // --- SUELO (brutalista) ---
+    // ============================================================
+    // 11. SUELO
+    // ============================================================
     const suelo = new THREE.Mesh(
-      new THREE.PlaneGeometry(14, 12),
-      new THREE.MeshStandardMaterial({ 
-        color: 0x111122, 
-        roughness: 0.9, 
+      new THREE.PlaneGeometry(16, 14),
+      new THREE.MeshStandardMaterial({
+        color: 0x0a0a1a,
+        roughness: 0.9,
         metalness: 0.1,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.6
       })
     );
     suelo.rotation.x = -Math.PI / 2;
@@ -286,13 +855,13 @@
 
     // Círculo base
     const circulo = new THREE.Mesh(
-      new THREE.RingGeometry(2, 2.5, 32),
-      new THREE.MeshStandardMaterial({ 
-        color: 0xff6b35, 
+      new THREE.RingGeometry(2.2, 2.8, 32),
+      new THREE.MeshStandardMaterial({
+        color: 0xff6b35,
         emissive: 0xff6b35,
-        emissiveIntensity: 0.1,
+        emissiveIntensity: 0.05,
         transparent: true,
-        opacity: 0.2,
+        opacity: 0.15,
         side: THREE.DoubleSide
       })
     );
@@ -300,7 +869,9 @@
     circulo.position.set(0, 0, 0);
     scene.add(circulo);
 
-    // --- SISTEMA DE SONIDO (Web Audio) ---
+    // ============================================================
+    // 12. SISTEMA DE SONIDO (Web Audio)
+    // ============================================================
     let audioContext = null;
     let osciladores = [];
 
@@ -312,27 +883,25 @@
 
     function playSound(columnLabel, distance) {
       if (!audioContext) return;
-      
-      // Limpiar sonidos anteriores
-      osciladores.forEach(osc => {
-        try { osc.stop(); } catch(e) {}
-      });
+      if (ESTADO.corrompido && Math.random() < 0.3) return; // sonido corrupto
+
+      osciladores.forEach(osc => { try { osc.stop(); } catch(e) {} });
       osciladores = [];
 
-      const volume = Math.max(0, 1 - distance / 10);
+      const volume = Math.max(0, 1 - distance / 8);
       if (volume < 0.05) return;
 
       let frecuencias = [];
       let tipo = 'sine';
-      
+
       switch(columnLabel) {
         case 'DATOS MASIVOS':
           frecuencias = [80, 120, 160, 200, 240];
-          tipo = 'sawtooth';
+          tipo = ESTADO.corrompido ? 'sawtooth' : 'sawtooth';
           break;
         case 'ARQUITECTURA SONORA':
           frecuencias = [200, 300, 400];
-          tipo = 'sine';
+          tipo = ESTADO.corrompido ? 'square' : 'sine';
           break;
         case 'MEMORIA ROTA':
           frecuencias = [100, 150, 220, 310];
@@ -340,7 +909,7 @@
           break;
         case 'CULTURA NO SE TORRENTEA':
           frecuencias = [250, 350, 450, 550];
-          tipo = 'sine';
+          tipo = ESTADO.corrompido ? 'sawtooth' : 'sine';
           break;
         default:
           frecuencias = [200];
@@ -349,257 +918,324 @@
       frecuencias.forEach((freq, i) => {
         const osc = audioContext.createOscillator();
         const gain = audioContext.createGain();
-        
         osc.type = tipo;
-        osc.frequency.value = freq * (1 + (Math.random() - 0.5) * 0.02);
-        
-        gain.gain.value = volume * 0.08 / frecuencias.length;
-        
+        const desviacion = ESTADO.corrompido ? 0.1 : 0.02;
+        osc.frequency.value = freq * (1 + (Math.random() - 0.5) * desviacion);
+        gain.gain.value = volume * 0.06 / frecuencias.length;
         osc.connect(gain);
         gain.connect(audioContext.destination);
-        
         osc.start();
-        osc.stop(audioContext.currentTime + 0.5);
-        
+        osc.stop(audioContext.currentTime + 0.4);
         osciladores.push(osc);
-        
-        // Pequeño offset para crear textura
+
         setTimeout(() => {
           try {
             const osc2 = audioContext.createOscillator();
             const gain2 = audioContext.createGain();
             osc2.type = tipo;
-            osc2.frequency.value = freq * 1.5;
-            gain2.gain.value = volume * 0.03 / frecuencias.length;
+            osc2.frequency.value = freq * (ESTADO.corrompido ? 1.8 : 1.5);
+            gain2.gain.value = volume * 0.02 / frecuencias.length;
             osc2.connect(gain2);
             gain2.connect(audioContext.destination);
             osc2.start();
-            osc2.stop(audioContext.currentTime + 0.3);
+            osc2.stop(audioContext.currentTime + 0.2);
             osciladores.push(osc2);
           } catch(e) {}
-        }, 100 + i * 50);
+        }, 80 + i * 40);
       });
     }
 
-    // --- SISTEMA DE ESTADO ---
-    let integridad = 100;
-    let visitas = 0;
-    let ultimaVisita = localStorage.getItem('ultimaVisitaMonumento');
-    const ahora = Date.now();
-
-    // Detectar si nadie ha visitado en 24h
-    if (ultimaVisita && (ahora - parseInt(ultimaVisita)) > 86400000) {
-      integridad = 60;
-      document.getElementById('integridad').style.color = '#ff1744';
-      document.getElementById('estado').classList.add('glitch');
-    } else if (!ultimaVisita) {
-      integridad = 80;
-    }
-
-    localStorage.setItem('ultimaVisitaMonumento', ahora.toString());
-
-    // Actualizar UI
-    document.getElementById('visitas').textContent = `VISITAS: ${Math.floor(Math.random() * 100 + 1)}`;
-    document.getElementById('integridad').textContent = `INTEGRIDAD: ${integridad}%`;
-
-    // --- INTERACCIÓN CON COLUMNAS (Raycaster) ---
+    // ============================================================
+    // 13. INTERACCIÓN CON COLUMNAS (click para PDF)
+    // ============================================================
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
-    let columnaSeleccionada = null;
 
     renderer.domElement.addEventListener('pointermove', (event) => {
       pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
     });
 
-    renderer.domElement.addEventListener('click', (event) => {
+    renderer.domElement.addEventListener('click', async (event) => {
       if (!audioContext) initAudio();
-      
+
       raycaster.setFromCamera(pointer, camera);
-      
-      // Detectar columna clickeada
       const intersects = raycaster.intersectObjects(columnas, true);
+
       if (intersects.length > 0) {
         let col = intersects[0].object;
         while (col.parent && !col.userData.label) {
           col = col.parent;
         }
         if (col.userData.label) {
-          mostrarTexto(col.userData.label);
+          const label = col.userData.label;
+          const corrupto = ESTADO.corrompido || ESTADO.integridad < 100;
+          await generarPDF(label, corrupto);
         }
       }
     });
 
-    // --- MOSTRAR TEXTO DE COLUMNA ---
-    function mostrarTexto(label) {
-      const texto = TEXTS[label] || '...';
-      const infoDiv = document.getElementById('info');
-      infoDiv.innerHTML = `📖 ${label}<br><span style="font-size:10px;opacity:0.7;display:block;max-width:500px;margin-top:5px;">${texto}</span>`;
-      infoDiv.style.opacity = '1';
-      infoDiv.style.padding = '20px';
-      
-      setTimeout(() => {
-        infoDiv.style.opacity = '0.7';
-        infoDiv.innerHTML = '🔊 ACÉRCATE A CADA COLUMNA PARA ESCUCHAR SU SONIDO';
-        infoDiv.style.padding = '15px 30px';
-      }, 8000);
+    // ============================================================
+    // 14. PANEL DE CITA Y COMPARTIR
+    // ============================================================
+    const panelCita = document.getElementById('panel-cita');
+    const citaTexto = document.getElementById('cita-texto');
+    const citaAutor = document.getElementById('cita-autor');
+    const botonesCompartir = document.getElementById('botones-compartir');
+    const btnCita = document.getElementById('btn-cita');
+    const btnSembrar = document.getElementById('btn-sembrar');
+    const cerrarCita = document.getElementById('cerrar-cita');
+
+    function generarCitaAleatoria() {
+      const cita = CITAS[Math.floor(Math.random() * CITAS.length)];
+      citaTexto.textContent = `"${cita.texto}"`;
+      citaAutor.textContent = `— ${cita.autor}`;
+      return cita;
     }
 
-    // --- BOTÓN SEMBRAR ---
-    const sembrarBtn = document.getElementById('sembrar');
-    let sembrando = false;
+    function generarBotonesCompartir(texto, autor) {
+      const mensaje = `"${texto}" — ${autor}`;
+      const url = window.location.href;
+      const blogUrl = 'https://39913em.github.io/archivo-de-senal/';
 
-    sembrarBtn.addEventListener('click', () => {
-      if (sembrando) return;
-      sembrando = true;
-      
-      initAudio();
-      
-      // Generar .txt con ensayos
-      let contenido = '=== MONUMENTO SONORO CORRUPTIBLE ===\n\n';
-      contenido += 'DATOS MASIVOS\n';
-      contenido += TEXTS['DATOS MASIVOS'] + '\n\n';
-      contenido += 'ARQUITECTURA SONORA\n';
-      contenido += TEXTS['ARQUITECTURA SONORA'] + '\n\n';
-      contenido += 'MEMORIA ROTA\n';
-      contenido += TEXTS['MEMORIA ROTA'] + '\n\n';
-      contenido += 'CULTURA NO SE TORRENTEA\n';
-      contenido += TEXTS['CULTURA NO SE TORRENTEA'] + '\n\n';
-      contenido += '--- SEMBRADO EL ' + new Date().toLocaleString() + ' ---\n';
-      contenido += 'La cultura se siembra, no se torrentea.';
-      
-      // Descargar
-      const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `monumento_semilla_${Date.now()}.txt`;
-      link.click();
-      
-      // Copiar hash al portapapeles
-      const hash = '#CULTURA_NO_SE_TORRENTEA_' + Date.now().toString(36);
-      navigator.clipboard.writeText(hash).then(() => {
-        sembrarBtn.textContent = 'SEMILLA COPIADA!';
-        setTimeout(() => {
-          sembrarBtn.textContent = 'SEMBRAR CULTURA';
-          sembrando = false;
-        }, 3000);
-      }).catch(() => {
-        sembrarBtn.textContent = 'COPIA MANUAL: ' + hash;
-        setTimeout(() => {
-          sembrarBtn.textContent = 'SEMBRAR CULTURA';
-          sembrando = false;
-        }, 5000);
+      botonesCompartir.innerHTML = '';
+      REDES.forEach(red => {
+        const enlace = document.createElement('a');
+        enlace.className = red.clase;
+        let href;
+        if (red.id === 'instagram') {
+          href = red.url(mensaje, blogUrl);
+        } else if (red.id === 'substack') {
+          href = red.url(mensaje, blogUrl);
+        } else {
+          href = red.url(mensaje, blogUrl);
+        }
+        enlace.href = href;
+        enlace.target = '_blank';
+        enlace.rel = 'noopener noreferrer';
+        enlace.textContent = red.label;
+        enlace.addEventListener('click', () => {
+          registrarCompartido();
+        });
+        botonesCompartir.appendChild(enlace);
       });
-      
-      // Reparar 10%
-      integridad = Math.min(100, integridad + 10);
-      document.getElementById('integridad').textContent = `INTEGRIDAD: ${integridad}%`;
-      if (integridad >= 90) {
-        document.getElementById('integridad').style.color = '#00e676';
-        document.getElementById('estado').classList.remove('glitch');
-      }
-      
-      // Cambiar pose del personaje (soldar)
-      const led = guardian.children.find(c => c.type === 'Mesh' && c.material && c.material.emissive);
-      if (led) {
-        led.material.color.setHex(0xff6b35);
-        led.material.emissive.setHex(0xff6b35);
-        led.material.emissiveIntensity = 1;
+
+      // Botón copiar
+      const copiar = document.createElement('a');
+      copiar.className = 'btn-copiar';
+      copiar.textContent = 'Copiar cita';
+      copiar.href = '#';
+      copiar.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(`${mensaje}\n\n${blogUrl}`).then(() => {
+          copiar.textContent = '¡Copiado!';
+          setTimeout(() => { copiar.textContent = 'Copiar cita'; }, 2000);
+          registrarCompartido();
+        });
+      });
+      botonesCompartir.appendChild(copiar);
+    }
+
+    function registrarCompartido() {
+      if (ESTADO.vecesCompartido >= 5) return;
+      ESTADO.vecesCompartido += 1;
+      guardarEstado();
+      actualizarUI();
+
+      if (ESTADO.vecesCompartido >= 5) {
+        ESTADO.integridad = 100;
+        ESTADO.corrompido = false;
+        guardarEstado();
+        actualizarUI();
+        // Animación de reparación
+        document.getElementById('panel-cita').style.borderColor = '#00e676';
         setTimeout(() => {
-          led.material.color.setHex(0x00e676);
-          led.material.emissive.setHex(0x00e676);
-          led.material.emissiveIntensity = 0.5;
-        }, 2000);
+          document.getElementById('panel-cita').style.borderColor = '#ff6b35';
+        }, 3000);
       }
+    }
+
+    btnCita.addEventListener('click', () => {
+      const cita = generarCitaAleatoria();
+      generarBotonesCompartir(cita.texto, cita.autor);
+      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+      panelCita.classList.add('visible');
     });
 
-    // Mostrar botón si integridad < 100
-    if (integridad < 100) {
-      sembrarBtn.style.display = 'block';
-    } else {
-      // Ocultar si está al 100%
-      setTimeout(() => {
-        sembrarBtn.style.display = 'none';
-      }, 3000);
-    }
+    btnSembrar.addEventListener('click', () => {
+      const cita = generarCitaAleatoria();
+      generarBotonesCompartir(cita.texto, cita.autor);
+      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+      panelCita.classList.add('visible');
+    });
 
-    // --- ANIMACIÓN Y DETECCIÓN DE PROXIMIDAD ---
+    cerrarCita.addEventListener('click', () => {
+      panelCita.classList.remove('visible');
+    });
+
+    // Cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') panelCita.classList.remove('visible');
+    });
+
+    // ============================================================
+    // 15. INSTRUCCIONES
+    // ============================================================
+    document.getElementById('cerrar-instrucciones').addEventListener('click', () => {
+      const panel = document.getElementById('panel-instrucciones');
+      panel.style.opacity = '0';
+      panel.style.transform = 'translateX(-50%) translateY(20px)';
+      setTimeout(() => { panel.style.display = 'none'; }, 500);
+    });
+
+    // ============================================================
+    // 16. ANIMACIÓN Y LOOP
+    // ============================================================
     let tiempo = 0;
 
     function animate() {
       requestAnimationFrame(animate);
-      
       tiempo += 0.01;
-      
+
       // Rotación suave del personaje
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
-      
+
       // Movimiento de columnas
       columnas.forEach((col, i) => {
         const offset = i * 0.5;
+        const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
+
+        // Movimiento base
         col.position.y = Math.sin(tiempo * 0.5 + offset) * 0.05;
-        
-        // Columna de cultura flota más
-        if (col.userData.label === 'CULTURA NO SE TORRENTEA') {
-          col.position.y += Math.sin(tiempo * 0.7 + offset) * 0.08;
-          col.rotation.y = Math.sin(tiempo * 0.2 + offset) * 0.05;
-        }
-        
-        // MEMORIA ROTA parpadea
-        if (col.userData.label === 'MEMORIA ROTA') {
-          if (Math.sin(tiempo * 3) > 0.8) {
-            col.children.forEach(child => {
-              if (child.material && child.material.emissive) {
-                child.material.emissiveIntensity = 0.5 + Math.random() * 0.5;
+
+        // Efectos según tipo
+        const forma = col.userData.forma;
+        const mesh = col.userData.mesh;
+
+        if (forma === 'cubos' && mesh) {
+          // Cubos vibran más si está corrupto
+          mesh.children.forEach((cubo, idx) => {
+            if (cubo.isMesh) {
+              const vibracion = estadoCorrupto ? 0.03 : 0.01;
+              cubo.position.x += (Math.random() - 0.5) * vibracion;
+              cubo.position.z += (Math.random() - 0.5) * vibracion;
+              if (estadoCorrupto) {
+                cubo.material.emissiveIntensity = 0.2 + Math.random() * 0.3;
+              } else {
+                cubo.material.emissiveIntensity = 0.05 + Math.sin(tiempo + idx) * 0.05;
               }
-            });
-          }
+            }
+          });
+        }
+
+        if (forma === 'ondas' && mesh) {
+          mesh.children.forEach((anillo, idx) => {
+            if (anillo.isMesh) {
+              const escala = estadoCorrupto ? 1 + Math.sin(tiempo * 2 + idx) * 0.1 : 1;
+              anillo.scale.x = escala;
+              anillo.scale.z = escala;
+              anillo.material.opacity = estadoCorrupto ? 0.3 + Math.sin(tiempo * 3 + idx) * 0.2 : 0.6 + Math.sin(idx * 0.5) * 0.3;
+            }
+          });
+        }
+
+        if (forma === 'rota' && mesh) {
+          // Grietas crecen si está corrupto
+          const grietas = mesh.userData.grietas || [];
+          grietas.forEach((grieta, idx) => {
+            if (estadoCorrupto) {
+              const crecimiento = 1 + Math.sin(tiempo * 2 + idx) * 0.5;
+              grieta.scale.y = crecimiento;
+              grieta.material.emissiveIntensity = 0.5 + Math.sin(tiempo * 3 + idx) * 0.5;
+              // Parpadeo
+              if (Math.sin(tiempo * 4 + idx) > 0.8) {
+                grieta.material.color.setHex(0xff0000);
+              } else {
+                grieta.material.color.setHex(0xff4444);
+              }
+            } else {
+              grieta.scale.y = 1;
+              grieta.material.emissiveIntensity = 0.3;
+            }
+          });
+        }
+
+        if (forma === 'flotante' && mesh) {
+          const fragmentos = mesh.userData.fragmentos || [];
+          fragmentos.forEach((frag, idx) => {
+            const data = frag.userData;
+            if (data) {
+              const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.3;
+              frag.position.y = altura;
+              frag.rotation.x += 0.01;
+              frag.rotation.z += 0.005;
+              if (estadoCorrupto) {
+                // Caída errática
+                frag.position.y += Math.sin(tiempo * 5 + idx) * 0.02;
+                frag.material.opacity = 0.4 + Math.sin(tiempo * 2 + idx) * 0.3;
+              }
+            }
+          });
+        }
+
+        // Efecto de corrupción en toda la columna
+        if (estadoCorrupto && Math.random() < 0.01) {
+          // Pequeño destello rojo
+          const flash = new THREE.Mesh(
+            new THREE.SphereGeometry(0.5, 4, 4),
+            new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.2 })
+          );
+          flash.position.set(0, 2.5 + Math.random() * 3, 0);
+          col.add(flash);
+          setTimeout(() => { col.remove(flash); }, 100);
         }
       });
-      
-      // Detectar proximidad de cámara a columnas
+
+      // Detectar proximidad para sonido
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
-      
+
       columnas.forEach(col => {
         const dist = camPos.distanceTo(col.position);
-        if (dist < 5 && dist < distanciaMin) {
+        if (dist < 6 && dist < distanciaMin) {
           distanciaMin = dist;
           columnaCercana = col;
         }
       });
-      
+
       if (columnaCercana && audioContext) {
         playSound(columnaCercana.userData.label, distanciaMin);
-        
-        // Efecto visual de cercanía
-        columnaCercana.children.forEach(child => {
-          if (child.material && child.material.emissive) {
-            child.material.emissiveIntensity = 0.2 + (1 - distanciaMin/5) * 0.3;
-          }
-        });
       }
-      
+
       controls.update();
       renderer.render(scene, camera);
     }
 
     animate();
 
-    // --- RESPONSIVE ---
+    // ============================================================
+    // 17. RESPONSIVE
+    // ============================================================
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    // ============================================================
+    // 18. INICIALIZACIÓN
+    // ============================================================
+    await cargarTextosCompletos();
+    console.log('MONUMENTO SONORO CORRUPTIBLE');
+    console.log('4 columnas con identidad única');
+    console.log('Corrupción activa:', ESTADO.corrompido);
+    console.log('Veces compartido:', ESTADO.vecesCompartido);
+    console.log('Integridad:', ESTADO.integridad + '%');
+
     // Inicializar audio al primer click
     document.addEventListener('click', initAudio, { once: true });
 
-    console.log('MONUMENTO SONORO CORRUPTIBLE');
-    console.log('4 columnas: Datos Masivos, Arquitectura Sonora, Memoria Rota, Cultura No Se Torrentea');
-    console.log('Sembrar cultura para reparar la memoria');
   </script>
 </body>
 </html>
