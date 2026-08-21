@@ -326,10 +326,10 @@
     <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
     <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
     <div>PARTÍCULAS: <span id="particulas" class="valor">0</span></div>
-    <div class="tiempo-restante">⏳ TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
+    <div class="tiempo-restante">TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
-    <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">CORRUPCIÓN ACTIVA</div>
-    <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">💀 MUERTO</div>
+    <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
+    <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">MUERTO</div>
     <div class="contador-compartido">SEMBRADO: <span id="veces-compartido">0</span>/5</div>
     <div style="color:#888; font-size:10px; margin-top:2px;"><span id="contador-mensajes">0</span> mensajes</div>
   </div>
@@ -344,7 +344,7 @@
       <span class="icono"></span> <strong>"SEMBRAR CULTURA"</strong> genera una cita para compartir<br>
       <span class="icono"></span> <strong>"RAYAR EL ARCHIVO"</strong> deja un mensaje anónimo flotante<br>
       <span class="icono">⚠️</span> Las huellas <strong>consumen</strong> vida / Las siembras <strong>reparan</strong><br>
-      <span class="icono">💀</span> Si llega a 0 partículas, <strong>el archivo muere</strong><br>
+      <span class="icono"></span> Si llega a 0 partículas, <strong>el archivo muere</strong><br>
       <span class="icono"></span> Comparte <strong>5 citas</strong> para <strong>renacer</strong> el archivo
     </p>
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">🎧 Usa auriculares para mejor experiencia</p>
@@ -371,7 +371,7 @@
     <div class="texto" id="cita-texto">"La cultura se torrentea, si no se netflixea."</div>
     <div class="autor" id="cita-autor">— Monumento Sonoro</div>
     <div id="contador-compartido-panel">Semillas: <span id="veces-compartido-panel">0</span>/5</div>
-    <div class="compartir-titulo">COMPARTE PARA SEMBRAR</div>
+    <div class="compartir-titulo">COMPARTE PARA MANTENER VIVO EL ARCHIVO</div>
     <div class="botones-compartir" id="botones-compartir"></div>
   </div>
 
@@ -391,7 +391,7 @@
       <div class="simbolo">💀</div>
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
       <div class="texto">
-        <br>
+      <br>
         La memoria se ha corrompido.<br><br>
         <strong>Deja una huella o siembra cultura para revivirlo.</strong>
       </div>
@@ -657,7 +657,8 @@
       if (ESTADO.muerto) {
         const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
         crearHuella(col.label, col.color);
-        ESTADO.huellas++; ESTADO.ultimaActualizacion = Date.now();
+        ESTADO.huellas++;
+        ESTADO.ultimaActualizacion = Date.now();
         guardarEstado(); actualizarCorrupcion();
         ocultarOverlayMuerte();
       }
@@ -901,7 +902,17 @@
     let audioCtx = null;
 
     function initAudio() {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (!audioCtx) {
+        try {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          console.log('🔊 Audio iniciado');
+        } catch (e) {
+          console.warn('Error iniciando audio:', e);
+        }
+      }
     }
 
     function playSound(freqs, type = 'sine', dur = 0.4, vol = 0.06) {
@@ -940,13 +951,38 @@
         let col = hits[0].object;
         while (col.parent && !col.userData.label) col = col.parent;
         if (col.userData.label) {
-          // generar PDF (versión simplificada)
           const data = TEXTOS_COMPLETOS[col.userData.label];
           if (data) {
-            const blob = new Blob([`${data.titulo}\n\n${data.cuerpo}`], { type: 'text/plain' });
+            let contenido = data.cuerpo || 'Contenido no disponible.';
+            
+            // Corromper si está muerto o corrupto
+            if (ESTADO.muerto) {
+              contenido = '⚠️ EL ARCHIVO HA MUERTO.\nNo hay texto disponible.';
+            } else if (ESTADO.corrompido || ESTADO.integridad < 80) {
+              const chars = contenido.split('');
+              const rotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
+              const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
+              let resultado = '';
+              for (const c of chars) {
+                if (Math.random() < 0.3) {
+                  if (Math.random() < 0.5) {
+                    resultado += rotos[Math.floor(Math.random() * rotos.length)];
+                  } else if ('AEIOUaeiou'.includes(c)) {
+                    resultado += vocales[Math.floor(Math.random() * vocales.length)];
+                  } else {
+                    resultado += c;
+                  }
+                } else {
+                  resultado += c;
+                }
+              }
+              contenido = resultado;
+            }
+            
+            const blob = new Blob([`${data.titulo}\n${'='.repeat(data.titulo.length)}\n\n${contenido}`], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `${col.userData.label.toLowerCase().replace(/\s+/g, '_')}.txt`;
+            link.download = `${col.userData.label.toLowerCase().replace(/\s+/g, '_')}_${ESTADO.muerto ? 'muerto' : ESTADO.corrompido ? 'corrupto' : 'original'}.txt`;
             link.click();
           }
         }
@@ -1014,8 +1050,26 @@
           if (v >= 5) return;
           v++;
           if (v >= 5) {
-            update(dbRef, { integridad: 100, corrompido: false, muerto: false, vecesCompartido: 0, ultimaVisita: Date.now() })
-              .then(() => { ocultarOverlayMuerte(); mostrarOverlayRenacimiento(); playRenacimiento(); });
+            update(dbRef, { 
+              integridad: 100, 
+              corrompido: false, 
+              muerto: false, 
+              vecesCompartido: 0,
+              ultimaVisita: Date.now() 
+            }).then(() => { 
+              ocultarOverlayMuerte(); 
+              mostrarOverlayRenacimiento(); 
+              playRenacimiento();
+              // Actualizar UI después del renacimiento
+              setTimeout(() => {
+                get(dbRef).then(snap2 => {
+                  if (snap2.exists()) {
+                    ESTADO.vecesCompartido = snap2.val().vecesCompartido || 0;
+                    actualizarUI();
+                  }
+                });
+              }, 500);
+            });
           } else {
             update(dbRef, { vecesCompartido: v, ultimaVisita: Date.now() });
           }
@@ -1167,8 +1221,14 @@
         document.getElementById('estado-muerto').style.display = 'none';
         document.getElementById('integridad').style.color = '#00e676';
       }
+      
+      // Mostrar botón "SEMBRAR CULTURA" excepto cuando está completamente restaurado
       const btn = document.getElementById('btn-sembrar');
-      btn.style.display = (ESTADO.muerto || ESTADO.vecesCompartido < 5) ? 'block' : 'none';
+      if (ESTADO.integridad === 100 && !ESTADO.muerto && ESTADO.vecesCompartido >= 5) {
+        btn.style.display = 'none';
+      } else {
+        btn.style.display = 'block';
+      }
     }
 
     // ============================================================
@@ -1234,7 +1294,7 @@
               c.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.5).getHex());
             } else {
               c.material.color.setHex(col.userData.color);
-              c.material.emissiveIntensity = 0.05 + Math.sin(time + c.userData?.idx || 0) * 0.05;
+              c.material.emissiveIntensity = 0.05 + Math.sin(time + (c.userData?.idx || 0)) * 0.05;
             }
           });
         }
@@ -1342,11 +1402,12 @@
       ESTADO.mensajes.forEach(m => crearMensajeFlotante(m));
     }
 
-    // Si no viene de cita, añadir huella
+    // Si no viene de cita, añadir huella y contar visita
     if (!citaParam) {
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       crearHuella(col.label, col.color);
       ESTADO.huellas++;
+      ESTADO.visitas++; // ← CONTAR VISITA
       ESTADO.ultimaActualizacion = Date.now();
       await guardarEstado();
       actualizarUI();
@@ -1361,13 +1422,17 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    // Eventos para audio (click y touch)
     document.addEventListener('click', initAudio, { once: true });
+    document.addEventListener('touchstart', initAudio, { once: true });
 
     console.log('MONUMENTO SONORO');
     console.log('Huellas:', ESTADO.huellas);
     console.log('Siembras:', ESTADO.siembras);
+    console.log('Visitas:', ESTADO.visitas);
     console.log('Integridad:', ESTADO.integridad + '%');
     console.log('Muerto:', ESTADO.muerto);
+    console.log('Semillas:', ESTADO.vecesCompartido + '/5');
   </script>
 </body>
 </html>
