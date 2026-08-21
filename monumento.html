@@ -274,7 +274,7 @@
     <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
     <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
     <div>PARTÍCULAS: <span id="particulas" class="valor">0</span></div>
-    <div class="tiempo-restante">⏳ TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
+    <div class="tiempo-restante">TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
     <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">💀 MUERTO</div>
@@ -340,7 +340,7 @@
   </div>
 
   <!-- ============================================================
-  THREE.JS
+  THREE.JS + FIREBASE
   ============================================================ -->
   <script type="importmap">
   {
@@ -354,11 +354,40 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script type="module">
+    // ============================================================
+    // 0. FIREBASE IMPORTS (CDN)
+    // ============================================================
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
+    import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+
+    // ============================================================
+    // FIREBASE CONFIG (copia exacta de tu consola)
+    // ============================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyD7UF2aM9q3-xN-VmEIgKOJsP88PiP0AwI",
+      authDomain: "monumento-sonoro-39913em.firebaseapp.com",
+      databaseURL: "https://monumento-sonoro-39913em-default-rtdb.firebaseio.com",
+      projectId: "monumento-sonoro-39913em",
+      storageBucket: "monumento-sonoro-39913em.firebasestorage.app",
+      messagingSenderId: "68225402050",
+      appId: "1:68225402050:web:e241cd5caa7a4c51d5675b"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'monumento');
+
+    console.log('Firebase conectado');
+
+    // ============================================================
+    // 1. THREE.JS IMPORTS
+    // ============================================================
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
     // ============================================================
-    // 1. TEXTOS COMPLETOS
+    // 2. TEXTOS COMPLETOS
     // ============================================================
     const TEXTOS_COMPLETOS = {};
 
@@ -395,7 +424,7 @@
     }
 
     // ============================================================
-    // 2. CITAS
+    // 3. CITAS
     // ============================================================
     const CITAS = [
       { texto: 'El dato masivo no es neutral: pesa, vibra, respira.', autor: 'DATARTVERSO — 39913EM-DOC-000' },
@@ -413,7 +442,7 @@
     ];
 
     // ============================================================
-    // 3. REDES SOCIALES
+    // 4. REDES SOCIALES
     // ============================================================
     const REDES = [
       { id: 'twitter', label: 'X', clase: 'btn-twitter', url: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}` },
@@ -427,7 +456,7 @@
     ];
 
     // ============================================================
-    // 4. ESTADO DEL SISTEMA (localStorage)
+    // 5. ESTADO GLOBAL CON FIREBASE
     // ============================================================
     const ESTADO = {
       integridad: 100,
@@ -441,33 +470,89 @@
       ultimaActualizacion: Date.now()
     };
 
-    function cargarEstado() {
+    async function cargarEstadoGlobal() {
       try {
-        const guardado = localStorage.getItem('monumento_estado');
-        if (guardado) { Object.assign(ESTADO, JSON.parse(guardado)); }
-      } catch (e) {}
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          ESTADO.huellas = data.huellas || 0;
+          ESTADO.siembras = data.siembras || 0;
+          ESTADO.visitas = data.visitas || 0;
+          ESTADO.integridad = data.integridad || 100;
+          ESTADO.corrompido = data.corrompido || false;
+          ESTADO.muerto = data.muerto || false;
+          ESTADO.ultimaVisita = data.ultimaVisita || Date.now();
+          ESTADO.vecesCompartido = data.vecesCompartido || 0;
+        } else {
+          await set(dbRef, {
+            huellas: 0,
+            siembras: 0,
+            visitas: 0,
+            integridad: 100,
+            corrompido: false,
+            muerto: false,
+            ultimaVisita: Date.now(),
+            vecesCompartido: 0
+          });
+        }
+      } catch (error) {
+        console.error('Error cargando datos de Firebase:', error);
+      }
+      actualizarUI();
     }
 
-    function guardarEstado() {
-      try { localStorage.setItem('monumento_estado', JSON.stringify(ESTADO)); } catch (e) {}
+    async function guardarEstadoGlobal() {
+      try {
+        await update(dbRef, {
+          huellas: ESTADO.huellas,
+          siembras: ESTADO.siembras,
+          visitas: ESTADO.visitas,
+          integridad: ESTADO.integridad,
+          corrompido: ESTADO.corrompido,
+          muerto: ESTADO.muerto,
+          ultimaVisita: ESTADO.ultimaVisita,
+          vecesCompartido: ESTADO.vecesCompartido
+        });
+      } catch (error) {
+        console.error('Error guardando en Firebase:', error);
+      }
     }
 
-    cargarEstado();
+    function escucharCambiosGlobales() {
+      onValue(dbRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const oldHuellas = ESTADO.huellas;
+          ESTADO.huellas = data.huellas || 0;
+          ESTADO.siembras = data.siembras || 0;
+          ESTADO.visitas = data.visitas || 0;
+          ESTADO.integridad = data.integridad || 100;
+          ESTADO.corrompido = data.corrompido || false;
+          ESTADO.muerto = data.muerto || false;
+          ESTADO.ultimaVisita = data.ultimaVisita || Date.now();
+          ESTADO.vecesCompartido = data.vecesCompartido || 0;
+          
+          if (data.huellas > oldHuellas) {
+            const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+            if (col) crearHuella(col.label, col.color);
+          }
+          actualizarUI();
+        }
+      }, (error) => {
+        console.error('Error en escucha Firebase:', error);
+      });
+    }
 
     // ============================================================
-    // 5. SISTEMA DE PARTÍCULAS ↔ CORRUPCIÓN
+    // 6. SISTEMA DE PARTÍCULAS ↔ CORRUPCIÓN
     // ============================================================
-    // Cada partícula = 1 hora de vida
-    // Cada hora, 1 partícula desaparece
-    // Cuando llega a 0 → MUERTE
-
     function calcularParticulasActivas() {
       return ESTADO.huellas + ESTADO.siembras;
     }
 
     function calcularTiempoRestante() {
       const particulas = calcularParticulasActivas();
-      return particulas; // horas
+      return particulas;
     }
 
     function actualizarCorrupcion() {
@@ -478,12 +563,10 @@
         const particulas = calcularParticulasActivas();
         const horasADescontar = Math.floor(horasPasadas);
         
-        // Descontar huellas primero, luego siembras
         let aEliminar = horasADescontar;
         while (aEliminar > 0 && ESTADO.huellas > 0) {
           ESTADO.huellas -= 1;
           aEliminar -= 1;
-          // Eliminar una partícula física (se hace en la animación)
         }
         while (aEliminar > 0 && ESTADO.siembras > 0) {
           ESTADO.siembras -= 1;
@@ -491,22 +574,21 @@
         }
         
         ESTADO.ultimaActualizacion = ahora;
-        guardarEstado();
+        guardarEstadoGlobal();
       }
 
-      // Verificar si está muerto
       const particulas = calcularParticulasActivas();
       if (particulas === 0 && !ESTADO.muerto) {
         ESTADO.muerto = true;
         ESTADO.corrompido = true;
         ESTADO.integridad = 0;
-        guardarEstado();
+        guardarEstadoGlobal();
         mostrarOverlayMuerte();
       } else if (particulas > 0 && ESTADO.muerto) {
         ESTADO.muerto = false;
         ESTADO.corrompido = false;
         ESTADO.integridad = Math.min(100, ESTADO.integridad + 20);
-        guardarEstado();
+        guardarEstadoGlobal();
         ocultarOverlayMuerte();
         animarRenacimiento();
       }
@@ -515,7 +597,7 @@
     }
 
     // ============================================================
-    // 6. OVERLAY DE MUERTE
+    // 7. OVERLAY DE MUERTE
     // ============================================================
     const overlayMuerte = document.getElementById('overlay-muerte');
     const cerrarOverlayMuerte = document.getElementById('cerrar-overlay-muerte');
@@ -536,23 +618,20 @@
     });
 
     btnRevivir.addEventListener('click', () => {
-      // Dejar una huella para revivir
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       crearHuella(col.label, col.color);
-      guardarHuella(col.label);
       ESTADO.huellas += 1;
       ESTADO.ultimaActualizacion = Date.now();
-      guardarEstado();
+      guardarEstadoGlobal();
       actualizarCorrupcion();
       ocultarOverlayMuerte();
       animarRenacimiento();
     });
 
     // ============================================================
-    // 7. ANIMACIÓN DE RENACIMIENTO
+    // 8. ANIMACIÓN DE RENACIMIENTO
     // ============================================================
     function animarRenacimiento() {
-      // Luz que sube desde el centro
       const luz = new THREE.Mesh(
         new THREE.SphereGeometry(0.1, 8, 8),
         new THREE.MeshBasicMaterial({ color: 0xff6b35, transparent: true, opacity: 1 })
@@ -560,7 +639,6 @@
       luz.position.set(0, 0, 0);
       scene.add(luz);
 
-      // Animación de expansión
       let escala = 0.1;
       let creciendo = true;
       const intervalo = setInterval(() => {
@@ -581,7 +659,6 @@
         }
       }, 50);
 
-      // Sonido de renacimiento (ascendente)
       if (audioContext) {
         try {
           const osc = audioContext.createOscillator();
@@ -600,7 +677,7 @@
     }
 
     // ============================================================
-    // 8. FUNCIONES DE UTILIDAD
+    // 9. FUNCIONES DE UTILIDAD
     // ============================================================
     function corromperTexto(texto, nivel = 0.3) {
       if (!texto) return texto;
@@ -797,7 +874,7 @@
     }
 
     // ============================================================
-    // 9. ACTUALIZAR UI
+    // 10. ACTUALIZAR UI
     // ============================================================
     function actualizarUI() {
       const particulas = calcularParticulasActivas();
@@ -838,7 +915,7 @@
     }
 
     // ============================================================
-    // 10. THREE.JS - ESCENA
+    // 11. THREE.JS - ESCENA
     // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
@@ -863,7 +940,7 @@
     controls.update();
 
     // ============================================================
-    // 11. LUCES
+    // 12. LUCES
     // ============================================================
     const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
     scene.add(ambientLight);
@@ -879,7 +956,7 @@
     scene.add(fillLight);
 
     // ============================================================
-    // 12. PERSONAJE GUARDIÁN
+    // 13. PERSONAJE GUARDIÁN
     // ============================================================
     function crearPersonaje() {
       const group = new THREE.Group();
@@ -920,7 +997,7 @@
     scene.add(guardian);
 
     // ============================================================
-    // 13. COLUMNAS
+    // 14. COLUMNAS
     // ============================================================
     const columnas = [];
     const datosColumna = [
@@ -1095,7 +1172,7 @@
     });
 
     // ============================================================
-    // 14. SUELO
+    // 15. SUELO
     // ============================================================
     const suelo = new THREE.Mesh(
       new THREE.PlaneGeometry(16, 14),
@@ -1118,10 +1195,9 @@
     scene.add(circulo);
 
     // ============================================================
-    // 15. PARTÍCULAS DE HUELLAS
+    // 16. PARTÍCULAS DE HUELLAS
     // ============================================================
     const huellasParticulas = [];
-    const particulasAEliminar = [];
 
     function crearHuella(label, color) {
       const geometria = new THREE.SphereGeometry(0.06 + Math.random() * 0.04, 6, 6);
@@ -1156,7 +1232,6 @@
 
     function eliminarHuella(particula) {
       if (!particula) return;
-      // Animación de desvanecimiento
       const fadeOut = () => {
         particula.material.opacity -= 0.05;
         if (particula.material.opacity > 0) {
@@ -1170,29 +1245,8 @@
       fadeOut();
     }
 
-    function cargarHuellasGuardadas() {
-      try {
-        const guardadas = localStorage.getItem('huellas_guardadas');
-        if (guardadas) {
-          const lista = JSON.parse(guardadas);
-          lista.forEach(h => {
-            const col = datosColumna.find(d => d.label === h.label);
-            if (col) crearHuella(h.label, col.color);
-          });
-        }
-      } catch (e) {}
-    }
-
-    function guardarHuella(label) {
-      try {
-        const guardadas = JSON.parse(localStorage.getItem('huellas_guardadas') || '[]');
-        guardadas.push({ label, fecha: Date.now() });
-        localStorage.setItem('huellas_guardadas', JSON.stringify(guardadas));
-      } catch (e) {}
-    }
-
     // ============================================================
-    // 16. SISTEMA DE SONIDO CON INTERACCIONES
+    // 17. SISTEMA DE SONIDO CON INTERACCIONES
     // ============================================================
     let audioContext = null;
     let osciladores = [];
@@ -1291,7 +1345,7 @@
     }
 
     // ============================================================
-    // 17. INTERACCIÓN CON COLUMNAS (click para PDF)
+    // 18. INTERACCIÓN CON COLUMNAS (click para PDF)
     // ============================================================
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -1321,7 +1375,7 @@
     });
 
     // ============================================================
-    // 18. INTERACCIÓN CON PARTÍCULAS (click = explosión)
+    // 19. INTERACCIÓN CON PARTÍCULAS (doble click = explosión)
     // ============================================================
     renderer.domElement.addEventListener('dblclick', (event) => {
       if (ESTADO.muerto) return;
@@ -1332,7 +1386,6 @@
       const intersects = raycaster.intersectObjects(huellasParticulas);
       if (intersects.length > 0) {
         const particula = intersects[0].object;
-        // Explosión: crear 5 partículas pequeñas
         playPop();
         const color = particula.material.color.getHex();
         const pos = particula.position.clone();
@@ -1351,7 +1404,6 @@
             ).normalize()
           };
           scene.add(peque);
-          // Animar explosión
           const animarExplosion = () => {
             peque.position.add(peque.userData.direccion.clone().multiplyScalar(peque.userData.velocidad));
             peque.material.opacity -= 0.02;
@@ -1363,16 +1415,15 @@
           };
           animarExplosion();
         }
-        // Eliminar la partícula original
         eliminarHuella(particula);
         ESTADO.huellas -= 1;
-        guardarEstado();
+        guardarEstadoGlobal();
         actualizarCorrupcion();
       }
     });
 
     // ============================================================
-    // 19. PANEL DE CITA Y COMPARTIR
+    // 20. PANEL DE CITA Y COMPARTIR
     // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
@@ -1392,13 +1443,13 @@
     function registrarCompartido() {
       if (ESTADO.vecesCompartido >= 5) return;
       ESTADO.vecesCompartido += 1;
-      guardarEstado();
+      guardarEstadoGlobal();
       actualizarUI();
       if (ESTADO.vecesCompartido >= 5) {
         ESTADO.integridad = 100;
         ESTADO.corrompido = false;
         ESTADO.muerto = false;
-        guardarEstado();
+        guardarEstadoGlobal();
         actualizarUI();
         document.getElementById('panel-cita').style.borderColor = '#00e676';
         setTimeout(() => {
@@ -1474,7 +1525,7 @@
       await generarBotonesCompartir(cita.texto, cita.autor);
       panelCita.classList.add('visible');
       ESTADO.siembras += 1;
-      guardarEstado();
+      guardarEstadoGlobal();
       actualizarUI();
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       const color = col.color;
@@ -1511,7 +1562,7 @@
     });
 
     // ============================================================
-    // 20. MENSAJE FLOTANTE DESDE CITA
+    // 21. MENSAJE FLOTANTE DESDE CITA
     // ============================================================
     const mensajeCita = document.getElementById('mensaje-cita');
     const mensajeCitaTexto = document.getElementById('mensaje-cita-texto');
@@ -1536,7 +1587,7 @@
       if (citaEncontrada) {
         mostrarMensajeCita(citaEncontrada.texto, citaEncontrada.autor);
         ESTADO.huellas += 1;
-        guardarEstado();
+        guardarEstadoGlobal();
         actualizarUI();
       } else {
         mostrarMensajeCita(citaDecodificada, 'Archivo de Señal');
@@ -1544,7 +1595,7 @@
     }
 
     // ============================================================
-    // 21. INSTRUCCIONES
+    // 22. INSTRUCCIONES
     // ============================================================
     const panelInstrucciones = document.getElementById('panel-instrucciones');
     const cerrarInstrucciones = document.getElementById('cerrar-instrucciones');
@@ -1567,7 +1618,7 @@
     });
 
     // ============================================================
-    // 22. ANIMACIÓN Y LOOP
+    // 23. ANIMACIÓN Y LOOP
     // ============================================================
     let tiempo = 0;
     let ultimoTickCorrupcion = Date.now();
@@ -1576,7 +1627,6 @@
       requestAnimationFrame(animate);
       tiempo += 0.01;
 
-      // Verificar corrupción cada 10 segundos
       if (Date.now() - ultimoTickCorrupcion > 10000) {
         ultimoTickCorrupcion = Date.now();
         actualizarCorrupcion();
@@ -1584,7 +1634,6 @@
 
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
 
-      // Animar partículas de huellas
       huellasParticulas.forEach((p, i) => {
         const data = p.userData;
         if (data) {
@@ -1597,7 +1646,6 @@
         }
       });
 
-      // Columnas
       const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
       const estaMuerto = ESTADO.muerto;
 
@@ -1701,7 +1749,6 @@
         }
       });
 
-      // Sonido por proximidad (solo si no está muerto)
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
@@ -1725,7 +1772,7 @@
     animate();
 
     // ============================================================
-    // 23. RESPONSIVE
+    // 24. RESPONSIVE
     // ============================================================
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -1734,35 +1781,30 @@
     });
 
     // ============================================================
-    // 24. INICIALIZACIÓN
+    // 25. INICIALIZACIÓN
     // ============================================================
     await cargarTextosCompletos();
-    cargarHuellasGuardadas();
+    await cargarEstadoGlobal();
+    escucharCambiosGlobales();
 
     // Añadir huella de esta visita (si no es desde cita)
     if (!citaParam) {
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       crearHuella(col.label, col.color);
-      guardarHuella(col.label);
       ESTADO.huellas += 1;
       ESTADO.ultimaActualizacion = Date.now();
-      guardarEstado();
+      await guardarEstadoGlobal();
       actualizarUI();
     }
 
-    // Verificar estado inicial
     actualizarCorrupcion();
 
-    console.log('MONUMENTO SONORO');
-    console.log('4 columnas con identidad única');
-    console.log('Corrupción activa:', ESTADO.corrompido);
-    console.log('Muerto:', ESTADO.muerto);
-    console.log('Veces compartido:', ESTADO.vecesCompartido);
-    console.log('Huellas totales:', ESTADO.huellas);
-    console.log('Siembras totales:', ESTADO.siembras);
-    console.log('Partículas activas:', calcularParticulasActivas());
-    console.log('Tiempo restante:', calcularTiempoRestante() + 'h');
+    console.log('MONUMENTO SONORO CON FIREBASE');
+    console.log('Datos sincronizados globalmente');
+    console.log('Huellas:', ESTADO.huellas);
+    console.log('Siembras:', ESTADO.siembras);
     console.log('Integridad:', ESTADO.integridad + '%');
+    console.log('Muerto:', ESTADO.muerto);
 
     document.addEventListener('click', initAudio, { once: true });
 
