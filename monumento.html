@@ -60,7 +60,7 @@
       opacity:0; transform:translate(-50%,-50%) scale(0.95);
       pointer-events:none;
     }
-    #panel-instrucciones h4 {
+    #panel-instrucciones.h4 {
       color:#ff6b35; font-size:15px; margin-bottom:10px;
       letter-spacing:2px; text-transform:uppercase;
     }
@@ -327,7 +327,7 @@
     <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
     <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
     <div>PARTÍCULAS: <span id="particulas" class="valor">0</span></div>
-    <div class="tiempo-restante">⏳ TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
+    <div class="tiempo-restante">TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
     <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">💀 MUERTO</div>
@@ -344,8 +344,8 @@
       <span class="icono"></span> Haz clic en una columna para <strong>descargar su ensayo</strong><br>
       <span class="icono"></span> <strong>"SEMBRAR CULTURA"</strong> genera una cita para compartir<br>
       <span class="icono"></span> <strong>"RAYAR EL ARCHIVO"</strong> deja un mensaje anónimo flotante<br>
-      <span class="icono"></span> Las huellas <strong>consumen</strong> vida / Las siembras <strong>reparan</strong><br>
-      <span class="icono"></span> Si llega a 0 partículas, <strong>el archivo muere</strong><br>
+      <span class="icono">⚠️</span> Las huellas <strong>consumen</strong> vida / Las siembras <strong>reparan</strong><br>
+      <span class="icono">💀</span> Si llega a 0 partículas, <strong>el archivo muere</strong><br>
       <span class="icono"></span> Comparte <strong>5 citas</strong> para <strong>renacer</strong> el archivo
     </p>
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">🎧 Usa auriculares para mejor experiencia</p>
@@ -369,7 +369,7 @@
   <div id="panel-cita">
     <button id="cerrar-cita">✕</button>
     <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ FRAGMENTO DEL MONUMENTO ✦</div>
-    <div class="texto" id="cita-texto">"La cultura se siembra"</div>
+    <div class="texto" id="cita-texto">"La cultura se siembra, no se torrentea."</div>
     <div class="autor" id="cita-autor">— Monumento Sonoro</div>
     <div id="contador-compartido-panel">Semillas: <span id="veces-compartido-panel">0</span>/5</div>
     <div class="compartir-titulo">COMPARTE PARA SEMBRAR</div>
@@ -393,7 +393,7 @@
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
       <div class="texto">
         El silencio ha llegado<br>
-       La memoria se ha corrompido.<br><br>
+        La memoria se ha corrompido.<br><br>
         <strong>Deja una huella o siembra cultura para revivirlo.</strong>
       </div>
       <button class="btn-revivir" id="btn-revivir">DEJAR HUELLA</button>
@@ -406,8 +406,8 @@
       <div class="simbolo"></div>
       <div class="titulo">EL ARCHIVO HA RENACIDO</div>
       <div class="texto">
+        5 semillas han sido sembradas.<br>
        <br>
-        <br>
         La memoria ha sido restaurada.
       </div>
       <button class="btn-cerrar-renacimiento" id="cerrar-renacimiento">✕ ENTRAR</button>
@@ -599,8 +599,24 @@
     async function agregarMensaje(texto) {
       if (!texto || texto.trim() === '') return;
       const mensaje = texto.trim().substring(0, 140);
-      ESTADO.mensajes.push(mensaje);
-      await guardarEstadoGlobal();
+      
+      // Obtener mensajes actuales de Firebase
+      const snapshot = await get(dbRef);
+      let mensajesActuales = [];
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        mensajesActuales = data.mensajes || [];
+      }
+      
+      // Agregar nuevo mensaje
+      mensajesActuales.push(mensaje);
+      
+      // Guardar en Firebase
+      await update(dbRef, { mensajes: mensajesActuales });
+      
+      // Actualizar estado local
+      ESTADO.mensajes = mensajesActuales;
+      
       // Crear fragmento flotante en 3D
       crearMensajeFlotante(mensaje);
       actualizarUI();
@@ -611,8 +627,10 @@
         const data = snapshot.val();
         if (data) {
           const oldHuellas = ESTADO.huellas;
-          const oldMensajes = ESTADO.mensajes.length;
+          const oldMensajesCount = ESTADO.mensajes.length;
+          const oldVecesCompartido = ESTADO.vecesCompartido;
           
+          // Actualizar todo el estado
           ESTADO.huellas = data.huellas || 0;
           ESTADO.siembras = data.siembras || 0;
           ESTADO.visitas = data.visitas || 0;
@@ -624,25 +642,46 @@
           ESTADO.mensajes = data.mensajes || [];
           
           // Si hay nuevos mensajes, crear fragmentos 3D
-          if (data.mensajes && data.mensajes.length > oldMensajes) {
-            const nuevoMensaje = data.mensajes[data.mensajes.length - 1];
+          if (ESTADO.mensajes.length > oldMensajesCount) {
+            const nuevoMensaje = ESTADO.mensajes[ESTADO.mensajes.length - 1];
             crearMensajeFlotante(nuevoMensaje);
           }
           
-          // Si alguien dejó una huella, crear partícula visual
-          if (data.huellas > oldHuellas) {
+          // Si alguien dejó una huella
+          if (ESTADO.huellas > oldHuellas) {
             const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
             if (col) crearHuella(col.label, col.color);
           }
           
+          // Si alguien compartió (semillas)
+          if (ESTADO.vecesCompartido > oldVecesCompartido) {
+            // Mostrar efecto visual de siembra
+            const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+            const color = col ? col.color : 0xffd700;
+            const frag = new THREE.Mesh(
+              new THREE.BoxGeometry(0.2 + Math.random() * 0.15, 0.05, 0.2 + Math.random() * 0.15),
+              new THREE.MeshStandardMaterial({
+                color: 0xffd700,
+                emissive: 0xffd700,
+                emissiveIntensity: 0.5,
+                transparent: true,
+                opacity: 0.8
+              })
+            );
+            const angulo = Math.random() * Math.PI * 2;
+            const radio = 1 + Math.random() * 3;
+            frag.position.set(Math.cos(angulo) * radio, 2 + Math.random() * 2, Math.sin(angulo) * radio);
+            scene.add(frag);
+            setTimeout(() => { scene.remove(frag); }, 2000);
+          }
+          
           actualizarUI();
           
-          // Si el archivo ha muerto en Firebase, mostrar overlay
+          // Mostrar/ocultar overlays según estado
           if (data.muerto && !ESTADO.muerto) {
             mostrarOverlayMuerte();
           }
           
-          // Si el archivo ha renacido en Firebase (integridad 100 y no muerto)
           if (data.integridad === 100 && !data.muerto && ESTADO.muerto) {
             mostrarOverlayRenacimiento();
           }
@@ -951,7 +990,7 @@
           <div style="background:#ffebee; border:2px solid #ff1744; padding:20px; border-radius:8px; margin-bottom:20px; text-align:center;">
             <span style="font-size:48px;">💀</span>
             <p style="font-weight:bold; color:#c62828; font-size:20px; margin:10px 0;">EL ARCHIVO HA MUERTO</p>
-            <p style="font-size:14px; color:#666;">El silencio ha llegado. Las columnas se han derrumbado.</p>
+            <p style="font-size:14px; color:#666;">El silencio ha llegado.</p>
             <p style="font-size:12px; color:#888;">Deja una huella o siembra para revivirlo.</p>
           </div>
         `;
@@ -960,7 +999,7 @@
           <div style="background:#fff3e0; border:2px solid #ff6b35; padding:15px; border-radius:8px; margin-bottom:20px; text-align:center;">
             <span style="font-size:24px;">⚠️</span>
             <p style="font-weight:bold; color:#e65100; margin:5px 0;">ESTE ARCHIVO ESTÁ CORROMPIDO</p>
-            <p style="font-size:12px; color:#666;">La integridad del archivo es del ${Math.round(ESTADO.integridad)}%. Comparte 5 citas para restaurarlo.</p>
+            <p style="font-size:12px; color:#666;">La integridad del archivo es del ${Math.round(ESTADO.integridad)}%. Comparte 5 veces para restaurarlo.</p>
             <p style="font-size:11px; color:#888;">Semillas: ${ESTADO.vecesCompartido}/5</p>
           </div>
         `;
@@ -970,7 +1009,7 @@
         <div style="margin-bottom:20px;">
           <h2 style="font-size:22px; margin:0 0 5px;">${titulo}</h2>
           ${subtitulo ? `<p style="font-size:16px; color:#555; font-style:italic; margin:0 0 10px;">${subtitulo}</p>` : ''}
-          <p style="font-size:12px; color:#999;">${label} · ${ESTADO.muerto ? '💀 MUERTO' : ESTADO.corrompido ? '🔒 CORRUPTO' : '📄 ORIGINAL'}</p>
+          <p style="font-size:12px; color:#999;">${label} · ${ESTADO.muerto ? '💀 MUERTO' : ESTADO.corrompido ? '🔒 CORRUPTO' : 'ORIGINAL'}</p>
         </div>
         <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">${cuerpo}</div>
         <div style="margin-top:30px; border-top:1px solid #ddd; padding-top:15px; text-align:center; font-size:11px; color:#999;">
@@ -1375,7 +1414,6 @@
         anillos: anillos,
         grietas: grietas,
         fragmentos: fragmentos,
-        // Referencia a los elementos internos para corrupción
         inferior: columnaMesh.children ? columnaMesh.children.find(c => c.isMesh && c.geometry.type === 'CylinderGeometry' && c.position.y === 1.3) : null,
         superior: columnaMesh.children ? columnaMesh.children.find(c => c.isMesh && c.geometry.type === 'CylinderGeometry' && c.position.y === 3.5) : null
       };
@@ -1619,9 +1657,7 @@
     function playPop() { playSound([800, 1200], 'sine', 0.2, 0.08); }
     function playPageTurn() { playSound([300, 500], 'sawtooth', 0.2, 0.04); }
     function playRenacimiento() { 
-      // Acorde ascendente
       playSound([200, 400, 600, 800, 1000], 'sine', 1.5, 0.08);
-      // Añadir un tono extra
       setTimeout(() => {
         playSound([1200, 1500], 'sine', 0.5, 0.04);
       }, 500);
@@ -1705,7 +1741,6 @@
     renderer.domElement.addEventListener('click', async (event) => {
       if (!audioContext) initAudio();
       
-      // Si está muerto, mostrar overlay
       if (ESTADO.muerto) {
         mostrarOverlayMuerte();
         return;
@@ -1723,7 +1758,7 @@
     });
 
     // ============================================================
-    // 21. INTERACCIÓN CON PARTÍCULAS (click = consumir vida)
+    // 21. INTERACCIÓN CON PARTÍCULAS (doble click = consumir vida)
     // ============================================================
     renderer.domElement.addEventListener('dblclick', (event) => {
       if (ESTADO.muerto) return;
@@ -1734,12 +1769,10 @@
       const intersects = raycaster.intersectObjects(huellasParticulas);
       if (intersects.length > 0) {
         const particula = intersects[0].object;
-        // Consumir la huella (reduce vida)
         playPop();
         const color = particula.material.color.getHex();
         const pos = particula.position.clone();
         
-        // Efecto de explosión
         for (let i = 0; i < 8; i++) {
           const peque = new THREE.Mesh(
             new THREE.SphereGeometry(0.02, 4, 4),
@@ -1773,10 +1806,8 @@
           animarExplosion();
         }
         
-        // Eliminar la partícula y reducir vida
         eliminarHuella(particula);
         ESTADO.huellas -= 1;
-        // Reducir integridad (consumir vida)
         ESTADO.integridad = Math.max(0, ESTADO.integridad - 5);
         ESTADO.ultimaActualizacion = Date.now();
         guardarEstadoGlobal();
@@ -1785,7 +1816,7 @@
     });
 
     // ============================================================
-    // 22. PANEL DE CITA Y COMPARTIR (unificado)
+    // 22. PANEL DE CITA Y COMPARTIR (unificado con sincronización global)
     // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
@@ -1807,58 +1838,44 @@
         return;
       }
       
-      if (ESTADO.vecesCompartido >= 5) {
-        // Ya está completo, mostrar mensaje
-        return;
-      }
-      
-      ESTADO.vecesCompartido += 1;
-      
-      // Si llega a 5, activar renacimiento
-      if (ESTADO.vecesCompartido >= 5) {
-        ESTADO.integridad = 100;
-        ESTADO.corrompido = false;
-        ESTADO.muerto = false;
-        guardarEstadoGlobal();
-        actualizarUI();
-        ocultarOverlayMuerte();
-        mostrarOverlayRenacimiento();
-        animarRenacimientoVisual();
-        playRenacimiento();
-        // Poner el contador en 0 para reiniciar el ciclo
-        ESTADO.vecesCompartido = 0;
-        guardarEstadoGlobal();
-        actualizarUI();
-        // Actualizar el panel
-        document.getElementById('panel-cita').style.borderColor = '#ffd700';
-        setTimeout(() => {
-          document.getElementById('panel-cita').style.borderColor = '#ff6b35';
-        }, 3000);
-      } else {
-        guardarEstadoGlobal();
-        actualizarUI();
-        // Efecto visual de siembra
-        const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-        const color = col.color;
-        const frag = new THREE.Mesh(
-          new THREE.BoxGeometry(0.2 + Math.random() * 0.15, 0.05, 0.2 + Math.random() * 0.15),
-          new THREE.MeshStandardMaterial({
-            color: 0xffd700,
-            emissive: 0xffd700,
-            emissiveIntensity: 0.3,
-            transparent: true,
-            opacity: 0.8
-          })
-        );
-        const angulo = Math.random() * Math.PI * 2;
-        const radio = 1 + Math.random() * 3;
-        frag.position.set(Math.cos(angulo) * radio, 2 + Math.random() * 2, Math.sin(angulo) * radio);
-        scene.add(frag);
-        setTimeout(() => {
-          scene.remove(frag);
-        }, 2000);
-        playPageTurn();
-      }
+      // Leer el valor actual de Firebase para evitar conflictos
+      get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          let veces = data.vecesCompartido || 0;
+          
+          if (veces >= 5) return;
+          
+          veces += 1;
+          
+          // Si llega a 5, activar renacimiento global
+          if (veces >= 5) {
+            update(dbRef, {
+              integridad: 100,
+              corrompido: false,
+              muerto: false,
+              vecesCompartido: 0,
+              ultimaVisita: Date.now()
+            }).then(() => {
+              ocultarOverlayMuerte();
+              mostrarOverlayRenacimiento();
+              animarRenacimientoVisual();
+              playRenacimiento();
+              document.getElementById('panel-cita').style.borderColor = '#ffd700';
+              setTimeout(() => {
+                document.getElementById('panel-cita').style.borderColor = '#ff6b35';
+              }, 3000);
+            });
+          } else {
+            update(dbRef, { 
+              vecesCompartido: veces,
+              ultimaVisita: Date.now()
+            });
+          }
+        }
+      }).catch(error => {
+        console.error('Error en registrarCompartido:', error);
+      });
     }
 
     async function generarBotonesCompartir(texto, autor) {
@@ -1913,7 +1930,13 @@
       });
       botonesCompartir.appendChild(copiar);
 
-      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+      // Actualizar el panel con el valor actual de Firebase
+      get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          document.getElementById('veces-compartido-panel').textContent = data.vecesCompartido || 0;
+        }
+      });
     }
 
     btnSembrar.addEventListener('click', async () => {
@@ -1922,8 +1945,14 @@
         return; 
       }
       
-      // Si ya tiene 5 semillas, no hacer nada
-      if (ESTADO.vecesCompartido >= 5) {
+      // Verificar si ya tiene 5 semillas
+      const snapshot = await get(dbRef);
+      let veces = 0;
+      if (snapshot.exists()) {
+        veces = snapshot.val().vecesCompartido || 0;
+      }
+      
+      if (veces >= 5) {
         return;
       }
       
@@ -1967,7 +1996,6 @@
       await agregarMensaje(texto);
       mensajeRayar.value = '';
       inputRayar.classList.remove('visible');
-      // Efecto sonoro
       playPageTurn();
     });
 
@@ -2035,7 +2063,7 @@
     });
 
     // ============================================================
-    // 26. ANIMACIÓN Y LOOP (con corrupción visual)
+    // 26. ANIMACIÓN Y LOOP
     // ============================================================
     let tiempo = 0;
     let ultimoTickCorrupcion = Date.now();
@@ -2044,7 +2072,6 @@
       requestAnimationFrame(animate);
       tiempo += 0.01;
 
-      // Verificar corrupción cada 10 segundos
       if (Date.now() - ultimoTickCorrupcion > 10000) {
         ultimoTickCorrupcion = Date.now();
         actualizarCorrupcion();
@@ -2052,7 +2079,6 @@
 
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
 
-      // Animar partículas de huellas
       huellasParticulas.forEach((p, i) => {
         const data = p.userData;
         if (data) {
@@ -2065,7 +2091,6 @@
         }
       });
 
-      // Animar mensajes flotantes
       mensajesFlotantes.forEach((sprite, i) => {
         const data = sprite.userData;
         if (data) {
@@ -2078,9 +2103,7 @@
         }
       });
 
-      // ============================================================
-      // CORRUPCIÓN VISUAL EN COLUMNAS
-      // ============================================================
+      // ===== CORRUPCIÓN VISUAL EN COLUMNAS =====
       const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 80;
       const estaMuerto = ESTADO.muerto;
       const nivelCorrupcion = ESTADO.muerto ? 1 : Math.max(0, 1 - ESTADO.integridad / 100);
@@ -2089,21 +2112,18 @@
         const offset = i * 0.5;
         const forma = col.userData.forma;
         
-        // Movimiento base
         col.position.y = estaMuerto ? -0.3 : Math.sin(tiempo * 0.5 + offset) * 0.05;
 
-        // ===== CUBOS (DATOS MASIVOS) =====
+        // ===== CUBOS =====
         if (forma === 'cubos' && col.userData.cubos) {
           col.userData.cubos.forEach((cubo, idx) => {
             if (cubo.isMesh) {
               if (estaMuerto) {
-                // Muerto: gris, sin brillo
                 cubo.material.color.setHex(0x333333);
                 cubo.material.emissiveIntensity = 0;
                 cubo.position.x += (Math.random() - 0.5) * 0.02;
                 cubo.position.z += (Math.random() - 0.5) * 0.02;
               } else if (estadoCorrupto) {
-                // Corrupto: vibración fuerte, brillo rojo
                 const vibracion = 0.02 + nivelCorrupcion * 0.05;
                 cubo.position.x += (Math.random() - 0.5) * vibracion;
                 cubo.position.z += (Math.random() - 0.5) * vibracion;
@@ -2111,12 +2131,10 @@
                 cubo.material.color.setHex(
                   new THREE.Color(color).multiplyScalar(1 - nivelCorrupcion * 0.5).getHex()
                 );
-                // Algunos cubos se caen
                 if (Math.random() < 0.001 && cubo.position.y > 1) {
                   cubo.position.y -= 0.01;
                 }
               } else {
-                // Saludable
                 cubo.material.color.setHex(color);
                 cubo.material.emissiveIntensity = 0.05 + Math.sin(tiempo + idx) * 0.05;
               }
@@ -2124,7 +2142,7 @@
           });
         }
 
-        // ===== ONDAS (ARQUITECTURA SONORA) =====
+        // ===== ONDAS =====
         if (forma === 'ondas' && col.userData.anillos) {
           col.userData.anillos.forEach((anillo, idx) => {
             if (anillo.isMesh) {
@@ -2155,27 +2173,23 @@
           });
         }
 
-        // ===== GRIETAS (MEMORIA ROTA y todas las columnas) =====
+        // ===== GRIETAS =====
         if (col.userData.grietas) {
           col.userData.grietas.forEach((grieta, idx) => {
             if (estaMuerto) {
-              // Muerto: grietas enormes y oscuras
               grieta.scale.y = 4 + Math.sin(tiempo + idx) * 0.5;
               grieta.material.emissiveIntensity = 0.05;
               grieta.material.color.setHex(0x220000);
             } else if (estadoCorrupto) {
-              // Corrupto: grietas crecen con el nivel de corrupción
               const crecimiento = 1 + Math.sin(tiempo * 1.5 + idx) * (0.3 + nivelCorrupcion * 1.5);
               grieta.scale.y = crecimiento;
               grieta.material.emissiveIntensity = 0.2 + Math.sin(tiempo * 2 + idx) * 0.3 + nivelCorrupcion * 0.5;
-              // Parpadeo rojo
               if (Math.sin(tiempo * 4 + idx) > 0.7) {
                 grieta.material.color.setHex(0xff0000);
               } else {
                 grieta.material.color.setHex(0xff4444);
               }
             } else {
-              // Saludable: grietas mínimas
               grieta.scale.y = 1;
               grieta.material.emissiveIntensity = 0.15;
               grieta.material.color.setHex(0xff2222);
@@ -2183,19 +2197,17 @@
           });
         }
 
-        // ===== FRAGMENTOS FLOTANTES (CULTURA NO SE TORRENTEA) =====
+        // ===== FRAGMENTOS FLOTANTES =====
         if (forma === 'flotante' && col.userData.fragmentos) {
           col.userData.fragmentos.forEach((frag, idx) => {
             const data = frag.userData;
             if (data) {
               if (estaMuerto) {
-                // Muerto: fragmentos caídos y apagados
                 frag.position.y = 0.1;
                 frag.material.opacity = 0.05;
                 frag.material.emissiveIntensity = 0;
                 frag.material.color.setHex(0x333333);
               } else if (estadoCorrupto) {
-                // Corrupto: caída errática
                 const altura = data.alturaBase * (1 - nivelCorrupcion * 0.7) + 
                               Math.sin(tiempo * data.velocidad + data.offset) * 0.2 * (1 - nivelCorrupcion);
                 frag.position.y = Math.max(0.1, altura);
@@ -2207,7 +2219,6 @@
                 );
                 frag.material.emissiveIntensity = 0.05 + nivelCorrupcion * 0.2;
               } else {
-                // Saludable
                 const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.3;
                 frag.position.y = altura;
                 frag.rotation.x += 0.01;
@@ -2220,7 +2231,7 @@
           });
         }
 
-        // Flash de corrupción aleatorio
+        // Flash de corrupción
         if (estaMuerto && Math.random() < 0.005) {
           const flash = new THREE.Mesh(
             new THREE.SphereGeometry(0.3, 4, 4),
@@ -2244,9 +2255,7 @@
         }
       });
 
-      // ============================================================
-      // SONIDO POR PROXIMIDAD
-      // ============================================================
+      // ===== SONIDO POR PROXIMIDAD =====
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
