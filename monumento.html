@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ===== FAVICON ===== -->
- <link rel="icon" type="image/png" href="favicon.png" />
-<link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
 
   <title>MONUMENTO SONORO</title>
 
-  <!-- Open Graph BASE (se actualiza dinámicamente al compartir) -->
+  <!-- Open Graph BASE -->
   <meta property="og:title" content="MONUMENTO SONORO" />
   <meta property="og:description" content="Explora el monumento interactivo del Archivo de Señal." />
   <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png" />
@@ -44,7 +44,7 @@
     }
     #btn-regreso span { font-size:18px; }
 
-    /* ===== PANEL DE INSTRUCCIONES (centrado) ===== */
+    /* ===== PANEL DE INSTRUCCIONES ===== */
     #panel-instrucciones {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:150; background:rgba(10,10,10,0.95);
@@ -101,7 +101,9 @@
     #estado .valor { color:#fff; font-weight:bold; }
     #estado .alerta { color:#ff1744; animation:parpadeo 1s infinite; }
     #estado .reparado { color:#00e676; }
+    #estado .muerto { color:#ff1744; font-size:13px; animation:parpadeo 1s infinite; }
     .contador-compartido { color:#ff6b35; font-size:13px; margin-top:5px; }
+    .tiempo-restante { color:#4fc3f7; font-size:13px; margin-top:3px; }
     @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
     /* ===== BOTONES DE ACCIÓN ===== */
@@ -129,7 +131,7 @@
     }
     #btn-cita:hover { background:rgba(255,107,53,0.3); }
 
-    /* ===== PANEL DE CITA (compartir) ===== */
+    /* ===== PANEL DE CITA ===== */
     #panel-cita {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:200; background:rgba(10,10,10,0.96);
@@ -169,7 +171,7 @@
     #cerrar-cita:hover { color:#ff6b35; }
     #contador-compartido-panel { color:#ff6b35; font-size:13px; margin-top:10px; }
 
-    /* ===== MENSAJE FLOTANTE DESDE CITA (interrumpe) ===== */
+    /* ===== MENSAJE FLOTANTE DESDE CITA ===== */
     #mensaje-cita {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:250; background:rgba(10,10,10,0.97);
@@ -192,6 +194,52 @@
     }
     #mensaje-cita .btn-cerrar-mensaje:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,107,53,0.3); }
 
+    /* ===== OVERLAY DE MUERTE (interrumpe) ===== */
+    #overlay-muerte {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      z-index:300; background:rgba(0,0,0,0.92);
+      display:none; justify-content:center; align-items:center;
+      backdrop-filter:blur(10px);
+      animation:fadeIn 0.6s ease;
+    }
+    #overlay-muerte.visible { display:flex; }
+    #overlay-muerte .contenido {
+      text-align:center; max-width:600px; padding:40px;
+      border:2px solid #ff1744; border-radius:20px;
+      background:rgba(10,10,10,0.95);
+      box-shadow:0 0 80px rgba(255,23,68,0.2);
+    }
+    #overlay-muerte .simbolo {
+      font-size:64px; margin-bottom:20px;
+      animation:parpadeo 2s infinite;
+    }
+    #overlay-muerte .titulo {
+      color:#ff1744; font-size:28px; font-weight:bold;
+      letter-spacing:4px; text-transform:uppercase;
+      margin-bottom:15px;
+    }
+    #overlay-muerte .texto {
+      color:#aaa; font-size:16px; line-height:1.8;
+      margin-bottom:25px;
+    }
+    #overlay-muerte .btn-revivir {
+      padding:12px 35px; background:#ff6b35; color:#0a0a0a;
+      border:none; border-radius:30px; font-family:'Courier New',monospace;
+      font-size:14px; font-weight:bold; cursor:pointer;
+      transition:all 0.3s ease; text-transform:uppercase;
+      letter-spacing:2px;
+    }
+    #overlay-muerte .btn-revivir:hover {
+      transform:scale(1.05); box-shadow:0 0 40px rgba(255,107,53,0.4);
+    }
+    #overlay-muerte .btn-cerrar-muerte {
+      position:absolute; top:20px; right:30px;
+      background:none; border:none; color:#666;
+      font-size:24px; cursor:pointer; font-family:inherit;
+      transition:color 0.3s ease;
+    }
+    #overlay-muerte .btn-cerrar-muerte:hover { color:#ff1744; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width:768px) {
       #panel-instrucciones { font-size:11px; padding:18px 16px; max-width:95%; }
@@ -206,6 +254,9 @@
       #panel-cita .botones-compartir a { font-size:10px; padding:6px 12px; }
       #mensaje-cita { padding:25px 20px; max-width:95%; }
       #mensaje-cita .texto { font-size:17px; }
+      #overlay-muerte .titulo { font-size:20px; }
+      #overlay-muerte .texto { font-size:14px; }
+      #overlay-muerte .simbolo { font-size:48px; }
     }
   </style>
 </head>
@@ -222,8 +273,11 @@
     <div>VISITAS: <span id="visitas" class="valor">0</span></div>
     <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
     <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
+    <div>PARTÍCULAS: <span id="particulas" class="valor">0</span></div>
+    <div class="tiempo-restante">⏳ TIEMPO RESTANTE: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
+    <div id="estado-muerto" style="display:none; color:#ff1744; font-size:13px; animation:parpadeo 1s infinite;">💀 MUERTO</div>
     <div class="contador-compartido">SEMBRADO: <span id="veces-compartido">0</span>/5</div>
   </div>
 
@@ -261,13 +315,28 @@
     <div class="botones-compartir" id="botones-compartir"></div>
   </div>
 
-  <!-- ===== MENSAJE FLOTANTE DESDE CITA (interrumpe) ===== -->
+  <!-- ===== MENSAJE FLOTANTE DESDE CITA ===== -->
   <div id="mensaje-cita">
     <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ HAS LLEGADO CON UNA CITA ✦</div>
     <div class="texto" id="mensaje-cita-texto">"La cultura se siembra."</div>
     <div class="autor" id="mensaje-cita-autor">— Monumento Sonoro</div>
     <div class="sub">Explora el monumento y siembra tu propia semilla</div>
     <button class="btn-cerrar-mensaje" id="cerrar-mensaje-cita">✕ ENTRAR AL MONUMENTO</button>
+  </div>
+
+  <!-- ===== OVERLAY DE MUERTE (interrumpe) ===== -->
+  <div id="overlay-muerte">
+    <button class="btn-cerrar-muerte" id="cerrar-overlay-muerte">✕</button>
+    <div class="contenido">
+      <div class="simbolo">💀</div>
+      <div class="titulo">EL ARCHIVO HA MUERTO</div>
+      <div class="texto">
+        El silencio ha llegado. Las columnas se han agrietado.<br>
+        Los sonidos se han apagado. La memoria se ha corrompido.<br><br>
+        <strong>Deja una huella para revivirlo.</strong>
+      </div>
+      <button class="btn-revivir" id="btn-revivir">DEJAR HUELLA</button>
+    </div>
   </div>
 
   <!-- ============================================================
@@ -289,7 +358,7 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
     // ============================================================
-    // 1. TEXTOS COMPLETOS (desde tus JSONs)
+    // 1. TEXTOS COMPLETOS
     // ============================================================
     const TEXTOS_COMPLETOS = {};
 
@@ -367,7 +436,9 @@
       siembras: 0,
       vecesCompartido: 0,
       corrompido: false,
-      ultimaVisita: null
+      muerto: false,
+      ultimaVisita: null,
+      ultimaActualizacion: Date.now()
     };
 
     function cargarEstado() {
@@ -383,51 +454,153 @@
 
     cargarEstado();
 
-    const ahora = Date.now();
-    if (ESTADO.ultimaVisita && (ahora - ESTADO.ultimaVisita) > 86400000) {
-      ESTADO.integridad = Math.min(ESTADO.integridad, 55);
-      ESTADO.corrompido = true;
-    }
-    ESTADO.ultimaVisita = ahora;
-    ESTADO.visitas += 1;
-    ESTADO.huellas += 1;
-    guardarEstado();
+    // ============================================================
+    // 5. SISTEMA DE PARTÍCULAS ↔ CORRUPCIÓN
+    // ============================================================
+    // Cada partícula = 1 hora de vida
+    // Cada hora, 1 partícula desaparece
+    // Cuando llega a 0 → MUERTE
 
-    if (ESTADO.vecesCompartido >= 5) {
-      ESTADO.integridad = 100;
-      ESTADO.corrompido = false;
-      guardarEstado();
+    function calcularParticulasActivas() {
+      return ESTADO.huellas + ESTADO.siembras;
     }
 
-    function actualizarUI() {
-      document.getElementById('visitas').textContent = ESTADO.visitas;
-      document.getElementById('huellas').textContent = ESTADO.huellas;
-      document.getElementById('siembras').textContent = ESTADO.siembras;
-      document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
-      document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
-      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+    function calcularTiempoRestante() {
+      const particulas = calcularParticulasActivas();
+      return particulas; // horas
+    }
 
-      if (ESTADO.corrompido || ESTADO.integridad < 100) {
-        document.getElementById('alerta-corrupcion').style.display = 'block';
-        document.getElementById('integridad').style.color = '#ff1744';
-        document.getElementById('estado').classList.add('alerta');
-      } else {
-        document.getElementById('alerta-corrupcion').style.display = 'none';
-        document.getElementById('integridad').style.color = '#00e676';
-        document.getElementById('estado').classList.remove('alerta');
+    function actualizarCorrupcion() {
+      const ahora = Date.now();
+      const horasPasadas = (ahora - ESTADO.ultimaActualizacion) / (1000 * 60 * 60);
+      
+      if (horasPasadas >= 1) {
+        const particulas = calcularParticulasActivas();
+        const horasADescontar = Math.floor(horasPasadas);
+        
+        // Descontar huellas primero, luego siembras
+        let aEliminar = horasADescontar;
+        while (aEliminar > 0 && ESTADO.huellas > 0) {
+          ESTADO.huellas -= 1;
+          aEliminar -= 1;
+          // Eliminar una partícula física (se hace en la animación)
+        }
+        while (aEliminar > 0 && ESTADO.siembras > 0) {
+          ESTADO.siembras -= 1;
+          aEliminar -= 1;
+        }
+        
+        ESTADO.ultimaActualizacion = ahora;
+        guardarEstado();
       }
 
-      const btnSembrar = document.getElementById('btn-sembrar');
-      if (ESTADO.integridad < 100 || ESTADO.vecesCompartido < 5) {
-        btnSembrar.style.display = 'block';
-      } else {
-        btnSembrar.style.display = 'none';
+      // Verificar si está muerto
+      const particulas = calcularParticulasActivas();
+      if (particulas === 0 && !ESTADO.muerto) {
+        ESTADO.muerto = true;
+        ESTADO.corrompido = true;
+        ESTADO.integridad = 0;
+        guardarEstado();
+        mostrarOverlayMuerte();
+      } else if (particulas > 0 && ESTADO.muerto) {
+        ESTADO.muerto = false;
+        ESTADO.corrompido = false;
+        ESTADO.integridad = Math.min(100, ESTADO.integridad + 20);
+        guardarEstado();
+        ocultarOverlayMuerte();
+        animarRenacimiento();
       }
+
+      actualizarUI();
     }
-    actualizarUI();
 
     // ============================================================
-    // 5. CORROMPER TEXTO
+    // 6. OVERLAY DE MUERTE
+    // ============================================================
+    const overlayMuerte = document.getElementById('overlay-muerte');
+    const cerrarOverlayMuerte = document.getElementById('cerrar-overlay-muerte');
+    const btnRevivir = document.getElementById('btn-revivir');
+
+    function mostrarOverlayMuerte() {
+      overlayMuerte.classList.add('visible');
+      document.getElementById('estado-muerto').style.display = 'block';
+    }
+
+    function ocultarOverlayMuerte() {
+      overlayMuerte.classList.remove('visible');
+      document.getElementById('estado-muerto').style.display = 'none';
+    }
+
+    cerrarOverlayMuerte.addEventListener('click', () => {
+      overlayMuerte.classList.remove('visible');
+    });
+
+    btnRevivir.addEventListener('click', () => {
+      // Dejar una huella para revivir
+      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+      crearHuella(col.label, col.color);
+      guardarHuella(col.label);
+      ESTADO.huellas += 1;
+      ESTADO.ultimaActualizacion = Date.now();
+      guardarEstado();
+      actualizarCorrupcion();
+      ocultarOverlayMuerte();
+      animarRenacimiento();
+    });
+
+    // ============================================================
+    // 7. ANIMACIÓN DE RENACIMIENTO
+    // ============================================================
+    function animarRenacimiento() {
+      // Luz que sube desde el centro
+      const luz = new THREE.Mesh(
+        new THREE.SphereGeometry(0.1, 8, 8),
+        new THREE.MeshBasicMaterial({ color: 0xff6b35, transparent: true, opacity: 1 })
+      );
+      luz.position.set(0, 0, 0);
+      scene.add(luz);
+
+      // Animación de expansión
+      let escala = 0.1;
+      let creciendo = true;
+      const intervalo = setInterval(() => {
+        if (creciendo) {
+          escala += 0.05;
+          luz.scale.set(escala, escala, escala);
+          luz.material.opacity = Math.max(0, 1 - escala / 10);
+          if (escala > 8) {
+            creciendo = false;
+          }
+        } else {
+          escala -= 0.05;
+          luz.scale.set(escala, escala, escala);
+          if (escala < 0.1) {
+            clearInterval(intervalo);
+            scene.remove(luz);
+          }
+        }
+      }, 50);
+
+      // Sonido de renacimiento (ascendente)
+      if (audioContext) {
+        try {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(200, audioContext.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 1);
+          gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.start();
+          osc.stop(audioContext.currentTime + 1);
+        } catch(e) {}
+      }
+    }
+
+    // ============================================================
+    // 8. FUNCIONES DE UTILIDAD
     // ============================================================
     function corromperTexto(texto, nivel = 0.3) {
       if (!texto) return texto;
@@ -454,9 +627,6 @@
       return resultado.join('');
     }
 
-    // ============================================================
-    // 6. GENERAR PDF
-    // ============================================================
     async function generarPDF(label, corrupto = false) {
       const data = TEXTOS_COMPLETOS[label];
       if (!data) return;
@@ -515,9 +685,6 @@
       document.body.removeChild(element);
     }
 
-    // ============================================================
-    // 7. GENERAR IMAGEN PARA COMPARTIR (Canvas)
-    // ============================================================
     function generarImagenCita(texto, autor) {
       return new Promise((resolve) => {
         const canvas = document.createElement('canvas');
@@ -525,7 +692,6 @@
         canvas.height = 630;
         const ctx = canvas.getContext('2d');
 
-        // Fondo oscuro con degradado
         const grad = ctx.createLinearGradient(0, 0, 1200, 630);
         grad.addColorStop(0, '#0a0a0a');
         grad.addColorStop(0.5, '#0f0f1a');
@@ -533,12 +699,10 @@
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 1200, 630);
 
-        // Borde naranja
         ctx.strokeStyle = '#ff6b35';
         ctx.lineWidth = 4;
         ctx.strokeRect(20, 20, 1160, 590);
 
-        // Línea decorativa superior
         ctx.strokeStyle = '#ff6b35';
         ctx.lineWidth = 1;
         ctx.setLineDash([8, 8]);
@@ -548,14 +712,12 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Título
         ctx.fillStyle = '#ff6b35';
         ctx.font = 'bold 28px "Courier New", monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.fillText('MONUMENTO SONORO', 600, 50);
 
-        // Línea decorativa inferior
         ctx.strokeStyle = '#ff6b35';
         ctx.lineWidth = 1;
         ctx.setLineDash([8, 8]);
@@ -565,12 +727,10 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Cita (texto grande)
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 38px "Georgia", serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        // Envolver texto largo
         const palabras = texto.split(' ');
         let lineas = [];
         let lineaActual = '';
@@ -590,14 +750,12 @@
           ctx.fillText('"' + linea + '"', 600, startY + i * lineHeight);
         });
 
-        // Autor
         ctx.fillStyle = '#888888';
         ctx.font = '22px "Courier New", monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'bottom';
         ctx.fillText('— ' + autor, 600, 520);
 
-        // Logo (cargar desde la URL)
         const logo = new Image();
         logo.crossOrigin = 'anonymous';
         logo.src = 'https://39913em.github.io/archivo-de-senal/assets/img/logo.png';
@@ -606,7 +764,6 @@
           resolve(canvas.toDataURL('image/png'));
         };
         logo.onerror = () => {
-          // Si no carga, dibujar un círculo con texto
           ctx.fillStyle = '#ff6b35';
           ctx.beginPath();
           ctx.arc(600, 600, 40, 0, Math.PI * 2);
@@ -621,9 +778,6 @@
       });
     }
 
-    // ============================================================
-    // 8. ACTUALIZAR OPEN GRAPH
-    // ============================================================
     function actualizarOpenGraph(titulo, descripcion, imagenUrl, urlCompleta) {
       let meta = document.querySelector('meta[property="og:title"]');
       if (meta) meta.content = titulo;
@@ -643,7 +797,48 @@
     }
 
     // ============================================================
-    // 9. THREE.JS - ESCENA
+    // 9. ACTUALIZAR UI
+    // ============================================================
+    function actualizarUI() {
+      const particulas = calcularParticulasActivas();
+      const tiempoRestante = calcularTiempoRestante();
+      
+      document.getElementById('visitas').textContent = ESTADO.visitas;
+      document.getElementById('huellas').textContent = ESTADO.huellas;
+      document.getElementById('siembras').textContent = ESTADO.siembras;
+      document.getElementById('particulas').textContent = particulas;
+      document.getElementById('tiempo-restante').textContent = tiempoRestante + 'h';
+      document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
+      document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
+      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+
+      if (ESTADO.muerto) {
+        document.getElementById('estado-muerto').style.display = 'block';
+        document.getElementById('alerta-corrupcion').style.display = 'none';
+        document.getElementById('integridad').style.color = '#ff1744';
+        document.getElementById('estado').classList.add('alerta');
+      } else if (ESTADO.corrompido || ESTADO.integridad < 100) {
+        document.getElementById('alerta-corrupcion').style.display = 'block';
+        document.getElementById('estado-muerto').style.display = 'none';
+        document.getElementById('integridad').style.color = '#ff1744';
+        document.getElementById('estado').classList.add('alerta');
+      } else {
+        document.getElementById('alerta-corrupcion').style.display = 'none';
+        document.getElementById('estado-muerto').style.display = 'none';
+        document.getElementById('integridad').style.color = '#00e676';
+        document.getElementById('estado').classList.remove('alerta');
+      }
+
+      const btnSembrar = document.getElementById('btn-sembrar');
+      if (ESTADO.integridad < 100 || ESTADO.vecesCompartido < 5) {
+        btnSembrar.style.display = 'block';
+      } else {
+        btnSembrar.style.display = 'none';
+      }
+    }
+
+    // ============================================================
+    // 10. THREE.JS - ESCENA
     // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
@@ -668,7 +863,7 @@
     controls.update();
 
     // ============================================================
-    // 10. LUCES
+    // 11. LUCES
     // ============================================================
     const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
     scene.add(ambientLight);
@@ -684,7 +879,7 @@
     scene.add(fillLight);
 
     // ============================================================
-    // 11. PERSONAJE GUARDIÁN
+    // 12. PERSONAJE GUARDIÁN
     // ============================================================
     function crearPersonaje() {
       const group = new THREE.Group();
@@ -725,7 +920,7 @@
     scene.add(guardian);
 
     // ============================================================
-    // 12. COLUMNAS
+    // 13. COLUMNAS
     // ============================================================
     const columnas = [];
     const datosColumna = [
@@ -859,7 +1054,6 @@
       }
       group.add(columnaMesh);
 
-      // Etiqueta
       const canvas = document.createElement('canvas');
       canvas.width = 256;
       canvas.height = 80;
@@ -901,7 +1095,7 @@
     });
 
     // ============================================================
-    // 13. SUELO
+    // 14. SUELO
     // ============================================================
     const suelo = new THREE.Mesh(
       new THREE.PlaneGeometry(16, 14),
@@ -924,9 +1118,10 @@
     scene.add(circulo);
 
     // ============================================================
-    // 14. PARTÍCULAS DE HUELLAS (discretas)
+    // 15. PARTÍCULAS DE HUELLAS
     // ============================================================
     const huellasParticulas = [];
+    const particulasAEliminar = [];
 
     function crearHuella(label, color) {
       const geometria = new THREE.SphereGeometry(0.06 + Math.random() * 0.04, 6, 6);
@@ -938,7 +1133,6 @@
         opacity: 0.6 + Math.random() * 0.4
       });
       const particula = new THREE.Mesh(geometria, material);
-      // Posición aleatoria alrededor del centro
       const angulo = Math.random() * Math.PI * 2;
       const radio = 1 + Math.random() * 4;
       particula.position.set(
@@ -952,13 +1146,30 @@
         radio: radio,
         alturaBase: particula.position.y,
         angulo: angulo,
-        label: label
+        label: label,
+        id: Date.now() + Math.random()
       };
       scene.add(particula);
       huellasParticulas.push(particula);
+      return particula;
     }
 
-    // Cargar huellas guardadas
+    function eliminarHuella(particula) {
+      if (!particula) return;
+      // Animación de desvanecimiento
+      const fadeOut = () => {
+        particula.material.opacity -= 0.05;
+        if (particula.material.opacity > 0) {
+          requestAnimationFrame(fadeOut);
+        } else {
+          scene.remove(particula);
+          const idx = huellasParticulas.indexOf(particula);
+          if (idx > -1) huellasParticulas.splice(idx, 1);
+        }
+      };
+      fadeOut();
+    }
+
     function cargarHuellasGuardadas() {
       try {
         const guardadas = localStorage.getItem('huellas_guardadas');
@@ -981,7 +1192,7 @@
     }
 
     // ============================================================
-    // 15. SISTEMA DE SONIDO
+    // 16. SISTEMA DE SONIDO CON INTERACCIONES
     // ============================================================
     let audioContext = null;
     let osciladores = [];
@@ -992,8 +1203,33 @@
       }
     }
 
-    function playSound(columnLabel, distance) {
-      if (!audioContext) return;
+    function playSound(frecuencias, tipo = 'sine', duracion = 0.4, volumen = 0.06) {
+      if (!audioContext || ESTADO.muerto) return;
+      osciladores.forEach(osc => { try { osc.stop(); } catch(e) {} });
+      osciladores = [];
+
+      frecuencias.forEach((freq, i) => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = tipo;
+        osc.frequency.value = freq;
+        gain.gain.value = volumen / frecuencias.length;
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.start();
+        osc.stop(audioContext.currentTime + duracion);
+        osciladores.push(osc);
+      });
+    }
+
+    function playPop() { playSound([800, 1200], 'sine', 0.2, 0.08); }
+    function playHum() { playSound([200], 'sine', 0.5, 0.04); }
+    function playDing() { playSound([1000, 1500], 'sine', 0.3, 0.06); }
+    function playPageTurn() { playSound([300, 500], 'sawtooth', 0.2, 0.04); }
+    function playBoom() { playSound([100, 50], 'sine', 0.6, 0.1); }
+
+    function playSoundByProximity(columnLabel, distance) {
+      if (!audioContext || ESTADO.muerto) return;
       if (ESTADO.corrompido && Math.random() < 0.3) return;
       osciladores.forEach(osc => { try { osc.stop(); } catch(e) {} });
       osciladores = [];
@@ -1055,7 +1291,7 @@
     }
 
     // ============================================================
-    // 16. INTERACCIÓN CON COLUMNAS (click para PDF)
+    // 17. INTERACCIÓN CON COLUMNAS (click para PDF)
     // ============================================================
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -1067,6 +1303,10 @@
 
     renderer.domElement.addEventListener('click', async (event) => {
       if (!audioContext) initAudio();
+      if (ESTADO.muerto) {
+        mostrarOverlayMuerte();
+        return;
+      }
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(columnas, true);
       if (intersects.length > 0) {
@@ -1081,7 +1321,58 @@
     });
 
     // ============================================================
-    // 17. PANEL DE CITA Y COMPARTIR
+    // 18. INTERACCIÓN CON PARTÍCULAS (click = explosión)
+    // ============================================================
+    renderer.domElement.addEventListener('dblclick', (event) => {
+      if (ESTADO.muerto) return;
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      
+      const intersects = raycaster.intersectObjects(huellasParticulas);
+      if (intersects.length > 0) {
+        const particula = intersects[0].object;
+        // Explosión: crear 5 partículas pequeñas
+        playPop();
+        const color = particula.material.color.getHex();
+        const pos = particula.position.clone();
+        for (let i = 0; i < 5; i++) {
+          const peque = new THREE.Mesh(
+            new THREE.SphereGeometry(0.02, 4, 4),
+            new THREE.MeshStandardMaterial({ color: color, emissive: color, emissiveIntensity: 0.5, transparent: true, opacity: 0.8 })
+          );
+          peque.position.copy(pos);
+          peque.userData = {
+            velocidad: 0.02 + Math.random() * 0.03,
+            direccion: new THREE.Vector3(
+              (Math.random() - 0.5) * 2,
+              Math.random() * 2,
+              (Math.random() - 0.5) * 2
+            ).normalize()
+          };
+          scene.add(peque);
+          // Animar explosión
+          const animarExplosion = () => {
+            peque.position.add(peque.userData.direccion.clone().multiplyScalar(peque.userData.velocidad));
+            peque.material.opacity -= 0.02;
+            if (peque.material.opacity > 0) {
+              requestAnimationFrame(animarExplosion);
+            } else {
+              scene.remove(peque);
+            }
+          };
+          animarExplosion();
+        }
+        // Eliminar la partícula original
+        eliminarHuella(particula);
+        ESTADO.huellas -= 1;
+        guardarEstado();
+        actualizarCorrupcion();
+      }
+    });
+
+    // ============================================================
+    // 19. PANEL DE CITA Y COMPARTIR
     // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
@@ -1106,12 +1397,14 @@
       if (ESTADO.vecesCompartido >= 5) {
         ESTADO.integridad = 100;
         ESTADO.corrompido = false;
+        ESTADO.muerto = false;
         guardarEstado();
         actualizarUI();
         document.getElementById('panel-cita').style.borderColor = '#00e676';
         setTimeout(() => {
           document.getElementById('panel-cita').style.borderColor = '#ff6b35';
         }, 3000);
+        ocultarOverlayMuerte();
       }
     }
 
@@ -1122,10 +1415,7 @@
       const urlCompleta = `${urlBase}?cita=${citaParam}`;
       const blogUrl = 'https://39913em.github.io/archivo-de-senal/';
 
-      // Generar imagen
       const imagenDataUrl = await generarImagenCita(texto, autor);
-
-      // Actualizar Open Graph
       actualizarOpenGraph(
         `"${texto}" — ${autor}`,
         `Fragmento del Monumento Sonoro · Archivo de Señal`,
@@ -1172,20 +1462,20 @@
     }
 
     btnCita.addEventListener('click', async () => {
+      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
       const cita = generarCitaAleatoria();
       await generarBotonesCompartir(cita.texto, cita.autor);
       panelCita.classList.add('visible');
     });
 
     btnSembrar.addEventListener('click', async () => {
+      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
       const cita = generarCitaAleatoria();
       await generarBotonesCompartir(cita.texto, cita.autor);
       panelCita.classList.add('visible');
-      // Añadir siembra (discreta)
       ESTADO.siembras += 1;
       guardarEstado();
       actualizarUI();
-      // Añadir fragmento de texto flotante (discreto)
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       const color = col.color;
       const frag = new THREE.Mesh(
@@ -1212,6 +1502,7 @@
       setTimeout(() => {
         scene.remove(frag);
       }, 30000);
+      playPageTurn();
     });
 
     cerrarCita.addEventListener('click', () => { panelCita.classList.remove('visible'); });
@@ -1220,7 +1511,7 @@
     });
 
     // ============================================================
-    // 18. MENSAJE FLOTANTE DESDE CITA (interrumpe)
+    // 20. MENSAJE FLOTANTE DESDE CITA
     // ============================================================
     const mensajeCita = document.getElementById('mensaje-cita');
     const mensajeCitaTexto = document.getElementById('mensaje-cita-texto');
@@ -1237,27 +1528,23 @@
       mensajeCita.classList.remove('visible');
     });
 
-    // Leer parámetro ?cita= al cargar
     const params = new URLSearchParams(window.location.search);
     const citaParam = params.get('cita');
     if (citaParam) {
       const citaDecodificada = decodeURIComponent(citaParam);
-      // Buscar la cita en el array
       const citaEncontrada = CITAS.find(c => c.texto === citaDecodificada);
       if (citaEncontrada) {
         mostrarMensajeCita(citaEncontrada.texto, citaEncontrada.autor);
-        // Añadir huella especial por venir desde cita
         ESTADO.huellas += 1;
         guardarEstado();
         actualizarUI();
       } else {
-        // Si no se encuentra, mostrar la cita como texto
         mostrarMensajeCita(citaDecodificada, 'Archivo de Señal');
       }
     }
 
     // ============================================================
-    // 19. INSTRUCCIONES
+    // 21. INSTRUCCIONES
     // ============================================================
     const panelInstrucciones = document.getElementById('panel-instrucciones');
     const cerrarInstrucciones = document.getElementById('cerrar-instrucciones');
@@ -1280,13 +1567,20 @@
     });
 
     // ============================================================
-    // 20. ANIMACIÓN Y LOOP
+    // 22. ANIMACIÓN Y LOOP
     // ============================================================
     let tiempo = 0;
+    let ultimoTickCorrupcion = Date.now();
 
     function animate() {
       requestAnimationFrame(animate);
       tiempo += 0.01;
+
+      // Verificar corrupción cada 10 segundos
+      if (Date.now() - ultimoTickCorrupcion > 10000) {
+        ultimoTickCorrupcion = Date.now();
+        actualizarCorrupcion();
+      }
 
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
 
@@ -1304,9 +1598,11 @@
       });
 
       // Columnas
+      const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
+      const estaMuerto = ESTADO.muerto;
+
       columnas.forEach((col, i) => {
         const offset = i * 0.5;
-        const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
         col.position.y = Math.sin(tiempo * 0.5 + offset) * 0.05;
 
         const forma = col.userData.forma;
@@ -1315,10 +1611,13 @@
         if (forma === 'cubos' && mesh) {
           mesh.children.forEach((cubo, idx) => {
             if (cubo.isMesh) {
-              const vibracion = estadoCorrupto ? 0.03 : 0.01;
+              const vibracion = estaMuerto ? 0.05 : (estadoCorrupto ? 0.03 : 0.01);
               cubo.position.x += (Math.random() - 0.5) * vibracion;
               cubo.position.z += (Math.random() - 0.5) * vibracion;
-              if (estadoCorrupto) {
+              if (estaMuerto) {
+                cubo.material.emissiveIntensity = 0;
+                cubo.material.color.setHex(0x222222);
+              } else if (estadoCorrupto) {
                 cubo.material.emissiveIntensity = 0.2 + Math.random() * 0.3;
               } else {
                 cubo.material.emissiveIntensity = 0.05 + Math.sin(tiempo + idx) * 0.05;
@@ -1330,10 +1629,10 @@
         if (forma === 'ondas' && mesh) {
           mesh.children.forEach((anillo, idx) => {
             if (anillo.isMesh) {
-              const escala = estadoCorrupto ? 1 + Math.sin(tiempo * 2 + idx) * 0.1 : 1;
+              const escala = estaMuerto ? 0.5 : (estadoCorrupto ? 1 + Math.sin(tiempo * 2 + idx) * 0.1 : 1);
               anillo.scale.x = escala;
               anillo.scale.z = escala;
-              anillo.material.opacity = estadoCorrupto ? 0.3 + Math.sin(tiempo * 3 + idx) * 0.2 : 0.6 + Math.sin(idx * 0.5) * 0.3;
+              anillo.material.opacity = estaMuerto ? 0.1 : (estadoCorrupto ? 0.3 + Math.sin(tiempo * 3 + idx) * 0.2 : 0.6 + Math.sin(idx * 0.5) * 0.3);
             }
           });
         }
@@ -1341,7 +1640,11 @@
         if (forma === 'rota' && mesh) {
           const grietas = mesh.userData.grietas || [];
           grietas.forEach((grieta, idx) => {
-            if (estadoCorrupto) {
+            if (estaMuerto) {
+              grieta.scale.y = 3;
+              grieta.material.emissiveIntensity = 0.1;
+              grieta.material.color.setHex(0x440000);
+            } else if (estadoCorrupto) {
               const crecimiento = 1 + Math.sin(tiempo * 2 + idx) * 0.5;
               grieta.scale.y = crecimiento;
               grieta.material.emissiveIntensity = 0.5 + Math.sin(tiempo * 3 + idx) * 0.5;
@@ -1363,10 +1666,15 @@
             const data = frag.userData;
             if (data) {
               const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.3;
-              frag.position.y = altura;
-              frag.rotation.x += 0.01;
-              frag.rotation.z += 0.005;
-              if (estadoCorrupto) {
+              frag.position.y = estaMuerto ? 0 : altura;
+              if (!estaMuerto) {
+                frag.rotation.x += 0.01;
+                frag.rotation.z += 0.005;
+              }
+              if (estaMuerto) {
+                frag.material.opacity = 0.1;
+                frag.material.emissiveIntensity = 0;
+              } else if (estadoCorrupto) {
                 frag.position.y += Math.sin(tiempo * 5 + idx) * 0.02;
                 frag.material.opacity = 0.4 + Math.sin(tiempo * 2 + idx) * 0.3;
               }
@@ -1374,7 +1682,15 @@
           });
         }
 
-        if (estadoCorrupto && Math.random() < 0.01) {
+        if (estaMuerto && Math.random() < 0.005) {
+          const flash = new THREE.Mesh(
+            new THREE.SphereGeometry(0.3, 4, 4),
+            new THREE.MeshBasicMaterial({ color: 0x440000, transparent: true, opacity: 0.1 })
+          );
+          flash.position.set(0, 2.5 + Math.random() * 3, 0);
+          col.add(flash);
+          setTimeout(() => { col.remove(flash); }, 200);
+        } else if (estadoCorrupto && !estaMuerto && Math.random() < 0.01) {
           const flash = new THREE.Mesh(
             new THREE.SphereGeometry(0.5, 4, 4),
             new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.2 })
@@ -1385,19 +1701,21 @@
         }
       });
 
-      // Sonido por proximidad
+      // Sonido por proximidad (solo si no está muerto)
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
-      columnas.forEach(col => {
-        const dist = camPos.distanceTo(col.position);
-        if (dist < 6 && dist < distanciaMin) {
-          distanciaMin = dist;
-          columnaCercana = col;
+      if (!ESTADO.muerto) {
+        columnas.forEach(col => {
+          const dist = camPos.distanceTo(col.position);
+          if (dist < 6 && dist < distanciaMin) {
+            distanciaMin = dist;
+            columnaCercana = col;
+          }
+        });
+        if (columnaCercana && audioContext) {
+          playSoundByProximity(columnaCercana.userData.label, distanciaMin);
         }
-      });
-      if (columnaCercana && audioContext) {
-        playSound(columnaCercana.userData.label, distanciaMin);
       }
 
       controls.update();
@@ -1407,7 +1725,7 @@
     animate();
 
     // ============================================================
-    // 21. RESPONSIVE
+    // 23. RESPONSIVE
     // ============================================================
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -1416,7 +1734,7 @@
     });
 
     // ============================================================
-    // 22. INICIALIZACIÓN
+    // 24. INICIALIZACIÓN
     // ============================================================
     await cargarTextosCompletos();
     cargarHuellasGuardadas();
@@ -1427,16 +1745,23 @@
       crearHuella(col.label, col.color);
       guardarHuella(col.label);
       ESTADO.huellas += 1;
+      ESTADO.ultimaActualizacion = Date.now();
       guardarEstado();
       actualizarUI();
     }
 
+    // Verificar estado inicial
+    actualizarCorrupcion();
+
     console.log('MONUMENTO SONORO');
     console.log('4 columnas con identidad única');
     console.log('Corrupción activa:', ESTADO.corrompido);
+    console.log('Muerto:', ESTADO.muerto);
     console.log('Veces compartido:', ESTADO.vecesCompartido);
     console.log('Huellas totales:', ESTADO.huellas);
     console.log('Siembras totales:', ESTADO.siembras);
+    console.log('Partículas activas:', calcularParticulasActivas());
+    console.log('Tiempo restante:', calcularTiempoRestante() + 'h');
     console.log('Integridad:', ESTADO.integridad + '%');
 
     document.addEventListener('click', initAudio, { once: true });
