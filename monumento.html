@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MONUMENTO SONORO CORRUPTIBLE</title>
+  <title>MONUMENTO SONORO</title>
+
+  <!-- Open Graph BASE (se actualiza dinámicamente al compartir) -->
+  <meta property="og:title" content="MONUMENTO SONORO" />
+  <meta property="og:description" content="Explora el monumento interactivo del Archivo de Señal." />
+  <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png" />
+  <meta property="og:url" content="https://39913em.github.io/archivo-de-senal/monumento.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <style>
     /* ===== RESET ===== */
@@ -14,7 +22,7 @@
       user-select:none;
     }
 
-    /* ===== BOTÓN REGRESO (SIEMPRE VISIBLE) ===== */
+    /* ===== BOTÓN REGRESO ===== */
     #btn-regreso {
       position:fixed; top:20px; left:20px; z-index:1000;
       background:rgba(10,10,10,0.85); color:#ff6b35;
@@ -31,41 +39,25 @@
     }
     #btn-regreso span { font-size:18px; }
 
-    /* ===== PANEL DE INSTRUCCIONES (centrado, sin superposición) ===== */
+    /* ===== PANEL DE INSTRUCCIONES (centrado) ===== */
     #panel-instrucciones {
-      position:fixed; 
-      top: 50%; 
-      left: 50%; 
-      transform: translate(-50%, -50%);
-      z-index:150; 
-      background:rgba(10,10,10,0.95);
-      border:1px solid #ff6b35; 
-      border-radius:15px;
-      padding:25px 30px; 
-      max-width:620px; 
-      width:90%;
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      z-index:150; background:rgba(10,10,10,0.95);
+      border:1px solid #ff6b35; border-radius:15px;
+      padding:25px 30px; max-width:620px; width:90%;
       backdrop-filter:blur(15px);
-      color:#ccc; 
-      font-size:13px; 
-      line-height:2;
-      text-align:center; 
-      transition:all 0.4s ease;
+      color:#ccc; font-size:13px; line-height:2;
+      text-align:center; transition:all 0.4s ease;
       box-shadow:0 0 60px rgba(0,0,0,0.9), 0 0 40px rgba(255,107,53,0.1);
       pointer-events:auto;
     }
     #panel-instrucciones.oculto {
-      opacity:0;
-      transform:translate(-50%, -50%) scale(0.95);
+      opacity:0; transform:translate(-50%,-50%) scale(0.95);
       pointer-events:none;
     }
     #panel-instrucciones h4 {
       color:#ff6b35; font-size:15px; margin-bottom:10px;
       letter-spacing:2px; text-transform:uppercase;
-    }
-    #panel-instrucciones .key {
-      display:inline-block; background:#1a1a2e;
-      padding:2px 10px; border-radius:5px;
-      border:1px solid #333; color:#fff; font-size:11px;
     }
     #panel-instrucciones .icono { font-size:18px; }
     #cerrar-instrucciones {
@@ -76,28 +68,19 @@
     }
     #cerrar-instrucciones:hover { color:#ff6b35; }
 
-    /* ===== BOTÓN PARA REABRIR INSTRUCCIONES ===== */
+    /* ===== BOTÓN AYUDA ===== */
     #btn-instrucciones {
       position:fixed; bottom:220px; left:50%; transform:translateX(-50%);
       z-index:90;
-      background:rgba(255,107,53,0.1); 
-      color:#ff6b35;
-      border:1px solid #ff6b35; 
-      padding:6px 16px;
-      border-radius:20px;
-      font-family:'Courier New',monospace;
-      font-size:10px;
-      cursor:pointer;
-      transition:all 0.3s ease;
-      backdrop-filter:blur(5px);
-      letter-spacing:1px;
-      text-transform:uppercase;
-      opacity:0.6;
+      background:rgba(255,107,53,0.1); color:#ff6b35;
+      border:1px solid #ff6b35; padding:6px 16px;
+      border-radius:20px; font-family:'Courier New',monospace;
+      font-size:10px; cursor:pointer; transition:all 0.3s ease;
+      backdrop-filter:blur(5px); letter-spacing:1px;
+      text-transform:uppercase; opacity:0.6;
     }
     #btn-instrucciones:hover {
-      background:#ff6b35;
-      color:#0a0a0a;
-      opacity:1;
+      background:#ff6b35; color:#0a0a0a; opacity:1;
       transform:translateX(-50%) scale(1.05);
     }
 
@@ -113,9 +96,7 @@
     #estado .valor { color:#fff; font-weight:bold; }
     #estado .alerta { color:#ff1744; animation:parpadeo 1s infinite; }
     #estado .reparado { color:#00e676; }
-    .contador-compartido {
-      color:#ff6b35; font-size:13px; margin-top:5px;
-    }
+    .contador-compartido { color:#ff6b35; font-size:13px; margin-top:5px; }
     @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
     /* ===== BOTONES DE ACCIÓN ===== */
@@ -143,7 +124,7 @@
     }
     #btn-cita:hover { background:rgba(255,107,53,0.3); }
 
-    /* ===== PANEL DE CITA / COMPARTIR ===== */
+    /* ===== PANEL DE CITA (compartir) ===== */
     #panel-cita {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:200; background:rgba(10,10,10,0.96);
@@ -156,28 +137,16 @@
     }
     #panel-cita.visible { display:block; animation:fadeIn 0.3s ease; }
     @keyframes fadeIn { from{opacity:0; transform:translate(-50%,-40%);} to{opacity:1; transform:translate(-50%,-50%);} }
-    #panel-cita .texto {
-      color:#fff; font-size:18px; line-height:1.8;
-      margin:15px 0; font-style:italic;
-    }
-    #panel-cita .autor {
-      color:#ff6b35; font-size:14px; letter-spacing:2px;
-    }
-    #panel-cita .botones-compartir {
-      display:flex; gap:8px; justify-content:center;
-      margin-top:20px; flex-wrap:wrap;
-    }
+    #panel-cita .texto { color:#fff; font-size:18px; line-height:1.8; margin:15px 0; font-style:italic; }
+    #panel-cita .autor { color:#ff6b35; font-size:14px; letter-spacing:2px; }
+    #panel-cita .botones-compartir { display:flex; gap:8px; justify-content:center; margin-top:20px; flex-wrap:wrap; }
     #panel-cita .botones-compartir a {
-      padding:8px 16px; border-radius:30px;
-      text-decoration:none; font-size:11px; font-weight:bold;
-      transition:all 0.3s ease; display:inline-flex;
-      align-items:center; gap:6px; font-family:inherit;
+      padding:8px 16px; border-radius:30px; text-decoration:none;
+      font-size:11px; font-weight:bold; transition:all 0.3s ease;
+      display:inline-flex; align-items:center; gap:6px; font-family:inherit;
     }
     #panel-cita .botones-compartir a:hover { transform:scale(1.05); }
-    #panel-cita .compartir-titulo {
-      color:#888; font-size:11px; letter-spacing:2px;
-      text-transform:uppercase; margin-bottom:5px;
-    }
+    #panel-cita .compartir-titulo { color:#888; font-size:11px; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px; }
     .btn-twitter { background:#1DA1F2; color:#fff; }
     .btn-bluesky { background:#1185FE; color:#fff; }
     .btn-linkedin { background:#0A66C2; color:#fff; }
@@ -193,26 +162,35 @@
       font-size:22px; cursor:pointer; font-family:inherit;
     }
     #cerrar-cita:hover { color:#ff6b35; }
-    #contador-compartido-panel {
-      color:#ff6b35; font-size:13px; margin-top:10px;
+    #contador-compartido-panel { color:#ff6b35; font-size:13px; margin-top:10px; }
+
+    /* ===== MENSAJE FLOTANTE DESDE CITA (interrumpe) ===== */
+    #mensaje-cita {
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      z-index:250; background:rgba(10,10,10,0.97);
+      border:2px solid #ff6b35; border-radius:20px;
+      padding:40px 45px; max-width:560px; width:90%;
+      display:none; text-align:center;
+      box-shadow:0 0 100px rgba(255,107,53,0.2);
+      backdrop-filter:blur(25px);
     }
+    #mensaje-cita.visible { display:block; animation:fadeIn 0.4s ease; }
+    #mensaje-cita .texto { color:#fff; font-size:20px; line-height:1.8; margin:20px 0; font-style:italic; }
+    #mensaje-cita .autor { color:#ff6b35; font-size:15px; letter-spacing:2px; }
+    #mensaje-cita .sub { color:#888; font-size:11px; margin-top:15px; letter-spacing:1px; }
+    #mensaje-cita .btn-cerrar-mensaje {
+      margin-top:20px; padding:8px 25px;
+      background:#ff6b35; color:#0a0a0a; border:none;
+      border-radius:30px; font-family:'Courier New',monospace;
+      font-size:12px; font-weight:bold; cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    #mensaje-cita .btn-cerrar-mensaje:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,107,53,0.3); }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width:768px) {
-      #panel-instrucciones { 
-        font-size:11px; padding:18px 16px; 
-        max-width:95%; 
-        top:50%; 
-        transform:translate(-50%, -50%);
-      }
-      #panel-instrucciones.oculto {
-        transform:translate(-50%, -50%) scale(0.95);
-      }
-      #estado { 
-        font-size:9px; padding:10px 12px; 
-        min-width:120px; top:70px; 
-        right:10px;
-      }
+      #panel-instrucciones { font-size:11px; padding:18px 16px; max-width:95%; }
+      #estado { font-size:9px; padding:10px 12px; min-width:120px; top:70px; right:10px; }
       #btn-regreso { font-size:11px; padding:6px 12px; top:10px; left:10px; }
       #btn-sembrar, #btn-cita { font-size:11px; padding:8px 16px; }
       #btn-sembrar { bottom:80px; }
@@ -221,12 +199,14 @@
       #panel-cita { padding:20px 18px; max-width:95%; }
       #panel-cita .texto { font-size:15px; }
       #panel-cita .botones-compartir a { font-size:10px; padding:6px 12px; }
+      #mensaje-cita { padding:25px 20px; max-width:95%; }
+      #mensaje-cita .texto { font-size:17px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== BOTÓN REGRESO AL BLOG ===== -->
+  <!-- ===== BOTÓN REGRESO ===== -->
   <a id="btn-regreso" href="index.html">
     <span>←</span> VOLVER AL ARCHIVO
   </a>
@@ -235,16 +215,14 @@
   <div id="estado">
     <div><span class="valor">MONUMENTO VIVO</span></div>
     <div>VISITAS: <span id="visitas" class="valor">0</span></div>
+    <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
+    <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
-    <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">
-      ⚠️ CORRUPCIÓN ACTIVA
-    </div>
-    <div id="contador-compartido" class="contador-compartido">
-      SEMBRADO: <span id="veces-compartido">0</span>/5
-    </div>
+    <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">⚠️ CORRUPCIÓN ACTIVA</div>
+    <div class="contador-compartido">SEMBRADO: <span id="veces-compartido">0</span>/5</div>
   </div>
 
-  <!-- ===== PANEL DE INSTRUCCIONES (centrado) ===== -->
+  <!-- ===== PANEL DE INSTRUCCIONES ===== -->
   <div id="panel-instrucciones">
     <button id="cerrar-instrucciones">✕</button>
     <h4>CÓMO TRANSITAR EL MONUMENTO</h4>
@@ -257,33 +235,34 @@
       <span class="icono">⚠️</span> Si nadie visita en 24h, <strong>TODOS los ensayos se corrompen</strong><br>
       <span class="icono">🔓</span> Comparte <strong>5 veces</strong> para restaurar la memoria completa
     </p>
-    <p style="font-size:10px; opacity:0.5; margin-top:5px;">
-      🎧 Usa auriculares para mejor experiencia
-    </p>
+    <p style="font-size:10px; opacity:0.5; margin-top:5px;">🎧 Usa auriculares para mejor experiencia</p>
   </div>
 
-  <!-- ===== BOTÓN PARA REABRIR INSTRUCCIONES ===== -->
-  <button id="btn-instrucciones" class="btn-accion" style="bottom:220px; font-size:10px; padding:6px 16px; background:rgba(255,107,53,0.1); border:1px solid #ff6b35; border-radius:20px; color:#ff6b35; opacity:0.6;">
-    ❓ AYUDA
-  </button>
+  <!-- ===== BOTÓN AYUDA ===== -->
+  <button id="btn-instrucciones" class="btn-accion" style="bottom:220px; font-size:10px; padding:6px 16px; background:rgba(255,107,53,0.1); border:1px solid #ff6b35; border-radius:20px; color:#ff6b35; opacity:0.6;">❓ AYUDA</button>
 
   <!-- ===== BOTONES DE ACCIÓN ===== -->
-  <button id="btn-sembrar" class="btn-accion"> SEMBRAR CULTURA</button>
+  <button id="btn-sembrar" class="btn-accion">SEMBRAR CULTURA</button>
   <button id="btn-cita" class="btn-accion">CITA BRUTALISTA</button>
 
-  <!-- ===== PANEL DE CITA / COMPARTIR ===== -->
+  <!-- ===== PANEL DE CITA ===== -->
   <div id="panel-cita">
     <button id="cerrar-cita">✕</button>
-    <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">
-      ✦ FRAGMENTO DEL MONUMENTO ✦
-    </div>
+    <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ FRAGMENTO DEL MONUMENTO ✦</div>
     <div class="texto" id="cita-texto">"La cultura se siembra, no se torrentea."</div>
-    <div class="autor" id="cita-autor">— Monumento Sonoro Corruptible</div>
+    <div class="autor" id="cita-autor">— Monumento Sonoro</div>
     <div id="contador-compartido-panel">Compartido: <span id="veces-compartido-panel">0</span>/5</div>
     <div class="compartir-titulo">COMPARTE PARA SEMBRAR</div>
-    <div class="botones-compartir" id="botones-compartir">
-      <!-- Generados por JS -->
-    </div>
+    <div class="botones-compartir" id="botones-compartir"></div>
+  </div>
+
+  <!-- ===== MENSAJE FLOTANTE DESDE CITA (interrumpe) ===== -->
+  <div id="mensaje-cita">
+    <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ HAS LLEGADO CON UNA CITA ✦</div>
+    <div class="texto" id="mensaje-cita-texto">"La cultura se siembra."</div>
+    <div class="autor" id="mensaje-cita-autor">— Monumento Sonoro</div>
+    <div class="sub">Explora el monumento y siembra tu propia semilla</div>
+    <button class="btn-cerrar-mensaje" id="cerrar-mensaje-cita">✕ ENTRAR AL MONUMENTO</button>
   </div>
 
   <!-- ============================================================
@@ -298,7 +277,6 @@
   }
   </script>
 
-  <!-- html2pdf para generar PDFs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script type="module">
@@ -306,11 +284,10 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
     // ============================================================
-    // 1. CONFIGURACIÓN Y TEXTOS COMPLETOS (desde tus JSONs)
+    // 1. TEXTOS COMPLETOS (desde tus JSONs)
     // ============================================================
     const TEXTOS_COMPLETOS = {};
 
-    // Cargar los JSONs de contenido
     async function cargarTextosCompletos() {
       const archivos = [
         { id: 'DATOS MASIVOS', path: 'contenido/datos-masivos.json' },
@@ -318,7 +295,6 @@
         { id: 'MEMORIA ROTA', path: 'contenido/memoria-rota.json' },
         { id: 'CULTURA NO SE TORRENTEA', path: 'contenido/torrentear.json' }
       ];
-
       for (const item of archivos) {
         try {
           const res = await fetch(item.path);
@@ -339,18 +315,13 @@
           };
         } catch (e) {
           console.warn(`Error cargando ${item.path}:`, e);
-          TEXTOS_COMPLETOS[item.id] = {
-            titulo: item.id,
-            subtitulo: '',
-            cuerpo: 'Contenido no disponible.',
-            portada: ''
-          };
+          TEXTOS_COMPLETOS[item.id] = { titulo: item.id, subtitulo: '', cuerpo: 'Contenido no disponible.', portada: '' };
         }
       }
     }
 
     // ============================================================
-    // 2. CITAS (extraídas de tus ensayos)
+    // 2. CITAS
     // ============================================================
     const CITAS = [
       { texto: 'El dato masivo no es neutral: pesa, vibra, respira.', autor: 'DATARTVERSO — 39913EM-DOC-000' },
@@ -368,7 +339,7 @@
     ];
 
     // ============================================================
-    // 3. REDES SOCIALES (las mismas que tu blog)
+    // 3. REDES SOCIALES
     // ============================================================
     const REDES = [
       { id: 'twitter', label: 'X', clase: 'btn-twitter', url: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}` },
@@ -376,17 +347,19 @@
       { id: 'linkedin', label: 'LinkedIn', clase: 'btn-linkedin', url: (t, u) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}` },
       { id: 'whatsapp', label: 'WhatsApp', clase: 'btn-whatsapp', url: (t, u) => `https://api.whatsapp.com/send?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
       { id: 'facebook', label: 'Facebook', clase: 'btn-facebook', url: (t, u) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}&quote=${encodeURIComponent(t)}` },
-      { id: 'reddit', label: ' Reddit', clase: 'btn-reddit', url: (t, u) => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent(t)}` },
+      { id: 'reddit', label: 'Reddit', clase: 'btn-reddit', url: (t, u) => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent(t)}` },
       { id: 'instagram', label: 'Instagram', clase: 'btn-instagram', url: (t, u) => `https://www.instagram.com/39913em/` },
       { id: 'substack', label: 'Substack', clase: 'btn-substack', url: (t, u) => `https://substack.com/` }
     ];
 
     // ============================================================
-    // 4. ESTADO DEL SISTEMA (con localStorage persistente)
+    // 4. ESTADO DEL SISTEMA (localStorage)
     // ============================================================
     const ESTADO = {
       integridad: 100,
       visitas: 0,
+      huellas: 0,
+      siembras: 0,
       vecesCompartido: 0,
       corrompido: false,
       ultimaVisita: null
@@ -395,22 +368,16 @@
     function cargarEstado() {
       try {
         const guardado = localStorage.getItem('monumento_estado');
-        if (guardado) {
-          const parsed = JSON.parse(guardado);
-          Object.assign(ESTADO, parsed);
-        }
+        if (guardado) { Object.assign(ESTADO, JSON.parse(guardado)); }
       } catch (e) {}
     }
 
     function guardarEstado() {
-      try {
-        localStorage.setItem('monumento_estado', JSON.stringify(ESTADO));
-      } catch (e) {}
+      try { localStorage.setItem('monumento_estado', JSON.stringify(ESTADO)); } catch (e) {}
     }
 
     cargarEstado();
 
-    // Verificar si pasaron 24h sin visita
     const ahora = Date.now();
     if (ESTADO.ultimaVisita && (ahora - ESTADO.ultimaVisita) > 86400000) {
       ESTADO.integridad = Math.min(ESTADO.integridad, 55);
@@ -418,18 +385,19 @@
     }
     ESTADO.ultimaVisita = ahora;
     ESTADO.visitas += 1;
+    ESTADO.huellas += 1;
     guardarEstado();
 
-    // Si ya fue compartido 5 veces, reparar
     if (ESTADO.vecesCompartido >= 5) {
       ESTADO.integridad = 100;
       ESTADO.corrompido = false;
       guardarEstado();
     }
 
-    // Actualizar UI de estado
     function actualizarUI() {
       document.getElementById('visitas').textContent = ESTADO.visitas;
+      document.getElementById('huellas').textContent = ESTADO.huellas;
+      document.getElementById('siembras').textContent = ESTADO.siembras;
       document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
       document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
       document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
@@ -451,11 +419,10 @@
         btnSembrar.style.display = 'none';
       }
     }
-
     actualizarUI();
 
     // ============================================================
-    // 5. FUNCIÓN PARA CORROMPER UN TEXTO
+    // 5. CORROMPER TEXTO
     // ============================================================
     function corromperTexto(texto, nivel = 0.3) {
       if (!texto) return texto;
@@ -463,7 +430,6 @@
       const resultado = [];
       const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊', '◌', '◍', '◎', '●', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗'];
       const letrasRojas = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
-
       for (let i = 0; i < chars.length; i++) {
         if (Math.random() < nivel) {
           if (Math.random() < 0.5) {
@@ -484,19 +450,15 @@
     }
 
     // ============================================================
-    // 6. GENERACIÓN DE PDF (con o sin corrupción)
+    // 6. GENERAR PDF
     // ============================================================
     async function generarPDF(label, corrupto = false) {
       const data = TEXTOS_COMPLETOS[label];
       if (!data) return;
-
       const titulo = data.titulo || label;
       const subtitulo = data.subtitulo || '';
       let cuerpo = data.cuerpo || 'Contenido no disponible.';
-
-      if (corrupto) {
-        cuerpo = corromperTexto(cuerpo, 0.35);
-      }
+      if (corrupto) { cuerpo = corromperTexto(cuerpo, 0.35); }
 
       const element = document.createElement('div');
       element.style.padding = '40px';
@@ -508,11 +470,10 @@
 
       let html = `
         <div style="text-align:center; border-bottom:2px solid #ff6b35; padding-bottom:20px; margin-bottom:20px;">
-          <h1 style="font-size:28px; margin:0; color:#0a0a0a;">MONUMENTO SONORO CORRUPTIBLE</h1>
+          <h1 style="font-size:28px; margin:0; color:#0a0a0a;">MONUMENTO SONORO</h1>
           <p style="font-size:12px; color:#666; letter-spacing:2px; text-transform:uppercase;">Archivo de Señal · 39913EM</p>
         </div>
       `;
-
       if (corrupto) {
         html += `
           <div style="background:#ffebee; border:2px solid #ff1744; padding:15px; border-radius:8px; margin-bottom:20px; text-align:center;">
@@ -524,49 +485,166 @@
           </div>
         `;
       }
-
       html += `
         <div style="margin-bottom:20px;">
           <h2 style="font-size:22px; margin:0 0 5px;">${titulo}</h2>
           ${subtitulo ? `<p style="font-size:16px; color:#555; font-style:italic; margin:0 0 10px;">${subtitulo}</p>` : ''}
           <p style="font-size:12px; color:#999;">${label} · ${corrupto ? '🔒 VERSIÓN CORRUPTA' : 'VERSIÓN ORIGINAL'}</p>
         </div>
-        <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">
-          ${cuerpo}
-        </div>
+        <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">${cuerpo}</div>
         <div style="margin-top:30px; border-top:1px solid #ddd; padding-top:15px; text-align:center; font-size:11px; color:#999;">
           Archivo de Señal · ${new Date().toLocaleDateString()} · ${window.location.origin}/archivo-de-senal/
         </div>
       `;
-
       element.innerHTML = html;
       document.body.appendChild(element);
-
       try {
-        const opt = {
+        await html2pdf().set({
           margin: 10,
           filename: `${label.toLowerCase().replace(/\s+/g, '_')}_${corrupto ? 'corrupto' : 'original'}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2, useCORS: true },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        await html2pdf().set(opt).from(element).save();
-      } catch (e) {
-        console.error('Error generando PDF:', e);
-      } finally {
-        document.body.removeChild(element);
-      }
+        }).from(element).save();
+      } catch (e) { console.error('Error generando PDF:', e); }
+      document.body.removeChild(element);
     }
 
     // ============================================================
-    // 7. THREE.JS - ESCENA
+    // 7. GENERAR IMAGEN PARA COMPARTIR (Canvas)
+    // ============================================================
+    function generarImagenCita(texto, autor) {
+      return new Promise((resolve) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 630;
+        const ctx = canvas.getContext('2d');
+
+        // Fondo oscuro con degradado
+        const grad = ctx.createLinearGradient(0, 0, 1200, 630);
+        grad.addColorStop(0, '#0a0a0a');
+        grad.addColorStop(0.5, '#0f0f1a');
+        grad.addColorStop(1, '#0a0a0a');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1200, 630);
+
+        // Borde naranja
+        ctx.strokeStyle = '#ff6b35';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(20, 20, 1160, 590);
+
+        // Línea decorativa superior
+        ctx.strokeStyle = '#ff6b35';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(60, 80);
+        ctx.lineTo(1140, 80);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Título
+        ctx.fillStyle = '#ff6b35';
+        ctx.font = 'bold 28px "Courier New", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText('MONUMENTO SONORO', 600, 50);
+
+        // Línea decorativa inferior
+        ctx.strokeStyle = '#ff6b35';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(60, 550);
+        ctx.lineTo(1140, 550);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Cita (texto grande)
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 38px "Georgia", serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        // Envolver texto largo
+        const palabras = texto.split(' ');
+        let lineas = [];
+        let lineaActual = '';
+        for (const palabra of palabras) {
+          if ((lineaActual + ' ' + palabra).length < 45) {
+            lineaActual += (lineaActual ? ' ' : '') + palabra;
+          } else {
+            if (lineaActual) lineas.push(lineaActual);
+            lineaActual = palabra;
+          }
+        }
+        if (lineaActual) lineas.push(lineaActual);
+        const lineHeight = 50;
+        const startY = 200 - ((lineas.length - 1) * lineHeight) / 2;
+        lineas.forEach((linea, i) => {
+          ctx.fillStyle = i === 0 ? '#ff6b35' : '#ffffff';
+          ctx.fillText('"' + linea + '"', 600, startY + i * lineHeight);
+        });
+
+        // Autor
+        ctx.fillStyle = '#888888';
+        ctx.font = '22px "Courier New", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('— ' + autor, 600, 520);
+
+        // Logo (cargar desde la URL)
+        const logo = new Image();
+        logo.crossOrigin = 'anonymous';
+        logo.src = 'https://39913em.github.io/archivo-de-senal/assets/img/logo.png';
+        logo.onload = () => {
+          ctx.drawImage(logo, 540, 555, 120, 120);
+          resolve(canvas.toDataURL('image/png'));
+        };
+        logo.onerror = () => {
+          // Si no carga, dibujar un círculo con texto
+          ctx.fillStyle = '#ff6b35';
+          ctx.beginPath();
+          ctx.arc(600, 600, 40, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#0a0a0a';
+          ctx.font = 'bold 20px "Courier New", monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('AS', 600, 605);
+          resolve(canvas.toDataURL('image/png'));
+        };
+      });
+    }
+
+    // ============================================================
+    // 8. ACTUALIZAR OPEN GRAPH
+    // ============================================================
+    function actualizarOpenGraph(titulo, descripcion, imagenUrl, urlCompleta) {
+      let meta = document.querySelector('meta[property="og:title"]');
+      if (meta) meta.content = titulo;
+      meta = document.querySelector('meta[property="og:description"]');
+      if (meta) meta.content = descripcion;
+      meta = document.querySelector('meta[property="og:image"]');
+      if (meta) meta.content = imagenUrl;
+      meta = document.querySelector('meta[property="og:url"]');
+      if (meta) meta.content = urlCompleta;
+      meta = document.querySelector('meta[name="twitter:title"]');
+      if (meta) meta.content = titulo;
+      meta = document.querySelector('meta[name="twitter:description"]');
+      if (meta) meta.content = descripcion;
+      meta = document.querySelector('meta[name="twitter:image"]');
+      if (meta) meta.content = imagenUrl;
+      document.title = titulo;
+    }
+
+    // ============================================================
+    // 9. THREE.JS - ESCENA
     // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
     camera.position.set(8, 6, 12);
-    camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -585,30 +663,26 @@
     controls.update();
 
     // ============================================================
-    // 8. LUCES
+    // 10. LUCES
     // ============================================================
     const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
     scene.add(ambientLight);
-
     const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
     mainLight.position.set(5, 12, 7);
     mainLight.castShadow = true;
     scene.add(mainLight);
-
     const rimLight = new THREE.DirectionalLight(0xff6b35, 0.6);
     rimLight.position.set(-5, 5, -7);
     scene.add(rimLight);
-
     const fillLight = new THREE.DirectionalLight(0x4fc3f7, 0.3);
     fillLight.position.set(-3, 0, 8);
     scene.add(fillLight);
 
     // ============================================================
-    // 9. PERSONAJE GUARDIÁN
+    // 11. PERSONAJE GUARDIÁN
     // ============================================================
     function crearPersonaje() {
       const group = new THREE.Group();
-
       const cuerpo = new THREE.Mesh(
         new THREE.BoxGeometry(0.8, 1.2, 0.6),
         new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7, emissive: 0x0a0a1a, emissiveIntensity: 0.2 })
@@ -616,7 +690,6 @@
       cuerpo.position.y = 0.6;
       cuerpo.castShadow = true;
       group.add(cuerpo);
-
       const cabeza = new THREE.Mesh(
         new THREE.SphereGeometry(0.4, 8, 8),
         new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.3 })
@@ -624,7 +697,6 @@
       cabeza.position.y = 1.6;
       cabeza.castShadow = true;
       group.add(cabeza);
-
       const aro = new THREE.Mesh(
         new THREE.TorusGeometry(0.5, 0.05, 8, 16),
         new THREE.MeshStandardMaterial({ color: 0xff6b35, roughness: 0.2, metalness: 0.8, emissive: 0xff6b35, emissiveIntensity: 0.1 })
@@ -633,7 +705,6 @@
       aro.rotation.x = Math.PI / 3;
       aro.rotation.z = 0.3;
       group.add(aro);
-
       const led = new THREE.Mesh(
         new THREE.SphereGeometry(0.08, 6, 6),
         new THREE.MeshStandardMaterial({ color: 0x00e676, emissive: 0x00e676, emissiveIntensity: 0.5 })
@@ -641,7 +712,6 @@
       led.position.set(0, 0.7, 0.35);
       led.name = 'led';
       group.add(led);
-
       return group;
     }
 
@@ -650,20 +720,18 @@
     scene.add(guardian);
 
     // ============================================================
-    // 10. COLUMNAS CON IDENTIDAD VISUAL ÚNICA
+    // 12. COLUMNAS
     // ============================================================
     const columnas = [];
     const datosColumna = [
-      { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, audio: 'servers', forma: 'cubos' },
-      { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, audio: 'reverb', forma: 'ondas' },
-      { label: 'MEMORIA ROTA', x: -4.5, z: 3.5, color: 0xff1744, audio: 'glitch', forma: 'rota' },
-      { label: 'CULTURA NO SE TORRENTEA', x: 4.5, z: 3.5, color: 0x00e676, audio: 'voces', forma: 'flotante' }
+      { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, forma: 'cubos' },
+      { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, forma: 'ondas' },
+      { label: 'MEMORIA ROTA', x: -4.5, z: 3.5, color: 0xff1744, forma: 'rota' },
+      { label: 'CULTURA NO SE TORRENTEA', x: 4.5, z: 3.5, color: 0x00e676, forma: 'flotante' }
     ];
 
     function crearColumnaEspecifica(label, color, forma) {
       const group = new THREE.Group();
-      const altura = 5;
-
       const base = new THREE.Mesh(
         new THREE.CylinderGeometry(0.8, 1, 0.2, 8),
         new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 })
@@ -673,7 +741,6 @@
       group.add(base);
 
       let columnaMesh;
-
       switch(forma) {
         case 'cubos':
           const cubosGroup = new THREE.Group();
@@ -682,11 +749,8 @@
             const cubo = new THREE.Mesh(
               new THREE.BoxGeometry(size, 0.18, size),
               new THREE.MeshStandardMaterial({
-                color: color,
-                roughness: 0.3,
-                metalness: 0.6,
-                emissive: color,
-                emissiveIntensity: 0.05 + Math.random() * 0.1
+                color: color, roughness: 0.3, metalness: 0.6,
+                emissive: color, emissiveIntensity: 0.05 + Math.random() * 0.1
               })
             );
             cubo.position.y = 0.2 + i * 0.2;
@@ -694,13 +758,11 @@
             cubo.position.z = (Math.random() - 0.5) * 0.5;
             cubo.rotation.y = Math.random() * Math.PI;
             cubo.castShadow = true;
-            cubo.userData = { idx: i, originalY: cubo.position.y };
             cubosGroup.add(cubo);
           }
           columnaMesh = cubosGroup;
           columnaMesh.position.y = 2.5;
           break;
-
         case 'ondas':
           const ondasGroup = new THREE.Group();
           for (let i = 0; i < 12; i++) {
@@ -708,76 +770,49 @@
             const anillo = new THREE.Mesh(
               new THREE.TorusGeometry(radio, 0.04, 8, 20),
               new THREE.MeshStandardMaterial({
-                color: color,
-                roughness: 0.1,
-                metalness: 0.9,
-                emissive: color,
-                emissiveIntensity: 0.1,
-                transparent: true,
-                opacity: 0.6 + Math.sin(i * 0.5) * 0.3
+                color: color, roughness: 0.1, metalness: 0.9,
+                emissive: color, emissiveIntensity: 0.1,
+                transparent: true, opacity: 0.6 + Math.sin(i * 0.5) * 0.3
               })
             );
             anillo.position.y = 0.3 + i * 0.4;
             anillo.rotation.x = Math.PI / 2 + Math.sin(i * 0.3) * 0.2;
             anillo.rotation.z = Math.sin(i * 0.5) * 0.1;
             anillo.castShadow = true;
-            anillo.userData = { idx: i, originalY: anillo.position.y };
             ondasGroup.add(anillo);
           }
           columnaMesh = ondasGroup;
           columnaMesh.position.y = 2.5;
           break;
-
         case 'rota':
           const rotaGroup = new THREE.Group();
           const inferior = new THREE.Mesh(
             new THREE.CylinderGeometry(0.5, 0.6, 2.5, 8),
-            new THREE.MeshStandardMaterial({
-              color: color,
-              roughness: 0.5,
-              metalness: 0.3,
-              emissive: color,
-              emissiveIntensity: 0.05
-            })
+            new THREE.MeshStandardMaterial({ color: color, roughness: 0.5, metalness: 0.3, emissive: color, emissiveIntensity: 0.05 })
           );
           inferior.position.y = 1.3;
           inferior.castShadow = true;
           rotaGroup.add(inferior);
-
           const superior = new THREE.Mesh(
             new THREE.CylinderGeometry(0.45, 0.5, 2.2, 8),
-            new THREE.MeshStandardMaterial({
-              color: color,
-              roughness: 0.6,
-              metalness: 0.2,
-              emissive: color,
-              emissiveIntensity: 0.1
-            })
+            new THREE.MeshStandardMaterial({ color: color, roughness: 0.6, metalness: 0.2, emissive: color, emissiveIntensity: 0.1 })
           );
           superior.position.set(0.2, 3.5, 0.1);
           superior.rotation.z = 0.08;
           superior.rotation.x = 0.05;
           superior.castShadow = true;
           rotaGroup.add(superior);
-
           const grietas = [];
           for (let i = 0; i < 10; i++) {
             const grieta = new THREE.Mesh(
               new THREE.BoxGeometry(0.02, 0.2 + Math.random() * 0.4, 0.02),
               new THREE.MeshStandardMaterial({
-                color: 0xff0000,
-                emissive: 0xff0000,
-                emissiveIntensity: 0.3 + Math.random() * 0.5
+                color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.3 + Math.random() * 0.5
               })
             );
-            grieta.position.set(
-              (Math.random() - 0.5) * 0.7,
-              1.8 + Math.random() * 2.5,
-              (Math.random() - 0.5) * 0.7
-            );
+            grieta.position.set((Math.random() - 0.5) * 0.7, 1.8 + Math.random() * 2.5, (Math.random() - 0.5) * 0.7);
             grieta.rotation.z = (Math.random() - 0.5) * 0.3;
             grieta.rotation.x = (Math.random() - 0.5) * 0.3;
-            grieta.userData = { originalScale: 1 };
             rotaGroup.add(grieta);
             grietas.push(grieta);
           }
@@ -785,7 +820,6 @@
           columnaMesh = rotaGroup;
           columnaMesh.position.y = 0;
           break;
-
         case 'flotante':
           const flotanteGroup = new THREE.Group();
           const fragmentos = [];
@@ -793,22 +827,14 @@
             const fragmento = new THREE.Mesh(
               new THREE.OctahedronGeometry(0.1 + Math.random() * 0.15),
               new THREE.MeshStandardMaterial({
-                color: color,
-                roughness: 0.2,
-                metalness: 0.8,
-                emissive: color,
-                emissiveIntensity: 0.1,
-                transparent: true,
-                opacity: 0.7 + Math.random() * 0.3
+                color: color, roughness: 0.2, metalness: 0.8,
+                emissive: color, emissiveIntensity: 0.1,
+                transparent: true, opacity: 0.7 + Math.random() * 0.3
               })
             );
             const angulo = Math.random() * Math.PI * 2;
             const radio = 0.3 + Math.random() * 0.7;
-            fragmento.position.set(
-              Math.cos(angulo) * radio,
-              0.3 + Math.random() * 4.5,
-              Math.sin(angulo) * radio
-            );
+            fragmento.position.set(Math.cos(angulo) * radio, 0.3 + Math.random() * 4.5, Math.sin(angulo) * radio);
             fragmento.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
             fragmento.castShadow = true;
             fragmento.userData = {
@@ -826,9 +852,9 @@
           columnaMesh.position.y = 0.5;
           break;
       }
-
       group.add(columnaMesh);
 
+      // Etiqueta
       const canvas = document.createElement('canvas');
       canvas.width = 256;
       canvas.height = 80;
@@ -840,19 +866,16 @@
       ctx.textBaseline = 'middle';
       ctx.shadowColor = 'rgba(0,0,0,0.9)';
       ctx.shadowBlur = 15;
-
       const hexColor = '#' + color.toString(16).padStart(6, '0');
       ctx.fillStyle = hexColor;
       ctx.shadowColor = hexColor;
       ctx.shadowBlur = 20;
       ctx.fillText(label, 128, 30);
-
       ctx.font = '12px Courier New';
       ctx.fillStyle = '#888';
       ctx.shadowColor = 'rgba(0,0,0,0.8)';
       ctx.shadowBlur = 10;
       ctx.fillText('▼ acércate ▼', 128, 60);
-
       const texture = new THREE.CanvasTexture(canvas);
       const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
       const sprite = new THREE.Sprite(spriteMat);
@@ -860,17 +883,9 @@
       sprite.scale.set(3, 0.9, 1);
       group.add(sprite);
 
-      group.position.set(datosColumna.find(d => d.label === label).x, 0, datosColumna.find(d => d.label === label).z);
-
-      group.userData = {
-        label: label,
-        color: color,
-        forma: forma,
-        audio: label,
-        originalY: 0,
-        mesh: columnaMesh
-      };
-
+      const pos = datosColumna.find(d => d.label === label);
+      group.position.set(pos.x, 0, pos.z);
+      group.userData = { label, color, forma, mesh: columnaMesh, originalY: 0 };
       return group;
     }
 
@@ -881,17 +896,11 @@
     });
 
     // ============================================================
-    // 11. SUELO
+    // 13. SUELO
     // ============================================================
     const suelo = new THREE.Mesh(
       new THREE.PlaneGeometry(16, 14),
-      new THREE.MeshStandardMaterial({
-        color: 0x0a0a1a,
-        roughness: 0.9,
-        metalness: 0.1,
-        transparent: true,
-        opacity: 0.6
-      })
+      new THREE.MeshStandardMaterial({ color: 0x0a0a1a, roughness: 0.9, metalness: 0.1, transparent: true, opacity: 0.6 })
     );
     suelo.rotation.x = -Math.PI / 2;
     suelo.position.set(0, -0.1, 0);
@@ -901,12 +910,8 @@
     const circulo = new THREE.Mesh(
       new THREE.RingGeometry(2.2, 2.8, 32),
       new THREE.MeshStandardMaterial({
-        color: 0xff6b35,
-        emissive: 0xff6b35,
-        emissiveIntensity: 0.05,
-        transparent: true,
-        opacity: 0.15,
-        side: THREE.DoubleSide
+        color: 0xff6b35, emissive: 0xff6b35, emissiveIntensity: 0.05,
+        transparent: true, opacity: 0.15, side: THREE.DoubleSide
       })
     );
     circulo.rotation.x = -Math.PI / 2;
@@ -914,7 +919,64 @@
     scene.add(circulo);
 
     // ============================================================
-    // 12. SISTEMA DE SONIDO (Web Audio)
+    // 14. PARTÍCULAS DE HUELLAS (discretas)
+    // ============================================================
+    const huellasParticulas = [];
+
+    function crearHuella(label, color) {
+      const geometria = new THREE.SphereGeometry(0.06 + Math.random() * 0.04, 6, 6);
+      const material = new THREE.MeshStandardMaterial({
+        color: color,
+        emissive: color,
+        emissiveIntensity: 0.3 + Math.random() * 0.3,
+        transparent: true,
+        opacity: 0.6 + Math.random() * 0.4
+      });
+      const particula = new THREE.Mesh(geometria, material);
+      // Posición aleatoria alrededor del centro
+      const angulo = Math.random() * Math.PI * 2;
+      const radio = 1 + Math.random() * 4;
+      particula.position.set(
+        Math.cos(angulo) * radio,
+        0.5 + Math.random() * 4,
+        Math.sin(angulo) * radio
+      );
+      particula.userData = {
+        velocidad: 0.1 + Math.random() * 0.2,
+        offset: Math.random() * Math.PI * 2,
+        radio: radio,
+        alturaBase: particula.position.y,
+        angulo: angulo,
+        label: label
+      };
+      scene.add(particula);
+      huellasParticulas.push(particula);
+    }
+
+    // Cargar huellas guardadas
+    function cargarHuellasGuardadas() {
+      try {
+        const guardadas = localStorage.getItem('huellas_guardadas');
+        if (guardadas) {
+          const lista = JSON.parse(guardadas);
+          lista.forEach(h => {
+            const col = datosColumna.find(d => d.label === h.label);
+            if (col) crearHuella(h.label, col.color);
+          });
+        }
+      } catch (e) {}
+    }
+
+    function guardarHuella(label) {
+      try {
+        const guardadas = JSON.parse(localStorage.getItem('huellas_guardadas') || '[]');
+        guardadas.push({ label, fecha: Date.now() });
+        localStorage.setItem('huellas_guardadas', JSON.stringify(guardadas));
+      } catch (e) {}
+    }
+
+    // ============================================================
+    // 15. SISTEMA DE SONIDO
     // ============================================================
     let audioContext = null;
     let osciladores = [];
@@ -928,7 +990,6 @@
     function playSound(columnLabel, distance) {
       if (!audioContext) return;
       if (ESTADO.corrompido && Math.random() < 0.3) return;
-
       osciladores.forEach(osc => { try { osc.stop(); } catch(e) {} });
       osciladores = [];
 
@@ -937,7 +998,6 @@
 
       let frecuencias = [];
       let tipo = 'sine';
-
       switch(columnLabel) {
         case 'DATOS MASIVOS':
           frecuencias = [80, 120, 160, 200, 240];
@@ -990,7 +1050,7 @@
     }
 
     // ============================================================
-    // 13. INTERACCIÓN CON COLUMNAS (click para PDF)
+    // 16. INTERACCIÓN CON COLUMNAS (click para PDF)
     // ============================================================
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -1002,15 +1062,11 @@
 
     renderer.domElement.addEventListener('click', async (event) => {
       if (!audioContext) initAudio();
-
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(columnas, true);
-
       if (intersects.length > 0) {
         let col = intersects[0].object;
-        while (col.parent && !col.userData.label) {
-          col = col.parent;
-        }
+        while (col.parent && !col.userData.label) { col = col.parent; }
         if (col.userData.label) {
           const label = col.userData.label;
           const corrupto = ESTADO.corrompido || ESTADO.integridad < 100;
@@ -1020,7 +1076,7 @@
     });
 
     // ============================================================
-    // 14. PANEL DE CITA Y COMPARTIR
+    // 17. PANEL DE CITA Y COMPARTIR
     // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
@@ -1037,54 +1093,11 @@
       return cita;
     }
 
-    function generarBotonesCompartir(texto, autor) {
-      const mensaje = `"${texto}" — ${autor}`;
-      const url = window.location.href;
-      const blogUrl = 'https://39913em.github.io/archivo-de-senal/';
-
-      botonesCompartir.innerHTML = '';
-      REDES.forEach(red => {
-        const enlace = document.createElement('a');
-        enlace.className = red.clase;
-        let href;
-        if (red.id === 'instagram') {
-          href = red.url(mensaje, blogUrl);
-        } else if (red.id === 'substack') {
-          href = red.url(mensaje, blogUrl);
-        } else {
-          href = red.url(mensaje, blogUrl);
-        }
-        enlace.href = href;
-        enlace.target = '_blank';
-        enlace.rel = 'noopener noreferrer';
-        enlace.textContent = red.label;
-        enlace.addEventListener('click', () => {
-          registrarCompartido();
-        });
-        botonesCompartir.appendChild(enlace);
-      });
-
-      const copiar = document.createElement('a');
-      copiar.className = 'btn-copiar';
-      copiar.textContent = 'Copiar cita';
-      copiar.href = '#';
-      copiar.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigator.clipboard.writeText(`${mensaje}\n\n${blogUrl}`).then(() => {
-          copiar.textContent = '✅ ¡Copiado!';
-          setTimeout(() => { copiar.textContent = 'Copiar cita'; }, 2000);
-          registrarCompartido();
-        });
-      });
-      botonesCompartir.appendChild(copiar);
-    }
-
     function registrarCompartido() {
       if (ESTADO.vecesCompartido >= 5) return;
       ESTADO.vecesCompartido += 1;
       guardarEstado();
       actualizarUI();
-
       if (ESTADO.vecesCompartido >= 5) {
         ESTADO.integridad = 100;
         ESTADO.corrompido = false;
@@ -1097,36 +1110,154 @@
       }
     }
 
-    btnCita.addEventListener('click', () => {
-      const cita = generarCitaAleatoria();
-      generarBotonesCompartir(cita.texto, cita.autor);
+    async function generarBotonesCompartir(texto, autor) {
+      const mensaje = `"${texto}" — ${autor}`;
+      const urlBase = window.location.origin + window.location.pathname;
+      const citaParam = encodeURIComponent(texto);
+      const urlCompleta = `${urlBase}?cita=${citaParam}`;
+      const blogUrl = 'https://39913em.github.io/archivo-de-senal/';
+
+      // Generar imagen
+      const imagenDataUrl = await generarImagenCita(texto, autor);
+
+      // Actualizar Open Graph
+      actualizarOpenGraph(
+        `"${texto}" — ${autor}`,
+        `Fragmento del Monumento Sonoro · Archivo de Señal`,
+        imagenDataUrl,
+        urlCompleta
+      );
+
+      botonesCompartir.innerHTML = '';
+      REDES.forEach(red => {
+        const enlace = document.createElement('a');
+        enlace.className = red.clase;
+        let href;
+        if (red.id === 'instagram') {
+          href = red.url(mensaje, blogUrl);
+        } else if (red.id === 'substack') {
+          href = red.url(mensaje, blogUrl);
+        } else {
+          href = red.url(mensaje, urlCompleta);
+        }
+        enlace.href = href;
+        enlace.target = '_blank';
+        enlace.rel = 'noopener noreferrer';
+        enlace.textContent = red.label;
+        enlace.addEventListener('click', () => { registrarCompartido(); });
+        botonesCompartir.appendChild(enlace);
+      });
+
+      const copiar = document.createElement('a');
+      copiar.className = 'btn-copiar';
+      copiar.textContent = 'Copiar cita + enlace';
+      copiar.href = '#';
+      copiar.addEventListener('click', (e) => {
+        e.preventDefault();
+        const textoCompleto = `${mensaje}\n\nExplora el monumento: ${urlCompleta}\n\nArchivo de Señal: ${blogUrl}`;
+        navigator.clipboard.writeText(textoCompleto).then(() => {
+          copiar.textContent = '✅ ¡Copiado!';
+          setTimeout(() => { copiar.textContent = 'Copiar cita + enlace'; }, 2000);
+          registrarCompartido();
+        });
+      });
+      botonesCompartir.appendChild(copiar);
+
       document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+    }
+
+    btnCita.addEventListener('click', async () => {
+      const cita = generarCitaAleatoria();
+      await generarBotonesCompartir(cita.texto, cita.autor);
       panelCita.classList.add('visible');
     });
 
-    btnSembrar.addEventListener('click', () => {
+    btnSembrar.addEventListener('click', async () => {
       const cita = generarCitaAleatoria();
-      generarBotonesCompartir(cita.texto, cita.autor);
-      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+      await generarBotonesCompartir(cita.texto, cita.autor);
       panelCita.classList.add('visible');
+      // Añadir siembra (discreta)
+      ESTADO.siembras += 1;
+      guardarEstado();
+      actualizarUI();
+      // Añadir fragmento de texto flotante (discreto)
+      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+      const color = col.color;
+      const frag = new THREE.Mesh(
+        new THREE.BoxGeometry(0.3 + Math.random() * 0.2, 0.05, 0.3 + Math.random() * 0.2),
+        new THREE.MeshStandardMaterial({
+          color: color,
+          emissive: color,
+          emissiveIntensity: 0.2,
+          transparent: true,
+          opacity: 0.6
+        })
+      );
+      const angulo = Math.random() * Math.PI * 2;
+      const radio = 1 + Math.random() * 3;
+      frag.position.set(Math.cos(angulo) * radio, 2 + Math.random() * 2, Math.sin(angulo) * radio);
+      frag.userData = {
+        velocidad: 0.1 + Math.random() * 0.2,
+        offset: Math.random() * Math.PI * 2,
+        radio: radio,
+        alturaBase: frag.position.y,
+        angulo: angulo
+      };
+      scene.add(frag);
+      setTimeout(() => {
+        scene.remove(frag);
+      }, 30000);
     });
 
-    cerrarCita.addEventListener('click', () => {
-      panelCita.classList.remove('visible');
-    });
-
+    cerrarCita.addEventListener('click', () => { panelCita.classList.remove('visible'); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') panelCita.classList.remove('visible');
     });
 
     // ============================================================
-    // 15. INSTRUCCIONES
+    // 18. MENSAJE FLOTANTE DESDE CITA (interrumpe)
+    // ============================================================
+    const mensajeCita = document.getElementById('mensaje-cita');
+    const mensajeCitaTexto = document.getElementById('mensaje-cita-texto');
+    const mensajeCitaAutor = document.getElementById('mensaje-cita-autor');
+    const cerrarMensajeCita = document.getElementById('cerrar-mensaje-cita');
+
+    function mostrarMensajeCita(texto, autor) {
+      mensajeCitaTexto.textContent = `"${texto}"`;
+      mensajeCitaAutor.textContent = `— ${autor}`;
+      mensajeCita.classList.add('visible');
+    }
+
+    cerrarMensajeCita.addEventListener('click', () => {
+      mensajeCita.classList.remove('visible');
+    });
+
+    // Leer parámetro ?cita= al cargar
+    const params = new URLSearchParams(window.location.search);
+    const citaParam = params.get('cita');
+    if (citaParam) {
+      const citaDecodificada = decodeURIComponent(citaParam);
+      // Buscar la cita en el array
+      const citaEncontrada = CITAS.find(c => c.texto === citaDecodificada);
+      if (citaEncontrada) {
+        mostrarMensajeCita(citaEncontrada.texto, citaEncontrada.autor);
+        // Añadir huella especial por venir desde cita
+        ESTADO.huellas += 1;
+        guardarEstado();
+        actualizarUI();
+      } else {
+        // Si no se encuentra, mostrar la cita como texto
+        mostrarMensajeCita(citaDecodificada, 'Archivo de Señal');
+      }
+    }
+
+    // ============================================================
+    // 19. INSTRUCCIONES
     // ============================================================
     const panelInstrucciones = document.getElementById('panel-instrucciones');
     const cerrarInstrucciones = document.getElementById('cerrar-instrucciones');
     const btnInstrucciones = document.getElementById('btn-instrucciones');
 
-    // Mostrar solo la primera vez
     const instruccionesVistas = localStorage.getItem('instrucciones_vistas');
     if (!instruccionesVistas) {
       panelInstrucciones.classList.remove('oculto');
@@ -1144,7 +1275,7 @@
     });
 
     // ============================================================
-    // 16. ANIMACIÓN Y LOOP
+    // 20. ANIMACIÓN Y LOOP
     // ============================================================
     let tiempo = 0;
 
@@ -1154,10 +1285,23 @@
 
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
 
+      // Animar partículas de huellas
+      huellasParticulas.forEach((p, i) => {
+        const data = p.userData;
+        if (data) {
+          const nuevoAngulo = data.angulo + tiempo * data.velocidad * 0.02;
+          const altura = data.alturaBase + Math.sin(tiempo * data.velocidad + data.offset) * 0.2;
+          p.position.x = Math.cos(nuevoAngulo) * data.radio;
+          p.position.z = Math.sin(nuevoAngulo) * data.radio;
+          p.position.y = altura;
+          p.material.opacity = 0.5 + Math.sin(tiempo + i) * 0.3;
+        }
+      });
+
+      // Columnas
       columnas.forEach((col, i) => {
         const offset = i * 0.5;
         const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
-
         col.position.y = Math.sin(tiempo * 0.5 + offset) * 0.05;
 
         const forma = col.userData.forma;
@@ -1236,10 +1380,10 @@
         }
       });
 
+      // Sonido por proximidad
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
-
       columnas.forEach(col => {
         const dist = camPos.distanceTo(col.position);
         if (dist < 6 && dist < distanciaMin) {
@@ -1247,7 +1391,6 @@
           columnaCercana = col;
         }
       });
-
       if (columnaCercana && audioContext) {
         playSound(columnaCercana.userData.label, distanciaMin);
       }
@@ -1259,7 +1402,7 @@
     animate();
 
     // ============================================================
-    // 17. RESPONSIVE
+    // 21. RESPONSIVE
     // ============================================================
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -1268,13 +1411,27 @@
     });
 
     // ============================================================
-    // 18. INICIALIZACIÓN
+    // 22. INICIALIZACIÓN
     // ============================================================
     await cargarTextosCompletos();
-    console.log('MONUMENTO SONORO CORRUPTIBLE');
+    cargarHuellasGuardadas();
+
+    // Añadir huella de esta visita (si no es desde cita)
+    if (!citaParam) {
+      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+      crearHuella(col.label, col.color);
+      guardarHuella(col.label);
+      ESTADO.huellas += 1;
+      guardarEstado();
+      actualizarUI();
+    }
+
+    console.log('MONUMENTO SONORO');
     console.log('4 columnas con identidad única');
     console.log('Corrupción activa:', ESTADO.corrompido);
     console.log('Veces compartido:', ESTADO.vecesCompartido);
+    console.log('Huellas totales:', ESTADO.huellas);
+    console.log('Siembras totales:', ESTADO.siembras);
     console.log('Integridad:', ESTADO.integridad + '%');
 
     document.addEventListener('click', initAudio, { once: true });
