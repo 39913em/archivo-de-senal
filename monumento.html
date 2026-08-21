@@ -19,7 +19,6 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
-    /* ===== RESET ===== */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       margin:0; overflow:hidden; background:#0a0a0a;
@@ -27,7 +26,6 @@
       user-select:none;
     }
 
-    /* ===== BOTÓN REGRESO ===== */
     #btn-regreso {
       position:fixed; top:20px; left:20px; z-index:1000;
       background:rgba(10,10,10,0.85); color:#ff6b35;
@@ -44,7 +42,6 @@
     }
     #btn-regreso span { font-size:18px; }
 
-    /* ===== PANEL DE INSTRUCCIONES ===== */
     #panel-instrucciones {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:150; background:rgba(10,10,10,0.95);
@@ -73,7 +70,6 @@
     }
     #cerrar-instrucciones:hover { color:#ff6b35; }
 
-    /* ===== BOTÓN AYUDA ===== */
     #btn-instrucciones {
       position:fixed; bottom:220px; left:50%; transform:translateX(-50%);
       z-index:90;
@@ -89,7 +85,6 @@
       transform:translateX(-50%) scale(1.05);
     }
 
-    /* ===== PANEL DE ESTADO ===== */
     #estado {
       position:fixed; top:20px; right:20px; z-index:100;
       color:#666; font-size:11px; text-align:right; line-height:2;
@@ -105,7 +100,6 @@
     .tiempo-restante { color:#4fc3f7; font-size:13px; margin-top:3px; }
     @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ===== BOTONES ===== */
     .btn-accion {
       position:fixed; z-index:90;
       padding:12px 25px; border:none; border-radius:30px;
@@ -130,7 +124,13 @@
     }
     #btn-rayar:hover { background:rgba(255,107,53,0.3); }
 
-    /* ===== INPUT PARA RAYAR ===== */
+    #btn-compartir {
+      bottom:220px; left:20px; transform:none;
+      background:rgba(255,107,53,0.15); color:#ff6b35;
+      border:1px solid #ff6b35; padding:8px 16px; font-size:11px;
+    }
+    #btn-compartir:hover { background:rgba(255,107,53,0.3); }
+
     #input-rayar {
       position:fixed; bottom:220px; left:50%; transform:translateX(-50%);
       z-index:95; background:rgba(10,10,10,0.95);
@@ -162,7 +162,6 @@
     }
     #input-rayar .btn-cerrar-rayar:hover { color:#ff6b35; }
 
-    /* ===== PANEL DE CITA ===== */
     #panel-cita {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:200; background:rgba(10,10,10,0.96);
@@ -202,7 +201,6 @@
     #cerrar-cita:hover { color:#ff6b35; }
     #contador-compartido-panel { color:#ff6b35; font-size:13px; margin-top:10px; }
 
-    /* ===== MENSAJE FLOTANTE DESDE CITA ===== */
     #mensaje-cita {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:250; background:rgba(10,10,10,0.97);
@@ -225,7 +223,6 @@
     }
     #mensaje-cita .btn-cerrar-mensaje:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,107,53,0.3); }
 
-    /* ===== OVERLAY DE MUERTE ===== */
     #overlay-muerte {
       position:fixed; top:0; left:0; width:100%; height:100%;
       z-index:300; background:rgba(0,0,0,0.92);
@@ -258,7 +255,6 @@
     }
     #overlay-muerte .btn-cerrar-muerte:hover { color:#ff1744; }
 
-    /* ===== OVERLAY DE RENACIMIENTO ===== */
     #overlay-renacimiento {
       position:fixed; top:0; left:0; width:100%; height:100%;
       z-index:280; background:rgba(0,0,0,0.85);
@@ -289,7 +285,6 @@
     }
     #overlay-renacimiento .btn-cerrar-renacimiento:hover { transform:scale(1.05); }
 
-    /* ===== DEBUG ===== */
     #btn-debug {
       position:fixed; bottom:40px; right:20px; z-index:999;
       background:rgba(255,0,0,0.2); color:#ff4444;
@@ -300,7 +295,6 @@
     }
     #btn-debug:hover { opacity:1; background:rgba(255,0,0,0.4); }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width:768px) {
       #panel-instrucciones { font-size:11px; padding:18px 16px; max-width:95%; }
       #estado { font-size:9px; padding:10px 12px; min-width:120px; top:70px; right:10px; }
@@ -308,6 +302,7 @@
       #btn-sembrar, #btn-rayar { font-size:11px; padding:8px 16px; }
       #btn-sembrar { bottom:80px; }
       #btn-rayar { bottom:130px; }
+      #btn-compartir { bottom:190px; left:10px; font-size:10px; padding:6px 12px; }
       #btn-instrucciones { bottom:190px; font-size:9px; padding:4px 12px; }
       #input-rayar { bottom:220px; max-width:95%; }
       #panel-cita { padding:20px 18px; max-width:95%; }
@@ -325,12 +320,10 @@
 </head>
 <body>
 
-  <!-- ===== BOTÓN REGRESO ===== -->
   <a id="btn-regreso" href="index.html">
     <span>←</span> VOLVER AL ARCHIVO
   </a>
 
-  <!-- ===== PANEL DE ESTADO ===== -->
   <div id="estado">
     <div><span class="valor">MONUMENTO VIVO</span></div>
     <div>VISITAS: <span id="visitas" class="valor">0</span></div>
@@ -345,7 +338,6 @@
     <div style="color:#888; font-size:10px; margin-top:2px;"><span id="contador-mensajes">0</span> mensajes</div>
   </div>
 
-  <!-- ===== PANEL DE INSTRUCCIONES ===== -->
   <div id="panel-instrucciones">
     <button id="cerrar-instrucciones">✕</button>
     <h4>CÓMO TRANSITAR EL MONUMENTO</h4>
@@ -361,21 +353,18 @@
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">🎧 Usa auriculares para mejor experiencia</p>
   </div>
 
-  <!-- ===== BOTÓN AYUDA ===== -->
   <button id="btn-instrucciones" class="btn-accion" style="bottom:220px; font-size:10px; padding:6px 16px; background:rgba(255,107,53,0.1); border:1px solid #ff6b35; border-radius:20px; color:#ff6b35; opacity:0.6;">❓ AYUDA</button>
 
-  <!-- ===== BOTONES ===== -->
   <button id="btn-sembrar" class="btn-accion">SEMBRAR CULTURA</button>
   <button id="btn-rayar" class="btn-accion">RAYAR EL ARCHIVO</button>
+  <button id="btn-compartir" class="btn-accion">COMPARTIR</button>
 
-  <!-- ===== INPUT RAYAR ===== -->
   <div id="input-rayar">
     <button class="btn-cerrar-rayar" id="cerrar-rayar">✕</button>
     <textarea id="mensaje-rayar" placeholder="Escribe tu mensaje... (máx 140 caracteres)" maxlength="140"></textarea>
     <button class="btn-enviar-rayar" id="enviar-rayar">RAYAR</button>
   </div>
 
-  <!-- ===== PANEL DE CITA ===== -->
   <div id="panel-cita">
     <button id="cerrar-cita">✕</button>
     <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ FRAGMENTO DEL MONUMENTO ✦</div>
@@ -386,23 +375,20 @@
     <div class="botones-compartir" id="botones-compartir"></div>
   </div>
 
-  <!-- ===== MENSAJE FLOTANTE DESDE CITA ===== -->
   <div id="mensaje-cita">
     <div style="color:#ff6b35; font-size:11px; letter-spacing:3px; text-transform:uppercase;">✦ HAS LLEGADO CON UNA CITA ✦</div>
-    <div class="texto" id="mensaje-cita-texto">"La cultura se siembra."</div>
+    <div class="texto" id="mensaje-cita-texto">"Sembrar cultura."</div>
     <div class="autor" id="mensaje-cita-autor">— Monumento Sonoro</div>
     <div class="sub">Explora el monumento y siembra tu propia semilla</div>
     <button class="btn-cerrar-mensaje" id="cerrar-mensaje-cita">✕ ENTRAR AL MONUMENTO</button>
   </div>
 
-  <!-- ===== OVERLAY DE MUERTE ===== -->
   <div id="overlay-muerte">
     <button class="btn-cerrar-muerte" id="cerrar-overlay-muerte">✕</button>
     <div class="contenido">
       <div class="simbolo">💀</div>
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
       <div class="texto">
-        <br>
         La memoria se ha corrompido.<br><br>
         <strong>Deja una huella o siembra cultura para revivirlo.</strong>
       </div>
@@ -410,7 +396,6 @@
     </div>
   </div>
 
-  <!-- ===== OVERLAY DE RENACIMIENTO ===== -->
   <div id="overlay-renacimiento">
     <div class="contenido">
       <div class="simbolo">✨</div>
@@ -423,12 +408,8 @@
     </div>
   </div>
 
-  <!-- ===== BOTÓN DEBUG ===== -->
-  <button id="btn-debug" style="display:none;">DEBUG</button>
+  <button id="btn-debug" style="display:none;">🐞 DEBUG</button>
 
-  <!-- ============================================================
-  THREE.JS + FIREBASE
-  ============================================================ -->
   <script type="importmap">
   {
     "imports": {
@@ -438,18 +419,14 @@
   }
   </script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script type="module">
-    // ============================================================
-    // 1. IMPORTS
-    // ============================================================
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
     import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
-    // ============================================================
-    // 2. FIREBASE CONFIG
-    // ============================================================
     const firebaseConfig = {
       apiKey: "AIzaSyD7UF2aM9q3-xN-VmEIgKOJsP88PiP0AwI",
       authDomain: "monumento-sonoro-39913em.firebaseapp.com",
@@ -466,9 +443,6 @@
 
     console.log('🔥 Firebase conectado');
 
-    // ============================================================
-    // 3. DATOS DE COLUMNAS Y TEXTOS
-    // ============================================================
     const datosColumna = [
       { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, forma: 'cubos' },
       { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, forma: 'ondas' },
@@ -499,9 +473,6 @@
       }
     }
 
-    // ============================================================
-    // 4. CITAS
-    // ============================================================
     const CITAS = [
       { texto: 'El dato masivo no es neutral: pesa, vibra, respira.', autor: 'DATARTVERSO' },
       { texto: 'El silencio también construye. La arquitectura no se ve, se escucha.', autor: 'Arquitectura Sonora' },
@@ -517,9 +488,6 @@
       { texto: 'El archivo selecciona, decide qué sobrevive y qué se pierde.', autor: 'Memoria Rota' }
     ];
 
-    // ============================================================
-    // 5. REDES SOCIALES
-    // ============================================================
     const REDES = [
       { id: 'twitter', label: 'X', clase: 'btn-twitter', url: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}` },
       { id: 'bluesky', label: 'Bluesky', clase: 'btn-bluesky', url: (t, u) => `https://bsky.app/intent/compose?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
@@ -531,9 +499,6 @@
       { id: 'substack', label: 'Substack', clase: 'btn-substack', url: (t, u) => `https://substack.com/` }
     ];
 
-    // ============================================================
-    // 6. ESTADO
-    // ============================================================
     const ESTADO = {
       integridad: 100, visitas: 0, huellas: 0, siembras: 0,
       vecesCompartido: 0, corrompido: false, muerto: false,
@@ -615,51 +580,60 @@
       });
     }
 
-    // ============================================================
-    // 7. CORRUPCIÓN
-    // ============================================================
     function particulasActivas() { return ESTADO.huellas + ESTADO.siembras; }
 
     function actualizarCorrupcion() {
       if (!datosCargados) return;
       const ahora = Date.now();
       const horas = (ahora - ESTADO.ultimaActualizacion) / (1000 * 60 * 60);
+      
       if (horas >= 1) {
         let eliminar = Math.floor(horas);
-        while (eliminar > 0 && ESTADO.huellas > 0) { ESTADO.huellas--; eliminar--; }
-        while (eliminar > 0 && ESTADO.siembras > 0) { ESTADO.siembras--; eliminar--; }
+        while (eliminar > 0 && ESTADO.huellas > 0) {
+          ESTADO.huellas--;
+          eliminar--;
+        }
+        while (eliminar > 0 && ESTADO.siembras > 0) {
+          ESTADO.siembras--;
+          eliminar--;
+        }
+        const p = particulasActivas();
+        if (p === 0) {
+          ESTADO.integridad = 0;
+        } else {
+          ESTADO.integridad = Math.min(100, p * 10);
+        }
         ESTADO.ultimaActualizacion = ahora;
         guardarEstado();
       }
+      
       const p = particulasActivas();
       if (p === 0 && !ESTADO.muerto) {
-        ESTADO.muerto = true; ESTADO.corrompido = true; ESTADO.integridad = 0;
-        ESTADO.mensajes = []; // Borrar mensajes al morir
-        guardarEstado(); mostrarOverlayMuerte();
+        ESTADO.muerto = true;
+        ESTADO.corrompido = true;
+        ESTADO.integridad = 0;
+        ESTADO.mensajes = [];
+        guardarEstado();
+        mostrarOverlayMuerte();
         limpiarMensajesFlotantes();
       } else if (p > 0 && ESTADO.muerto) {
-        ESTADO.muerto = false; ESTADO.corrompido = false;
-        ESTADO.integridad = Math.min(100, ESTADO.integridad + 20);
-        guardarEstado(); ocultarOverlayMuerte();
-        // Recargar mensajes si había
-        if (ESTADO.mensajes.length > 0) {
-          ESTADO.mensajes.forEach(m => crearMensajeFlotante(m));
-        }
+        ESTADO.muerto = false;
+        ESTADO.corrompido = false;
+        ESTADO.integridad = Math.min(100, p * 10);
+        guardarEstado();
+        ocultarOverlayMuerte();
       } else if (p > 0 && p < 5) {
         ESTADO.corrompido = true;
         ESTADO.integridad = Math.max(10, p * 10);
         guardarEstado();
       } else if (p >= 5) {
         ESTADO.corrompido = false;
-        ESTADO.integridad = Math.min(100, 30 + p * 5);
+        ESTADO.integridad = Math.min(100, p * 10);
         guardarEstado();
       }
       actualizarUI();
     }
 
-    // ============================================================
-    // 8. OVERLAYS
-    // ============================================================
     const overlayMuerte = document.getElementById('overlay-muerte');
     const cerrarMuerte = document.getElementById('cerrar-overlay-muerte');
     const btnRevivir = document.getElementById('btn-revivir');
@@ -667,7 +641,6 @@
     function mostrarOverlayMuerte() {
       overlayMuerte.classList.add('visible');
       document.getElementById('estado-muerto').style.display = 'block';
-      // Borrar mensajes flotantes al morir
       limpiarMensajesFlotantes();
     }
     function ocultarOverlayMuerte() {
@@ -693,9 +666,6 @@
     function ocultarOverlayRenacimiento() { overlayRenacimiento.classList.remove('visible'); }
     cerrarRenacimiento.addEventListener('click', () => ocultarOverlayRenacimiento());
 
-    // ============================================================
-    // 9. THREE.JS - ESCENA
-    // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
@@ -715,9 +685,6 @@
     controls.target.set(0, 1.5, 0);
     controls.update();
 
-    // ============================================================
-    // 10. LUCES
-    // ============================================================
     const ambient = new THREE.AmbientLight(0x222244, 0.4); scene.add(ambient);
     const main = new THREE.DirectionalLight(0xffffff, 1.5);
     main.position.set(5, 12, 7); main.castShadow = true; scene.add(main);
@@ -726,9 +693,6 @@
     const fill = new THREE.DirectionalLight(0x4fc3f7, 0.3);
     fill.position.set(-3, 0, 8); scene.add(fill);
 
-    // ============================================================
-    // 11. PERSONAJE
-    // ============================================================
     const guardian = new THREE.Group();
     const cuerpo = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.6),
       new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7 }));
@@ -744,9 +708,6 @@
     led.position.set(0, 0.7, 0.35); led.name = 'led'; guardian.add(led);
     guardian.position.set(0, 0, 0); scene.add(guardian);
 
-    // ============================================================
-    // 12. COLUMNAS
-    // ============================================================
     const columnas = [];
 
     function crearColumna(label, color, forma) {
@@ -820,7 +781,6 @@
       group.add(mesh);
       group.userData = { label, color, forma, mesh, cubos, anillos, grietas, fragmentos };
 
-      // etiqueta
       const canvas = document.createElement('canvas');
       canvas.width = 256; canvas.height = 80;
       const ctx = canvas.getContext('2d');
@@ -847,9 +807,6 @@
       scene.add(c); columnas.push(c);
     });
 
-    // ============================================================
-    // 13. SUELO
-    // ============================================================
     const suelo = new THREE.Mesh(new THREE.PlaneGeometry(16, 14),
       new THREE.MeshStandardMaterial({ color: 0x0a0a1a, roughness: 0.9, metalness: 0.1, transparent: true, opacity: 0.6 }));
     suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, -0.1, 0); suelo.receiveShadow = true; scene.add(suelo);
@@ -857,9 +814,6 @@
       new THREE.MeshStandardMaterial({ color: 0xff6b35, emissive: 0xff6b35, emissiveIntensity: 0.05, transparent: true, opacity: 0.15, side: THREE.DoubleSide }));
     circulo.rotation.x = -Math.PI / 2; circulo.position.set(0, 0, 0); scene.add(circulo);
 
-    // ============================================================
-    // 14. PARTÍCULAS DE HUELLAS
-    // ============================================================
     const huellasParticulas = [];
 
     function crearHuella(label, color) {
@@ -883,9 +837,6 @@
       fade();
     }
 
-    // ============================================================
-    // 15. MENSAJES FLOTANTES
-    // ============================================================
     const mensajesFlotantes = [];
 
     function crearMensajeFlotante(texto) {
@@ -919,34 +870,39 @@
       mensajesFlotantes.length = 0;
     }
 
-    // ============================================================
-    // 16. SONIDO (definitivo)
-    // ============================================================
     let audioCtx = null;
     let sonidoActivo = false;
+    let droneInterval = null;
 
     function initAudio() {
       if (!audioCtx) {
         try {
           audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
-          console.log('🔊 Audio iniciado');
-          sonidoActivo = true;
+          console.log('🔊 Audio context creado');
         } catch (e) {
-          console.warn('Error iniciando audio:', e);
+          console.warn('Error creando AudioContext:', e);
+          return;
         }
-      } else if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+      }
+      if (audioCtx.state === 'suspended' || audioCtx.state === 'interrupted') {
+        audioCtx.resume().then(() => {
+          console.log('🔊 Audio reanudado');
+          sonidoActivo = true;
+          if (!droneInterval) iniciarDrone();
+        }).catch(e => console.warn('Error reanudando audio:', e));
+      } else {
         sonidoActivo = true;
+        if (!droneInterval) iniciarDrone();
       }
     }
+
+    document.addEventListener('click', initAudio);
+    document.addEventListener('touchstart', initAudio);
+    document.addEventListener('touchend', initAudio);
 
     function playSound(freqs, type = 'sine', dur = 0.4, vol = 0.06) {
       if (!audioCtx || audioCtx.state === 'closed') return;
       if (ESTADO.muerto) {
-        // Sonido distorsionado cuando está muerto
         freqs = freqs.map(f => f * 0.3);
         vol = vol * 0.2;
       }
@@ -969,21 +925,27 @@
 
     function playDrone() {
       if (!audioCtx || audioCtx.state === 'closed') return;
-      if (ESTADO.muerto) {
-        playSound([60, 80, 100], 'sawtooth', 2, 0.02);
-        return;
-      }
+      
       const p = particulasActivas();
-      const baseFreq = Math.max(80, Math.min(400, 80 + p * 20));
-      playSound([baseFreq, baseFreq * 1.5, baseFreq * 2], 'sine', 1.5, 0.04);
+      let frecuencias, tipo, volumen;
+      
+      if (ESTADO.muerto || p === 0) {
+        frecuencias = [60, 80, 100];
+        tipo = 'sawtooth';
+        volumen = 0.01;
+      } else if (ESTADO.corrompido || ESTADO.integridad < 50) {
+        frecuencias = [100 + p * 5, 150 + p * 5, 200 + p * 5];
+        tipo = 'sawtooth';
+        volumen = 0.02 + (p / 20) * 0.04;
+      } else {
+        const baseFreq = Math.max(120, Math.min(400, 120 + p * 10));
+        frecuencias = [baseFreq, baseFreq * 1.5];
+        tipo = 'sine';
+        volumen = 0.03 + (p / 20) * 0.05;
+      }
+      
+      playSound(frecuencias, tipo, 1.5, volumen);
     }
-
-    function playPop() { playSound([800, 1200], 'sine', 0.2, 0.08); }
-    function playPageTurn() { playSound([300, 500], 'sawtooth', 0.2, 0.04); }
-    function playRenacimiento() { playSound([200, 400, 600, 800, 1000], 'sine', 1.5, 0.08); }
-
-    // Drone continuo al entrar
-    let droneInterval = null;
 
     function iniciarDrone() {
       if (droneInterval) return;
@@ -995,9 +957,55 @@
       }, 3000);
     }
 
-    // ============================================================
-    // 17. INTERACCIONES
-    // ============================================================
+    function playPop() { playSound([800, 1200], 'sine', 0.2, 0.08); }
+    function playPageTurn() { playSound([300, 500], 'sawtooth', 0.2, 0.04); }
+    function playRenacimiento() { playSound([200, 400, 600, 800, 1000], 'sine', 1.5, 0.08); }
+
+    function playSoundByProximity(columnLabel, distance) {
+      if (!audioCtx || ESTADO.muerto) return;
+      
+      const volume = Math.max(0, 1 - distance / 8);
+      if (volume < 0.05) return;
+
+      let frecuencias = [];
+      let tipo = 'sine';
+      const nivelCorrupcion = ESTADO.corrompido ? 0.3 : 0;
+      
+      switch(columnLabel) {
+        case 'DATOS MASIVOS':
+          frecuencias = [80, 120, 160, 200, 240];
+          tipo = ESTADO.corrompido ? 'sawtooth' : 'sawtooth';
+          break;
+        case 'ARQUITECTURA SONORA':
+          frecuencias = [200, 300, 400];
+          tipo = ESTADO.corrompido ? 'square' : 'sine';
+          break;
+        case 'MEMORIA ROTA':
+          frecuencias = [100, 150, 220, 310];
+          tipo = 'square';
+          break;
+        case 'CULTURA NO SE TORRENTEA':
+          frecuencias = [250, 350, 450, 550];
+          tipo = ESTADO.corrompido ? 'sawtooth' : 'sine';
+          break;
+        default:
+          frecuencias = [200];
+      }
+
+      frecuencias.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = tipo;
+        const desviacion = ESTADO.corrompido ? 0.1 + nivelCorrupcion : 0.02;
+        osc.frequency.value = freq * (1 + (Math.random() - 0.5) * desviacion);
+        gain.gain.value = volume * 0.06 / frecuencias.length;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+      });
+    }
+
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
 
@@ -1005,21 +1013,52 @@
       pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
       
-      // Sonido por proximidad
       if (audioCtx && audioCtx.state === 'running' && !ESTADO.muerto) {
         const camPos = camera.position;
+        let columnaCercana = null;
         let minDist = Infinity;
         columnas.forEach(col => {
           const d = camPos.distanceTo(col.position);
-          if (d < minDist) minDist = d;
+          if (d < minDist) { minDist = d; columnaCercana = col; }
         });
-        if (minDist < 8) {
-          const vol = Math.max(0, 1 - minDist / 8);
-          const freq = 200 + (1 - vol) * 400;
-          playSound([freq, freq * 1.3], 'sine', 0.3, 0.02 * vol);
+        if (columnaCercana && minDist < 8) {
+          playSoundByProximity(columnaCercana.userData.label, minDist);
         }
       }
     });
+
+    function corromperTexto(texto, nivel = 0.3) {
+      if (!texto) return texto;
+      if (ESTADO.muerto) {
+        return texto.split('').map(() => {
+          const chars = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join('');
+      }
+      
+      const chars = texto.split('');
+      const resultado = [];
+      const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
+      const letrasRojas = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
+      
+      for (let i = 0; i < chars.length; i++) {
+        if (Math.random() < nivel) {
+          if (Math.random() < 0.5) {
+            resultado.push(caracteresRotos[Math.floor(Math.random() * caracteresRotos.length)]);
+          } else {
+            if (letrasRojas.includes(chars[i])) {
+              const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
+              resultado.push(vocales[Math.floor(Math.random() * vocales.length)]);
+            } else {
+              resultado.push(chars[i]);
+            }
+          }
+        } else {
+          resultado.push(chars[i]);
+        }
+      }
+      return resultado.join('');
+    }
 
     renderer.domElement.addEventListener('click', async e => {
       if (!audioCtx) initAudio();
@@ -1034,38 +1073,76 @@
           if (data) {
             let contenido = data.cuerpo || 'Contenido no disponible.';
             
-            // Corrupción adaptativa
             if (ESTADO.muerto) {
               contenido = '⚠️ EL ARCHIVO HA MUERTO.\nNo hay texto disponible.';
-            } else if (ESTADO.integridad < 40) {
-              // 70% corrupto
-              contenido = corromperTexto(contenido, 0.7);
-            } else if (ESTADO.integridad < 70) {
-              // 40% corrupto
-              contenido = corromperTexto(contenido, 0.4);
             } else if (ESTADO.integridad < 100) {
-              // 10% corrupto
-              contenido = corromperTexto(contenido, 0.1);
+              if (ESTADO.integridad < 40) {
+                contenido = corromperTexto(contenido, 0.7);
+              } else if (ESTADO.integridad < 70) {
+                contenido = corromperTexto(contenido, 0.4);
+              } else {
+                contenido = corromperTexto(contenido, 0.1);
+              }
             }
-            // Si integridad = 100%, no se corrompe
             
-            const blob = new Blob([`${data.titulo}\n${'='.repeat(data.titulo.length)}\n\n${contenido}`], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `${col.userData.label.toLowerCase().replace(/\s+/g, '_')}_${ESTADO.muerto ? 'muerto' : ESTADO.corrompido ? 'corrupto' : 'original'}.txt`;
-            link.click();
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.style.fontFamily = 'Georgia, serif';
+            element.style.color = '#1a1a1a';
+            element.style.background = '#fafafa';
+            element.style.maxWidth = '800px';
+            element.style.margin = '0 auto';
+
+            let htmlContent = `
+              <div style="text-align:center; border-bottom:2px solid #ff6b35; padding-bottom:20px; margin-bottom:20px;">
+                <h1 style="font-size:28px; margin:0; color:#0a0a0a;">MONUMENTO SONORO</h1>
+                <p style="font-size:12px; color:#666; letter-spacing:2px; text-transform:uppercase;">Archivo de Señal · 39913EM</p>
+              </div>
+            `;
+
+            htmlContent += `
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:22px; margin:0 0 5px;">${data.titulo}</h2>
+                ${data.subtitulo ? `<p style="font-size:16px; color:#555; font-style:italic; margin:0 0 10px;">${data.subtitulo}</p>` : ''}
+                <p style="font-size:12px; color:#999;">${col.userData.label} · ${ESTADO.muerto ? '💀 MUERTO' : ESTADO.corrompido ? '🔒 CORRUPTO' : '📄 ORIGINAL'}</p>
+              </div>
+              <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">${contenido}</div>
+              <div style="margin-top:30px; border-top:1px solid #ddd; padding-top:15px; text-align:center; font-size:11px; color:#999;">
+                Archivo de Señal · ${new Date().toLocaleDateString()} · ${window.location.origin}/archivo-de-senal/
+              </div>
+            `;
+
+            element.innerHTML = htmlContent;
+            document.body.appendChild(element);
+
+            try {
+              await html2pdf().set({
+                margin: 10,
+                filename: `${col.userData.label.toLowerCase().replace(/\s+/g, '_')}_${ESTADO.muerto ? 'muerto' : ESTADO.corrompido ? 'corrupto' : 'original'}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+              }).from(element).save();
+            } catch (e) { console.error('Error generando PDF:', e); }
+            document.body.removeChild(element);
           }
         }
       }
     });
 
-    renderer.domElement.addEventListener('dblclick', e => {
+    renderer.domElement.addEventListener('dblclick', (e) => {
       if (ESTADO.muerto) return;
-      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(pointer, camera);
+      
+      const rect = renderer.domElement.getBoundingClientRect();
+      const mouse = new THREE.Vector2(
+        ((e.clientX - rect.left) / rect.width) * 2 - 1,
+        -((e.clientY - rect.top) / rect.height) * 2 + 1
+      );
+      raycaster.setFromCamera(mouse, camera);
+      
       const hits = raycaster.intersectObjects(huellasParticulas);
       if (hits.length > 0) {
+        e.stopPropagation();
         const p = hits[0].object;
         playPop();
         const color = p.material.color.getHex();
@@ -1095,9 +1172,6 @@
       }
     });
 
-    // ============================================================
-    // 18. PANEL DE CITA (SIEMPRE VISIBLE)
-    // ============================================================
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
     const citaAutor = document.getElementById('cita-autor');
@@ -1114,7 +1188,6 @@
 
     function registrarCompartido() {
       if (ESTADO.muerto) { 
-        // Si está muerto, solo compartir sin sumar
         mostrarOverlayMuerte();
         return;
       }
@@ -1123,14 +1196,12 @@
           let v = snap.val().vecesCompartido || 0;
           if (v < 5) {
             v++;
-            // Sumar dot por compartir
             const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
             crearHuella(col.label, col.color);
             ESTADO.huellas++;
             ESTADO.ultimaActualizacion = Date.now();
           }
           if (v >= 5) {
-            // Renacimiento
             update(dbRef, { 
               integridad: 100, 
               corrompido: false, 
@@ -1193,7 +1264,6 @@
     }
 
     btnSembrar.addEventListener('click', async () => {
-      // Siempre visible, incluso si está muerto
       const c = generarCita();
       await generarBotonesCompartir(c.texto, c.autor);
       panelCita.classList.add('visible');
@@ -1202,9 +1272,22 @@
     cerrarCita.addEventListener('click', () => panelCita.classList.remove('visible'));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') panelCita.classList.remove('visible'); });
 
-    // ============================================================
-    // 19. RAYAR
-    // ============================================================
+    document.getElementById('btn-compartir')?.addEventListener('click', () => {
+      const url = window.location.href;
+      const texto = 'Explora el Monumento Sonoro: ';
+      if (navigator.share) {
+        navigator.share({
+          title: 'MONUMENTO SONORO',
+          text: texto,
+          url: url
+        }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(`${texto} ${url}`).then(() => {
+          alert('🔗 Enlace copiado al portapapeles');
+        });
+      }
+    });
+
     const inputRayar = document.getElementById('input-rayar');
     const btnRayar = document.getElementById('btn-rayar');
     const cerrarRayar = document.getElementById('cerrar-rayar');
@@ -1226,7 +1309,6 @@
       await update(dbRef, { mensajes: msgs });
       ESTADO.mensajes = msgs;
       crearMensajeFlotante(t);
-      // Sumar dot por rayar
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       crearHuella(col.label, col.color);
       ESTADO.huellas++;
@@ -1240,9 +1322,6 @@
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarRayar.click(); }
     });
 
-    // ============================================================
-    // 20. MENSAJE DESDE CITA
-    // ============================================================
     const msgCita = document.getElementById('mensaje-cita');
     const msgCitaTexto = document.getElementById('mensaje-cita-texto');
     const msgCitaAutor = document.getElementById('mensaje-cita-autor');
@@ -1264,9 +1343,6 @@
       else mostrarMsgCita(dec, 'Archivo de Señal');
     }
 
-    // ============================================================
-    // 21. INSTRUCCIONES
-    // ============================================================
     const panelInst = document.getElementById('panel-instrucciones');
     const cerrarInst = document.getElementById('cerrar-instrucciones');
     const btnInst = document.getElementById('btn-instrucciones');
@@ -1277,9 +1353,6 @@
     cerrarInst.addEventListener('click', () => panelInst.classList.add('oculto'));
     btnInst.addEventListener('click', () => panelInst.classList.remove('oculto'));
 
-    // ============================================================
-    // 22. UI
-    // ============================================================
     function actualizarUI() {
       const p = particulasActivas();
       document.getElementById('visitas').textContent = ESTADO.visitas;
@@ -1306,50 +1379,9 @@
         document.getElementById('integridad').style.color = '#00e676';
       }
       
-      // Botón "SEMBRAR CULTURA" siempre visible
-      const btn = document.getElementById('btn-sembrar');
-      btn.style.display = 'block';
+      document.getElementById('btn-sembrar').style.display = 'block';
     }
 
-    // ============================================================
-    // 23. CORROMPER TEXTO (adaptativo)
-    // ============================================================
-    function corromperTexto(texto, nivel = 0.3) {
-      if (!texto) return texto;
-      if (ESTADO.muerto) {
-        return texto.split('').map(() => {
-          const chars = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join('');
-      }
-      
-      const chars = texto.split('');
-      const resultado = [];
-      const caracteresRotos = ['�', '░', '▒', '▓', '█', '▄', '▀', '■', '□', '▪', '▫', '◊'];
-      const letrasRojas = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
-      
-      for (let i = 0; i < chars.length; i++) {
-        if (Math.random() < nivel) {
-          if (Math.random() < 0.5) {
-            resultado.push(caracteresRotos[Math.floor(Math.random() * caracteresRotos.length)]);
-          } else {
-            if (letrasRojas.includes(chars[i])) {
-              const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
-              resultado.push(vocales[Math.floor(Math.random() * vocales.length)]);
-            } else {
-              resultado.push(chars[i]);
-            }
-          }
-        } else {
-          resultado.push(chars[i]);
-        }
-      }
-      return resultado.join('');
-    }
-
-    // ============================================================
-    // 24. DEBUG (oculto)
-    // ============================================================
     const btnDebug = document.getElementById('btn-debug');
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('debug') === 'true') {
@@ -1366,9 +1398,6 @@
       });
     }
 
-    // ============================================================
-    // 25. ANIMACIÓN
-    // ============================================================
     let time = 0, lastTick = Date.now();
 
     function animate() {
@@ -1525,19 +1554,14 @@
 
     animate();
 
-    // ============================================================
-    // 26. INICIO
-    // ============================================================
     await cargarTextos();
     await cargarEstado();
     escucharCambios();
 
-    // Cargar mensajes existentes
     if (ESTADO.mensajes && ESTADO.mensajes.length > 0) {
       ESTADO.mensajes.forEach(m => crearMensajeFlotante(m));
     }
 
-    // Si no viene de cita, añadir huella y contar visita
     if (!citaParam) {
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       crearHuella(col.label, col.color);
@@ -1548,37 +1572,14 @@
       actualizarUI();
     }
 
-    // Mostrar estado inicial
     if (ESTADO.muerto) mostrarOverlayMuerte();
 
-    // Iniciar sonido y drone
     initAudio();
-    if (audioCtx) {
-      setTimeout(() => {
-        if (audioCtx.state === 'running') {
-          iniciarDrone();
-        }
-      }, 1000);
-    }
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Eventos para audio (click y touch)
-    document.addEventListener('click', () => {
-      initAudio();
-      if (audioCtx && audioCtx.state === 'running' && !droneInterval) {
-        iniciarDrone();
-      }
-    });
-    document.addEventListener('touchstart', () => {
-      initAudio();
-      if (audioCtx && audioCtx.state === 'running' && !droneInterval) {
-        iniciarDrone();
-      }
     });
 
     console.log('MONUMENTO SONORO - VERSIÓN DEFINITIVA');
