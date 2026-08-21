@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MONUMENTO SONORO CORRUPTIBLE</title>
 
-  <!-- ============================================================
-  ESTILOS PROPIOS (no afectan al blog)
-  ============================================================ -->
   <style>
     /* ===== RESET ===== */
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -34,19 +31,35 @@
     }
     #btn-regreso span { font-size:18px; }
 
-    /* ===== PANEL DE INSTRUCCIONES ===== */
+    /* ===== PANEL DE INSTRUCCIONES (centrado, sin superposición) ===== */
     #panel-instrucciones {
-      position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
-      z-index:100; background:rgba(10,10,10,0.92);
-      border:1px solid #333; border-radius:15px;
-      padding:15px 25px; max-width:620px; width:90%;
-      backdrop-filter:blur(10px);
-      color:#aaa; font-size:12px; line-height:1.8;
-      text-align:center; transition:all 0.5s ease;
-      box-shadow:0 0 40px rgba(0,0,0,0.8);
+      position:fixed; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      z-index:150; 
+      background:rgba(10,10,10,0.95);
+      border:1px solid #ff6b35; 
+      border-radius:15px;
+      padding:25px 30px; 
+      max-width:620px; 
+      width:90%;
+      backdrop-filter:blur(15px);
+      color:#ccc; 
+      font-size:13px; 
+      line-height:2;
+      text-align:center; 
+      transition:all 0.4s ease;
+      box-shadow:0 0 60px rgba(0,0,0,0.9), 0 0 40px rgba(255,107,53,0.1);
+      pointer-events:auto;
+    }
+    #panel-instrucciones.oculto {
+      opacity:0;
+      transform:translate(-50%, -50%) scale(0.95);
+      pointer-events:none;
     }
     #panel-instrucciones h4 {
-      color:#ff6b35; font-size:14px; margin-bottom:8px;
+      color:#ff6b35; font-size:15px; margin-bottom:10px;
       letter-spacing:2px; text-transform:uppercase;
     }
     #panel-instrucciones .key {
@@ -56,11 +69,37 @@
     }
     #panel-instrucciones .icono { font-size:18px; }
     #cerrar-instrucciones {
-      position:absolute; top:5px; right:10px;
+      position:absolute; top:8px; right:12px;
       background:none; border:none; color:#666;
-      font-size:18px; cursor:pointer; font-family:inherit;
+      font-size:20px; cursor:pointer; font-family:inherit;
+      transition:color 0.3s ease;
     }
     #cerrar-instrucciones:hover { color:#ff6b35; }
+
+    /* ===== BOTÓN PARA REABRIR INSTRUCCIONES ===== */
+    #btn-instrucciones {
+      position:fixed; bottom:220px; left:50%; transform:translateX(-50%);
+      z-index:90;
+      background:rgba(255,107,53,0.1); 
+      color:#ff6b35;
+      border:1px solid #ff6b35; 
+      padding:6px 16px;
+      border-radius:20px;
+      font-family:'Courier New',monospace;
+      font-size:10px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      backdrop-filter:blur(5px);
+      letter-spacing:1px;
+      text-transform:uppercase;
+      opacity:0.6;
+    }
+    #btn-instrucciones:hover {
+      background:#ff6b35;
+      color:#0a0a0a;
+      opacity:1;
+      transform:translateX(-50%) scale(1.05);
+    }
 
     /* ===== PANEL DE ESTADO ===== */
     #estado {
@@ -69,6 +108,7 @@
       background:rgba(10,10,10,0.85); padding:15px 20px;
       border-radius:10px; border:1px solid #1a1a2e;
       backdrop-filter:blur(10px); min-width:170px;
+      pointer-events:none;
     }
     #estado .valor { color:#fff; font-weight:bold; }
     #estado .alerta { color:#ff1744; animation:parpadeo 1s infinite; }
@@ -80,7 +120,7 @@
 
     /* ===== BOTONES DE ACCIÓN ===== */
     .btn-accion {
-      position:fixed; z-index:100;
+      position:fixed; z-index:90;
       padding:12px 25px; border:none; border-radius:30px;
       font-family:'Courier New',monospace; font-weight:bold;
       font-size:13px; letter-spacing:1px; text-transform:uppercase;
@@ -159,12 +199,25 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width:768px) {
-      #panel-instrucciones { font-size:10px; padding:10px 15px; bottom:15px; max-width:95%; }
-      #estado { font-size:9px; padding:10px 12px; min-width:120px; top:70px; }
+      #panel-instrucciones { 
+        font-size:11px; padding:18px 16px; 
+        max-width:95%; 
+        top:50%; 
+        transform:translate(-50%, -50%);
+      }
+      #panel-instrucciones.oculto {
+        transform:translate(-50%, -50%) scale(0.95);
+      }
+      #estado { 
+        font-size:9px; padding:10px 12px; 
+        min-width:120px; top:70px; 
+        right:10px;
+      }
       #btn-regreso { font-size:11px; padding:6px 12px; top:10px; left:10px; }
       #btn-sembrar, #btn-cita { font-size:11px; padding:8px 16px; }
       #btn-sembrar { bottom:80px; }
       #btn-cita { bottom:130px; }
+      #btn-instrucciones { bottom:190px; font-size:9px; padding:4px 12px; }
       #panel-cita { padding:20px 18px; max-width:95%; }
       #panel-cita .texto { font-size:15px; }
       #panel-cita .botones-compartir a { font-size:10px; padding:6px 12px; }
@@ -184,14 +237,14 @@
     <div>VISITAS: <span id="visitas" class="valor">0</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">
-      CORRUPCIÓN ACTIVA
+      ⚠️ CORRUPCIÓN ACTIVA
     </div>
     <div id="contador-compartido" class="contador-compartido">
       SEMBRADO: <span id="veces-compartido">0</span>/5
     </div>
   </div>
 
-  <!-- ===== PANEL DE INSTRUCCIONES ===== -->
+  <!-- ===== PANEL DE INSTRUCCIONES (centrado) ===== -->
   <div id="panel-instrucciones">
     <button id="cerrar-instrucciones">✕</button>
     <h4>🏛️ CÓMO HABITAR EL MONUMENTO</h4>
@@ -201,16 +254,21 @@
       <span class="icono"></span> Al hacer clic en un pilar, <strong>descargarás su ensayo en PDF</strong><br>
       <span class="icono"></span> <strong>"SEMBRAR CULTURA"</strong> genera una cita para compartir en redes<br>
       <span class="icono"></span> <strong>"CITA BRUTALISTA"</strong> muestra un fragmento aleatorio<br>
-      <span class="icono"></span> Si nadie visita en 24h, <strong>TODOS los ensayos se corrompen</strong><br>
-      <span class="icono"></span> Comparte <strong>5 veces</strong> para restaurar la memoria completa
+      <span class="icono">⚠️</span> Si nadie visita en 24h, <strong>TODOS los ensayos se corrompen</strong><br>
+      <span class="icono">🔓</span> Comparte <strong>5 veces</strong> para restaurar la memoria completa
     </p>
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">
       🎧 Usa auriculares para mejor experiencia
     </p>
   </div>
 
+  <!-- ===== BOTÓN PARA REABRIR INSTRUCCIONES ===== -->
+  <button id="btn-instrucciones" class="btn-accion" style="bottom:220px; font-size:10px; padding:6px 16px; background:rgba(255,107,53,0.1); border:1px solid #ff6b35; border-radius:20px; color:#ff6b35; opacity:0.6;">
+    ❓ AYUDA
+  </button>
+
   <!-- ===== BOTONES DE ACCIÓN ===== -->
-  <button id="btn-sembrar" class="btn-accion">SEMBRAR CULTURA</button>
+  <button id="btn-sembrar" class="btn-accion"> SEMBRAR CULTURA</button>
   <button id="btn-cita" class="btn-accion">CITA BRUTALISTA</button>
 
   <!-- ===== PANEL DE CITA / COMPARTIR ===== -->
@@ -266,7 +324,6 @@
           const res = await fetch(item.path);
           if (!res.ok) throw new Error(`No se pudo cargar ${item.path}`);
           const data = await res.json();
-          // Extraer el cuerpo completo como texto plano
           let cuerpoCompleto = '';
           if (data.cuerpo && Array.isArray(data.cuerpo)) {
             cuerpoCompleto = data.cuerpo
@@ -303,7 +360,7 @@
       { texto: 'Cada byte pesa, cada solicitud vibra. La información nunca es gratis.', autor: 'DATARTVERSO — 39913EM-DOC-000' },
       { texto: 'El sonido construye espacios invisibles. Escuchar es habitar.', autor: 'Arquitectura Sonora — 39913EM-DOC-001' },
       { texto: 'Lo que no se repite, se pierde en el ruido de fondo.', autor: 'Memoria Rota — 39913EM-DOC-002' },
-      { texto: 'La piratería es una respuesta a un sistema que convierte al usuario en inquilino perpetuo de su propia cultura.', autor: 'Cultura No Se Torrentea — 39913EM-DOC-003' },
+      { texto: 'La piratería es una respuesta a una estructura que ha hecho del acceso un privilegio y del conocimiento un bien transable.', autor: 'Cultura No Se Torrentea — 39913EM-DOC-003' },
       { texto: 'La obsolescencia programada también es una forma de censura.', autor: 'Memoria Rota — 39913EM-DOC-002' },
       { texto: 'El streaming paga migajas a los creadores y financia tecnología de guerra con las ganancias.', autor: 'Cultura No Se Torrentea — 39913EM-DOC-003' },
       { texto: 'Exploramos un mundo que la sociedad era demasiado floja para explorar; mi crimen es la curiosidad.', autor: 'Cultura No Se Torrentea — cita del Manifiesto Hacker' },
@@ -319,7 +376,7 @@
       { id: 'linkedin', label: 'LinkedIn', clase: 'btn-linkedin', url: (t, u) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}` },
       { id: 'whatsapp', label: 'WhatsApp', clase: 'btn-whatsapp', url: (t, u) => `https://api.whatsapp.com/send?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
       { id: 'facebook', label: 'Facebook', clase: 'btn-facebook', url: (t, u) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}&quote=${encodeURIComponent(t)}` },
-      { id: 'reddit', label: 'Reddit', clase: 'btn-reddit', url: (t, u) => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent(t)}` },
+      { id: 'reddit', label: ' Reddit', clase: 'btn-reddit', url: (t, u) => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent(t)}` },
       { id: 'instagram', label: 'Instagram', clase: 'btn-instagram', url: (t, u) => `https://www.instagram.com/39913em/` },
       { id: 'substack', label: 'Substack', clase: 'btn-substack', url: (t, u) => `https://substack.com/` }
     ];
@@ -387,7 +444,6 @@
         document.getElementById('estado').classList.remove('alerta');
       }
 
-      // Mostrar/ocultar botón sembrar según necesidad
       const btnSembrar = document.getElementById('btn-sembrar');
       if (ESTADO.integridad < 100 || ESTADO.vecesCompartido < 5) {
         btnSembrar.style.display = 'block';
@@ -410,11 +466,9 @@
 
       for (let i = 0; i < chars.length; i++) {
         if (Math.random() < nivel) {
-          // Reemplazar con caracter roto
           if (Math.random() < 0.5) {
             resultado.push(caracteresRotos[Math.floor(Math.random() * caracteresRotos.length)]);
           } else {
-            // Cambiar una vocal por otra o por símbolo
             if (letrasRojas.includes(chars[i])) {
               const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
               resultado.push(vocales[Math.floor(Math.random() * vocales.length)]);
@@ -440,12 +494,10 @@
       const subtitulo = data.subtitulo || '';
       let cuerpo = data.cuerpo || 'Contenido no disponible.';
 
-      // Corromper si es necesario
       if (corrupto) {
         cuerpo = corromperTexto(cuerpo, 0.35);
       }
 
-      // Crear elemento temporal para el PDF
       const element = document.createElement('div');
       element.style.padding = '40px';
       element.style.fontFamily = 'Georgia, serif';
@@ -477,7 +529,7 @@
         <div style="margin-bottom:20px;">
           <h2 style="font-size:22px; margin:0 0 5px;">${titulo}</h2>
           ${subtitulo ? `<p style="font-size:16px; color:#555; font-style:italic; margin:0 0 10px;">${subtitulo}</p>` : ''}
-          <p style="font-size:12px; color:#999;">${label} · ${corrupto ? '🔒 VERSIÓN CORRUPTA' : '📄 VERSIÓN ORIGINAL'}</p>
+          <p style="font-size:12px; color:#999;">${label} · ${corrupto ? '🔒 VERSIÓN CORRUPTA' : 'VERSIÓN ORIGINAL'}</p>
         </div>
         <div style="font-size:14px; line-height:1.8; white-space:pre-wrap;">
           ${cuerpo}
@@ -612,7 +664,6 @@
       const group = new THREE.Group();
       const altura = 5;
 
-      // Base
       const base = new THREE.Mesh(
         new THREE.CylinderGeometry(0.8, 1, 0.2, 8),
         new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 })
@@ -679,7 +730,6 @@
 
         case 'rota':
           const rotaGroup = new THREE.Group();
-          // Mitad inferior
           const inferior = new THREE.Mesh(
             new THREE.CylinderGeometry(0.5, 0.6, 2.5, 8),
             new THREE.MeshStandardMaterial({
@@ -694,7 +744,6 @@
           inferior.castShadow = true;
           rotaGroup.add(inferior);
 
-          // Mitad superior (desplazada)
           const superior = new THREE.Mesh(
             new THREE.CylinderGeometry(0.45, 0.5, 2.2, 8),
             new THREE.MeshStandardMaterial({
@@ -711,7 +760,6 @@
           superior.castShadow = true;
           rotaGroup.add(superior);
 
-          // Grietas
           const grietas = [];
           for (let i = 0; i < 10; i++) {
             const grieta = new THREE.Mesh(
@@ -733,7 +781,6 @@
             rotaGroup.add(grieta);
             grietas.push(grieta);
           }
-          // Guardar grietas para animación
           rotaGroup.userData.grietas = grietas;
           columnaMesh = rotaGroup;
           columnaMesh.position.y = 0;
@@ -782,7 +829,6 @@
 
       group.add(columnaMesh);
 
-      // Etiqueta
       const canvas = document.createElement('canvas');
       canvas.width = 256;
       canvas.height = 80;
@@ -828,7 +874,6 @@
       return group;
     }
 
-    // Crear columnas
     datosColumna.forEach((pos) => {
       const col = crearColumnaEspecifica(pos.label, pos.color, pos.forma);
       scene.add(col);
@@ -853,7 +898,6 @@
     suelo.receiveShadow = true;
     scene.add(suelo);
 
-    // Círculo base
     const circulo = new THREE.Mesh(
       new THREE.RingGeometry(2.2, 2.8, 32),
       new THREE.MeshStandardMaterial({
@@ -883,7 +927,7 @@
 
     function playSound(columnLabel, distance) {
       if (!audioContext) return;
-      if (ESTADO.corrompido && Math.random() < 0.3) return; // sonido corrupto
+      if (ESTADO.corrompido && Math.random() < 0.3) return;
 
       osciladores.forEach(osc => { try { osc.stop(); } catch(e) {} });
       osciladores = [];
@@ -1020,7 +1064,6 @@
         botonesCompartir.appendChild(enlace);
       });
 
-      // Botón copiar
       const copiar = document.createElement('a');
       copiar.className = 'btn-copiar';
       copiar.textContent = 'Copiar cita';
@@ -1028,7 +1071,7 @@
       copiar.addEventListener('click', (e) => {
         e.preventDefault();
         navigator.clipboard.writeText(`${mensaje}\n\n${blogUrl}`).then(() => {
-          copiar.textContent = '¡Copiado!';
+          copiar.textContent = '✅ ¡Copiado!';
           setTimeout(() => { copiar.textContent = 'Copiar cita'; }, 2000);
           registrarCompartido();
         });
@@ -1047,7 +1090,6 @@
         ESTADO.corrompido = false;
         guardarEstado();
         actualizarUI();
-        // Animación de reparación
         document.getElementById('panel-cita').style.borderColor = '#00e676';
         setTimeout(() => {
           document.getElementById('panel-cita').style.borderColor = '#ff6b35';
@@ -1073,7 +1115,6 @@
       panelCita.classList.remove('visible');
     });
 
-    // Cerrar con ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') panelCita.classList.remove('visible');
     });
@@ -1081,11 +1122,25 @@
     // ============================================================
     // 15. INSTRUCCIONES
     // ============================================================
-    document.getElementById('cerrar-instrucciones').addEventListener('click', () => {
-      const panel = document.getElementById('panel-instrucciones');
-      panel.style.opacity = '0';
-      panel.style.transform = 'translateX(-50%) translateY(20px)';
-      setTimeout(() => { panel.style.display = 'none'; }, 500);
+    const panelInstrucciones = document.getElementById('panel-instrucciones');
+    const cerrarInstrucciones = document.getElementById('cerrar-instrucciones');
+    const btnInstrucciones = document.getElementById('btn-instrucciones');
+
+    // Mostrar solo la primera vez
+    const instruccionesVistas = localStorage.getItem('instrucciones_vistas');
+    if (!instruccionesVistas) {
+      panelInstrucciones.classList.remove('oculto');
+      localStorage.setItem('instrucciones_vistas', 'true');
+    } else {
+      panelInstrucciones.classList.add('oculto');
+    }
+
+    cerrarInstrucciones.addEventListener('click', () => {
+      panelInstrucciones.classList.add('oculto');
+    });
+
+    btnInstrucciones.addEventListener('click', () => {
+      panelInstrucciones.classList.remove('oculto');
     });
 
     // ============================================================
@@ -1097,23 +1152,18 @@
       requestAnimationFrame(animate);
       tiempo += 0.01;
 
-      // Rotación suave del personaje
       guardian.rotation.y = Math.sin(tiempo * 0.3) * 0.1;
 
-      // Movimiento de columnas
       columnas.forEach((col, i) => {
         const offset = i * 0.5;
         const estadoCorrupto = ESTADO.corrompido || ESTADO.integridad < 100;
 
-        // Movimiento base
         col.position.y = Math.sin(tiempo * 0.5 + offset) * 0.05;
 
-        // Efectos según tipo
         const forma = col.userData.forma;
         const mesh = col.userData.mesh;
 
         if (forma === 'cubos' && mesh) {
-          // Cubos vibran más si está corrupto
           mesh.children.forEach((cubo, idx) => {
             if (cubo.isMesh) {
               const vibracion = estadoCorrupto ? 0.03 : 0.01;
@@ -1140,14 +1190,12 @@
         }
 
         if (forma === 'rota' && mesh) {
-          // Grietas crecen si está corrupto
           const grietas = mesh.userData.grietas || [];
           grietas.forEach((grieta, idx) => {
             if (estadoCorrupto) {
               const crecimiento = 1 + Math.sin(tiempo * 2 + idx) * 0.5;
               grieta.scale.y = crecimiento;
               grieta.material.emissiveIntensity = 0.5 + Math.sin(tiempo * 3 + idx) * 0.5;
-              // Parpadeo
               if (Math.sin(tiempo * 4 + idx) > 0.8) {
                 grieta.material.color.setHex(0xff0000);
               } else {
@@ -1170,7 +1218,6 @@
               frag.rotation.x += 0.01;
               frag.rotation.z += 0.005;
               if (estadoCorrupto) {
-                // Caída errática
                 frag.position.y += Math.sin(tiempo * 5 + idx) * 0.02;
                 frag.material.opacity = 0.4 + Math.sin(tiempo * 2 + idx) * 0.3;
               }
@@ -1178,9 +1225,7 @@
           });
         }
 
-        // Efecto de corrupción en toda la columna
         if (estadoCorrupto && Math.random() < 0.01) {
-          // Pequeño destello rojo
           const flash = new THREE.Mesh(
             new THREE.SphereGeometry(0.5, 4, 4),
             new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.2 })
@@ -1191,7 +1236,6 @@
         }
       });
 
-      // Detectar proximidad para sonido
       const camPos = camera.position;
       let columnaCercana = null;
       let distanciaMin = Infinity;
@@ -1233,7 +1277,6 @@
     console.log('Veces compartido:', ESTADO.vecesCompartido);
     console.log('Integridad:', ESTADO.integridad + '%');
 
-    // Inicializar audio al primer click
     document.addEventListener('click', initAudio, { once: true });
 
   </script>
