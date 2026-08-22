@@ -3,146 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="apple-touch-icon" href="favicon.png" />
-
   <title>MONUMENTO SONORO</title>
-
-  <meta property="og:title" content="MONUMENTO SONORO" />
-  <meta property="og:description" content="Explora el monumento interactivo del Archivo de Señal." />
-  <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png" />
-  <meta property="og:url" content="https://39913em.github.io/archivo-de-senal/monumento.html" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      margin:0; overflow:hidden; background:#0a0a0a;
-      font-family:'Courier New', monospace; cursor:crosshair;
-      user-select:none;
-    }
-
-    /* ===== BOTÓN REGRESO ===== */
-    #btn-regreso {
-      position:fixed; top:20px; left:20px; z-index:1000;
-      background:rgba(10,10,10,0.85); color:#ff6b35;
-      border:1px solid #ff6b35; padding:8px 16px;
-      border-radius:20px; font-size:12px; text-decoration:none;
-      transition:all 0.3s ease; backdrop-filter:blur(10px);
-      letter-spacing:1px; display:flex; align-items:center; gap:6px;
-    }
-    #btn-regreso:hover {
-      background:#ff6b35; color:#0a0a0a;
-      box-shadow:0 0 20px rgba(255,107,53,0.3);
-      transform:scale(1.05);
-    }
+    body { margin:0; overflow:hidden; background:#0a0a0a; font-family:'Courier New', monospace; cursor:crosshair; user-select:none; }
+    #btn-regreso { position:fixed; top:20px; left:20px; z-index:1000; background:rgba(10,10,10,0.85); color:#ff6b35; border:1px solid #ff6b35; padding:8px 16px; border-radius:20px; font-size:12px; text-decoration:none; transition:all 0.3s ease; backdrop-filter:blur(10px); letter-spacing:1px; display:flex; align-items:center; gap:6px; }
+    #btn-regreso:hover { background:#ff6b35; color:#0a0a0a; box-shadow:0 0 20px rgba(255,107,53,0.3); transform:scale(1.05); }
     #btn-regreso span { font-size:16px; }
-
-    /* ===== PANEL DE ESTADO ===== */
-    #estado {
-      position:fixed; top:20px; right:20px; z-index:100;
-      color:#666; font-size:10px; text-align:right; line-height:1.8;
-      background:rgba(10,10,10,0.85); padding:10px 14px;
-      border-radius:8px; border:1px solid #1a1a2e;
-      backdrop-filter:blur(10px); min-width:140px;
-      pointer-events:none;
-    }
+    #estado { position:fixed; top:20px; right:20px; z-index:100; color:#666; font-size:10px; text-align:right; line-height:1.8; background:rgba(10,10,10,0.85); padding:10px 14px; border-radius:8px; border:1px solid #1a1a2e; backdrop-filter:blur(10px); min-width:140px; pointer-events:none; }
     #estado .valor { color:#fff; font-weight:bold; }
     #estado .alerta { color:#ff1744; animation:parpadeo 1s infinite; }
     #estado .muerto { color:#ff1744; font-size:12px; animation:parpadeo 1s infinite; }
     .contador-compartido { color:#ff6b35; font-size:12px; margin-top:3px; }
     .tiempo-restante { color:#4fc3f7; font-size:12px; margin-top:2px; }
     @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-
-    /* ===== BOTONES DE ACCIÓN (tamaño medio) ===== */
-    .btn-accion {
-      position:fixed; z-index:90;
-      padding:8px 18px; border:none; border-radius:18px;
-      font-family:'Courier New',monospace; font-weight:bold;
-      font-size:11px; letter-spacing:0.5px; text-transform:uppercase;
-      cursor:pointer; transition:all 0.3s ease;
-      backdrop-filter:blur(10px);
-      opacity:0.8;
-    }
+    .btn-accion { position:fixed; z-index:90; padding:8px 18px; border:none; border-radius:18px; font-family:'Courier New',monospace; font-weight:bold; font-size:11px; letter-spacing:0.5px; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease; backdrop-filter:blur(10px); opacity:0.8; }
     .btn-accion:hover { opacity:1; transform:scale(1.05); }
-
-    #btn-sembrar {
-      bottom:80px; left:50%; transform:translateX(-50%);
-      background:#ff6b35; color:#0a0a0a;
-      box-shadow:0 0 15px rgba(255,107,53,0.2);
-    }
+    #btn-sembrar { bottom:80px; left:50%; transform:translateX(-50%); background:#ff6b35; color:#0a0a0a; box-shadow:0 0 15px rgba(255,107,53,0.2); }
     #btn-sembrar:hover { box-shadow:0 0 25px rgba(255,107,53,0.4); }
-
-    #btn-rayar {
-      bottom:124px; left:50%; transform:translateX(-50%);
-      background:rgba(255,107,53,0.1); color:#ff6b35;
-      border:1px solid #ff6b35;
-    }
+    #btn-rayar { bottom:124px; left:50%; transform:translateX(-50%); background:rgba(255,107,53,0.1); color:#ff6b35; border:1px solid #ff6b35; }
     #btn-rayar:hover { background:rgba(255,107,53,0.2); }
-
-    #btn-instrucciones {
-      bottom:168px; left:50%; transform:translateX(-50%);
-      background:rgba(255,107,53,0.05); color:#888;
-      border:1px solid #333; padding:6px 16px; font-size:10px;
-      border-radius:15px;
-    }
+    #btn-instrucciones { bottom:168px; left:50%; transform:translateX(-50%); background:rgba(255,107,53,0.05); color:#888; border:1px solid #333; padding:6px 16px; font-size:10px; border-radius:15px; }
     #btn-instrucciones:hover { background:rgba(255,107,53,0.1); color:#ff6b35; }
-
-    /* ===== INPUT RAYAR ===== */
-    #input-rayar {
-      position:fixed; bottom:212px; left:50%; transform:translateX(-50%);
-      z-index:95; background:rgba(10,10,10,0.95);
-      border:1px solid #ff6b35; border-radius:8px;
-      padding:12px 16px; max-width:340px; width:90%;
-      display:none; backdrop-filter:blur(10px);
-      box-shadow:0 0 30px rgba(0,0,0,0.9);
-    }
+    #input-rayar { position:fixed; bottom:212px; left:50%; transform:translateX(-50%); z-index:95; background:rgba(10,10,10,0.95); border:1px solid #ff6b35; border-radius:8px; padding:12px 16px; max-width:340px; width:90%; display:none; backdrop-filter:blur(10px); box-shadow:0 0 30px rgba(0,0,0,0.9); }
     #input-rayar.visible { display:block; }
-    #input-rayar textarea {
-      width:100%; background:transparent; border:none;
-      color:#fff; font-family:'Courier New',monospace;
-      font-size:13px; resize:vertical; min-height:40px;
-      outline:none; padding:4px 0;
-    }
+    #input-rayar textarea { width:100%; background:transparent; border:none; color:#fff; font-family:'Courier New',monospace; font-size:13px; resize:vertical; min-height:40px; outline:none; padding:4px 0; }
     #input-rayar textarea::placeholder { color:#666; }
-    #input-rayar .btn-enviar-rayar {
-      margin-top:8px; padding:4px 14px;
-      background:#ff6b35; color:#0a0a0a; border:none;
-      border-radius:15px; font-family:'Courier New',monospace;
-      font-size:11px; font-weight:bold; cursor:pointer;
-      transition:all 0.3s ease;
-    }
+    #input-rayar .btn-enviar-rayar { margin-top:8px; padding:4px 14px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:15px; font-family:'Courier New',monospace; font-size:11px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; }
     #input-rayar .btn-enviar-rayar:hover { transform:scale(1.05); }
-    #input-rayar .btn-cerrar-rayar {
-      position:absolute; top:6px; right:10px;
-      background:none; border:none; color:#666;
-      font-size:14px; cursor:pointer; font-family:inherit;
-    }
+    #input-rayar .btn-cerrar-rayar { position:absolute; top:6px; right:10px; background:none; border:none; color:#666; font-size:14px; cursor:pointer; font-family:inherit; }
     #input-rayar .btn-cerrar-rayar:hover { color:#ff6b35; }
-
-    /* ===== PANEL DE CITA ===== */
-    #panel-cita {
-      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      z-index:200; background:rgba(10,10,10,0.96);
-      border:2px solid #ff6b35; border-radius:16px;
-      padding:25px 30px; max-width:460px; width:90%;
-      display:none; text-align:center;
-      box-shadow:0 0 60px rgba(255,107,53,0.1);
-      backdrop-filter:blur(20px);
-      max-height:90vh; overflow-y:auto;
-    }
+    #panel-cita { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:200; background:rgba(10,10,10,0.96); border:2px solid #ff6b35; border-radius:16px; padding:25px 30px; max-width:460px; width:90%; display:none; text-align:center; box-shadow:0 0 60px rgba(255,107,53,0.1); backdrop-filter:blur(20px); max-height:90vh; overflow-y:auto; }
     #panel-cita.visible { display:block; animation:fadeIn 0.3s ease; }
     @keyframes fadeIn { from{opacity:0; transform:translate(-50%,-40%);} to{opacity:1; transform:translate(-50%,-50%);} }
     #panel-cita .texto { color:#fff; font-size:17px; line-height:1.7; margin:12px 0; font-style:italic; }
     #panel-cita .autor { color:#ff6b35; font-size:13px; letter-spacing:1px; }
     #panel-cita .botones-compartir { display:flex; gap:6px; justify-content:center; margin-top:15px; flex-wrap:wrap; }
-    #panel-cita .botones-compartir a {
-      padding:6px 12px; border-radius:20px; text-decoration:none;
-      font-size:10px; font-weight:bold; transition:all 0.3s ease;
-      display:inline-flex; align-items:center; gap:4px; font-family:inherit;
-    }
+    #panel-cita .botones-compartir a { padding:6px 12px; border-radius:20px; text-decoration:none; font-size:10px; font-weight:bold; transition:all 0.3s ease; display:inline-flex; align-items:center; gap:4px; font-family:inherit; }
     #panel-cita .botones-compartir a:hover { transform:scale(1.05); }
     .btn-twitter { background:#1DA1F2; color:#fff; }
     .btn-bluesky { background:#1185FE; color:#fff; }
@@ -153,164 +52,54 @@
     .btn-instagram { background:#E1306C; color:#fff; }
     .btn-substack { background:#FF6719; color:#fff; }
     .btn-copiar { background:#333; color:#fff; border:1px solid #555; }
-    #cerrar-cita {
-      position:absolute; top:8px; right:12px;
-      background:none; border:none; color:#666;
-      font-size:18px; cursor:pointer; font-family:inherit;
-    }
+    #cerrar-cita { position:absolute; top:8px; right:12px; background:none; border:none; color:#666; font-size:18px; cursor:pointer; font-family:inherit; }
     #cerrar-cita:hover { color:#ff6b35; }
     #contador-compartido-panel { color:#ff6b35; font-size:12px; margin-top:8px; }
-
-    /* ===== PANEL DE INSTRUCCIONES ===== */
-    #panel-instrucciones {
-      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      z-index:150; background:rgba(10,10,10,0.95);
-      border:1px solid #ff6b35; border-radius:12px;
-      padding:20px 25px; max-width:520px; width:90%;
-      backdrop-filter:blur(15px);
-      color:#aaa; font-size:12px; line-height:1.8;
-      text-align:center; transition:all 0.4s ease;
-      box-shadow:0 0 40px rgba(0,0,0,0.8);
-      pointer-events:auto;
-    }
-    #panel-instrucciones.oculto {
-      opacity:0; transform:translate(-50%,-50%) scale(0.95);
-      pointer-events:none;
-    }
-    #panel-instrucciones h4 {
-      color:#ff6b35; font-size:14px; margin-bottom:8px;
-      letter-spacing:1px; text-transform:uppercase;
-    }
-    #cerrar-instrucciones {
-      position:absolute; top:6px; right:10px;
-      background:none; border:none; color:#666;
-      font-size:16px; cursor:pointer; font-family:inherit;
-    }
+    #panel-instrucciones { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:150; background:rgba(10,10,10,0.95); border:1px solid #ff6b35; border-radius:12px; padding:20px 25px; max-width:520px; width:90%; backdrop-filter:blur(15px); color:#aaa; font-size:12px; line-height:1.8; text-align:center; transition:all 0.4s ease; box-shadow:0 0 40px rgba(0,0,0,0.8); pointer-events:auto; }
+    #panel-instrucciones.oculto { opacity:0; transform:translate(-50%,-50%) scale(0.95); pointer-events:none; }
+    #panel-instrucciones h4 { color:#ff6b35; font-size:14px; margin-bottom:8px; letter-spacing:1px; text-transform:uppercase; }
+    #cerrar-instrucciones { position:absolute; top:6px; right:10px; background:none; border:none; color:#666; font-size:16px; cursor:pointer; font-family:inherit; }
     #cerrar-instrucciones:hover { color:#ff6b35; }
-
-    /* ===== OVERLAYS ===== */
-    #overlay-muerte {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      z-index:300; background:rgba(0,0,0,0.92);
-      display:none; justify-content:center; align-items:center;
-      backdrop-filter:blur(10px);
-    }
+    #overlay-muerte { position:fixed; top:0; left:0; width:100%; height:100%; z-index:300; background:rgba(0,0,0,0.92); display:none; justify-content:center; align-items:center; backdrop-filter:blur(10px); }
     #overlay-muerte.visible { display:flex; }
-    #overlay-muerte .contenido {
-      text-align:center; max-width:500px; padding:30px;
-      border:2px solid #ff1744; border-radius:16px;
-      background:rgba(10,10,10,0.95);
-      box-shadow:0 0 60px rgba(255,23,68,0.15);
-    }
+    #overlay-muerte .contenido { text-align:center; max-width:500px; padding:30px; border:2px solid #ff1744; border-radius:16px; background:rgba(10,10,10,0.95); box-shadow:0 0 60px rgba(255,23,68,0.15); }
     #overlay-muerte .simbolo { font-size:48px; margin-bottom:15px; }
     #overlay-muerte .titulo { color:#ff1744; font-size:24px; font-weight:bold; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; }
     #overlay-muerte .texto { color:#aaa; font-size:15px; line-height:1.7; margin-bottom:20px; }
-    #overlay-muerte .btn-revivir {
-      padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none;
-      border-radius:25px; font-family:'Courier New',monospace;
-      font-size:13px; font-weight:bold; cursor:pointer;
-      transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1px;
-    }
+    #overlay-muerte .btn-revivir { padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:25px; font-family:'Courier New',monospace; font-size:13px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1px; }
     #overlay-muerte .btn-revivir:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,107,53,0.3); }
-    #overlay-muerte .btn-cerrar-muerte {
-      position:absolute; top:15px; right:20px;
-      background:none; border:none; color:#666;
-      font-size:20px; cursor:pointer; font-family:inherit;
-    }
+    #overlay-muerte .btn-cerrar-muerte { position:absolute; top:15px; right:20px; background:none; border:none; color:#666; font-size:20px; cursor:pointer; font-family:inherit; }
     #overlay-muerte .btn-cerrar-muerte:hover { color:#ff1744; }
-
-    #overlay-renacimiento {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      z-index:280; background:rgba(0,0,0,0.85);
-      display:none; justify-content:center; align-items:center;
-      backdrop-filter:blur(5px);
-    }
+    #overlay-renacimiento { position:fixed; top:0; left:0; width:100%; height:100%; z-index:280; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; backdrop-filter:blur(5px); }
     #overlay-renacimiento.visible { display:flex; }
-    #overlay-renacimiento .contenido {
-      text-align:center; max-width:500px; padding:30px;
-      border:2px solid #ff6b35; border-radius:16px;
-      background:rgba(10,10,10,0.95);
-      box-shadow:0 0 60px rgba(255,107,53,0.2);
-      animation:luzPulso 2s infinite;
-    }
-    @keyframes luzPulso {
-      0%,100%{box-shadow:0 0 30px rgba(255,107,53,0.1);}
-      50%{box-shadow:0 0 60px rgba(255,107,53,0.3);}
-    }
+    #overlay-renacimiento .contenido { text-align:center; max-width:500px; padding:30px; border:2px solid #ff6b35; border-radius:16px; background:rgba(10,10,10,0.95); box-shadow:0 0 60px rgba(255,107,53,0.2); animation:luzPulso 2s infinite; }
+    @keyframes luzPulso { 0%,100%{box-shadow:0 0 30px rgba(255,107,53,0.1);} 50%{box-shadow:0 0 60px rgba(255,107,53,0.3);} }
     #overlay-renacimiento .simbolo { font-size:48px; margin-bottom:15px; }
     #overlay-renacimiento .titulo { color:#ff6b35; font-size:24px; font-weight:bold; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; }
     #overlay-renacimiento .texto { color:#ccc; font-size:15px; line-height:1.7; margin-bottom:20px; }
-    #overlay-renacimiento .btn-cerrar-renacimiento {
-      padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none;
-      border-radius:25px; font-family:'Courier New',monospace;
-      font-size:13px; font-weight:bold; cursor:pointer;
-      transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1px;
-    }
+    #overlay-renacimiento .btn-cerrar-renacimiento { padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:25px; font-family:'Courier New',monospace; font-size:13px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1px; }
     #overlay-renacimiento .btn-cerrar-renacimiento:hover { transform:scale(1.05); }
-
-    #mensaje-cita {
-      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      z-index:250; background:rgba(10,10,10,0.97);
-      border:2px solid #ff6b35; border-radius:16px;
-      padding:30px 35px; max-width:480px; width:90%;
-      display:none; text-align:center;
-      box-shadow:0 0 80px rgba(255,107,53,0.15);
-      backdrop-filter:blur(20px);
-    }
+    #mensaje-cita { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:250; background:rgba(10,10,10,0.97); border:2px solid #ff6b35; border-radius:16px; padding:30px 35px; max-width:480px; width:90%; display:none; text-align:center; box-shadow:0 0 80px rgba(255,107,53,0.15); backdrop-filter:blur(20px); }
     #mensaje-cita.visible { display:block; animation:fadeIn 0.4s ease; }
     #mensaje-cita .texto { color:#fff; font-size:19px; line-height:1.7; margin:15px 0; font-style:italic; }
     #mensaje-cita .autor { color:#ff6b35; font-size:14px; letter-spacing:1px; }
     #mensaje-cita .sub { color:#888; font-size:11px; margin-top:12px; }
-    #mensaje-cita .btn-cerrar-mensaje {
-      margin-top:15px; padding:6px 20px;
-      background:#ff6b35; color:#0a0a0a; border:none;
-      border-radius:20px; font-family:'Courier New',monospace;
-      font-size:11px; font-weight:bold; cursor:pointer;
-      transition:all 0.3s ease;
-    }
+    #mensaje-cita .btn-cerrar-mensaje { margin-top:15px; padding:6px 20px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:20px; font-family:'Courier New',monospace; font-size:11px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; }
     #mensaje-cita .btn-cerrar-mensaje:hover { transform:scale(1.05); }
-
-    #btn-debug {
-      position:fixed; bottom:20px; right:20px; z-index:999;
-      background:rgba(255,0,0,0.15); color:#ff4444;
-      border:1px solid #ff4444; padding:3px 10px;
-      border-radius:8px; font-family:'Courier New',monospace;
-      font-size:8px; cursor:pointer; opacity:0.3;
-      transition:all 0.3s ease;
-    }
+    #btn-debug { position:fixed; bottom:20px; right:20px; z-index:999; background:rgba(255,0,0,0.15); color:#ff4444; border:1px solid #ff4444; padding:3px 10px; border-radius:8px; font-family:'Courier New',monospace; font-size:8px; cursor:pointer; opacity:0.3; transition:all 0.3s ease; }
     #btn-debug:hover { opacity:1; background:rgba(255,0,0,0.25); }
-
-    @media (max-width:768px) {
-      #estado { font-size:9px; padding:8px 10px; min-width:100px; top:60px; right:8px; }
-      #btn-regreso { font-size:10px; padding:5px 12px; top:10px; left:10px; }
-      #btn-sembrar, #btn-rayar { font-size:10px; padding:7px 14px; }
-      #btn-sembrar { bottom:70px; }
-      #btn-rayar { bottom:112px; }
-      #btn-instrucciones { bottom:154px; font-size:9px; padding:5px 14px; }
-      #input-rayar { bottom:192px; max-width:90%; }
-      #panel-cita { padding:20px; max-width:95%; }
-      #panel-cita .texto { font-size:15px; }
-      #panel-instrucciones { font-size:11px; padding:15px 18px; max-width:95%; }
-      #overlay-muerte .titulo { font-size:20px; }
-      #overlay-muerte .texto { font-size:14px; }
-      #overlay-renacimiento .titulo { font-size:20px; }
-      #mensaje-cita { padding:20px; max-width:95%; }
-      #mensaje-cita .texto { font-size:16px; }
-    }
+    @media (max-width:768px) { #estado { font-size:9px; padding:8px 10px; min-width:100px; top:60px; right:8px; } #btn-regreso { font-size:10px; padding:5px 12px; top:10px; left:10px; } #btn-sembrar, #btn-rayar { font-size:10px; padding:7px 14px; } #btn-sembrar { bottom:70px; } #btn-rayar { bottom:112px; } #btn-instrucciones { bottom:154px; font-size:9px; padding:5px 14px; } #input-rayar { bottom:192px; max-width:90%; } #panel-cita { padding:20px; max-width:95%; } #panel-cita .texto { font-size:15px; } #panel-instrucciones { font-size:11px; padding:15px 18px; max-width:95%; } #overlay-muerte .titulo { font-size:20px; } #overlay-muerte .texto { font-size:14px; } #overlay-renacimiento .titulo { font-size:20px; } #mensaje-cita { padding:20px; max-width:95%; } #mensaje-cita .texto { font-size:16px; } }
   </style>
 </head>
 <body>
 
-  <a id="btn-regreso" href="index.html">
-    <span>&larr;</span> VOLVER
-  </a>
+  <a id="btn-regreso" href="index.html"><span>&larr;</span> VOLVER</a>
 
   <div id="estado">
     <div><span class="valor">MONUMENTO VIVO</span></div>
-    <div>VISITAS: <span id="visitas" class="valor">0</span></div>
-    <div>HUELLAS: <span id="huellas" class="valor">0</span></div>
-    <div>SIEMBRAS: <span id="siembras" class="valor">0</span></div>
-    <div>PARTICULAS: <span id="particulas" class="valor">0</span></div>
+    <div>CICLOS DE VIDA: <span id="huellas" class="valor">0</span></div>
+    <div>INTERACCIONES TOTALES: <span id="siembras" class="valor">0</span></div>
+    <div>ESPORAS: <span id="particulas" class="valor">0</span></div>
     <div class="tiempo-restante">VIDA: <span id="tiempo-restante">0h</span></div>
     <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">&#9888; CORRUPCION</div>
@@ -332,18 +121,7 @@
   <div id="panel-instrucciones">
     <button id="cerrar-instrucciones">&#10005;</button>
     <h4>COMO TRANSITAR</h4>
-    <p>
-      ACERCATE a las columnas<br>
-      Clic en el NOMBRE de una columna &rarr; descarga el ensayo<br>
-      SEMBRAR &rarr; genera una cita para compartir<br>
-      RAYAR &rarr; deja un mensaje flotante en la sala<br>
-      Cada interaccion con la sala crea 1 hora de vida<br>
-      Cada espora necesita DOS toques: el segundo la hace explotar y resta 1 hora<br>
-      INTEGRIDAD 100% &rarr; archivo completamente legible<br>
-      Al disminuir la integridad, el archivo se corrompe progresivamente<br>
-      Si las horas llegan a 0, el monumento muere<br>
-      El monumento muerto requiere 5 semillas para revivir
-    </p>
+    <p>ACERCATE a las columnas<br>Clic en el NOMBRE de una columna &rarr; descarga el ensayo<br>SEMBRAR &rarr; genera una cita para compartir<br>RAYAR &rarr; deja un mensaje flotante en la sala<br>Cada interaccion con la sala crea 1 hora de vida (1 semilla)<br>Cada semilla necesita DOS toques para hacerla explotar y restar 1 hora de vida al monumento<br>INTEGRIDAD 100% &rarr; archivo completamente legible<br>Al disminuir la integridad, el archivo se corrompe progresivamente<br>Si las horas llegan a 0, el monumento muere<br>El monumento muerto solo revive sembrando 5 semillas</p>
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">Se recomienda usar auriculares</p>
   </div>
 
@@ -370,8 +148,7 @@
     <div class="contenido">
       <div class="simbolo">&#128128;</div>
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
-      <div class="texto">La memoria se ha corrompido.<br><br><strong>El monumento ha muerto.</strong><br>
-      Puedes cerrar este aviso y recorrer la ruina. El archivo no sera revivido a la fuerza.</div>
+      <div class="texto">La memoria se ha corrompido.<br><br><strong>El monumento ha muerto.</strong><br></div>
       <button class="btn-revivir" id="btn-revivir">ENTRAR A LA RUINA</button>
     </div>
   </div>
@@ -404,9 +181,7 @@
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
     import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+    // ===== FIREBASE =====
     const firebaseConfig = {
       apiKey: "AIzaSyD7UF2aM9q3-xN-VmEIgKOJsP88PiP0AwI",
       authDomain: "monumento-sonoro-39913em.firebaseapp.com",
@@ -416,30 +191,20 @@
       messagingSenderId: "68225402050",
       appId: "1:68225402050:web:e241cd5caa7a4c51d5675b"
     };
-
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const dbRef = ref(db, 'monumento');
-
     console.log('Firebase conectado');
 
-    // ============================================================
-    // DATOS
-    // ============================================================
-    // Cada columna tiene su propia escala musical y timbre para el paisaje sonoro generativo
+    // ===== DATOS =====
     const datosColumna = [
-      { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, forma: 'cubos',
-        escala: [185.00, 220.00, 246.94, 277.18, 329.63, 369.99], onda: 'sine' }, // Fa# menor
-      { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, forma: 'ondas',
-        escala: [196.00, 220.00, 246.94, 293.66, 349.23, 392.00], onda: 'triangle' }, // Sol menor
-      { label: 'MEMORIA ROTA', x: -4.5, z: 3.5, color: 0xff1744, forma: 'rota',
-        escala: [146.83, 164.81, 174.61, 220.00, 246.94, 261.63], onda: 'sawtooth' }, // Re menor
-      { label: 'CULTURA NO SE TORRENTEA', x: 4.5, z: 3.5, color: 0x00e676, forma: 'flotante',
-        escala: [220.00, 246.94, 293.66, 329.63, 392.00, 440.00], onda: 'sine' } // La menor
+      { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, forma: 'cubos', escala: [185.00, 220.00, 246.94, 277.18, 329.63, 369.99], onda: 'sine' },
+      { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, forma: 'ondas', escala: [196.00, 220.00, 246.94, 293.66, 349.23, 392.00], onda: 'triangle' },
+      { label: 'MEMORIA ROTA', x: -4.5, z: 3.5, color: 0xff1744, forma: 'rota', escala: [146.83, 164.81, 174.61, 220.00, 246.94, 261.63], onda: 'sawtooth' },
+      { label: 'CULTURA NO SE TORRENTEA', x: 4.5, z: 3.5, color: 0x00e676, forma: 'flotante', escala: [220.00, 246.94, 293.66, 329.63, 392.00, 440.00], onda: 'sine' }
     ];
 
     const TEXTOS_COMPLETOS = {};
-
     async function cargarTextos() {
       const archivos = [
         { id: 'DATOS MASIVOS', path: 'contenido/datos-masivos.json' },
@@ -487,26 +252,27 @@
       { id: 'substack', label: 'Substack', clase: 'btn-substack', url: (t, u) => `https://substack.com/` }
     ];
 
-    // ============================================================
-    // ESTADO
-    // ============================================================
+    // ===== ESTADO =====
+    // vida       -> esferas activas AHORA MISMO = horas de vida del archivo (integridad y muerte dependen de esto)
+    // siembras   -> contador HISTORICO GENERAL de TODAS las interacciones desde que existe la pagina (nunca se reinicia)
+    // huellas    -> numero de CICLOS de muerte/renacimiento que ha completado el archivo
     const ESTADO = {
-      integridad: 100, visitas: 0, huellas: 0, siembras: 0,
-      vecesCompartido: 0, corrompido: false, muerto: false,
+      vida: 0, huellas: 0, siembras: 0,
+      integridad: 100, vecesCompartido: 0, corrompido: false, muerto: false,
       ultimaVisita: null, ultimaActualizacion: Date.now(),
       mensajes: []
     };
-
     let datosCargados = false;
+    let ultimoDecaimiento = Date.now();
 
     async function cargarEstado() {
       try {
         const snap = await get(dbRef);
         if (snap.exists()) {
           const d = snap.val();
+          ESTADO.vida = d.vida || 0;
           ESTADO.huellas = d.huellas || 0;
           ESTADO.siembras = d.siembras || 0;
-          ESTADO.visitas = d.visitas || 0;
           ESTADO.integridad = d.integridad || 100;
           ESTADO.corrompido = d.corrompido || false;
           ESTADO.muerto = d.muerto || false;
@@ -514,11 +280,7 @@
           ESTADO.vecesCompartido = d.vecesCompartido || 0;
           ESTADO.mensajes = d.mensajes || [];
         } else {
-          await set(dbRef, {
-            huellas: 0, siembras: 0, visitas: 0, integridad: 100,
-            corrompido: false, muerto: false, ultimaVisita: Date.now(),
-            vecesCompartido: 0, mensajes: []
-          });
+          await set(dbRef, { vida: 0, huellas: 0, siembras: 0, integridad: 100, corrompido: false, muerto: false, ultimaVisita: Date.now(), vecesCompartido: 0, mensajes: [] });
         }
       } catch (e) { console.error('Error cargando:', e); }
       datosCargados = true;
@@ -529,8 +291,8 @@
       if (!datosCargados) return;
       try {
         await update(dbRef, {
-          huellas: ESTADO.huellas, siembras: ESTADO.siembras,
-          visitas: ESTADO.visitas, integridad: ESTADO.integridad,
+          vida: ESTADO.vida, huellas: ESTADO.huellas, siembras: ESTADO.siembras,
+          integridad: ESTADO.integridad,
           corrompido: ESTADO.corrompido, muerto: ESTADO.muerto,
           ultimaVisita: ESTADO.ultimaVisita,
           vecesCompartido: ESTADO.vecesCompartido,
@@ -543,52 +305,32 @@
       onValue(dbRef, (snap) => {
         const d = snap.val();
         if (d && datosCargados) {
-          const oldHuellas = ESTADO.huellas;
-          const oldMensajes = ESTADO.mensajes.length;
-
+          const eraMuerto = ESTADO.muerto;
+          ESTADO.vida = d.vida || 0;
           ESTADO.huellas = d.huellas || 0;
           ESTADO.siembras = d.siembras || 0;
-          ESTADO.visitas = d.visitas || 0;
           ESTADO.integridad = d.integridad || 100;
           ESTADO.corrompido = d.corrompido || false;
           ESTADO.muerto = d.muerto || false;
           ESTADO.ultimaVisita = d.ultimaVisita || Date.now();
           ESTADO.vecesCompartido = d.vecesCompartido || 0;
           ESTADO.mensajes = d.mensajes || [];
-
-          if (ESTADO.mensajes.length > oldMensajes) {
-            const nuevo = ESTADO.mensajes[ESTADO.mensajes.length - 1];
-            crearMensajeFlotante(nuevo);
-          }
-          if (ESTADO.huellas > oldHuellas) {
-            const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-            if (col) crearHuella(col.label, col.color);
-          }
+          // actualizarUI() reconcilia esferas y mensajes visuales contra el ESTADO real
+          // (sirve tanto para cambios locales como remotos, sin duplicar ni dejar fantasmas)
           actualizarUI();
-          if (d.muerto && !ESTADO.muerto) mostrarOverlayMuerte();
-          if (d.integridad === 100 && !d.muerto && ESTADO.muerto) mostrarOverlayRenacimiento();
+          if (d.muerto && !eraMuerto) mostrarOverlayMuerte();
+          if (!d.muerto && eraMuerto) mostrarOverlayRenacimiento();
         }
       });
     }
 
-    // dots_activos = ESTADO.huellas + ESTADO.siembras
-    function particulasActivas() { return ESTADO.huellas + ESTADO.siembras; }
+    function particulasActivas() { return ESTADO.vida; }
 
     function actualizarCorrupcion() {
       if (!datosCargados) return;
-      const ahora = Date.now();
-      const horas = (ahora - ESTADO.ultimaActualizacion) / (1000 * 60 * 60);
-
-      // La vida NO decae por tiempo.
-      // Cada interacción suma una hora; destruir una esfera resta exactamente una hora.
-      ESTADO.ultimaActualizacion = ahora;
-
       const p = particulasActivas();
-      // ESTADO.integridad = min(100, dots_activos * 10)
       ESTADO.integridad = Math.min(100, p * 10);
-
       if (p === 0) {
-        // dots_activos === 0 -> el archivo muere
         if (!ESTADO.muerto) {
           ESTADO.muerto = true;
           ESTADO.corrompido = true;
@@ -598,37 +340,34 @@
           limpiarMensajesFlotantes();
         }
       } else {
-        // La muerte es irreversible durante esta sesión/estado.
-        // Las partículas no pueden resucitar el monumento.
         ESTADO.corrompido = p < 8;
       }
-
       guardarEstado();
       actualizarUI();
     }
 
-    // ============================================================
-    // OVERLAYS
-    // ============================================================
+    // ===== DECAIMIENTO NATURAL (revisa cada hora real sin interaccion) =====
+    function decaimientoNatural() {
+      if (ESTADO.muerto) return;
+      const ahora = Date.now();
+      if (ahora - ultimoDecaimiento > 3600000) { // 1 hora
+        if (ESTADO.vida > 0) {
+          ESTADO.vida--;
+          ESTADO.ultimaActualizacion = ahora;
+          actualizarCorrupcion(); // guarda + reconcilia esferas visuales
+        }
+        ultimoDecaimiento = ahora;
+      }
+    }
+
+    // ===== OVERLAYS =====
     const overlayMuerte = document.getElementById('overlay-muerte');
     const cerrarMuerte = document.getElementById('cerrar-overlay-muerte');
     const btnRevivir = document.getElementById('btn-revivir');
-
-    function mostrarOverlayMuerte() {
-      overlayMuerte.classList.add('visible');
-      document.getElementById('estado-muerto').style.display = 'block';
-      limpiarMensajesFlotantes();
-    }
-    function ocultarOverlayMuerte() {
-      overlayMuerte.classList.remove('visible');
-      document.getElementById('estado-muerto').style.display = 'none';
-    }
+    function mostrarOverlayMuerte() { overlayMuerte.classList.add('visible'); document.getElementById('estado-muerto').style.display = 'block'; limpiarMensajesFlotantes(); }
+    function ocultarOverlayMuerte() { overlayMuerte.classList.remove('visible'); document.getElementById('estado-muerto').style.display = 'none'; }
     cerrarMuerte.addEventListener('click', () => overlayMuerte.classList.remove('visible'));
-    btnRevivir.addEventListener('click', () => {
-      // No revive. El boton simplemente permite entrar a la ruina.
-      overlayMuerte.classList.remove('visible');
-    });
-
+    btnRevivir.addEventListener('click', () => overlayMuerte.classList.remove('visible'));
 
     const overlayRenacimiento = document.getElementById('overlay-renacimiento');
     const cerrarRenacimiento = document.getElementById('cerrar-renacimiento');
@@ -636,9 +375,23 @@
     function ocultarOverlayRenacimiento() { overlayRenacimiento.classList.remove('visible'); }
     cerrarRenacimiento.addEventListener('click', () => ocultarOverlayRenacimiento());
 
-    // ============================================================
-    // THREE.JS - ESCENA
-    // ============================================================
+    // Aviso breve NO bloqueante (para cuando una accion no esta disponible sin tapar toda la pantalla)
+    let avisoTimeoutId = null;
+    function avisoTemporal(msg) {
+      let el = document.getElementById('aviso-temporal');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'aviso-temporal';
+        el.style.cssText = 'position:fixed;bottom:220px;left:50%;transform:translateX(-50%);z-index:120;background:rgba(10,10,10,0.9);color:#ff6b35;border:1px solid #ff6b35;padding:8px 16px;border-radius:16px;font-family:"Courier New",monospace;font-size:11px;letter-spacing:0.5px;text-align:center;max-width:80%;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.opacity = '1';
+      if (avisoTimeoutId) clearTimeout(avisoTimeoutId);
+      avisoTimeoutId = setTimeout(() => { el.style.opacity = '0'; }, 2200);
+    }
+
+    // ===== THREE.JS =====
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
@@ -658,9 +411,7 @@
     controls.target.set(0, 1.5, 0);
     controls.update();
 
-    // ============================================================
-    // LUCES
-    // ============================================================
+    // ===== LUCES =====
     const ambient = new THREE.AmbientLight(0x222244, 0.4); scene.add(ambient);
     const main = new THREE.DirectionalLight(0xffffff, 1.5);
     main.position.set(5, 12, 7); main.castShadow = true; scene.add(main);
@@ -669,45 +420,33 @@
     const fill = new THREE.DirectionalLight(0x4fc3f7, 0.3);
     fill.position.set(-3, 0, 8); scene.add(fill);
 
-    // ============================================================
-    // PERSONAJE
-    // ============================================================
+    // ===== PERSONAJE (GUARDIAN): late como el "corazon" visible de la vida de la sala =====
     const guardian = new THREE.Group();
-    const cuerpo = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.6),
-      new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7 }));
+    const cuerpo = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.6), new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7 }));
     cuerpo.position.y = 0.6; cuerpo.castShadow = true; guardian.add(cuerpo);
-    const cabeza = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8),
-      new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.3 }));
+    const cabeza = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8), new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.3 }));
     cabeza.position.y = 1.6; cabeza.castShadow = true; guardian.add(cabeza);
-    const aro = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.05, 8, 16),
-      new THREE.MeshStandardMaterial({ color: 0xff6b35, roughness: 0.2, metalness: 0.8, emissive: 0xff6b35, emissiveIntensity: 0.1 }));
+    const aro = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.05, 8, 16), new THREE.MeshStandardMaterial({ color: 0xff6b35, roughness: 0.2, metalness: 0.8, emissive: 0xff6b35, emissiveIntensity: 0.1 }));
     aro.position.y = 1.6; aro.rotation.x = Math.PI / 3; aro.rotation.z = 0.3; guardian.add(aro);
-    const led = new THREE.Mesh(new THREE.SphereGeometry(0.08, 6, 6),
-      new THREE.MeshStandardMaterial({ color: 0x00e676, emissive: 0x00e676, emissiveIntensity: 0.5 }));
+    const led = new THREE.Mesh(new THREE.SphereGeometry(0.08, 6, 6), new THREE.MeshStandardMaterial({ color: 0x00e676, emissive: 0x00e676, emissiveIntensity: 0.5 }));
     led.position.set(0, 0.7, 0.35); led.name = 'led'; guardian.add(led);
     guardian.position.set(0, 0, 0); scene.add(guardian);
 
-    // ============================================================
-    // COLUMNAS (posición fija, movimiento sutil)
-    // ============================================================
-    const columnas = [];
 
+    // ===== COLUMNAS =====
+    const columnas = [];
     function crearColumna(label, color, forma) {
       const group = new THREE.Group();
-      const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 0.2, 8),
-        new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 }));
+      const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 0.2, 8), new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 }));
       base.position.y = 0.1; base.receiveShadow = true; group.add(base);
-
       let mesh;
-      const cubos = [], anillos = [], grietas = [], fragmentos = [];
-
+      const cubos = [], anillos = [], grietas = [], fragmentos = [], piezasRota = [];
       switch(forma) {
         case 'cubos':
           const g = new THREE.Group();
           for (let i = 0; i < 25; i++) {
             const size = 0.3 + Math.random() * 0.15;
-            const c = new THREE.Mesh(new THREE.BoxGeometry(size, 0.18, size),
-              new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.6, emissive: color, emissiveIntensity: 0.05 + Math.random() * 0.1 }));
+            const c = new THREE.Mesh(new THREE.BoxGeometry(size, 0.18, size), new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.6, emissive: color, emissiveIntensity: 0.05 + Math.random() * 0.1 }));
             c.position.y = 0.2 + i * 0.2;
             c.position.x = (Math.random() - 0.5) * 0.5;
             c.position.z = (Math.random() - 0.5) * 0.5;
@@ -720,8 +459,7 @@
           const og = new THREE.Group();
           for (let i = 0; i < 12; i++) {
             const radio = 0.4 + Math.sin(i * 0.8) * 0.2;
-            const a = new THREE.Mesh(new THREE.TorusGeometry(radio, 0.04, 8, 20),
-              new THREE.MeshStandardMaterial({ color, roughness: 0.1, metalness: 0.9, emissive: color, emissiveIntensity: 0.1, transparent: true, opacity: 0.6 + Math.sin(i * 0.5) * 0.3 }));
+            const a = new THREE.Mesh(new THREE.TorusGeometry(radio, 0.04, 8, 20), new THREE.MeshStandardMaterial({ color, roughness: 0.1, metalness: 0.9, emissive: color, emissiveIntensity: 0.1, transparent: true, opacity: 0.6 + Math.sin(i * 0.5) * 0.3 }));
             a.position.y = 0.3 + i * 0.4;
             a.rotation.x = Math.PI / 2 + Math.sin(i * 0.3) * 0.2;
             a.rotation.z = Math.sin(i * 0.5) * 0.1;
@@ -731,15 +469,12 @@
           mesh = og; mesh.position.y = 2.5; break;
         case 'rota':
           const rg = new THREE.Group();
-          const inf = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 2.5, 8),
-            new THREE.MeshStandardMaterial({ color, roughness: 0.5, metalness: 0.3, emissive: color, emissiveIntensity: 0.05 }));
-          inf.position.y = 1.3; inf.castShadow = true; rg.add(inf);
-          const sup = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.5, 2.2, 8),
-            new THREE.MeshStandardMaterial({ color, roughness: 0.6, metalness: 0.2, emissive: color, emissiveIntensity: 0.1 }));
-          sup.position.set(0.2, 3.5, 0.1); sup.rotation.z = 0.08; sup.rotation.x = 0.05; sup.castShadow = true; rg.add(sup);
+          const inf = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 2.5, 8), new THREE.MeshStandardMaterial({ color, roughness: 0.5, metalness: 0.3, emissive: color, emissiveIntensity: 0.05 }));
+          inf.position.y = 1.3; inf.castShadow = true; rg.add(inf); piezasRota.push(inf);
+          const sup = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.5, 2.2, 8), new THREE.MeshStandardMaterial({ color, roughness: 0.6, metalness: 0.2, emissive: color, emissiveIntensity: 0.1 }));
+          sup.position.set(0.2, 3.5, 0.1); sup.rotation.z = 0.08; sup.rotation.x = 0.05; sup.castShadow = true; rg.add(sup); piezasRota.push(sup);
           for (let i = 0; i < 12; i++) {
-            const g2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.15 + Math.random() * 0.3, 0.02),
-              new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.2 + Math.random() * 0.3 }));
+            const g2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.15 + Math.random() * 0.3, 0.02), new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.2 + Math.random() * 0.3 }));
             g2.position.set((Math.random() - 0.5) * 0.7, 1.5 + Math.random() * 3, (Math.random() - 0.5) * 0.7);
             g2.rotation.z = (Math.random() - 0.5) * 0.3; g2.rotation.x = (Math.random() - 0.5) * 0.3;
             rg.add(g2); grietas.push(g2);
@@ -748,8 +483,7 @@
         case 'flotante':
           const fg = new THREE.Group();
           for (let i = 0; i < 25; i++) {
-            const f = new THREE.Mesh(new THREE.OctahedronGeometry(0.08 + Math.random() * 0.12),
-              new THREE.MeshStandardMaterial({ color, roughness: 0.2, metalness: 0.8, emissive: color, emissiveIntensity: 0.1, transparent: true, opacity: 0.6 + Math.random() * 0.4 }));
+            const f = new THREE.Mesh(new THREE.OctahedronGeometry(0.08 + Math.random() * 0.12), new THREE.MeshStandardMaterial({ color, roughness: 0.2, metalness: 0.8, emissive: color, emissiveIntensity: 0.1, transparent: true, opacity: 0.6 + Math.random() * 0.4 }));
             const ang = Math.random() * Math.PI * 2;
             const rad = 0.3 + Math.random() * 0.7;
             f.position.set(Math.cos(ang) * rad, 0.3 + Math.random() * 4.5, Math.sin(ang) * rad);
@@ -762,54 +496,40 @@
       }
       group.add(mesh);
       const pos = datosColumna.find(d => d.label === label);
-      group.userData = { label, color, forma, mesh, cubos, anillos, grietas, fragmentos, escala: pos?.escala || [261.63, 293.66, 329.63, 392.00], onda: pos?.onda || 'sine' };
+      group.userData = { label, color, forma, mesh, cubos, anillos, grietas, fragmentos, piezasRota, escala: pos?.escala || [261.63, 293.66, 329.63, 392.00], onda: pos?.onda || 'sine' };
 
-      // NOMBRE DE LA COLUMNA COMO BOTON DE DESCARGA (sprite discreto)
+      // BOTON DE DESCARGA (NOMBRE DE COLUMNA)
       const canvas = document.createElement('canvas');
       canvas.width = 512; canvas.height = 100;
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillRect(0,0,512,100);
-
       ctx.font = 'Bold 26px "Courier New", monospace';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.shadowColor = 'rgba(255,107,53,0.15)'; ctx.shadowBlur = 10;
       ctx.fillStyle = '#ff6b35';
       ctx.fillText(label, 256, 45);
-
       ctx.font = '11px "Courier New", monospace';
       ctx.shadowBlur = 0;
       ctx.fillStyle = '#555';
       ctx.fillText('descargar', 256, 75);
-
       const tex = new THREE.CanvasTexture(canvas);
       const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false, opacity: 0.7 }));
       sprite.position.y = 5.8;
       sprite.scale.set(3.2, 0.8, 1);
       sprite.userData = { label: label, esBoton: true };
       group.add(sprite);
-
       group.position.set(pos.x, 0, pos.z);
       return group;
     }
+    datosColumna.forEach(d => { const c = crearColumna(d.label, d.color, d.forma); scene.add(c); columnas.push(c); });
 
-    datosColumna.forEach(d => {
-      const c = crearColumna(d.label, d.color, d.forma);
-      scene.add(c); columnas.push(c);
-    });
-
-    // ============================================================
-    // SUELO
-    // ============================================================
-    const suelo = new THREE.Mesh(new THREE.PlaneGeometry(16, 14),
-      new THREE.MeshStandardMaterial({ color: 0x0a0a1a, roughness: 0.9, metalness: 0.1, transparent: true, opacity: 0.6 }));
+    // ===== SUELO =====
+    const suelo = new THREE.Mesh(new THREE.PlaneGeometry(16, 14), new THREE.MeshStandardMaterial({ color: 0x0a0a1a, roughness: 0.9, metalness: 0.1, transparent: true, opacity: 0.6 }));
     suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, -0.1, 0); suelo.receiveShadow = true; scene.add(suelo);
-    const circulo = new THREE.Mesh(new THREE.RingGeometry(2.2, 2.8, 32),
-      new THREE.MeshStandardMaterial({ color: 0xff6b35, emissive: 0xff6b35, emissiveIntensity: 0.05, transparent: true, opacity: 0.15, side: THREE.DoubleSide }));
+    const circulo = new THREE.Mesh(new THREE.RingGeometry(2.2, 2.8, 32), new THREE.MeshStandardMaterial({ color: 0xff6b35, emissive: 0xff6b35, emissiveIntensity: 0.05, transparent: true, opacity: 0.15, side: THREE.DoubleSide }));
     circulo.rotation.x = -Math.PI / 2; circulo.position.set(0, 0, 0); scene.add(circulo);
 
-    // ============================================================
-    // PARTICULAS / DOTS (huellas)
-    // ============================================================
+    // ===== PARTICULAS / DOTS =====
     const huellasParticulas = [];
 
     function crearHuella(label, color, tipo = 'huella') {
@@ -823,21 +543,59 @@
       scene.add(p); huellasParticulas.push(p); return p;
     }
 
+    // ===== ELIMINAR HUELLA (1 esfera destruida = -1 hora de vida, siempre) =====
+    // El estado se corrige de inmediato; sincronizarEsferas() (dentro de actualizarUI) se encarga
+    // de que la escena siempre refleje exactamente ESTADO.vida, sin fantasmas ni sobrantes.
     function eliminarHuella(p) {
-      if (!p) return;
+      if (!p || p.userData.explotando) return;
+      p.userData.explotando = true;
+
+      ESTADO.vida = Math.max(0, ESTADO.vida - 1);
+      ESTADO.ultimaActualizacion = Date.now();
+      actualizarCorrupcion(); // guarda en Firebase + reconcilia esferas/mensajes/UI
+
+      // Fade puramente visual de ESTA esfera concreta
       const fade = () => {
         p.material.opacity -= 0.05;
         if (p.material.opacity > 0) requestAnimationFrame(fade);
-        else { scene.remove(p); const i = huellasParticulas.indexOf(p); if (i > -1) huellasParticulas.splice(i, 1); }
+        else {
+          scene.remove(p);
+          const i = huellasParticulas.indexOf(p);
+          if (i > -1) huellasParticulas.splice(i, 1);
+        }
       };
       fade();
     }
 
-    // ============================================================
-    // MENSAJES FLOTANTES
-    // ============================================================
-    const mensajesFlotantes = [];
+    // Sincroniza la cantidad de esferas visibles en la escena con ESTADO.vida (o 0 si esta muerto).
+    // Es la UNICA funcion que crea o quita esferas por diferencia de estado: evita duplicados,
+    // fantasmas y sobras de un ciclo anterior, sin importar si el cambio vino de aqui o de otro dispositivo.
+    function sincronizarEsferas() {
+      const objetivo = ESTADO.muerto ? 0 : ESTADO.vida;
+      const activas = huellasParticulas.filter(p => p.userData && !p.userData.explotando);
 
+      if (activas.length > objetivo) {
+        let sobran = activas.length - objetivo;
+        for (let i = 0; i < activas.length && sobran > 0; i++) {
+          const p = activas[i];
+          scene.remove(p);
+          const idx = huellasParticulas.indexOf(p);
+          if (idx > -1) huellasParticulas.splice(idx, 1);
+          sobran--;
+        }
+      } else if (activas.length < objetivo) {
+        let faltan = objetivo - activas.length;
+        while (faltan > 0) {
+          const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+          crearHuella(col.label, col.color);
+          faltan--;
+        }
+      }
+    }
+
+    // ===== MENSAJES FLOTANTES =====
+    const mensajesFlotantes = [];
+    let mensajesRenderizados = 0; // cuantos mensajes de ESTADO.mensajes ya tienen su sprite creado
     function crearMensajeFlotante(texto) {
       const canvas = document.createElement('canvas');
       canvas.width = 512; canvas.height = 128;
@@ -863,24 +621,30 @@
       sprite.userData = { velocidad: 0.1 + Math.random() * 0.2, offset: Math.random() * Math.PI * 2, radio: rad, alturaBase: sprite.position.y, angulo: ang, texto };
       scene.add(sprite); mensajesFlotantes.push(sprite); return sprite;
     }
-
     function limpiarMensajesFlotantes() {
       mensajesFlotantes.forEach(s => scene.remove(s));
       mensajesFlotantes.length = 0;
+      mensajesRenderizados = 0;
     }
 
-    // ============================================================
-    // SONIDO — PAISAJE GENERATIVO ESPACIAL
-    // ============================================================
-    // Cada columna es una voz melódica independiente (su propia escala y timbre),
-    // ubicada en el espacio 3D real mediante PannerNode. El propio motor de audio
-    // resuelve la mezcla según la posición de la cámara: al centro se escuchan
-    // las 4 voces combinadas (paisaje sonoro); al acercarse a una columna, esa
-    // voz se vuelve dominante y las demás se atenúan — sin cálculos manuales
-    // de volumen por distancia, así se mantiene ligero.
+    // Crea sprites SOLO para los mensajes de ESTADO.mensajes que aun no se han renderizado.
+    // Es idempotente (usa un cursor), asi que no importa cuantas veces se llame ni si el cambio
+    // vino de esta pestaña o de otro dispositivo: nunca duplica un mensaje.
+    function sincronizarMensajes() {
+      if (ESTADO.mensajes.length < mensajesRenderizados) {
+        // el array se acorto (ciclo nuevo / limpieza): reiniciar desde cero
+        limpiarMensajesFlotantes();
+      }
+      for (let i = mensajesRenderizados; i < ESTADO.mensajes.length; i++) {
+        crearMensajeFlotante(ESTADO.mensajes[i]);
+      }
+      mensajesRenderizados = ESTADO.mensajes.length;
+    }
+
+    // ===== SONIDO =====
     let audioCtx = null;
     let masterGain = null;
-    let vocesColumna = [];      // { col, panner, voiceGain, proximoTiempo }
+    let vocesColumna = [];
     let schedulerId = null;
     let listenerFrame = 0;
 
@@ -893,34 +657,28 @@
           masterGain.connect(audioCtx.destination);
           crearVocesColumna();
           console.log('Audio iniciado');
-        } catch (e) {
-          console.warn('Error de audio:', e);
-          return;
-        }
+        } catch (e) { console.warn('Error de audio:', e); return; }
       }
       if (audioCtx.state === 'suspended') {
-        audioCtx.resume().then(() => {
-          console.log('Audio reanudado');
-          iniciarScheduler();
-        }).catch(e => console.warn('Error reanudando audio:', e));
-      } else {
-        iniciarScheduler();
-      }
+        audioCtx.resume().then(() => { console.log('Audio reanudado'); iniciarScheduler(); }).catch(e => console.warn('Error reanudando audio:', e));
+      } else { iniciarScheduler(); }
     }
-
     document.addEventListener('click', initAudio);
     document.addEventListener('touchstart', initAudio);
     document.addEventListener('touchend', initAudio);
 
-    // Voz espacial persistente por columna (se reutiliza: no se crean nodos de más)
     function crearVocesColumna() {
+      if (!audioCtx) return;
       vocesColumna = columnas.map(col => {
         const panner = audioCtx.createPanner();
-        panner.panningModel = 'equalpower';
+        panner.panningModel = 'HRTF';
         panner.distanceModel = 'inverse';
-        panner.refDistance = 2.2;
-        panner.maxDistance = 15;
-        panner.rolloffFactor = 1.3;
+        panner.refDistance = 2.0;
+        panner.maxDistance = 18;
+        panner.rolloffFactor = 1.2;
+        panner.coneInnerAngle = 360;
+        panner.coneOuterAngle = 0;
+        panner.coneOuterGain = 0;
         if (panner.positionX) {
           panner.positionX.value = col.position.x;
           panner.positionY.value = 2.5;
@@ -936,36 +694,65 @@
       });
     }
 
+    function actualizarListener() {
+      if (!audioCtx) return;
+      const l = audioCtx.listener;
+      const p = camera.position;
+      const dir = new THREE.Vector3();
+      camera.getWorldDirection(dir);
+      try {
+        if (l.setPosition) {
+          l.setPosition(p.x, p.y, p.z);
+          l.setOrientation(dir.x, dir.y, dir.z, 0, 1, 0);
+        } else if (l.positionX) {
+          const t = audioCtx.currentTime;
+          l.positionX.setValueAtTime(p.x, t);
+          l.positionY.setValueAtTime(p.y, t);
+          l.positionZ.setValueAtTime(p.z, t);
+          l.forwardX.setValueAtTime(dir.x, t);
+          l.forwardY.setValueAtTime(dir.y, t);
+          l.forwardZ.setValueAtTime(dir.z, t);
+          l.upX.setValueAtTime(0, t); l.upY.setValueAtTime(1, t); l.upZ.setValueAtTime(0, t);
+        }
+      } catch(e) {}
+    }
+
     function factorSalud() {
       if (ESTADO.muerto) return 0;
       return Math.max(0.12, Math.min(1, ESTADO.integridad / 100));
     }
 
-    // Una nota generativa de la escala de una columna
+    // Variacion lenta y segura (no toca la arquitectura del motor): un LFO de ciclo largo
+    // (~12-15 minutos) que hace que el paisaje "respire" en vez de sonar siempre igual.
+    function evolucionLenta() {
+      if (!audioCtx) return 0.5;
+      return (Math.sin(audioCtx.currentTime * 0.0075) + 1) / 2; // 0..1, ciclo ~14 min
+    }
+
     function tocarNotaColumna(voz, tiempo) {
+      if (!audioCtx) return;
       const d = voz.col.userData;
       const escala = d.escala;
       const salud = factorSalud();
-      const freq = escala[Math.floor(Math.random() * escala.length)] * (Math.random() < 0.15 ? 2 : 1);
-      const dur = 1.6 + Math.random() * 1.4;
+      const evo = evolucionLenta();
+      // La probabilidad de octava alta y la duracion respiran lentamente con evo,
+      // en vez de quedarse fijas todo el tiempo.
+      const probOctava = 0.08 + evo * 0.22;
+      const freq = escala[Math.floor(Math.random() * escala.length)] * (Math.random() < probOctava ? 2 : 1);
+      const dur = 1.3 + evo * 1.8 + Math.random() * 1.2;
       const vol = 0.05 + salud * 0.09;
-
       const osc = audioCtx.createOscillator();
       osc.type = d.onda;
       osc.frequency.setValueAtTime(freq, tiempo);
-
       const noteGain = audioCtx.createGain();
       noteGain.gain.setValueAtTime(0.0001, tiempo);
       noteGain.gain.exponentialRampToValueAtTime(vol, tiempo + 0.25);
       noteGain.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur);
-
       osc.connect(noteGain);
       noteGain.connect(voz.panner);
       osc.start(tiempo);
       osc.stop(tiempo + dur + 0.1);
-
-      // Acorde extra cuando la sala está sana (mas riqueza armonica)
-      if (salud > 0.7 && Math.random() < 0.4) {
+      if (salud > 0.7 && Math.random() < (0.25 + evo * 0.3)) {
         const freq2 = escala[Math.floor(Math.random() * escala.length)];
         const osc2 = audioCtx.createOscillator();
         osc2.type = d.onda;
@@ -979,18 +766,20 @@
       }
     }
 
-    // Scheduler con lookahead (evita drift de setInterval, sin sobrecargar)
     const LOOKAHEAD = 0.22;
     function scheduleTick() {
       if (!audioCtx || ESTADO.muerto) return;
       const salud = factorSalud();
+      const evo = evolucionLenta();
       const ahora = audioCtx.currentTime;
       vocesColumna.forEach(voz => {
         if (voz.proximoTiempo < ahora + LOOKAHEAD) {
-          tocarNotaColumna(voz, Math.max(voz.proximoTiempo, ahora + 0.02));
-          // A mas salud, notas mas frecuentes (paisaje mas vivo); a menos salud, mas disperso
+          // De vez en cuando se salta una nota (silencio breve): evita que suene como un loop fijo
+          const saltar = Math.random() < 0.08 + (1 - evo) * 0.1;
+          if (!saltar) tocarNotaColumna(voz, Math.max(voz.proximoTiempo, ahora + 0.02));
           const base = 3.2 / (0.4 + salud);
-          voz.proximoTiempo += base * (0.7 + Math.random() * 0.6);
+          const variacion = 0.6 + Math.random() * 0.8 + evo * 0.5; // el tempo tambien respira
+          voz.proximoTiempo += base * variacion;
         }
       });
     }
@@ -1001,17 +790,6 @@
       actualizarMasterGain();
     }
 
-    function detenerSonido() {
-      if (schedulerId) { clearInterval(schedulerId); schedulerId = null; }
-      if (masterGain) {
-        const t = audioCtx.currentTime;
-        masterGain.gain.cancelScheduledValues(t);
-        masterGain.gain.setValueAtTime(masterGain.gain.value, t);
-        masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
-      }
-    }
-
-    // El volumen general respira con la vida del archivo; en 0 horas, silencio total
     function actualizarMasterGain() {
       if (!audioCtx || !masterGain) return;
       const t = audioCtx.currentTime;
@@ -1025,7 +803,6 @@
 
     function playSound(freqs, dur = 0.3, vol = 0.04) {
       if (!audioCtx || audioCtx.state === 'closed' || !masterGain) return;
-
       const emitir = () => {
         if (!audioCtx || audioCtx.state !== 'running' || !masterGain) return;
         let nivel = ESTADO.muerto ? vol * 0.1 : vol;
@@ -1045,51 +822,18 @@
           });
         } catch(e) {}
       };
-
       if (audioCtx.state === 'suspended') {
-        audioCtx.resume().then(() => {
-          actualizarMasterGain();
-          emitir();
-        }).catch(() => {});
-      } else {
-        emitir();
-      }
+        audioCtx.resume().then(() => { actualizarMasterGain(); emitir(); }).catch(() => {});
+      } else { emitir(); }
     }
 
     function playPop() { playSound([800, 1000], 0.15, 0.05); }
     function playPageTurn() { playSound([400, 500], 0.2, 0.03); }
     function playRenacimiento() { playSound([300, 500, 700, 900], 1.5, 0.06); }
 
-    // ============================================================
-    // LISTENER 3D (posición/orientación de cámara) — throttled
-    // ============================================================
-    function actualizarListener() {
-      if (!audioCtx) return;
-      const l = audioCtx.listener;
-      const p = camera.position;
-      const dir = new THREE.Vector3();
-      camera.getWorldDirection(dir);
-      if (l.positionX) {
-        const t = audioCtx.currentTime;
-        l.positionX.setValueAtTime(p.x, t);
-        l.positionY.setValueAtTime(p.y, t);
-        l.positionZ.setValueAtTime(p.z, t);
-        l.forwardX.setValueAtTime(dir.x, t);
-        l.forwardY.setValueAtTime(dir.y, t);
-        l.forwardZ.setValueAtTime(dir.z, t);
-        l.upX.setValueAtTime(0, t); l.upY.setValueAtTime(1, t); l.upZ.setValueAtTime(0, t);
-      } else if (l.setPosition) {
-        l.setPosition(p.x, p.y, p.z);
-        l.setOrientation(dir.x, dir.y, dir.z, 0, 1, 0);
-      }
-    }
-
-    // ============================================================
-    // INTERACCIONES
-    // ============================================================
+    // ===== INTERACCIONES =====
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
-
     renderer.domElement.addEventListener('pointermove', e => {
       pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -1098,75 +842,52 @@
     function corromperTexto(texto, nivel = 0.3) {
       if (!texto) return texto;
       if (ESTADO.muerto) {
-        return texto.split('').map(() => {
-          const chars = ['\u2591', '\u2592', '\u2593', '\u2588', '\u2584', '\u2580', '\u25A0', '\u25A1', '\u25AA', '\u25AB', '\u25CA'];
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join('');
+        return texto.split('').map(() => { const chars = ['\u2591', '\u2592', '\u2593', '\u2588', '\u2584', '\u2580', '\u25A0', '\u25A1', '\u25AA', '\u25AB', '\u25CA']; return chars[Math.floor(Math.random() * chars.length)]; }).join('');
       }
-
       const chars = texto.split('');
       const resultado = [];
       const rotos = ['\u2591', '\u2592', '\u2593', '\u2588', '\u2584', '\u2580', '\u25A0', '\u25A1', '\u25AA', '\u25AB', '\u25CA'];
       const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
-
       for (let i = 0; i < chars.length; i++) {
         if (Math.random() < nivel) {
-          if (Math.random() < 0.5) {
-            resultado.push(rotos[Math.floor(Math.random() * rotos.length)]);
-          } else if ('AEIOUaeiou'.includes(chars[i])) {
-            resultado.push(vocales[Math.floor(Math.random() * vocales.length)]);
-          } else {
-            resultado.push(chars[i]);
-          }
-        } else {
-          resultado.push(chars[i]);
-        }
+          if (Math.random() < 0.5) { resultado.push(rotos[Math.floor(Math.random() * rotos.length)]); }
+          else if ('AEIOUaeiou'.includes(chars[i])) { resultado.push(vocales[Math.floor(Math.random() * vocales.length)]); }
+          else { resultado.push(chars[i]); }
+        } else { resultado.push(chars[i]); }
       }
       return resultado.join('');
     }
 
-    // ===== CLIC EN NOMBRE DE COLUMNA (DESCARGA) -> genera un dot =====
+    // ===== CLIC EN NOMBRE DE COLUMNA (DESCARGA) =====
     renderer.domElement.addEventListener('click', async e => {
       if (!audioCtx) initAudio();
-      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
-
+      // Ya NO relanzamos el overlay de muerte en cada clic: eso impedia recorrer la ruina.
+      // El overlay solo aparece una vez, al morir, y el usuario decide cuando cerrarlo.
       const rect = renderer.domElement.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
         -((e.clientY - rect.top) / rect.height) * 2 + 1
       );
       raycaster.setFromCamera(mouse, camera);
-
       const sprites = [];
       columnas.forEach(col => {
         col.children.forEach(child => {
-          if (child.isSprite && child.userData && child.userData.esBoton) {
-            sprites.push(child);
-          }
+          if (child.isSprite && child.userData && child.userData.esBoton) { sprites.push(child); }
         });
       });
-
       const hits = raycaster.intersectObjects(sprites);
       if (hits.length > 0) {
         const sprite = hits[0].object;
         const label = sprite.userData.label;
         const data = TEXTOS_COMPLETOS[label];
         if (!data) return;
-
         let contenido = data.cuerpo || 'Contenido no disponible.';
-
-        if (ESTADO.muerto) {
-          contenido = 'EL ARCHIVO HA MUERTO.\nNo hay texto disponible.';
-        } else if (ESTADO.integridad < 100) {
-          if (ESTADO.integridad < 40) {
-            contenido = corromperTexto(contenido, 0.7);
-          } else if (ESTADO.integridad < 70) {
-            contenido = corromperTexto(contenido, 0.4);
-          } else {
-            contenido = corromperTexto(contenido, 0.1);
-          }
+        if (ESTADO.muerto) { contenido = 'EL ARCHIVO HA MUERTO.\nNo hay texto disponible.'; }
+        else if (ESTADO.integridad < 100) {
+          if (ESTADO.integridad < 40) { contenido = corromperTexto(contenido, 0.7); }
+          else if (ESTADO.integridad < 70) { contenido = corromperTexto(contenido, 0.4); }
+          else { contenido = corromperTexto(contenido, 0.1); }
         }
-
         const element = document.createElement('div');
         element.style.padding = '30px';
         element.style.fontFamily = 'Georgia, serif';
@@ -1174,15 +895,11 @@
         element.style.background = '#fafafa';
         element.style.maxWidth = '700px';
         element.style.margin = '0 auto';
-
         let htmlContent = `
           <div style="text-align:center; border-bottom:2px solid #ff6b35; padding-bottom:15px; margin-bottom:15px;">
             <h1 style="font-size:24px; margin:0; color:#0a0a0a;">MONUMENTO SONORO</h1>
             <p style="font-size:11px; color:#666; letter-spacing:1px; text-transform:uppercase;">Archivo de Señal · 39913EM</p>
           </div>
-        `;
-
-        htmlContent += `
           <div style="margin-bottom:15px;">
             <h2 style="font-size:20px; margin:0 0 4px;">${data.titulo}</h2>
             ${data.subtitulo ? `<p style="font-size:14px; color:#555; font-style:italic; margin:0 0 8px;">${data.subtitulo}</p>` : ''}
@@ -1193,10 +910,8 @@
             Archivo de Señal · ${new Date().toLocaleDateString()} · ${window.location.origin}/archivo-de-senal/
           </div>
         `;
-
         element.innerHTML = htmlContent;
         document.body.appendChild(element);
-
         try {
           await html2pdf().set({
             margin: 10,
@@ -1207,24 +922,22 @@
           }).from(element).save();
         } catch (err) { console.error('Error generando PDF:', err); }
         document.body.removeChild(element);
-
-        // Descargar un ensayo genera un dot
-        const col = datosColumna.find(d => d.label === label);
-        crearHuella(label, col ? col.color : 0xff6b35);
-        ESTADO.huellas++;
-        ESTADO.ultimaActualizacion = Date.now();
-        guardarEstado();
-        actualizarCorrupcion();
-        playPageTurn();
+        if (!ESTADO.muerto) {
+          // No creamos la esfera aqui: sincronizarEsferas() la agrega sola al llamar actualizarCorrupcion()
+          ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
+          ESTADO.siembras++; // historico general
+          ESTADO.ultimaActualizacion = Date.now();
+          actualizarCorrupcion(); // guarda + reconcilia
+          playPageTurn();
+        } else {
+          avisoTemporal('Archivo muerto: contenido ilegible. Comparte 5 semillas para revivirlo.');
+        }
       }
     });
 
-    // ===== DOS TOQUES PARA DESTRUIR UNA ESFERA =====
-    // Primer toque: la esfera responde. Segundo toque: explota y resta exactamente 1 hora.
+    // ===== DESTRUIR ESFERA (DOS TOQUES) =====
     renderer.domElement.addEventListener('pointerdown', (e) => {
       if (ESTADO.muerto) return;
-      if (!audioCtx || audioCtx.state !== 'running') initAudio();
-
       const rect = renderer.domElement.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
@@ -1233,28 +946,22 @@
       raycaster.setFromCamera(mouse, camera);
       const hits = raycaster.intersectObjects(huellasParticulas, false);
       if (!hits.length) return;
-
       const p = hits[0].object;
       if (!p.userData || p.userData.explotando) return;
       p.userData.toques = (p.userData.toques || 0) + 1;
-
       if (p.userData.toques === 1) {
-        // Primer toque: respuesta, pero NO destruye.
         playSound([520, 780], 0.16, 0.035);
         p.scale.setScalar(1.8);
         setTimeout(() => { if (p.parent) p.scale.setScalar(1); }, 140);
-        e.stopPropagation();
         return;
       }
-
-      // Segundo toque: explosion atomica de UNA sola esfera.
-      p.userData.explotando = true;
+      // Segundo toque: EXPLOSION (eliminarHuella se encarga de marcar explotando=true,
+      // restar la hora de vida y quitar la esfera de la escena)
       const pos = p.position.clone();
       const col = new THREE.Color(p.material.color.getHex());
       const explosion = new THREE.Group();
       explosion.position.copy(pos);
       scene.add(explosion);
-
       for (let i = 0; i < 12; i++) {
         const frag = new THREE.Mesh(
           new THREE.SphereGeometry(0.025 + Math.random() * 0.025, 5, 5),
@@ -1264,16 +971,7 @@
         explosion.add(frag);
       }
       playSound([180, 120, 70], 0.35, 0.08);
-
-      const tipo = p.userData.tipo || 'huella';
       eliminarHuella(p);
-      if (tipo === 'siembra') ESTADO.siembras = Math.max(0, ESTADO.siembras - 1);
-      else ESTADO.huellas = Math.max(0, ESTADO.huellas - 1);
-      ESTADO.ultimaActualizacion = Date.now();
-      actualizarCorrupcion();
-      guardarEstado();
-      actualizarUI();
-
       let frames = 0;
       const animExplosion = () => {
         frames++;
@@ -1290,9 +988,7 @@
       e.stopPropagation();
     });
 
-    // ============================================================
-    // PANEL DE CITA Y COMPARTIR (SEMBRAR)
-    // ============================================================
+    // ===== PANEL DE CITA Y COMPARTIR =====
     const panelCita = document.getElementById('panel-cita');
     const citaTexto = document.getElementById('cita-texto');
     const citaAutor = document.getElementById('cita-autor');
@@ -1308,42 +1004,43 @@
     }
 
     function registrarCompartido() {
-      if (ESTADO.muerto) {
-        mostrarOverlayMuerte();
+      if (!ESTADO.muerto) {
+        // El archivo YA esta vivo: cada comparticion individual suma vida de inmediato.
+        // Nada de esperar a juntar otras 5 ni de mostrar overlay de "renacio" (nunca murio).
+        ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
+        ESTADO.siembras++; // historico general
+        ESTADO.ultimaActualizacion = Date.now();
+        actualizarCorrupcion(); // guarda + reconcilia esferas/UI
+        playPageTurn();
         return;
       }
+      // El archivo esta muerto: el UNICO camino para revivirlo sigue siendo juntar 5 comparticiones.
       get(dbRef).then(snap => {
-        if (snap.exists()) {
-          let v = (snap.val().vecesCompartido || 0) + 1;
-
-          if (v >= 5) {
-            // Renacimiento: 5 comparticiones
-            update(dbRef, {
-              huellas: 10,
-              siembras: 0,
-              integridad: 100,
-              corrompido: false,
-              muerto: false,
-              vecesCompartido: 0,
-              ultimaVisita: Date.now()
-            }).then(() => {
-              ESTADO.huellas = 10;
-              ESTADO.siembras = 0;
-              ESTADO.integridad = 100;
-              ESTADO.corrompido = false;
-              ESTADO.muerto = false;
-              ESTADO.vecesCompartido = 0;
-              ESTADO.ultimaActualizacion = Date.now();
-              ocultarOverlayMuerte();
-              mostrarOverlayRenacimiento();
-              playRenacimiento();
-              actualizarUI();
-            });
-          } else {
-            update(dbRef, { vecesCompartido: v, ultimaVisita: Date.now() });
-            ESTADO.vecesCompartido = v;
+        if (!snap.exists()) return;
+        let v = (snap.val().vecesCompartido || 0) + 1;
+        if (v >= 5) {
+          update(dbRef, {
+            vida: 10, integridad: 100, corrompido: false,
+            muerto: false, vecesCompartido: 0, ultimaVisita: Date.now(),
+            huellas: (ESTADO.huellas || 0) + 1,   // +1 ciclo completo de muerte/renacimiento
+            mensajes: []                            // ciclo de mensajes: reinicia sin flotantes
+          }).then(() => {
+            ESTADO.vida = 10; ESTADO.integridad = 100;
+            ESTADO.corrompido = false; ESTADO.muerto = false;
+            ESTADO.vecesCompartido = 0; ESTADO.ultimaActualizacion = Date.now();
+            ESTADO.huellas++;
+            ESTADO.mensajes = [];
+            ocultarOverlayMuerte();
+            mostrarOverlayRenacimiento();
+            playRenacimiento();
+            // No creamos esferas a mano aqui: actualizarUI() -> sincronizarEsferas() se encarga de
+            // quitar cualquier sobra del ciclo anterior Y de crear las 10 nuevas, en un solo paso.
             actualizarUI();
-          }
+          });
+        } else {
+          update(dbRef, { vecesCompartido: v, ultimaVisita: Date.now() });
+          ESTADO.vecesCompartido = v;
+          actualizarUI();
         }
       });
     }
@@ -1382,27 +1079,25 @@
     }
 
     btnSembrar.addEventListener('click', async () => {
-      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
       const c = generarCita();
       await generarBotonesCompartir(c.texto, c.autor);
       panelCita.classList.add('visible');
-
-      // Sembrar cultura genera una SEMILLA: +1 hora de vida.
-      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      crearHuella(col.label, col.color, 'siembra');
-      ESTADO.siembras++;
-      ESTADO.ultimaActualizacion = Date.now();
-      guardarEstado();
-      actualizarCorrupcion();
-      playPageTurn();
+      if (!ESTADO.muerto) {
+        // Sembrar solo regala una esfera si el archivo esta vivo.
+        // Estando muerto, SEMBRAR sigue disponible unicamente como el camino de revivir (5 comparticiones).
+        // No creamos la esfera aqui: sincronizarEsferas() la agrega sola.
+        ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
+        ESTADO.siembras++; // historico general
+        ESTADO.ultimaActualizacion = Date.now();
+        actualizarCorrupcion(); // guarda + reconcilia
+        playPageTurn();
+      }
     });
 
     cerrarCita.addEventListener('click', () => panelCita.classList.remove('visible'));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') panelCita.classList.remove('visible'); });
 
-    // ============================================================
-    // RAYAR
-    // ============================================================
+    // ===== RAYAR =====
     const inputRayar = document.getElementById('input-rayar');
     const btnRayar = document.getElementById('btn-rayar');
     const cerrarRayar = document.getElementById('cerrar-rayar');
@@ -1410,7 +1105,7 @@
     const mensajeRayar = document.getElementById('mensaje-rayar');
 
     btnRayar.addEventListener('click', () => {
-      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
+      if (ESTADO.muerto) { avisoTemporal('Archivo muerto: no se pueden dejar mensajes. Comparte 5 semillas para revivirlo.'); return; }
       inputRayar.classList.toggle('visible');
       if (inputRayar.classList.contains('visible')) mensajeRayar.focus();
     });
@@ -1418,19 +1113,12 @@
     enviarRayar.addEventListener('click', async () => {
       const t = mensajeRayar.value.trim();
       if (!t) return;
-      const snap = await get(dbRef);
-      let msgs = snap.exists() ? snap.val().mensajes || [] : [];
-      msgs.push(t);
-      await update(dbRef, { mensajes: msgs });
-      ESTADO.mensajes = msgs;
-      crearMensajeFlotante(t);
-
-      // Rayar el archivo genera un dot
-      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      crearHuella(col.label, col.color);
-      ESTADO.huellas++;
+      // Un solo lote de cambios de estado: actualizarCorrupcion() ya guarda en Firebase y reconcilia
+      // esferas/mensajes de forma idempotente (no importa si el eco de Firebase llega antes o despues).
+      ESTADO.mensajes = [...ESTADO.mensajes, t];
+      ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
+      ESTADO.siembras++; // historico general
       ESTADO.ultimaActualizacion = Date.now();
-      guardarEstado();
       actualizarCorrupcion();
       mensajeRayar.value = '';
       inputRayar.classList.remove('visible');
@@ -1440,21 +1128,17 @@
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarRayar.click(); }
     });
 
-    // ============================================================
-    // MENSAJE FLOTANTE DESDE CITA
-    // ============================================================
+    // ===== MENSAJE FLOTANTE DESDE CITA =====
     const msgCita = document.getElementById('mensaje-cita');
     const msgCitaTexto = document.getElementById('mensaje-cita-texto');
     const msgCitaAutor = document.getElementById('mensaje-cita-autor');
     const cerrarMsg = document.getElementById('cerrar-mensaje-cita');
-
     function mostrarMsgCita(texto, autor) {
       msgCitaTexto.textContent = `"${texto}"`;
       msgCitaAutor.textContent = `— ${autor}`;
       msgCita.classList.add('visible');
     }
     cerrarMsg.addEventListener('click', () => msgCita.classList.remove('visible'));
-
     const params = new URLSearchParams(window.location.search);
     const citaParam = params.get('cita');
     if (citaParam) {
@@ -1464,9 +1148,7 @@
       else mostrarMsgCita(dec, 'Archivo de Señal');
     }
 
-    // ============================================================
-    // INSTRUCCIONES
-    // ============================================================
+    // ===== INSTRUCCIONES =====
     const panelInst = document.getElementById('panel-instrucciones');
     const cerrarInst = document.getElementById('cerrar-instrucciones');
     const btnInst = document.getElementById('btn-instrucciones');
@@ -1477,21 +1159,17 @@
     cerrarInst.addEventListener('click', () => panelInst.classList.add('oculto'));
     btnInst.addEventListener('click', () => panelInst.classList.remove('oculto'));
 
-    // ============================================================
-    // UI
-    // ============================================================
+    // ===== UI =====
     function actualizarUI() {
-      const p = particulasActivas();
-      document.getElementById('visitas').textContent = ESTADO.visitas;
-      document.getElementById('huellas').textContent = ESTADO.huellas;
-      document.getElementById('siembras').textContent = ESTADO.siembras;
+      const p = particulasActivas(); // = ESTADO.vida = horas de vida = esferas activas
+      document.getElementById('huellas').textContent = ESTADO.huellas;     // ciclos de muerte/renacimiento
+      document.getElementById('siembras').textContent = ESTADO.siembras;   // interacciones totales historicas
       document.getElementById('particulas').textContent = p;
       document.getElementById('tiempo-restante').textContent = p + 'h';
       document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
       document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
       document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
       document.getElementById('contador-mensajes').textContent = ESTADO.mensajes.length;
-
       if (ESTADO.muerto) {
         document.getElementById('estado-muerto').style.display = 'block';
         document.getElementById('alerta-corrupcion').style.display = 'none';
@@ -1505,24 +1183,23 @@
         document.getElementById('estado-muerto').style.display = 'none';
         document.getElementById('integridad').style.color = '#00e676';
       }
-
       document.getElementById('btn-sembrar').style.display = 'block';
-
-      // El paisaje sonoro respira con la vida/integridad del archivo
       if (audioCtx) actualizarMasterGain();
+
+      // Un solo punto de reconciliacion: la escena SIEMPRE termina reflejando el ESTADO real,
+      // sin importar si el cambio vino de una accion local o de otro dispositivo (Firebase).
+      sincronizarEsferas();
+      sincronizarMensajes();
     }
 
-    // ============================================================
-    // DEBUG
-    // ============================================================
+    // ===== DEBUG =====
     const btnDebug = document.getElementById('btn-debug');
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('debug') === 'true') {
       btnDebug.style.display = 'block';
       btnDebug.addEventListener('click', () => {
         if (confirm('Forzar muerte del archivo?')) {
-          ESTADO.huellas = 0;
-          ESTADO.siembras = 0;
+          ESTADO.vida = 0;
           ESTADO.ultimaActualizacion = Date.now() - 25 * 60 * 60 * 1000;
           guardarEstado();
           actualizarCorrupcion();
@@ -1531,28 +1208,43 @@
       });
     }
 
-    // ============================================================
-    // ANIMACION
-    // ============================================================
+    // ===== ANIMACION =====
     let time = 0, lastTick = Date.now();
 
     function animate() {
       requestAnimationFrame(animate);
       time += 0.01;
-      if (Date.now() - lastTick > 10000 && datosCargados) {
+
+      // Decaimiento natural (revisar cada 10 segundos)
+      if (Date.now() - lastTick > 10000) {
         lastTick = Date.now();
-        actualizarCorrupcion();
+        decaimientoNatural();
+        if (datosCargados) { actualizarCorrupcion(); }
       }
 
-      // Listener 3D throttled (~10hz) para que el paisaje sonoro siga a la camara
+      // Listener 3D
       listenerFrame++;
-      if (audioCtx && listenerFrame % 6 === 0) actualizarListener();
+      if (audioCtx && listenerFrame % 3 === 0) actualizarListener();
 
       guardian.rotation.y = Math.sin(time * 0.3) * 0.1;
 
+      // El LED del guardian late como un corazon: mas vida = late rapido y verde;
+      // se corrompe = laten naranja/rojo mas erratico; muerto = casi apagado, latido lento y tenue.
+      {
+        const vidaFrac = Math.max(0, Math.min(1, ESTADO.vida / 10));
+        const bpm = ESTADO.muerto ? 0.4 : 1.0 + vidaFrac * 2.2; // late mas rapido con mas vida
+        const latido = Math.pow(Math.max(0, Math.sin(time * bpm * 3)), 6); // pulso corto tipo "lub-dub"
+        const colorLed = ESTADO.muerto ? 0x552222 : (ESTADO.corrompido ? 0xff8a30 : 0x00e676);
+        led.material.color.setHex(colorLed);
+        led.material.emissive.setHex(colorLed);
+        led.material.emissiveIntensity = ESTADO.muerto ? 0.08 + latido * 0.1 : 0.3 + latido * 0.9;
+        const escalaLed = 1 + latido * (ESTADO.muerto ? 0.1 : 0.5);
+        led.scale.set(escalaLed, escalaLed, escalaLed);
+      }
+
       huellasParticulas.forEach((p, i) => {
         const d = p.userData;
-        if (d) {
+        if (d && !d.explotando) {
           const na = d.angulo + time * d.velocidad * 0.02;
           const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.2;
           p.position.x = Math.cos(na) * d.radio;
@@ -1560,6 +1252,7 @@
           p.position.y = alt;
           p.material.opacity = 0.5 + Math.sin(time + i) * 0.3;
         }
+        // si esta explotando, no la tocamos: eliminarHuella() ya controla su fade hasta desaparecer
       });
 
       mensajesFlotantes.forEach((s, i) => {
@@ -1581,7 +1274,6 @@
       columnas.forEach((col, i) => {
         const off = i * 0.5;
         const forma = col.userData.forma;
-        // Movimiento sutil: la altura de la columna no varía drásticamente
         col.position.y = muerto ? -0.15 : Math.sin(time * 0.5 + off) * 0.04;
 
         if (forma === 'cubos' && col.userData.cubos) {
@@ -1646,6 +1338,25 @@
           });
         }
 
+        // Cuerpo principal de MEMORIA ROTA (los 2 cilindros del pilar quebrado):
+        // sin esto, la columna nunca se veia afectada por la muerte/corrupcion.
+        if (forma === 'rota' && col.userData.piezasRota) {
+          col.userData.piezasRota.forEach((m, idx) => {
+            if (muerto) {
+              m.material.color.setHex(0x2a2a2a);
+              m.material.emissiveIntensity = 0;
+              m.rotation.z += (Math.random() - 0.5) * 0.002; // se sigue desmoronando
+            } else if (corrupto) {
+              m.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.6).getHex());
+              m.material.emissiveIntensity = 0.05 + nivel * 0.35;
+              m.position.x += (Math.random() - 0.5) * 0.005 * nivel;
+            } else {
+              m.material.color.setHex(col.userData.color);
+              m.material.emissiveIntensity = idx === 0 ? 0.05 : 0.1;
+            }
+          });
+        }
+
         if (forma === 'flotante' && col.userData.fragmentos) {
           col.userData.fragmentos.forEach((f, idx) => {
             const d = f.userData;
@@ -1675,14 +1386,12 @@
         }
 
         if (muerto && Math.random() < 0.005) {
-          const flash = new THREE.Mesh(new THREE.SphereGeometry(0.3, 4, 4),
-            new THREE.MeshBasicMaterial({ color: 0x220000, transparent: true, opacity: 0.15 }));
+          const flash = new THREE.Mesh(new THREE.SphereGeometry(0.3, 4, 4), new THREE.MeshBasicMaterial({ color: 0x220000, transparent: true, opacity: 0.15 }));
           flash.position.set(0, 2.5 + Math.random() * 3, 0);
           col.add(flash);
           setTimeout(() => col.remove(flash), 200);
         } else if (corrupto && !muerto && Math.random() < 0.01) {
-          const flash = new THREE.Mesh(new THREE.SphereGeometry(0.4 + nivel * 0.3, 4, 4),
-            new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.1 + nivel * 0.2 }));
+          const flash = new THREE.Mesh(new THREE.SphereGeometry(0.4 + nivel * 0.3, 4, 4), new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.1 + nivel * 0.2 }));
           flash.position.set(0, 2.5 + Math.random() * 3, 0);
           col.add(flash);
           setTimeout(() => col.remove(flash), 100);
@@ -1695,37 +1404,22 @@
 
     animate();
 
-    // ============================================================
-    // INICIO
-    // ============================================================
-    // El audio arranca ANTES de cualquier await de Firebase/red.
-    // Si el navegador bloquea autoplay, los listeners de pointer/touch/teclado
-    // de initAudio() lo reanudan en el primer gesto del usuario.
+    // ===== INICIO =====
     initAudio();
-
     await cargarTextos();
-    await cargarEstado();
+    await cargarEstado(); // ya llama actualizarUI() al final: reconcilia esferas/mensajes existentes
     escucharCambios();
 
-    if (ESTADO.mensajes && ESTADO.mensajes.length > 0) {
-      ESTADO.mensajes.forEach(m => crearMensajeFlotante(m));
-    }
-
     if (!citaParam) {
-      // Entrar a la sala genera un dot
-      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      crearHuella(col.label, col.color);
-      ESTADO.huellas++;
-      ESTADO.visitas++;
+      // Entrar a la sala: no creamos la esfera a mano, sincronizarEsferas() la agrega sola.
+      ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
+      ESTADO.siembras++; // historico general (entrar tambien cuenta como interaccion)
       ESTADO.ultimaActualizacion = Date.now();
       await guardarEstado();
       actualizarUI();
     }
 
     if (ESTADO.muerto) mostrarOverlayMuerte();
-
-    // El motor ya fue inicializado antes de cargar Firebase; aquí solo se sincroniza
-    // su volumen/estado con la vida real de la sala.
     if (audioCtx) actualizarMasterGain();
 
     window.addEventListener('resize', () => {
@@ -1734,10 +1428,10 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    console.log('MONUMENTO SONORO - ACTUALIZADO');
-    console.log('Huellas:', ESTADO.huellas);
-    console.log('Siembras:', ESTADO.siembras);
-    console.log('Visitas:', ESTADO.visitas);
+    console.log('MONUMENTO SONORO - vida/ciclos/historial restaurados');
+    console.log('Vida (esferas activas):', ESTADO.vida);
+    console.log('Ciclos muerte/renacimiento:', ESTADO.huellas);
+    console.log('Interacciones historicas:', ESTADO.siembras);
     console.log('Integridad:', ESTADO.integridad + '%');
     console.log('Muerto:', ESTADO.muerto);
     console.log('Semillas:', ESTADO.vecesCompartido + '/5');
