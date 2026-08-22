@@ -333,18 +333,16 @@
     <button id="cerrar-instrucciones">&#10005;</button>
     <h4>COMO TRANSITAR</h4>
     <p>
-      ACERCATE a las columnas y recorre la sala.<br>
-      Clic en el NOMBRE de una columna &rarr; descarga el ensayo.<br>
-      El archivo se lee COMPLETO solo con INTEGRIDAD 100%.<br>
-      Al disminuir la integridad, el texto se corrompe progresivamente hasta volverse ilegible.<br>
-      Cada interacción que genera una espora aporta 1 HORA DE VIDA al monumento.<br>
-      Las esporas son SEMILLAS: un primer toque las activa; el segundo las HACE EXPLOTAR y resta exactamente 1 HORA.<br>
-      destruir semillas reduce su tiempo de vida.<br>
-    
-      El paisaje sonoro es generativo y se vuelve más rico, denso y armónico mientras aumenta la vida del archivo.<br>
-      Al llegar a 0 HORAS, el archivo MUERE<br>
-     
-      5 citas compartidas &rarr; el archivo puede renacer (&#10024;)
+      ACERCATE a las columnas<br>
+      Clic en el NOMBRE de una columna &rarr; descarga el ensayo<br>
+      SEMBRAR &rarr; genera una cita para compartir<br>
+      RAYAR &rarr; deja un mensaje flotante en la sala<br>
+      Cada interaccion con la sala crea 1 hora de vida<br>
+      Cada espora necesita DOS toques: el segundo la hace explotar y resta 1 hora<br>
+      INTEGRIDAD 100% &rarr; archivo completamente legible<br>
+      Al disminuir la integridad, el archivo se corrompe progresivamente<br>
+      Si las horas llegan a 0, el monumento muere<br>
+      El monumento muerto requiere 5 semillas para revivir
     </p>
     <p style="font-size:10px; opacity:0.5; margin-top:5px;">Se recomienda usar auriculares</p>
   </div>
@@ -372,7 +370,8 @@
     <div class="contenido">
       <div class="simbolo">&#128128;</div>
       <div class="titulo">EL ARCHIVO HA MUERTO</div>
-      <div class="texto">La memoria se ha corrompido.<br><br><strong>La ruina permanece. Puedes seguir transitándola.</strong><br><span style="font-size:12px;color:#666;">El archivo no se revive desde esta pantalla.</span></div>
+      <div class="texto">La memoria se ha corrompido.<br><br><strong>El monumento ha muerto.</strong><br>
+      Puedes cerrar este aviso y recorrer la ruina. El archivo no sera revivido a la fuerza.</div>
       <button class="btn-revivir" id="btn-revivir">ENTRAR A LA RUINA</button>
     </div>
   </div>
@@ -577,25 +576,31 @@
 
     function actualizarCorrupcion() {
       if (!datosCargados) return;
+      const ahora = Date.now();
+      const horas = (ahora - ESTADO.ultimaActualizacion) / (1000 * 60 * 60);
 
-      // La vida se mide en horas acumuladas por interacción: cada esfera = 1 hora.
-      // No existe un decaimiento por tiempo que pueda borrar varias esferas de golpe.
-      // La única pérdida directa es la destrucción explícita de una esfera.
+      // La vida NO decae por tiempo.
+      // Cada interacción suma una hora; destruir una esfera resta exactamente una hora.
+      ESTADO.ultimaActualizacion = ahora;
+
       const p = particulasActivas();
+      // ESTADO.integridad = min(100, dots_activos * 10)
       ESTADO.integridad = Math.min(100, p * 10);
 
       if (p === 0) {
-        // 0% = muerte permanente hasta que opere el mecanismo de renacimiento.
+        // dots_activos === 0 -> el archivo muere
         if (!ESTADO.muerto) {
           ESTADO.muerto = true;
           ESTADO.corrompido = true;
           ESTADO.integridad = 0;
+          ESTADO.mensajes = [];
           mostrarOverlayMuerte();
+          limpiarMensajesFlotantes();
         }
       } else {
-        // Importante: tener una esfera no revive automáticamente una sala muerta.
-        // Solo el mecanismo explícito de renacimiento puede cambiar muerto -> vivo.
-        ESTADO.corrompido = p < 10;
+        // La muerte es irreversible durante esta sesión/estado.
+        // Las partículas no pueden resucitar el monumento.
+        ESTADO.corrompido = p < 8;
       }
 
       guardarEstado();
@@ -612,16 +617,18 @@
     function mostrarOverlayMuerte() {
       overlayMuerte.classList.add('visible');
       document.getElementById('estado-muerto').style.display = 'block';
-      detenerSonido();
-      // La muerte no destruye la ruina visual: solo silencia el paisaje sonoro.
+      limpiarMensajesFlotantes();
     }
     function ocultarOverlayMuerte() {
       overlayMuerte.classList.remove('visible');
-      document.getElementById('estado-muerto').style.display = 'block';
+      document.getElementById('estado-muerto').style.display = 'none';
     }
-    cerrarMuerte.addEventListener('click', ocultarOverlayMuerte);
-    // Este botón ya NO crea vida. Solo permite entrar a la ruina.
-    btnRevivir.addEventListener('click', ocultarOverlayMuerte);
+    cerrarMuerte.addEventListener('click', () => overlayMuerte.classList.remove('visible'));
+    btnRevivir.addEventListener('click', () => {
+      // No revive. El boton simplemente permite entrar a la ruina.
+      overlayMuerte.classList.remove('visible');
+    });
+
 
     const overlayRenacimiento = document.getElementById('overlay-renacimiento');
     const cerrarRenacimiento = document.getElementById('cerrar-renacimiento');
@@ -754,7 +761,8 @@
           mesh = fg; mesh.position.y = 0.5; break;
       }
       group.add(mesh);
-      group.userData = { label, color, forma, mesh, cubos, anillos, grietas, fragmentos };
+      const pos = datosColumna.find(d => d.label === label);
+      group.userData = { label, color, forma, mesh, cubos, anillos, grietas, fragmentos, escala: pos?.escala || [261.63, 293.66, 329.63, 392.00], onda: pos?.onda || 'sine' };
 
       // NOMBRE DE LA COLUMNA COMO BOTON DE DESCARGA (sprite discreto)
       const canvas = document.createElement('canvas');
@@ -780,7 +788,6 @@
       sprite.userData = { label: label, esBoton: true };
       group.add(sprite);
 
-      const pos = datosColumna.find(d => d.label === label);
       group.position.set(pos.x, 0, pos.z);
       return group;
     }
@@ -801,105 +808,29 @@
     circulo.rotation.x = -Math.PI / 2; circulo.position.set(0, 0, 0); scene.add(circulo);
 
     // ============================================================
-    // PARTICULAS / DOTS (huellas / semillas)
+    // PARTICULAS / DOTS (huellas)
     // ============================================================
-    // Cada esfera representa exactamente 1 hora de vida.
-    // Una interacción crea una esfera = +1 hora.
-    // Una esfera necesita EXACTAMENTE 2 toques:
-    //   1er toque -> responde pero sobrevive.
-    //   2º toque -> explota, desaparece y resta exactamente 1 hora.
     const huellasParticulas = [];
 
     function crearHuella(label, color, tipo = 'huella') {
-      const g = new THREE.SphereGeometry(0.09, 8, 8);
-      const m = new THREE.MeshStandardMaterial({
-        color, emissive: color,
-        emissiveIntensity: 0.45 + Math.random() * 0.25,
-        transparent: true, opacity: 0.82
-      });
+      const g = new THREE.SphereGeometry(0.06 + Math.random() * 0.04, 6, 6);
+      const m = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.3 + Math.random() * 0.3, transparent: true, opacity: 0.6 + Math.random() * 0.4 });
       const p = new THREE.Mesh(g, m);
       const ang = Math.random() * Math.PI * 2;
       const rad = 1 + Math.random() * 4;
-      p.position.set(
-        Math.cos(ang) * rad,
-        0.5 + Math.random() * 4,
-        Math.sin(ang) * rad
-      );
-      p.userData = {
-        velocidad: 0.1 + Math.random() * 0.2,
-        offset: Math.random() * Math.PI * 2,
-        radio: rad,
-        alturaBase: p.position.y,
-        angulo: ang,
-        label,
-        tipo,
-        toques: 0,
-        destruida: false
-      };
-      scene.add(p);
-      huellasParticulas.push(p);
-      return p;
-    }
-
-    function reconstruirEsferas() {
-      huellasParticulas.forEach(p => scene.remove(p));
-      huellasParticulas.length = 0;
-
-      for (let i = 0; i < ESTADO.huellas; i++) {
-        const col = datosColumna[i % datosColumna.length];
-        crearHuella(col.label, col.color, 'huella');
-      }
-      for (let i = 0; i < ESTADO.siembras; i++) {
-        const col = datosColumna[(i + ESTADO.huellas) % datosColumna.length];
-        crearHuella(col.label, col.color, 'siembra');
-      }
+      p.position.set(Math.cos(ang) * rad, 0.5 + Math.random() * 4, Math.sin(ang) * rad);
+      p.userData = { velocidad: 0.1 + Math.random() * 0.2, offset: Math.random() * Math.PI * 2, radio: rad, alturaBase: p.position.y, angulo: ang, label, tipo, toques: 0, explotando: false };
+      scene.add(p); huellasParticulas.push(p); return p;
     }
 
     function eliminarHuella(p) {
-      if (!p || p.userData?.destruida !== true) return;
-      const i = huellasParticulas.indexOf(p);
-      if (i !== -1) huellasParticulas.splice(i, 1);
-      scene.remove(p);
-      if (p.geometry) p.geometry.dispose();
-      if (p.material) p.material.dispose();
-    }
-
-    // Explosión corta y barata: pocos fragmentos reutilizables durante 450 ms.
-    // No afecta ninguna otra esfera.
-    const explosiones = [];
-
-    function explotarSemilla(p) {
-      if (!p || p.userData?.explosionHecha) return;
-      p.userData.explosionHecha = true;
-
-      const color = p.material.color.getHex();
-      const origen = p.position.clone();
-
-      eliminarHuella(p);
-
-      for (let i = 0; i < 10; i++) {
-        const g = new THREE.SphereGeometry(0.025 + Math.random() * 0.025, 5, 5);
-        const m = new THREE.MeshBasicMaterial({
-          color,
-          transparent: true,
-          opacity: 0.9
-        });
-        const f = new THREE.Mesh(g, m);
-        f.position.copy(origen);
-        const a = Math.random() * Math.PI * 2;
-        const elev = (Math.random() - 0.5) * 1.5;
-        f.userData = {
-          vx: Math.cos(a) * (0.035 + Math.random() * 0.06),
-          vy: elev * 0.04,
-          vz: Math.sin(a) * (0.035 + Math.random() * 0.06),
-          vida: 0
-        };
-        scene.add(f);
-        explosiones.push(f);
-      }
-
-      // Sonido de destrucción: breve y claramente diferente al sonido de la sala.
-      playExplosion();
+      if (!p) return;
+      const fade = () => {
+        p.material.opacity -= 0.05;
+        if (p.material.opacity > 0) requestAnimationFrame(fade);
+        else { scene.remove(p); const i = huellasParticulas.indexOf(p); if (i > -1) huellasParticulas.splice(i, 1); }
+      };
+      fade();
     }
 
     // ============================================================
@@ -941,300 +872,191 @@
     // ============================================================
     // SONIDO — PAISAJE GENERATIVO ESPACIAL
     // ============================================================
-    // Hay UNA voz musical por columna.
-    // - Centro de la sala: las cuatro fuentes forman el paisaje completo.
-    // - Cerca de una columna: su fuente domina por espacialización 3D.
-    // - Cada columna posee escala, timbre, registro y ritmo propios.
-    // - La vida del monumento controla densidad, armonía y riqueza.
-    // - A 0 horas: scheduler detenido + master en silencio.
-    //
-    // IMPORTANTE SOBRE AUTOPLAY:
-    // Web Audio puede ser bloqueado por la política del navegador. El código
-    // intenta arrancar al entrar y vuelve a intentar en el primer gesto.
+    // Cada columna es una voz melódica independiente (su propia escala y timbre),
+    // ubicada en el espacio 3D real mediante PannerNode. El propio motor de audio
+    // resuelve la mezcla según la posición de la cámara: al centro se escuchan
+    // las 4 voces combinadas (paisaje sonoro); al acercarse a una columna, esa
+    // voz se vuelve dominante y las demás se atenúan — sin cálculos manuales
+    // de volumen por distancia, así se mantiene ligero.
     let audioCtx = null;
     let masterGain = null;
-    let vocesColumna = [];
+    let vocesColumna = [];      // { col, panner, voiceGain, proximoTiempo }
     let schedulerId = null;
     let listenerFrame = 0;
-    let audioInicializado = false;
 
-    function crearContextoAudio() {
-      if (audioCtx) return true;
-      try {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (!Ctx) return false;
-
-        audioCtx = new Ctx({
-          latencyHint: 'interactive',
-          sampleRate: 44100
-        });
-
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.0001;
-        masterGain.connect(audioCtx.destination);
-
-        crearVocesColumna();
-        actualizarListener();
-        audioInicializado = true;
-        console.log('MONUMENTO SONORO: motor de audio creado', audioCtx.state);
-        return true;
-      } catch (e) {
-        console.warn('No se pudo crear Web Audio:', e);
-        return false;
-      }
-    }
-
-    async function initAudio() {
-      if (!crearContextoAudio()) return false;
-
-      try {
-        if (audioCtx.state !== 'running') {
-          await audioCtx.resume();
+    function initAudio() {
+      if (!audioCtx) {
+        try {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = 0.0001;
+          masterGain.connect(audioCtx.destination);
+          crearVocesColumna();
+          console.log('Audio iniciado');
+        } catch (e) {
+          console.warn('Error de audio:', e);
+          return;
         }
-
-        actualizarListener();
-        actualizarMasterGain();
-
-        if (!ESTADO.muerto && !schedulerId) iniciarScheduler();
-
-        console.log('MONUMENTO SONORO: audio', audioCtx.state);
-        return audioCtx.state === 'running';
-      } catch (e) {
-        console.warn('Audio aún bloqueado; se reintentará en el siguiente gesto.', e);
-        return false;
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume().then(() => {
+          console.log('Audio reanudado');
+          iniciarScheduler();
+        }).catch(e => console.warn('Error reanudando audio:', e));
+      } else {
+        iniciarScheduler();
       }
     }
 
-    // Intento al entrar. Si el navegador permite autoplay, comienza sin gesto.
-    // Si lo bloquea, cualquier interacción con la sala vuelve a llamar initAudio().
-    function solicitarAudio() {
-      initAudio();
-    }
+    document.addEventListener('click', initAudio);
+    document.addEventListener('touchstart', initAudio);
+    document.addEventListener('touchend', initAudio);
 
-    window.addEventListener('load', solicitarAudio, { once: true });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) solicitarAudio();
-    });
-
-    // Desbloqueo universal: no depende de clicar una esfera o un botón concreto.
-    ['pointerdown', 'pointerup', 'touchstart', 'keydown'].forEach(evt => {
-      document.addEventListener(evt, () => { initAudio(); }, {
-        capture: true,
-        passive: true
-      });
-    });
-
+    // Voz espacial persistente por columna (se reutiliza: no se crean nodos de más)
     function crearVocesColumna() {
-      vocesColumna = columnas.map((col, index) => {
+      vocesColumna = columnas.map(col => {
         const panner = audioCtx.createPanner();
-        panner.panningModel = 'HRTF';
+        panner.panningModel = 'equalpower';
         panner.distanceModel = 'inverse';
-        panner.refDistance = 2.0;
-        panner.maxDistance = 18;
-        panner.rolloffFactor = 1.25;
-        panner.coneInnerAngle = 360;
-        panner.coneOuterAngle = 360;
-        panner.coneOuterGain = 0.12;
-
-        if ('positionX' in panner) {
+        panner.refDistance = 2.2;
+        panner.maxDistance = 15;
+        panner.rolloffFactor = 1.3;
+        if (panner.positionX) {
           panner.positionX.value = col.position.x;
           panner.positionY.value = 2.5;
           panner.positionZ.value = col.position.z;
-        } else {
+        } else if (panner.setPosition) {
           panner.setPosition(col.position.x, 2.5, col.position.z);
         }
-
         const voiceGain = audioCtx.createGain();
-        voiceGain.gain.value = 0.72;
+        voiceGain.gain.value = 1;
         panner.connect(voiceGain);
         voiceGain.connect(masterGain);
-
-        return {
-          col,
-          panner,
-          voiceGain,
-          proximoTiempo: audioCtx.currentTime + 0.15 + index * 0.35,
-          indice: index
-        };
+        return { col, panner, voiceGain, proximoTiempo: audioCtx.currentTime + Math.random() * 2 };
       });
     }
 
     function factorSalud() {
       if (ESTADO.muerto) return 0;
-      const horas = particulasActivas();
-      // 10h representa el máximo de riqueza, pero cualquier hora mantiene viva la sala.
-      return Math.max(0, Math.min(1, horas / 10));
+      return Math.max(0.12, Math.min(1, ESTADO.integridad / 100));
     }
 
+    // Una nota generativa de la escala de una columna
     function tocarNotaColumna(voz, tiempo) {
-      if (!audioCtx || audioCtx.state !== 'running' || ESTADO.muerto) return;
-
       const d = voz.col.userData;
-      const salud = factorSalud();
-      if (salud <= 0) return;
-
       const escala = d.escala;
-      const base = escala[Math.floor(Math.random() * escala.length)];
-      const octava = Math.random() < (0.10 + salud * 0.18) ? 2 : 1;
-      const freq = base * octava;
-
-      // Más vida = notas más largas y mayor posibilidad de relaciones armónicas.
-      const dur = 1.2 + Math.random() * (1.0 + salud * 1.8);
-      const ataque = 0.08 + Math.random() * 0.16;
-      const volumen = 0.018 + salud * 0.045;
+      const salud = factorSalud();
+      const freq = escala[Math.floor(Math.random() * escala.length)] * (Math.random() < 0.15 ? 2 : 1);
+      const dur = 1.6 + Math.random() * 1.4;
+      const vol = 0.05 + salud * 0.09;
 
       const osc = audioCtx.createOscillator();
-      const noteGain = audioCtx.createGain();
-
       osc.type = d.onda;
       osc.frequency.setValueAtTime(freq, tiempo);
 
-      // Microvariación generativa, sin desafinar la identidad de la columna.
-      osc.detune.setValueAtTime((Math.random() - 0.5) * (4 + salud * 8), tiempo);
-
+      const noteGain = audioCtx.createGain();
       noteGain.gain.setValueAtTime(0.0001, tiempo);
-      noteGain.gain.exponentialRampToValueAtTime(volumen, tiempo + ataque);
+      noteGain.gain.exponentialRampToValueAtTime(vol, tiempo + 0.25);
       noteGain.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur);
 
       osc.connect(noteGain);
       noteGain.connect(voz.panner);
       osc.start(tiempo);
-      osc.stop(tiempo + dur + 0.08);
+      osc.stop(tiempo + dur + 0.1);
 
-      // Armonía secundaria: aumenta con la vida, nunca crea un nodo permanente.
-      if (salud > 0.25 && Math.random() < 0.22 + salud * 0.42) {
-        const intervalo = [1, 1.25, 1.3333, 1.5, 1.6667, 2][Math.floor(Math.random() * 6)];
+      // Acorde extra cuando la sala está sana (mas riqueza armonica)
+      if (salud > 0.7 && Math.random() < 0.4) {
+        const freq2 = escala[Math.floor(Math.random() * escala.length)];
         const osc2 = audioCtx.createOscillator();
+        osc2.type = d.onda;
+        osc2.frequency.setValueAtTime(freq2, tiempo + 0.1);
         const g2 = audioCtx.createGain();
-
-        osc2.type = indexSeguroOnda(d.onda);
-        osc2.frequency.setValueAtTime(freq * intervalo, tiempo + 0.06);
-        g2.gain.setValueAtTime(0.0001, tiempo + 0.06);
-        g2.gain.exponentialRampToValueAtTime(volumen * 0.34, tiempo + 0.18);
-        g2.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur * 0.9);
-
-        osc2.connect(g2);
-        g2.connect(voz.panner);
-        osc2.start(tiempo + 0.06);
-        osc2.stop(tiempo + dur + 0.1);
+        g2.gain.setValueAtTime(0.0001, tiempo + 0.1);
+        g2.gain.exponentialRampToValueAtTime(vol * 0.6, tiempo + 0.4);
+        g2.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur);
+        osc2.connect(g2); g2.connect(voz.panner);
+        osc2.start(tiempo + 0.1); osc2.stop(tiempo + dur + 0.2);
       }
     }
 
-    function indexSeguroOnda(onda) {
-      return onda === 'sawtooth' ? 'triangle' : onda;
-    }
-
-    const LOOKAHEAD = 0.28;
-
+    // Scheduler con lookahead (evita drift de setInterval, sin sobrecargar)
+    const LOOKAHEAD = 0.22;
     function scheduleTick() {
-      if (!audioCtx || audioCtx.state !== 'running' || ESTADO.muerto) return;
-
+      if (!audioCtx || ESTADO.muerto) return;
       const salud = factorSalud();
-      if (salud <= 0) return;
-
       const ahora = audioCtx.currentTime;
-
       vocesColumna.forEach(voz => {
-        while (voz.proximoTiempo < ahora + LOOKAHEAD) {
-          tocarNotaColumna(voz, Math.max(voz.proximoTiempo, ahora + 0.025));
-
-          // Más horas = mayor actividad. Menos horas = paisaje más vacío.
-          const intervaloBase = 5.0 - salud * 2.7;
-          voz.proximoTiempo += intervaloBase * (0.72 + Math.random() * 0.56);
+        if (voz.proximoTiempo < ahora + LOOKAHEAD) {
+          tocarNotaColumna(voz, Math.max(voz.proximoTiempo, ahora + 0.02));
+          // A mas salud, notas mas frecuentes (paisaje mas vivo); a menos salud, mas disperso
+          const base = 3.2 / (0.4 + salud);
+          voz.proximoTiempo += base * (0.7 + Math.random() * 0.6);
         }
       });
     }
 
     function iniciarScheduler() {
-      if (schedulerId || !audioCtx || audioCtx.state !== 'running' || ESTADO.muerto) return;
-      schedulerId = setInterval(scheduleTick, 100);
-      scheduleTick();
+      if (schedulerId) return;
+      schedulerId = setInterval(scheduleTick, 120);
+      actualizarMasterGain();
     }
 
     function detenerSonido() {
-      if (schedulerId) {
-        clearInterval(schedulerId);
-        schedulerId = null;
-      }
-
-      if (masterGain && audioCtx) {
+      if (schedulerId) { clearInterval(schedulerId); schedulerId = null; }
+      if (masterGain) {
         const t = audioCtx.currentTime;
         masterGain.gain.cancelScheduledValues(t);
-        masterGain.gain.setValueAtTime(Math.max(masterGain.gain.value, 0.0001), t);
-        masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.65);
+        masterGain.gain.setValueAtTime(masterGain.gain.value, t);
+        masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
       }
     }
 
+    // El volumen general respira con la vida del archivo; en 0 horas, silencio total
     function actualizarMasterGain() {
       if (!audioCtx || !masterGain) return;
-
       const t = audioCtx.currentTime;
-      const salud = factorSalud();
-      const objetivo = ESTADO.muerto
-        ? 0.0001
-        : 0.05 + salud * 0.30;
-
+      const objetivo = ESTADO.muerto ? 0.0001 : 0.15 + factorSalud() * 0.25;
       masterGain.gain.cancelScheduledValues(t);
-      masterGain.gain.setValueAtTime(Math.max(masterGain.gain.value, 0.0001), t);
-      masterGain.gain.linearRampToValueAtTime(objetivo, t + 0.7);
-
-      if (ESTADO.muerto || salud <= 0) {
-        if (schedulerId) {
-          clearInterval(schedulerId);
-          schedulerId = null;
-        }
-      } else if (audioCtx.state === 'running' && !schedulerId) {
-        iniciarScheduler();
-      }
+      masterGain.gain.setValueAtTime(masterGain.gain.value, t);
+      masterGain.gain.linearRampToValueAtTime(objetivo, t + 1.5);
+      if (ESTADO.muerto) { if (schedulerId) { clearInterval(schedulerId); schedulerId = null; } }
+      else if (!schedulerId) { iniciarScheduler(); }
     }
 
     function playSound(freqs, dur = 0.3, vol = 0.04) {
-      if (!audioCtx || audioCtx.state !== 'running') {
-        initAudio();
-        return;
+      if (!audioCtx || audioCtx.state === 'closed' || !masterGain) return;
+
+      const emitir = () => {
+        if (!audioCtx || audioCtx.state !== 'running' || !masterGain) return;
+        let nivel = ESTADO.muerto ? vol * 0.1 : vol;
+        try {
+          const ahora = audioCtx.currentTime;
+          freqs.forEach((f, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f * (1 + i * 0.01), ahora);
+            gain.gain.setValueAtTime(Math.max(0.0001, nivel / freqs.length), ahora);
+            gain.gain.exponentialRampToValueAtTime(0.001, ahora + dur);
+            osc.connect(gain);
+            gain.connect(masterGain);
+            osc.start(ahora);
+            osc.stop(ahora + dur);
+          });
+        } catch(e) {}
+      };
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume().then(() => {
+          actualizarMasterGain();
+          emitir();
+        }).catch(() => {});
+      } else {
+        emitir();
       }
-
-      try {
-        freqs.forEach((f, i) => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.value = f * (1 + i * 0.01);
-          gain.gain.setValueAtTime(Math.max(0.0001, vol / freqs.length), audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
-          osc.connect(gain);
-          gain.connect(masterGain);
-          osc.start();
-          osc.stop(audioCtx.currentTime + dur);
-        });
-      } catch (e) {
-        console.warn('Error en sonido de interacción:', e);
-      }
     }
 
-    function playPop() {
-      playSound([800, 1000, 1250], 0.12, 0.045);
-    }
-
-    function playExplosion() {
-      playSound([180, 120, 80, 55], 0.42, 0.10);
-      if (!audioCtx || audioCtx.state !== 'running') return;
-
-      const t = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(260, t);
-      osc.frequency.exponentialRampToValueAtTime(42, t + 0.36);
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.06, t + 0.015);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
-      osc.connect(gain);
-      gain.connect(masterGain);
-      osc.start(t);
-      osc.stop(t + 0.42);
-    }
-
+    function playPop() { playSound([800, 1000], 0.15, 0.05); }
     function playPageTurn() { playSound([400, 500], 0.2, 0.03); }
     function playRenacimiento() { playSound([300, 500, 700, 900], 1.5, 0.06); }
 
@@ -1306,6 +1128,8 @@
     // ===== CLIC EN NOMBRE DE COLUMNA (DESCARGA) -> genera un dot =====
     renderer.domElement.addEventListener('click', async e => {
       if (!audioCtx) initAudio();
+      if (ESTADO.muerto) { mostrarOverlayMuerte(); return; }
+
       const rect = renderer.domElement.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
@@ -1332,8 +1156,7 @@
         let contenido = data.cuerpo || 'Contenido no disponible.';
 
         if (ESTADO.muerto) {
-          // La ruina sigue siendo consultable: el contenido está muerto e ilegible.
-          contenido = corromperTexto(contenido, 1);
+          contenido = 'EL ARCHIVO HA MUERTO.\nNo hay texto disponible.';
         } else if (ESTADO.integridad < 100) {
           if (ESTADO.integridad < 40) {
             contenido = corromperTexto(contenido, 0.7);
@@ -1396,59 +1219,75 @@
       }
     });
 
-    // ===== SEMILLAS: EXACTAMENTE 2 TOQUES PARA EXPLOTAR =====
+    // ===== DOS TOQUES PARA DESTRUIR UNA ESFERA =====
+    // Primer toque: la esfera responde. Segundo toque: explota y resta exactamente 1 hora.
     renderer.domElement.addEventListener('pointerdown', (e) => {
-      if (e.button !== undefined && e.button !== 0) return;
-
-      // Toda interacción con la sala intenta desbloquear el motor de audio.
-      initAudio();
+      if (ESTADO.muerto) return;
+      if (!audioCtx || audioCtx.state !== 'running') initAudio();
 
       const rect = renderer.domElement.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
         -((e.clientY - rect.top) / rect.height) * 2 + 1
       );
-
       raycaster.setFromCamera(mouse, camera);
       const hits = raycaster.intersectObjects(huellasParticulas, false);
       if (!hits.length) return;
 
-      e.stopPropagation();
-
       const p = hits[0].object;
-      const d = p.userData;
-      if (!d || d.destruida || d.explosionHecha) return;
+      if (!p.userData || p.userData.explotando) return;
+      p.userData.toques = (p.userData.toques || 0) + 1;
 
-      d.toques = (d.toques || 0) + 1;
-
-      if (d.toques === 1) {
-        // La semilla recibe el primer impacto, pero NO pierde vida todavía.
-        p.scale.setScalar(1.55);
-        p.material.emissiveIntensity = 1.25;
-        playPop();
-
-        setTimeout(() => {
-          if (!d.destruida && !d.explosionHecha) {
-            p.scale.setScalar(1);
-            p.material.emissiveIntensity = 0.55;
-          }
-        }, 220);
+      if (p.userData.toques === 1) {
+        // Primer toque: respuesta, pero NO destruye.
+        playSound([520, 780], 0.16, 0.035);
+        p.scale.setScalar(1.8);
+        setTimeout(() => { if (p.parent) p.scale.setScalar(1); }, 140);
+        e.stopPropagation();
         return;
       }
 
-      // SEGUNDO TOQUE = EXPLOSIÓN = -1 HORA.
-      d.destruida = true;
-      explotarSemilla(p);
+      // Segundo toque: explosion atomica de UNA sola esfera.
+      p.userData.explotando = true;
+      const pos = p.position.clone();
+      const col = new THREE.Color(p.material.color.getHex());
+      const explosion = new THREE.Group();
+      explosion.position.copy(pos);
+      scene.add(explosion);
 
-      if (d.tipo === 'siembra') {
-        ESTADO.siembras = Math.max(0, ESTADO.siembras - 1);
-      } else {
-        ESTADO.huellas = Math.max(0, ESTADO.huellas - 1);
+      for (let i = 0; i < 12; i++) {
+        const frag = new THREE.Mesh(
+          new THREE.SphereGeometry(0.025 + Math.random() * 0.025, 5, 5),
+          new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.95 })
+        );
+        frag.userData.v = new THREE.Vector3((Math.random()-0.5)*0.09, (Math.random()-0.5)*0.09, (Math.random()-0.5)*0.09);
+        explosion.add(frag);
       }
+      playSound([180, 120, 70], 0.35, 0.08);
 
+      const tipo = p.userData.tipo || 'huella';
+      eliminarHuella(p);
+      if (tipo === 'siembra') ESTADO.siembras = Math.max(0, ESTADO.siembras - 1);
+      else ESTADO.huellas = Math.max(0, ESTADO.huellas - 1);
       ESTADO.ultimaActualizacion = Date.now();
       actualizarCorrupcion();
+      guardarEstado();
       actualizarUI();
+
+      let frames = 0;
+      const animExplosion = () => {
+        frames++;
+        explosion.children.forEach(f => {
+          f.position.add(f.userData.v);
+          f.userData.v.multiplyScalar(0.94);
+          f.scale.multiplyScalar(0.96);
+          f.material.opacity *= 0.93;
+        });
+        if (frames < 28) requestAnimationFrame(animExplosion);
+        else scene.remove(explosion);
+      };
+      requestAnimationFrame(animExplosion);
+      e.stopPropagation();
     });
 
     // ============================================================
@@ -1469,7 +1308,10 @@
     }
 
     function registrarCompartido() {
-      // Compartir sigue siendo posible en la ruina; 5 comparticiones pueden activar el renacimiento.
+      if (ESTADO.muerto) {
+        mostrarOverlayMuerte();
+        return;
+      }
       get(dbRef).then(snap => {
         if (snap.exists()) {
           let v = (snap.val().vecesCompartido || 0) + 1;
@@ -1492,7 +1334,6 @@
               ESTADO.muerto = false;
               ESTADO.vecesCompartido = 0;
               ESTADO.ultimaActualizacion = Date.now();
-              reconstruirEsferas();
               ocultarOverlayMuerte();
               mostrarOverlayRenacimiento();
               playRenacimiento();
@@ -1546,7 +1387,7 @@
       await generarBotonesCompartir(c.texto, c.autor);
       panelCita.classList.add('visible');
 
-      // Sembrar cultura genera un dot al abrir la siembra
+      // Sembrar cultura genera una SEMILLA: +1 hora de vida.
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
       crearHuella(col.label, col.color, 'siembra');
       ESTADO.siembras++;
@@ -1586,7 +1427,7 @@
 
       // Rayar el archivo genera un dot
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      crearHuella(col.label, col.color, 'huella');
+      crearHuella(col.label, col.color);
       ESTADO.huellas++;
       ESTADO.ultimaActualizacion = Date.now();
       guardarEstado();
@@ -1682,7 +1523,7 @@
         if (confirm('Forzar muerte del archivo?')) {
           ESTADO.huellas = 0;
           ESTADO.siembras = 0;
-          ESTADO.ultimaActualizacion = Date.now();
+          ESTADO.ultimaActualizacion = Date.now() - 25 * 60 * 60 * 1000;
           guardarEstado();
           actualizarCorrupcion();
           actualizarUI();
@@ -1705,7 +1546,7 @@
 
       // Listener 3D throttled (~10hz) para que el paisaje sonoro siga a la camara
       listenerFrame++;
-      if (audioCtx && listenerFrame % 4 === 0) actualizarListener();
+      if (audioCtx && listenerFrame % 6 === 0) actualizarListener();
 
       guardian.rotation.y = Math.sin(time * 0.3) * 0.1;
 
@@ -1848,26 +1689,6 @@
         }
       });
 
-      // Actualizar explosiones sin tocar ninguna otra esfera.
-      for (let i = explosiones.length - 1; i >= 0; i--) {
-        const f = explosiones[i];
-        const d = f.userData;
-        d.vida += 0.016;
-        f.position.x += d.vx;
-        f.position.y += d.vy;
-        f.position.z += d.vz;
-        d.vy -= 0.0018;
-        f.material.opacity = Math.max(0, 0.9 * (1 - d.vida / 0.45));
-        f.scale.multiplyScalar(1.025);
-
-        if (d.vida >= 0.45) {
-          scene.remove(f);
-          f.geometry.dispose();
-          f.material.dispose();
-          explosiones.splice(i, 1);
-        }
-      }
-
       controls.update();
       renderer.render(scene, camera);
     }
@@ -1877,24 +1698,23 @@
     // ============================================================
     // INICIO
     // ============================================================
+    // El audio arranca ANTES de cualquier await de Firebase/red.
+    // Si el navegador bloquea autoplay, los listeners de pointer/touch/teclado
+    // de initAudio() lo reanudan en el primer gesto del usuario.
+    initAudio();
+
     await cargarTextos();
     await cargarEstado();
     escucharCambios();
-
-    // Reconstruir visualmente TODAS las horas almacenadas.
-    // Antes solo se dibujaba la esfera de la visita actual y el contador no coincidía con la sala.
-    const totalInicial = particulasActivas();
-    reconstruirEsferas();
-    console.log('Esferas reconstruidas:', totalInicial);
 
     if (ESTADO.mensajes && ESTADO.mensajes.length > 0) {
       ESTADO.mensajes.forEach(m => crearMensajeFlotante(m));
     }
 
-    if (!citaParam && !ESTADO.muerto) {
-      // Una visita/interacción genera exactamente 1 hora de vida.
+    if (!citaParam) {
+      // Entrar a la sala genera un dot
       const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      crearHuella(col.label, col.color, 'huella');
+      crearHuella(col.label, col.color);
       ESTADO.huellas++;
       ESTADO.visitas++;
       ESTADO.ultimaActualizacion = Date.now();
@@ -1904,7 +1724,9 @@
 
     if (ESTADO.muerto) mostrarOverlayMuerte();
 
-    initAudio();
+    // El motor ya fue inicializado antes de cargar Firebase; aquí solo se sincroniza
+    // su volumen/estado con la vida real de la sala.
+    if (audioCtx) actualizarMasterGain();
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
