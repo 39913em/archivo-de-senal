@@ -3,92 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="favicon.png" />
-  <title>MONUMENTO SONORO</title>
+  <title>JARDÍN DEL ORÁCULO — SEÑAL · RESONANCIA · FRACTURA · DERIVA</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { margin:0; overflow:hidden; background:#0a0a0a; font-family:'Courier New', monospace; cursor:crosshair; user-select:none; }
-    #btn-regreso { position:fixed; top:20px; left:20px; z-index:1000; background:rgba(10,10,10,0.85); color:#ff6b35; border:1px solid #ff6b35; padding:8px 16px; border-radius:20px; font-size:12px; text-decoration:none; transition:all 0.3s ease; backdrop-filter:blur(10px); letter-spacing:1px; display:flex; align-items:center; gap:6px; }
-    #btn-regreso:hover { background:#ff6b35; color:#0a0a0a; box-shadow:0 0 20px rgba(255,107,53,0.3); transform:scale(1.05); }
-    #btn-regreso span { font-size:16px; }
-    #estado { position:fixed; top:20px; right:20px; z-index:100; color:#666; font-size:10px; text-align:right; line-height:1.8; background:rgba(10,10,10,0.85); padding:10px 14px; border-radius:8px; border:1px solid #1a1a2e; backdrop-filter:blur(10px); min-width:140px; pointer-events:none; }
+    body {
+      margin:0; overflow:hidden; background:#0a0a0a;
+      font-family:'Courier New', monospace; cursor:crosshair;
+      user-select:none;
+    }
+    #btn-regreso {
+      position:fixed; top:20px; left:20px; z-index:1000;
+      background:rgba(10,10,10,0.85); color:#ff6b35;
+      border:1px solid #ff6b35; padding:6px 14px;
+      border-radius:20px; font-size:11px; text-decoration:none;
+      backdrop-filter:blur(10px); display:flex; align-items:center; gap:6px;
+      transition:all 0.3s ease;
+    }
+    #btn-regreso:hover { background:#ff6b35; color:#0a0a0a; box-shadow:0 0 20px rgba(255,107,53,0.3); }
+    #btn-regreso span { font-size:14px; }
+
+    #estado {
+      position:fixed; top:20px; right:20px; z-index:100;
+      color:#666; font-size:10px; text-align:right; line-height:1.8;
+      background:rgba(10,10,10,0.85); padding:10px 14px;
+      border-radius:8px; border:1px solid #1a1a2e;
+      backdrop-filter:blur(10px); min-width:180px;
+      pointer-events:none;
+    }
     #estado .valor { color:#fff; font-weight:bold; }
     #estado .alerta { color:#ff1744; animation:parpadeo 1s infinite; }
     #estado .muerto { color:#ff1744; font-size:12px; animation:parpadeo 1s infinite; }
     .contador-compartido { color:#ff6b35; font-size:12px; margin-top:3px; }
-    .tiempo-restante { color:#4fc3f7; font-size:12px; margin-top:2px; }
+    .ciclos { color:#4fc3f7; font-size:12px; margin-top:2px; }
+    .hora-dia { color:#ffd700; font-size:10px; margin-top:2px; }
     @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-    .btn-accion { position:fixed; z-index:90; padding:8px 18px; border:none; border-radius:18px; font-family:'Courier New',monospace; font-weight:bold; font-size:11px; letter-spacing:0.5px; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease; backdrop-filter:blur(10px); opacity:0.8; }
+
+    .btn-accion {
+      position:fixed; z-index:90;
+      padding:6px 14px; border:none; border-radius:14px;
+      font-family:'Courier New',monospace; font-weight:bold;
+      font-size:10px; letter-spacing:0.5px; text-transform:uppercase;
+      cursor:pointer; backdrop-filter:blur(10px); opacity:0.8;
+      transition:all 0.3s ease;
+    }
     .btn-accion:hover { opacity:1; transform:scale(1.05); }
-    #btn-sembrar { bottom:80px; left:50%; transform:translateX(-50%); background:#ff6b35; color:#0a0a0a; box-shadow:0 0 15px rgba(255,107,53,0.2); }
-    #btn-sembrar:hover { box-shadow:0 0 25px rgba(255,107,53,0.4); }
-    #btn-rayar { bottom:124px; left:50%; transform:translateX(-50%); background:rgba(255,107,53,0.1); color:#ff6b35; border:1px solid #ff6b35; }
-    #btn-rayar:hover { background:rgba(255,107,53,0.2); }
-    #btn-instrucciones { bottom:168px; left:50%; transform:translateX(-50%); background:rgba(255,107,53,0.05); color:#888; border:1px solid #333; padding:6px 16px; font-size:10px; border-radius:15px; }
+
+    #grupo-botones {
+      position:fixed; bottom:30px; left:30px; z-index:90;
+      display:flex; gap:10px; flex-wrap:wrap;
+      background:rgba(10,10,10,0.6); padding:10px 14px;
+      border-radius:25px; backdrop-filter:blur(10px);
+      border:1px solid #1a1a2e;
+    }
+    #grupo-botones .btn-accion {
+      position:static;
+      padding:4px 12px;
+      font-size:9px;
+      border-radius:12px;
+      backdrop-filter:none;
+    }
+    #btn-sembrar { background:#ff6b35; color:#0a0a0a; }
+    #btn-sembrar:hover { background:#ff8a55; }
+    #btn-poesia { background:rgba(255,107,53,0.1); color:#ff6b35; border:1px solid #ff6b35; }
+    #btn-poesia:hover { background:rgba(255,107,53,0.2); }
+    #btn-rayar { background:rgba(255,255,255,0.05); color:#888; border:1px solid #333; }
+    #btn-rayar:hover { background:rgba(255,255,255,0.1); color:#fff; }
+    #btn-instrucciones { background:rgba(255,107,53,0.05); color:#666; border:1px solid #333; }
     #btn-instrucciones:hover { background:rgba(255,107,53,0.1); color:#ff6b35; }
-    #input-rayar { position:fixed; bottom:212px; left:50%; transform:translateX(-50%); z-index:95; background:rgba(10,10,10,0.95); border:1px solid #ff6b35; border-radius:8px; padding:12px 16px; max-width:340px; width:90%; display:none; backdrop-filter:blur(10px); box-shadow:0 0 30px rgba(0,0,0,0.9); }
+
+    #input-rayar {
+      position:fixed; bottom:120px; left:50%; transform:translateX(-50%);
+      z-index:95; background:rgba(10,10,10,0.95);
+      border:1px solid #ff6b35; border-radius:8px;
+      padding:12px 16px; display:none; width:90%; max-width:340px;
+      backdrop-filter:blur(10px); box-shadow:0 0 30px rgba(0,0,0,0.9);
+    }
     #input-rayar.visible { display:block; }
-    #input-rayar textarea { width:100%; background:transparent; border:none; color:#fff; font-family:'Courier New',monospace; font-size:13px; resize:vertical; min-height:40px; outline:none; padding:4px 0; }
-    #input-rayar textarea::placeholder { color:#666; }
-    #input-rayar .btn-enviar-rayar { margin-top:8px; padding:4px 14px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:15px; font-family:'Courier New',monospace; font-size:11px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; }
-    #input-rayar .btn-enviar-rayar:hover { transform:scale(1.05); }
-    #input-rayar .btn-cerrar-rayar { position:absolute; top:6px; right:10px; background:none; border:none; color:#666; font-size:14px; cursor:pointer; font-family:inherit; }
-    #input-rayar .btn-cerrar-rayar:hover { color:#ff6b35; }
-    #panel-cita { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:200; background:rgba(10,10,10,0.96); border:2px solid #ff6b35; border-radius:16px; padding:25px 30px; max-width:460px; width:90%; display:none; text-align:center; box-shadow:0 0 60px rgba(255,107,53,0.1); backdrop-filter:blur(20px); max-height:90vh; overflow-y:auto; }
-    #panel-cita.visible { display:block; animation:fadeIn 0.3s ease; }
-    @keyframes fadeIn { from{opacity:0; transform:translate(-50%,-40%);} to{opacity:1; transform:translate(-50%,-50%);} }
-    #panel-cita .texto { color:#fff; font-size:17px; line-height:1.7; margin:12px 0; font-style:italic; }
-    #panel-cita .autor { color:#ff6b35; font-size:13px; letter-spacing:1px; }
-    #panel-cita .botones-compartir { display:flex; gap:6px; justify-content:center; margin-top:15px; flex-wrap:wrap; }
-    #panel-cita .botones-compartir a { padding:6px 12px; border-radius:20px; text-decoration:none; font-size:10px; font-weight:bold; transition:all 0.3s ease; display:inline-flex; align-items:center; gap:4px; font-family:inherit; }
-    #panel-cita .botones-compartir a:hover { transform:scale(1.05); }
-    .btn-twitter { background:#1DA1F2; color:#fff; }
-    .btn-bluesky { background:#1185FE; color:#fff; }
-    .btn-linkedin { background:#0A66C2; color:#fff; }
-    .btn-whatsapp { background:#25D366; color:#fff; }
-    .btn-facebook { background:#1877F2; color:#fff; }
-    .btn-reddit { background:#FF4500; color:#fff; }
-    .btn-instagram { background:#E1306C; color:#fff; }
-    .btn-substack { background:#FF6719; color:#fff; }
-    .btn-copiar { background:#333; color:#fff; border:1px solid #555; }
-    #cerrar-cita { position:absolute; top:8px; right:12px; background:none; border:none; color:#666; font-size:18px; cursor:pointer; font-family:inherit; }
-    #cerrar-cita:hover { color:#ff6b35; }
-    #contador-compartido-panel { color:#ff6b35; font-size:12px; margin-top:8px; }
-    #panel-instrucciones { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:150; background:rgba(10,10,10,0.95); border:1px solid #ff6b35; border-radius:12px; padding:20px 25px; max-width:520px; width:90%; backdrop-filter:blur(15px); color:#aaa; font-size:12px; line-height:1.8; text-align:center; transition:all 0.4s ease; box-shadow:0 0 40px rgba(0,0,0,0.8); pointer-events:auto; }
-    #panel-instrucciones.oculto { opacity:0; transform:translate(-50%,-50%) scale(0.95); pointer-events:none; }
-    #panel-instrucciones h4 { color:#ff6b35; font-size:14px; margin-bottom:8px; letter-spacing:1px; text-transform:uppercase; }
-    #cerrar-instrucciones { position:absolute; top:6px; right:10px; background:none; border:none; color:#666; font-size:16px; cursor:pointer; font-family:inherit; }
-    #cerrar-instrucciones:hover { color:#ff6b35; }
-    #overlay-muerte { position:fixed; top:0; left:0; width:100%; height:100%; z-index:300; background:rgba(0,0,0,0.92); display:none; justify-content:center; align-items:center; backdrop-filter:blur(10px); }
+    #input-rayar textarea {
+      width:100%; height:60px; background:#111; color:#fff;
+      border:1px solid #333; border-radius:6px; padding:8px;
+      font-family:inherit; resize:none;
+    }
+    #input-rayar .fila { display:flex; gap:8px; margin-top:8px; }
+    #input-rayar .fila button {
+      flex:1; padding:6px; border-radius:14px; border:none;
+      font-family:inherit; font-size:11px; font-weight:bold; cursor:pointer;
+    }
+
+    #overlay-muerte {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      z-index:300; background:rgba(0,0,0,0.92);
+      display:none; justify-content:center; align-items:center;
+    }
     #overlay-muerte.visible { display:flex; }
-    #overlay-muerte .contenido { text-align:center; max-width:500px; padding:30px; border:2px solid #ff1744; border-radius:16px; background:rgba(10,10,10,0.95); box-shadow:0 0 60px rgba(255,23,68,0.15); }
-    #overlay-muerte .simbolo { font-size:48px; margin-bottom:15px; }
-    #overlay-muerte .titulo { color:#ff1744; font-size:24px; font-weight:bold; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; }
-    #overlay-muerte .texto { color:#aaa; font-size:15px; line-height:1.7; margin-bottom:20px; }
-    #overlay-muerte .btn-revivir { padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:25px; font-family:'Courier New',monospace; font-size:13px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1px; }
-    #overlay-muerte .btn-revivir:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,107,53,0.3); }
-    #overlay-muerte .btn-cerrar-muerte { position:absolute; top:15px; right:20px; background:none; border:none; color:#666; font-size:20px; cursor:pointer; font-family:inherit; }
-    #overlay-muerte .btn-cerrar-muerte:hover { color:#ff1744; }
-    #overlay-renacimiento { position:fixed; top:0; left:0; width:100%; height:100%; z-index:280; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; backdrop-filter:blur(5px); }
+    #overlay-muerte .contenido {
+      position:relative; text-align:center; max-width:500px; padding:30px;
+      border:2px solid #ff1744; border-radius:16px;
+      background:rgba(10,10,10,0.95);
+    }
+    #overlay-muerte .simbolo { font-size:40px; margin-bottom:10px; }
+    #overlay-muerte .titulo { color:#ff1744; font-size:22px; font-weight:bold; letter-spacing:2px; margin-bottom:10px; }
+    #overlay-muerte .texto { color:#aaa; font-size:14px; line-height:1.7; margin-bottom:16px; }
+    #overlay-muerte button { padding:10px 24px; background:#ff6b35; border:none; border-radius:20px; font-weight:bold; cursor:pointer; font-family:inherit; }
+    #overlay-muerte .btn-cerrar { position:absolute; top:10px; right:14px; background:none; border:none; color:#666; font-size:18px; cursor:pointer; }
+
+    #overlay-renacimiento {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      z-index:290; background:rgba(0,0,0,0.85);
+      display:none; justify-content:center; align-items:center;
+    }
     #overlay-renacimiento.visible { display:flex; }
-    #overlay-renacimiento .contenido { text-align:center; max-width:500px; padding:30px; border:2px solid #ff6b35; border-radius:16px; background:rgba(10,10,10,0.95); box-shadow:0 0 60px rgba(255,107,53,0.2); animation:luzPulso 2s infinite; }
-    @keyframes luzPulso { 0%,100%{box-shadow:0 0 30px rgba(255,107,53,0.1);} 50%{box-shadow:0 0 60px rgba(255,107,53,0.3);} }
-    #overlay-renacimiento .simbolo { font-size:48px; margin-bottom:15px; }
-    #overlay-renacimiento .titulo { color:#ff6b35; font-size:24px; font-weight:bold; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; }
-    #overlay-renacimiento .texto { color:#ccc; font-size:15px; line-height:1.7; margin-bottom:20px; }
-    #overlay-renacimiento .btn-cerrar-renacimiento { padding:10px 30px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:25px; font-family:'Courier New',monospace; font-size:13px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1px; }
-    #overlay-renacimiento .btn-cerrar-renacimiento:hover { transform:scale(1.05); }
-    #mensaje-cita { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:250; background:rgba(10,10,10,0.97); border:2px solid #ff6b35; border-radius:16px; padding:30px 35px; max-width:480px; width:90%; display:none; text-align:center; box-shadow:0 0 80px rgba(255,107,53,0.15); backdrop-filter:blur(20px); }
-    #mensaje-cita.visible { display:block; animation:fadeIn 0.4s ease; }
-    #mensaje-cita .texto { color:#fff; font-size:19px; line-height:1.7; margin:15px 0; font-style:italic; }
-    #mensaje-cita .autor { color:#ff6b35; font-size:14px; letter-spacing:1px; }
-    #mensaje-cita .sub { color:#888; font-size:11px; margin-top:12px; }
-    #mensaje-cita .btn-cerrar-mensaje { margin-top:15px; padding:6px 20px; background:#ff6b35; color:#0a0a0a; border:none; border-radius:20px; font-family:'Courier New',monospace; font-size:11px; font-weight:bold; cursor:pointer; transition:all 0.3s ease; }
-    #mensaje-cita .btn-cerrar-mensaje:hover { transform:scale(1.05); }
-    #btn-debug { position:fixed; bottom:20px; right:20px; z-index:999; background:rgba(255,0,0,0.15); color:#ff4444; border:1px solid #ff4444; padding:3px 10px; border-radius:8px; font-family:'Courier New',monospace; font-size:8px; cursor:pointer; opacity:0.3; transition:all 0.3s ease; }
-    #btn-debug:hover { opacity:1; background:rgba(255,0,0,0.25); }
-    @media (max-width:768px) { #estado { font-size:9px; padding:8px 10px; min-width:100px; top:60px; right:8px; } #btn-regreso { font-size:10px; padding:5px 12px; top:10px; left:10px; } #btn-sembrar, #btn-rayar { font-size:10px; padding:7px 14px; } #btn-sembrar { bottom:70px; } #btn-rayar { bottom:112px; } #btn-instrucciones { bottom:154px; font-size:9px; padding:5px 14px; } #input-rayar { bottom:192px; max-width:90%; } #panel-cita { padding:20px; max-width:95%; } #panel-cita .texto { font-size:15px; } #panel-instrucciones { font-size:11px; padding:15px 18px; max-width:95%; } #overlay-muerte .titulo { font-size:20px; } #overlay-muerte .texto { font-size:14px; } #overlay-renacimiento .titulo { font-size:20px; } #mensaje-cita { padding:20px; max-width:95%; } #mensaje-cita .texto { font-size:16px; } }
+    #overlay-renacimiento .contenido {
+      text-align:center; max-width:500px; padding:30px;
+      border:2px solid #ff6b35; border-radius:16px;
+      background:rgba(10,10,10,0.95);
+      animation: renacer 0.8s ease;
+    }
+    @keyframes renacer { 0%{transform:scale(0.5); opacity:0;} 100%{transform:scale(1); opacity:1;} }
+    #overlay-renacimiento .titulo { color:#ff6b35; font-size:22px; font-weight:bold; letter-spacing:2px; margin-bottom:10px; }
+    #overlay-renacimiento button { margin-top:10px; padding:10px 24px; background:#ff6b35; border:none; border-radius:20px; font-weight:bold; cursor:pointer; font-family:inherit; }
+
+    #panel-instrucciones {
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      z-index:150; background:rgba(10,10,10,0.95);
+      border:1px solid #ff6b35; border-radius:12px;
+      padding:20px 25px; max-width:520px; width:90%;
+      color:#ccc; font-size:12px; line-height:1.8; text-align:center;
+      display:none;
+    }
+    #panel-instrucciones.visible { display:block; }
+    #panel-instrucciones h4 { color:#ff6b35; margin-bottom:6px; letter-spacing:1px; }
+    #panel-instrucciones p { font-size:11px; color:#999; }
+    #panel-instrucciones button { margin-top:10px; background:none; border:1px solid #333; color:#888; padding:6px 16px; border-radius:14px; cursor:pointer; font-family:inherit; }
+
+    #aviso-temporal {
+      position:fixed; bottom:260px; left:50%; transform:translateX(-50%);
+      z-index:120; background:rgba(10,10,10,0.9); color:#ff6b35;
+      border:1px solid #ff6b35; padding:8px 16px; border-radius:16px;
+      font-size:11px; text-align:center; max-width:80%;
+      opacity:0; transition:opacity 0.3s ease; pointer-events:none;
+    }
+
+    #panel-compartir {
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      z-index:400; background:rgba(10,10,10,0.96);
+      border:2px solid #ff6b35; border-radius:16px;
+      padding:25px 30px; max-width:440px; width:90%;
+      text-align:center; display:none;
+      box-shadow:0 0 80px rgba(255,107,53,0.2);
+      backdrop-filter:blur(20px);
+    }
+    #panel-compartir.visible { display:block; }
+    #panel-compartir .texto { color:#fff; font-size:16px; font-style:italic; margin:10px 0; line-height:1.6; }
+    #panel-compartir .autor { color:#ff6b35; font-size:12px; letter-spacing:1px; margin-bottom:12px; }
+    #panel-compartir .botones { display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+    #panel-compartir .botones a {
+      padding:6px 12px; border-radius:20px; text-decoration:none;
+      font-size:10px; font-weight:bold; display:inline-flex;
+      align-items:center; gap:4px; font-family:inherit;
+      transition:all 0.2s ease;
+    }
+    #panel-compartir .botones a:hover { transform:scale(1.05); }
+    #panel-compartir .btn-cerrar-panel {
+      margin-top:14px; background:none; border:none;
+      color:#666; font-size:12px; cursor:pointer; font-family:inherit;
+    }
+    #panel-compartir .btn-cerrar-panel:hover { color:#ff6b35; }
+
+    @media (max-width:768px) {
+      #estado { font-size:9px; padding:8px 10px; min-width:100px; top:60px; right:8px; }
+      #btn-regreso { font-size:10px; padding:5px 12px; top:10px; left:10px; }
+      #grupo-botones { bottom:20px; left:20px; padding:8px 12px; gap:8px; }
+      #grupo-botones .btn-accion { font-size:8px; padding:3px 10px; }
+      #input-rayar { bottom:110px; max-width:90%; }
+      #panel-compartir { padding:20px; max-width:95%; }
+      #panel-compartir .texto { font-size:15px; }
+    }
   </style>
 </head>
 <body>
@@ -96,73 +186,66 @@
   <a id="btn-regreso" href="index.html"><span>&larr;</span> VOLVER</a>
 
   <div id="estado">
-    <div><span class="valor">MONUMENTO VIVO</span></div>
-    <div>CICLOS DE VIDA: <span id="huellas" class="valor">0</span></div>
-    <div>INTERACCIONES TOTALES: <span id="siembras" class="valor">0</span></div>
-    <div>ESPORAS: <span id="particulas" class="valor">0</span></div>
-    <div class="tiempo-restante">VIDA: <span id="tiempo-restante">0h</span></div>
-    <div>INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
-    <div id="alerta-corrupcion" style="display:none; color:#ff1744; animation:parpadeo 1s infinite;">&#9888; CORRUPCION</div>
-    <div id="estado-muerto" style="display:none; color:#ff1744; font-size:12px; animation:parpadeo 1s infinite;">&#128128; MUERTO</div>
-    <div class="contador-compartido">SEMBRADO: <span id="veces-compartido">0</span>/5</div>
-    <div style="color:#888; font-size:9px; margin-top:2px;">MENSAJES: <span id="contador-mensajes">0</span></div>
+    <div><span class="valor">JARDÍN DEL ORÁCULO</span></div>
+    <div>VIDA: <span id="vida" class="valor">0</span>h &nbsp; INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
+    <div>FLORES: <span id="flores" class="valor">0</span> &nbsp; SIEMBRAS: <span id="siembras" class="valor">0</span></div>
+    <div class="hora-dia" id="hora-dia">AMANECER</div>
+    <div class="ciclos">CICLOS: <span id="ciclos" class="valor">0</span></div>
+    <div id="alerta" style="display:none;color:#ff1744">⚠️ CORRUPCIÓN</div>
+    <div id="muerto" style="display:none;color:#ff1744">💀 MUERTO</div>
+    <div class="contador-compartido">SEMILLAS: <span id="veces-compartido">0</span>/5</div>
+    <div style="color:#888;font-size:9px;margin-top:4px">VERSOS: <span id="contador-mensajes">0</span></div>
   </div>
 
-  <button id="btn-instrucciones" class="btn-accion">AYUDA</button>
-  <button id="btn-sembrar" class="btn-accion">SEMBRAR</button>
-  <button id="btn-rayar" class="btn-accion">RAYAR</button>
+  <div id="grupo-botones">
+    <button id="btn-sembrar" class="btn-accion">SEMBRAR</button>
+    <button id="btn-poesia" class="btn-accion">HAIKU</button>
+    <button id="btn-rayar" class="btn-accion">RAYAR</button>
+    <button id="btn-instrucciones" class="btn-accion">AYUDA</button>
+  </div>
 
   <div id="input-rayar">
-    <button class="btn-cerrar-rayar" id="cerrar-rayar">&#10005;</button>
-    <textarea id="mensaje-rayar" placeholder="Escribe algo... (max 140)" maxlength="140"></textarea>
-    <button class="btn-enviar-rayar" id="enviar-rayar">RAYAR</button>
+    <textarea id="mensaje-rayar" maxlength="140" placeholder="Escribe una palabra o frase..."></textarea>
+    <div class="fila">
+      <button id="enviar-rayar" style="background:#ff6b35;color:#000">ENVIAR</button>
+      <button id="cerrar-rayar" style="background:transparent;border:1px solid #333;color:#888">CERRAR</button>
+    </div>
   </div>
 
   <div id="panel-instrucciones">
-    <button id="cerrar-instrucciones">&#10005;</button>
-    <h4>COMO TRANSITAR</h4>
-    <p>ACERCATE a las columnas<br>Clic en el NOMBRE de una columna &rarr; descarga el ensayo<br>SEMBRAR &rarr; genera una cita para compartir<br>RAYAR &rarr; deja un mensaje flotante en la sala<br>Cada interaccion con la sala crea 1 hora de vida (1 semilla)<br>Cada semilla necesita DOS toques para hacerla explotar y restar 1 hora de vida al monumento<br>INTEGRIDAD 100% &rarr; archivo completamente legible<br>Al disminuir la integridad, el archivo se corrompe progresivamente<br>Si las horas llegan a 0, el monumento muere<br>El monumento muerto solo revive sembrando 5 semillas</p>
-    <p style="font-size:10px; opacity:0.5; margin-top:5px;">Se recomienda usar auriculares</p>
-  </div>
-
-  <div id="panel-cita">
-    <button id="cerrar-cita">&#10005;</button>
-    <div style="color:#ff6b35; font-size:11px; letter-spacing:2px; text-transform:uppercase;">FRAGMENTO</div>
-    <div class="texto" id="cita-texto">"La cultura se torrentea."</div>
-    <div class="autor" id="cita-autor">— Monumento Sonoro</div>
-    <div id="contador-compartido-panel">Semillas: <span id="veces-compartido-panel">0</span>/5</div>
-    <div class="compartir-titulo" style="color:#888; font-size:10px; letter-spacing:1px; text-transform:uppercase; margin-top:8px;">COMPARTE</div>
-    <div class="botones-compartir" id="botones-compartir"></div>
-  </div>
-
-  <div id="mensaje-cita">
-    <div style="color:#ff6b35; font-size:11px; letter-spacing:2px; text-transform:uppercase;">CITA</div>
-    <div class="texto" id="mensaje-cita-texto">"Sembrar cultura."</div>
-    <div class="autor" id="mensaje-cita-autor">— Monumento Sonoro</div>
-    <div class="sub">Explora y siembra tu propia semilla</div>
-    <button class="btn-cerrar-mensaje" id="cerrar-mensaje-cita">ENTRAR</button>
+    <button onclick="document.getElementById('panel-instrucciones').classList.remove('visible')" style="position:absolute;top:10px;right:14px;border:none;background:none;color:#666;font-size:16px;cursor:pointer">✕</button>
+    <h4>JARDÍN DEL ORÁCULO</h4>
+    <p>SEMBRAR → comparte y siembra una semilla (5 reviven el jardín).<br>HAIKU → genera un haiku flotante.<br>RAYAR → deja un mensaje en la sala.<br>Doble clic en cualquier verso o mensaje → compartir.<br>Cada interacción hace germinar una flor.<br>La vida baja con el tiempo.<br>Si llega a 0, el jardín muere.</p>
   </div>
 
   <div id="overlay-muerte">
-    <button class="btn-cerrar-muerte" id="cerrar-overlay-muerte">&#10005;</button>
+    <button class="btn-cerrar" id="cerrar-overlay-muerte">✕</button>
     <div class="contenido">
-      <div class="simbolo">&#128128;</div>
-      <div class="titulo">EL ARCHIVO HA MUERTO</div>
-      <div class="texto">La memoria se ha corrompido.<br><br><strong>El monumento ha muerto.</strong><br></div>
-      <button class="btn-revivir" id="btn-revivir">ENTRAR A LA RUINA</button>
+      <div class="simbolo">💀</div>
+      <div class="titulo">EL JARDÍN HA MUERTO</div>
+      <div class="texto">El silencio lo ha cubierto todo.<br>Usa "SEMBRAR" para revivirlo (5 semillas).</div>
+      <button id="btn-revivir">ENTRAR A LA RUINA</button>
     </div>
   </div>
 
   <div id="overlay-renacimiento">
     <div class="contenido">
-      <div class="simbolo">&#10024;</div>
-      <div class="titulo">EL ARCHIVO HA RENACIDO</div>
-      <div class="texto">5 semillas han sido sembradas.<br>La memoria ha sido restaurada.</div>
-      <button class="btn-cerrar-renacimiento" id="cerrar-renacimiento">ENTRAR</button>
+      <div style="font-size:50px;">🌸</div>
+      <div class="titulo">EL JARDÍN HA RENACIDO</div>
+      <div style="color:#ccc;font-size:14px;margin-bottom:10px;">Las flores vuelven a abrirse.<br>CICLO <span id="ciclo-renacido" style="color:#ff6b35;font-weight:bold;">0</span></div>
+      <button id="cerrar-renacimiento">ENTRAR</button>
     </div>
   </div>
 
-  <button id="btn-debug" style="display:none;">DEBUG</button>
+  <div id="aviso-temporal"></div>
+
+  <div id="panel-compartir">
+    <div style="color:#ff6b35;font-size:11px;letter-spacing:2px;text-transform:uppercase;">COMPARTIR PARA SEMBRAR</div>
+    <div class="texto" id="verso-compartir-texto">"Sembrar una semilla en el Jardín"</div>
+    <div class="autor" id="verso-compartir-autor">— ORÁCULO</div>
+    <div class="botones" id="botones-compartir"></div>
+    <button class="btn-cerrar-panel" onclick="document.getElementById('panel-compartir').classList.remove('visible')">CERRAR</button>
+  </div>
 
   <script type="importmap">
   {
@@ -173,7 +256,7 @@
   }
   </script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <script type="module">
     import * as THREE from 'three';
@@ -181,94 +264,197 @@
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
     import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
-    // ===== FIREBASE =====
+    // ============================================================
+    // FIREBASE
+    // ============================================================
     const firebaseConfig = {
-      apiKey: "AIzaSyD7UF2aM9q3-xN-VmEIgKOJsP88PiP0AwI",
-      authDomain: "monumento-sonoro-39913em.firebaseapp.com",
-      databaseURL: "https://monumento-sonoro-39913em-default-rtdb.firebaseio.com",
-      projectId: "monumento-sonoro-39913em",
-      storageBucket: "monumento-sonoro-39913em.firebasestorage.app",
-      messagingSenderId: "68225402050",
-      appId: "1:68225402050:web:e241cd5caa7a4c51d5675b"
+      apiKey: "AIzaSyC42arLXTaQs_mdXEUyc58ge2SdZVKtm4A",
+      authDomain: "archivo-senal-poesia-test.firebaseapp.com",
+      databaseURL: "https://archivo-senal-poesia-test-default-rtdb.firebaseio.com",
+      projectId: "archivo-senal-poesia-test",
+      storageBucket: "archivo-senal-poesia-test.firebasestorage.app",
+      messagingSenderId: "29695212671",
+      appId: "1:29695212671:web:c29715d98992d770c0d34a"
     };
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const dbRef = ref(db, 'monumento');
-    console.log('Firebase conectado');
+    const dbEstado = ref(db, 'poesia');
+    const dbVerso = ref(db, 'verso_actual');
+    const dbLexicoAprobado = ref(db, 'lexico_aprobado');
+    console.log('Jardín conectado');
 
-    // ===== DATOS =====
-    const datosColumna = [
-      { label: 'DATOS MASIVOS', x: -4.5, z: -2.5, color: 0xff6b35, forma: 'cubos', escala: [185.00, 220.00, 246.94, 277.18, 329.63, 369.99], onda: 'sine' },
-      { label: 'ARQUITECTURA SONORA', x: 4.5, z: -2.5, color: 0x4fc3f7, forma: 'ondas', escala: [196.00, 220.00, 246.94, 293.66, 349.23, 392.00], onda: 'triangle' },
-      { label: 'MEMORIA ROTA', x: -4.5, z: 3.5, color: 0xff1744, forma: 'rota', escala: [146.83, 164.81, 174.61, 220.00, 246.94, 261.63], onda: 'sawtooth' },
-      { label: 'CULTURA NO SE TORRENTEA', x: 4.5, z: 3.5, color: 0x00e676, forma: 'flotante', escala: [220.00, 246.94, 293.66, 329.63, 392.00, 440.00], onda: 'sine' }
-    ];
+    // ============================================================
+    // LÉXICO — SEÑAL · RESONANCIA · FRACTURA · DERIVA
+    // ============================================================
+    const LEXICO_INICIAL = {
+      señal: [
+        "bit que late", "dato sin dueño", "pulso digital", "flujo errante",
+        "byte disperso", "señal perdida", "frecuencia abierta", "eco de datos",
+        "huella en cache", "terabyte que pesa", "ping perdido", "dato que vibra",
+        "consulta que no vuelve", "píxel que sangra", "volumen sin forma",
+        "nube que arde", "latencia infinita", "servidor que suda", "hash disperso",
+        "protocolo abierto", "paquete en tránsito", "interfaz que respira",
+        "bucle infinito", "algoritmo ciego", "archivo sin nombre", "metadato perdido",
+        "flujo binario", "señal de ruido", "conexión inestable", "puerto abierto",
+        "socket que escucha", "payload errante", "checksum corrupto", "bit rot",
+        "datos en deriva", "memoria volátil", "código fuente", "registro de eventos",
+        "huella digital", "rastro de bytes", "fragmento de red", "onda portadora",
+        "señal de audio", "modulación errante", "espectro visible", "frecuencia modulada"
+      ],
+      resonancia: [
+        "bóveda de reverb", "pared de aire", "cámara de eco", "espacio resonante",
+        "sala sin puertas", "eco que construye", "catedral de auriculares", "umbral que se escucha",
+        "edificio de silencio", "fachada de sonido", "planta de frecuencias", "bóveda de bits",
+        "arco de fase", "columna de datos", "puente de red", "espejo de código",
+        "laberinto de espejos", "galería de ecos", "cúpula de silencio", "portal de acceso",
+        "archivo de señales", "biblioteca de ruidos", "cripta de datos", "torre de control",
+        "zona de interferencia", "área de cobertura", "nodo de red", "enjambre de señales",
+        "mar de datos", "océano de bits", "cielo de frecuencias", "suelo de código",
+        "muro de silencio", "puente de ecos", "pasillo de bytes", "habitación de espejos",
+        "patio de resonancia", "ágora de datos", "foro de códigos", "plaza de señales",
+        "jardín de interfaces", "bosque de protocolos", "desierto de datos", "montaña de bits",
+        "valle de frecuencias", "río de señales", "mar de ruido", "torre de señales"
+      ],
+      fractura: [
+        "cinta mordida", "olvido programado", "sector dañado", "ciclo que se trunca",
+        "fragmento ilegible", "memoria que se cae", "versión que no vuelve", "copia corrupta",
+        "disco estrellado", "track perdido", "archivo sin nombre", "sector fantasma",
+        "bit olvidado", "byte perdido", "bloque dañado", "cinta desmagnetizada",
+        "disco rayado", "memoria fragmentada", "registro borrado", "firma ausente",
+        "huella desvanecida", "rastro perdido", "pista de error", "fallo silencioso",
+        "señal degradada", "frecuencia rota", "espectro de ruido", "eco distorsionado",
+        "interferencia estática", "pérdida de paquete", "archivo truncado", "enlace caído",
+        "nodo desconectado", "ruta perdida", "paquete errante", "checksum fallido",
+        "hash roto", "firma inválida", "certificado expirado", "clave olvidada",
+        "acceso denegado", "permiso caducado", "autenticación fallida", "sesión expirada",
+        "conexión interrumpida", "servidor caído", "copia ilegible", "mensaje corrupto"
+      ],
+      deriva: [
+        "siembra que salva", "torrent vivo", "mano que pasa el archivo", "semilla que no muere",
+        "copia que resiste", "red que comparte", "flujo sin dueño", "código abierto",
+        "acceso no privilegio", "huella que se distribuye", "enjambre de datos", "propagación libre",
+        "transmisión horizontal", "flujo de código", "siembra digital", "rizoma de señales",
+        "red de nodos", "cadena de bloques", "flujo descentrado", "distribución abierta",
+        "compartir sin medida", "esparcir semillas", "propagar el eco", "sembrar en el ruido",
+        "cosechar datos", "abrir puertos", "tender puentes", "tejer redes",
+        "hilvanar señales", "enhebrar bits", "urdimbre de códigos", "trama de datos",
+        "bordar en la red", "tejer en la interferencia", "anudar protocolos", "enlazar nodos",
+        "tejer en el archivo", "bordar el silencio", "anudar la señal", "enhebrar el eco",
+        "sembrar en el error", "cosechar la fractura", "propagar la deriva", "esparcir el flujo"
+      ]
+    };
 
-    const TEXTOS_COMPLETOS = {};
-    async function cargarTextos() {
-      const archivos = [
-        { id: 'DATOS MASIVOS', path: 'contenido/datos-masivos.json' },
-        { id: 'ARQUITECTURA SONORA', path: 'contenido/arquitectura-sonora.json' },
-        { id: 'MEMORIA ROTA', path: 'contenido/memoria-rota.json' },
-        { id: 'CULTURA NO SE TORRENTEA', path: 'contenido/torrentear.json' }
-      ];
-      for (const item of archivos) {
-        try {
-          const res = await fetch(item.path);
-          if (!res.ok) continue;
-          const data = await res.json();
-          let cuerpo = '';
-          if (data.cuerpo && Array.isArray(data.cuerpo)) {
-            cuerpo = data.cuerpo.filter(b => b.tipo === 'parrafo' || b.tipo === 'subtitulo' || b.tipo === 'cita').map(b => b.texto || '').join('\n\n');
-          }
-          TEXTOS_COMPLETOS[item.id] = { titulo: data.titulo || item.id, subtitulo: data.subtitulo || '', cuerpo: cuerpo || 'Contenido no disponible.' };
-        } catch (e) { console.warn('Error cargando:', item.path); }
-      }
+    let LEXICO_APROBADO = { señal:[], resonancia:[], fractura:[], deriva:[] };
+
+    function lexicoActivo(categoria){
+      return [...(LEXICO_INICIAL[categoria]||[]), ...(LEXICO_APROBADO[categoria]||[])];
     }
 
-    const CITAS = [
-      { texto: 'El dato masivo no es neutral: pesa, vibra, respira.', autor: 'DATARTVERSO' },
-      { texto: 'El silencio también construye. La arquitectura no se ve, se escucha.', autor: 'Arquitectura Sonora' },
-      { texto: 'La memoria digital es frágil, pero el olvido está programado.', autor: 'Memoria Rota' },
-      { texto: 'La cultura se siembra, no se torrentea.', autor: 'Cultura No Se Torrentea' },
-      { texto: 'Cada byte pesa, cada solicitud vibra. La información nunca es gratis.', autor: 'DATARTVERSO' },
-      { texto: 'El sonido construye espacios invisibles. Escuchar es habitar.', autor: 'Arquitectura Sonora' },
-      { texto: 'Lo que no se repite, se pierde en el ruido de fondo.', autor: 'Memoria Rota' },
-      { texto: 'La piratería es una respuesta a una estructura que ha hecho del acceso un privilegio.', autor: 'Cultura No Se Torrentea' },
-      { texto: 'La obsolescencia programada también es una forma de censura.', autor: 'Memoria Rota' },
-      { texto: 'El streaming paga migajas a los creadores y financia tecnología de guerra.', autor: 'Cultura No Se Torrentea' },
-      { texto: 'Exploramos un mundo que la sociedad era demasiado floja para explorar; mi crimen es la curiosidad.', autor: 'Manifiesto Hacker' },
-      { texto: 'El archivo selecciona, decide qué sobrevive y qué se pierde.', autor: 'Memoria Rota' }
-    ];
+    async function cargarLexicoAprobado(){
+      try{
+        const snap = await get(dbLexicoAprobado);
+        if (snap.exists()){
+          const d = snap.val();
+          ['señal','resonancia','fractura','deriva'].forEach(cat=>{
+            LEXICO_APROBADO[cat] = d[cat] ? Object.values(d[cat]) : [];
+          });
+        }
+      } catch(e){ console.warn('No se pudo cargar léxico aprobado:', e); }
+    }
 
-    const REDES = [
-      { id: 'twitter', label: 'X', clase: 'btn-twitter', url: (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}` },
-      { id: 'bluesky', label: 'Bluesky', clase: 'btn-bluesky', url: (t, u) => `https://bsky.app/intent/compose?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
-      { id: 'linkedin', label: 'LinkedIn', clase: 'btn-linkedin', url: (t, u) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}` },
-      { id: 'whatsapp', label: 'WhatsApp', clase: 'btn-whatsapp', url: (t, u) => `https://api.whatsapp.com/send?text=${encodeURIComponent(t)}%20${encodeURIComponent(u)}` },
-      { id: 'facebook', label: 'Facebook', clase: 'btn-facebook', url: (t, u) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}&quote=${encodeURIComponent(t)}` },
-      { id: 'reddit', label: 'Reddit', clase: 'btn-reddit', url: (t, u) => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent(t)}` },
-      { id: 'instagram', label: 'Instagram', clase: 'btn-instagram', url: (t, u) => `https://www.instagram.com/39913em/` },
-      { id: 'substack', label: 'Substack', clase: 'btn-substack', url: (t, u) => `https://substack.com/` }
-    ];
+    async function guardarLexicoAprobado(categoria, palabra){
+      try{
+        const key = Date.now()+'_'+Math.floor(Math.random()*1000);
+        const refNodo = ref(db, `lexico_aprobado/${categoria}/${key}`);
+        await set(refNodo, palabra);
+        LEXICO_APROBADO[categoria].push(palabra);
+      } catch(e){ console.warn('No se pudo guardar palabra en léxico:', e); }
+    }
 
-    // ===== ESTADO =====
-    // vida       -> esferas activas AHORA MISMO = horas de vida del archivo (integridad y muerte dependen de esto)
-    // siembras   -> contador HISTORICO GENERAL de TODAS las interacciones desde que existe la pagina (nunca se reinicia)
-    // huellas    -> numero de CICLOS de muerte/renacimiento que ha completado el archivo
+    // ============================================================
+    // GRAMÁTICA GENERATIVA — HAIKU 5-7-5
+    // ============================================================
+    function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+    function contarSilabas(texto) {
+      // Simplificado: cuenta grupos vocálicos
+      const vocales = 'aeiouáéíóúü';
+      let count = 0;
+      let lastWasVowel = false;
+      for (let char of texto.toLowerCase()) {
+        if (vocales.includes(char)) {
+          if (!lastWasVowel) count++;
+          lastWasVowel = true;
+        } else {
+          lastWasVowel = false;
+        }
+      }
+      return Math.max(1, count);
+    }
+
+    function ajustarSilabas(texto, objetivo) {
+      let actual = contarSilabas(texto);
+      if (actual === objetivo) return texto;
+      
+      // Si tiene más sílabas, acortar
+      while (actual > objetivo) {
+        const palabras = texto.split(' ');
+        if (palabras.length <= 1) break;
+        // Quitar palabra aleatoria o contraer
+        const idx = Math.floor(Math.random() * (palabras.length - 1)) + 1;
+        palabras.splice(idx, 1);
+        texto = palabras.join(' ');
+        actual = contarSilabas(texto);
+      }
+      
+      // Si tiene menos, alargar con artículo o adjetivo
+      while (actual < objetivo) {
+        const articulos = ['el ', 'la ', 'un ', 'una ', 'de ', 'en '];
+        texto = rand(articulos) + texto;
+        actual = contarSilabas(texto);
+        if (actual > objetivo) {
+          // Quitar el último añadido
+          texto = texto.replace(/^(el |la |un |una |de |en )/, '');
+          break;
+        }
+      }
+      return texto;
+    }
+
+    function generarHaiku(label) {
+      // 1. Verso 1 (5 sílabas) — de SEÑAL
+      let v1 = rand(lexicoActivo('señal'));
+      v1 = ajustarSilabas(v1, 5);
+      
+      // 2. Verso 2 (7 sílabas) — de RESONANCIA
+      let v2 = rand(lexicoActivo('resonancia'));
+      v2 = ajustarSilabas(v2, 7);
+      
+      // 3. Verso 3 (5 sílabas) — de FRACTURA
+      let v3 = rand(lexicoActivo('fractura'));
+      v3 = ajustarSilabas(v3, 5);
+      
+      const haiku = `${v1} / ${v2} / ${v3}`;
+      return { texto: haiku, autor: 'ORÁCULO', columna: label, cat: 'haiku' };
+    }
+
+    // ============================================================
+    // ESTADO
+    // ============================================================
     const ESTADO = {
-      vida: 0, huellas: 0, siembras: 0,
-      integridad: 100, vecesCompartido: 0, corrompido: false, muerto: false,
-      ultimaVisita: null, ultimaActualizacion: Date.now(),
-      mensajes: []
+      vida: 0, huellas: 0, siembras: 0, integridad: 100,
+      vecesCompartido: 0, corrompido: false, muerto: false,
+      ultimaActualizacion: Date.now(), mensajes: [],
+      ciclos: 0
     };
     let datosCargados = false;
     let ultimoDecaimiento = Date.now();
+    let mensajesRenderizados = new Set();
 
-    async function cargarEstado() {
-      try {
-        const snap = await get(dbRef);
-        if (snap.exists()) {
+    async function cargarEstado(){
+      try{
+        const snap = await get(dbEstado);
+        if (snap.exists()){
           const d = snap.val();
           ESTADO.vida = d.vida || 0;
           ESTADO.huellas = d.huellas || 0;
@@ -276,35 +462,55 @@
           ESTADO.integridad = d.integridad || 100;
           ESTADO.corrompido = d.corrompido || false;
           ESTADO.muerto = d.muerto || false;
-          ESTADO.ultimaVisita = d.ultimaVisita || Date.now();
           ESTADO.vecesCompartido = d.vecesCompartido || 0;
           ESTADO.mensajes = d.mensajes || [];
+          ESTADO.ciclos = d.ciclos || 0;
         } else {
-          await set(dbRef, { vida: 0, huellas: 0, siembras: 0, integridad: 100, corrompido: false, muerto: false, ultimaVisita: Date.now(), vecesCompartido: 0, mensajes: [] });
+          await set(dbEstado, {
+            vida: 10,
+            huellas: 0,
+            siembras: 0,
+            integridad: 100,
+            corrompido: false,
+            muerto: false,
+            vecesCompartido: 0,
+            mensajes: [],
+            ciclos: 0
+          });
+          ESTADO.vida = 10;
         }
-      } catch (e) { console.error('Error cargando:', e); }
+        if (ESTADO.vida === 0) {
+          ESTADO.muerto = true;
+          ESTADO.corrompido = true;
+          ESTADO.integridad = 0;
+          await guardarEstado();
+        }
+      } catch(e){ console.error('Error cargando estado:', e); }
       datosCargados = true;
       actualizarUI();
     }
 
-    async function guardarEstado() {
-      if (!datosCargados) return;
-      try {
-        await update(dbRef, {
-          vida: ESTADO.vida, huellas: ESTADO.huellas, siembras: ESTADO.siembras,
+    async function guardarEstado(){
+      if(!datosCargados) return;
+      try{
+        await update(dbEstado, {
+          vida: ESTADO.vida,
+          huellas: ESTADO.huellas,
+          siembras: ESTADO.siembras,
           integridad: ESTADO.integridad,
-          corrompido: ESTADO.corrompido, muerto: ESTADO.muerto,
-          ultimaVisita: ESTADO.ultimaVisita,
+          corrompido: ESTADO.corrompido,
+          muerto: ESTADO.muerto,
           vecesCompartido: ESTADO.vecesCompartido,
-          mensajes: ESTADO.mensajes
+          mensajes: ESTADO.mensajes,
+          ciclos: ESTADO.ciclos
         });
-      } catch (e) { console.error('Error guardando:', e); }
+      } catch(e){ console.error('Error guardando estado:', e); }
     }
 
-    function escucharCambios() {
-      onValue(dbRef, (snap) => {
+    function escucharEstado(){
+      onValue(dbEstado, snap => {
         const d = snap.val();
-        if (d && datosCargados) {
+        if (d && datosCargados){
           const eraMuerto = ESTADO.muerto;
           ESTADO.vida = d.vida || 0;
           ESTADO.huellas = d.huellas || 0;
@@ -312,115 +518,1106 @@
           ESTADO.integridad = d.integridad || 100;
           ESTADO.corrompido = d.corrompido || false;
           ESTADO.muerto = d.muerto || false;
-          ESTADO.ultimaVisita = d.ultimaVisita || Date.now();
           ESTADO.vecesCompartido = d.vecesCompartido || 0;
           ESTADO.mensajes = d.mensajes || [];
-          // actualizarUI() reconcilia esferas y mensajes visuales contra el ESTADO real
-          // (sirve tanto para cambios locales como remotos, sin duplicar ni dejar fantasmas)
+          ESTADO.ciclos = d.ciclos || 0;
           actualizarUI();
-          if (d.muerto && !eraMuerto) mostrarOverlayMuerte();
-          if (!d.muerto && eraMuerto) mostrarOverlayRenacimiento();
+          if (d.muerto && !eraMuerto) { mostrarOverlayMuerte(); limpiarVersosFlotantes(); }
+          if (!d.muerto && eraMuerto) { 
+            mostrarOverlayRenacimiento(ESTADO.ciclos);
+            lluviaPetales();
+          }
         }
       });
     }
 
-    function particulasActivas() { return ESTADO.vida; }
+    function particulasActivas(){ return ESTADO.vida; }
 
-    function actualizarCorrupcion() {
-      if (!datosCargados) return;
+    async function actualizarCorrupcion(){
+      if(!datosCargados) return;
       const p = particulasActivas();
       ESTADO.integridad = Math.min(100, p * 10);
-      if (p === 0) {
-        if (!ESTADO.muerto) {
+      if (p === 0){
+        if (!ESTADO.muerto){
           ESTADO.muerto = true;
           ESTADO.corrompido = true;
           ESTADO.integridad = 0;
           ESTADO.mensajes = [];
+          mensajesRenderizados.clear();
+          await guardarEstado();
           mostrarOverlayMuerte();
+          limpiarVersosFlotantes();
           limpiarMensajesFlotantes();
+          limpiarFlores();
         }
       } else {
         ESTADO.corrompido = p < 8;
+        await guardarEstado();
       }
-      guardarEstado();
       actualizarUI();
     }
 
-    // ===== DECAIMIENTO NATURAL (revisa cada hora real sin interaccion) =====
-    function decaimientoNatural() {
+    function decaimientoNatural(){
       if (ESTADO.muerto) return;
       const ahora = Date.now();
-      if (ahora - ultimoDecaimiento > 3600000) { // 1 hora
-        if (ESTADO.vida > 0) {
+      if (ahora - ultimoDecaimiento > 3600000){
+        if (ESTADO.vida > 0){
           ESTADO.vida--;
           ESTADO.ultimaActualizacion = ahora;
-          actualizarCorrupcion(); // guarda + reconcilia esferas visuales
+          actualizarCorrupcion();
         }
         ultimoDecaimiento = ahora;
       }
     }
 
-    // ===== OVERLAYS =====
-    const overlayMuerte = document.getElementById('overlay-muerte');
-    const cerrarMuerte = document.getElementById('cerrar-overlay-muerte');
-    const btnRevivir = document.getElementById('btn-revivir');
-    function mostrarOverlayMuerte() { overlayMuerte.classList.add('visible'); document.getElementById('estado-muerto').style.display = 'block'; limpiarMensajesFlotantes(); }
-    function ocultarOverlayMuerte() { overlayMuerte.classList.remove('visible'); document.getElementById('estado-muerto').style.display = 'none'; }
-    cerrarMuerte.addEventListener('click', () => overlayMuerte.classList.remove('visible'));
-    btnRevivir.addEventListener('click', () => overlayMuerte.classList.remove('visible'));
-
-    const overlayRenacimiento = document.getElementById('overlay-renacimiento');
-    const cerrarRenacimiento = document.getElementById('cerrar-renacimiento');
-    function mostrarOverlayRenacimiento() { overlayRenacimiento.classList.add('visible'); }
-    function ocultarOverlayRenacimiento() { overlayRenacimiento.classList.remove('visible'); }
-    cerrarRenacimiento.addEventListener('click', () => ocultarOverlayRenacimiento());
-
-    // Aviso breve NO bloqueante (para cuando una accion no esta disponible sin tapar toda la pantalla)
-    let avisoTimeoutId = null;
-    function avisoTemporal(msg) {
-      let el = document.getElementById('aviso-temporal');
-      if (!el) {
-        el = document.createElement('div');
-        el.id = 'aviso-temporal';
-        el.style.cssText = 'position:fixed;bottom:220px;left:50%;transform:translateX(-50%);z-index:120;background:rgba(10,10,10,0.9);color:#ff6b35;border:1px solid #ff6b35;padding:8px 16px;border-radius:16px;font-family:"Courier New",monospace;font-size:11px;letter-spacing:0.5px;text-align:center;max-width:80%;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
-        document.body.appendChild(el);
-      }
-      el.textContent = msg;
-      el.style.opacity = '1';
-      if (avisoTimeoutId) clearTimeout(avisoTimeoutId);
-      avisoTimeoutId = setTimeout(() => { el.style.opacity = '0'; }, 2200);
+    // ============================================================
+    // HORA DEL DÍA
+    // ============================================================
+    function getHoraDia() {
+      const h = new Date().getHours();
+      if (h >= 6 && h < 9) return { nombre: 'AMANECER', color: '#ff9966', luz: new THREE.Color(0xff9966), brillo: 0.7, neblina: true };
+      if (h >= 9 && h < 18) return { nombre: 'DÍA', color: '#ffffff', luz: new THREE.Color(0xffffff), brillo: 1.0, neblina: false };
+      if (h >= 18 && h < 21) return { nombre: 'ATARDECER', color: '#ff6633', luz: new THREE.Color(0xff6633), brillo: 0.8, neblina: false };
+      return { nombre: 'NOCHE', color: '#2233aa', luz: new THREE.Color(0x2233aa), brillo: 0.4, neblina: false };
     }
 
-    // ===== THREE.JS =====
+    let horaActual = getHoraDia();
+
+    function actualizarHoraDia() {
+      const nueva = getHoraDia();
+      if (nueva.nombre !== horaActual.nombre) {
+        horaActual = nueva;
+        document.getElementById('hora-dia').textContent = nueva.nombre;
+        actualizarLuces();
+      }
+    }
+
+    function actualizarLuces() {
+      const c = horaActual.luz;
+      mainLight.color.lerp(c, 0.1);
+      mainLight.intensity = horaActual.brillo * 1.5;
+      scene.background.lerp(new THREE.Color(horaActual.color), 0.05);
+      
+      if (horaActual.neblina) {
+        scene.fog = new THREE.FogExp2(0x886644, 0.015);
+      } else {
+        scene.fog = null;
+      }
+    }
+
+   // ============================================================
+    // TEXTURA DE FLOR EN CANVAS (2D)
+    // ============================================================
+    function crearTexturaFlor(tipo, color) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      
+      ctx.clearRect(0, 0, 256, 256);
+      
+      const cx = 128, cy = 135;
+      const colorObj = new THREE.Color(color);
+      const r = Math.floor(colorObj.r * 255);
+      const g = Math.floor(colorObj.g * 255);
+      const b = Math.floor(colorObj.b * 255);
+      
+      const configs = {
+        señal: { num: 14, tam: 45, capas: 2, forma: 'redondo' },
+        resonancia: { num: 8, tam: 58, capas: 2, forma: 'alargado' },
+        fractura: { num: 10, tam: 40, capas: 4, forma: 'redondo' },
+        deriva: { num: 22, tam: 30, capas: 2, forma: 'fino' }
+      };
+      const config = configs[tipo] || configs.señal;
+      
+      for (let capa = 0; capa < config.capas; capa++) {
+        const num = Math.floor(config.num * (1 - capa * 0.12));
+        const tam = config.tam * (1 - capa * 0.1);
+        const offset = capa * 6;
+        const radio = 15 + offset;
+        
+        for (let i = 0; i < num; i++) {
+          const ang = (i / num) * Math.PI * 2 + capa * 0.4 + Math.sin(capa * 0.5) * 0.1;
+          const x = cx + Math.cos(ang) * radio;
+          const y = cy + Math.sin(ang) * radio;
+          
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(ang);
+          
+          ctx.shadowColor = 'rgba(0,0,0,0.12)';
+          ctx.shadowBlur = 8;
+          
+          const bright = 1 - capa * 0.08;
+          const grad = ctx.createRadialGradient(0, -tam * 0.15, 2, 0, 0, tam);
+          grad.addColorStop(0, `rgba(${Math.min(255, r + 50 * bright)}, ${Math.min(255, g + 50 * bright)}, ${Math.min(255, b + 50 * bright)}, 1)`);
+          grad.addColorStop(0.5, `rgba(${r * bright}, ${g * bright}, ${b * bright}, 1)`);
+          grad.addColorStop(1, `rgba(${Math.max(0, r * bright - 40)}, ${Math.max(0, g * bright - 40)}, ${Math.max(0, b * bright - 40)}, 1)`);
+          
+          ctx.beginPath();
+          
+          if (config.forma === 'alargado') {
+            ctx.moveTo(0, -tam * 0.05);
+            ctx.quadraticCurveTo(tam * 0.35, -tam * 0.2, tam * 0.25, -tam * 0.75);
+            ctx.quadraticCurveTo(0, -tam * 0.95, -tam * 0.25, -tam * 0.75);
+            ctx.quadraticCurveTo(-tam * 0.35, -tam * 0.2, 0, -tam * 0.05);
+          } else if (config.forma === 'fino') {
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(tam * 0.06, -tam * 0.4, 0, -tam * 0.9);
+            ctx.quadraticCurveTo(-tam * 0.06, -tam * 0.4, 0, 0);
+          } else {
+            ctx.moveTo(0, -tam * 0.05);
+            ctx.bezierCurveTo(tam * 0.4, -tam * 0.25, tam * 0.4, -tam * 0.75, 0, -tam * 0.95);
+            ctx.bezierCurveTo(-tam * 0.4, -tam * 0.75, -tam * 0.4, -tam * 0.25, 0, -tam * 0.05);
+          }
+          
+          ctx.closePath();
+          ctx.fillStyle = grad;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+          
+          if (config.forma !== 'fino') {
+            ctx.strokeStyle = `rgba(${Math.max(0, r - 50)}, ${Math.max(0, g - 50)}, ${Math.max(0, b - 50)}, 0.15)`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, -tam * 0.1);
+            ctx.lineTo(0, -tam * 0.8);
+            ctx.stroke();
+          }
+          
+          ctx.restore();
+        }
+      }
+      
+      ctx.shadowColor = 'rgba(0,0,0,0.2)';
+      ctx.shadowBlur = 10;
+      const gradCentro = ctx.createRadialGradient(cx, cy, 3, cx, cy, 18);
+      gradCentro.addColorStop(0, '#ffdd44');
+      gradCentro.addColorStop(0.5, '#ffaa00');
+      gradCentro.addColorStop(1, '#cc8800');
+      ctx.beginPath();
+      ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+      ctx.fillStyle = gradCentro;
+      ctx.fill();
+      
+      ctx.shadowBlur = 0;
+      for (let i = 0; i < 14; i++) {
+        const ang = (i / 14) * Math.PI * 2 + Math.random() * 0.1;
+        const dist = 6 + Math.random() * 10;
+        ctx.beginPath();
+        ctx.arc(cx + Math.cos(ang) * dist, cy + Math.sin(ang) * dist, 1.5 + Math.random() * 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(160, 100, 20, ${0.4 + Math.random() * 0.5})`;
+        ctx.fill();
+      }
+      
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+      return texture;
+    }
+
+    // ============================================================
+    // FLORES CON TALLO FINO Y CURVO
+    // ============================================================
+    const flores = [];
+    const TIPOS_FLOR = ['señal', 'resonancia', 'fractura', 'deriva'];
+
+    function crearFlorOrganica(tipo, color, posicion) {
+      const grupo = new THREE.Group();
+      const altura = 0.5 + Math.random() * 1.0;
+      
+      // Tallo fino y curvo
+      const numPuntos = 6 + Math.floor(Math.random() * 4);
+      const puntos = [];
+      const curvaturaX = (Math.random() - 0.5) * 0.3;
+      const curvaturaZ = (Math.random() - 0.5) * 0.3;
+      
+      for (let i = 0; i <= numPuntos; i++) {
+        const t = i / numPuntos;
+        const y = t * altura;
+        const x = curvaturaX * t + Math.sin(t * 2.5) * 0.04;
+        const z = curvaturaZ * t + Math.cos(t * 2.5) * 0.04;
+        puntos.push(new THREE.Vector3(x, y, z));
+      }
+      
+      const curva = new THREE.CatmullRomCurve3(puntos);
+      const tuboGeo = new THREE.TubeGeometry(curva, 20, 0.003 + Math.random() * 0.002, 5, false);
+      const talloMat = new THREE.MeshStandardMaterial({ 
+        color: 0x2d7a3e, 
+        roughness: 0.7,
+        metalness: 0.05
+      });
+      const tallo = new THREE.Mesh(tuboGeo, talloMat);
+      grupo.add(tallo);
+      
+      // Hojas en espiral
+      const numHojas = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < numHojas; i++) {
+        const t = 0.2 + (i / numHojas) * 0.5;
+        const punto = curva.getPoint(t);
+        const tangente = curva.getTangent(t);
+        
+        const shapeHoja = new THREE.Shape();
+        const ancho = 0.02 + Math.random() * 0.015;
+        const alto = 0.035 + Math.random() * 0.025;
+        shapeHoja.moveTo(0, 0);
+        shapeHoja.bezierCurveTo(ancho * 0.5, alto * 0.4, ancho * 0.4, alto * 0.8, 0, alto);
+        shapeHoja.bezierCurveTo(-ancho * 0.4, alto * 0.8, -ancho * 0.5, alto * 0.4, 0, 0);
+        const hojaGeo = new THREE.ShapeGeometry(shapeHoja);
+        const hoja = new THREE.Mesh(hojaGeo, new THREE.MeshStandardMaterial({
+          color: 0x3a8a4e,
+          side: THREE.DoubleSide,
+          roughness: 0.7
+        }));
+        
+        const perp = new THREE.Vector3(-tangente.z, 0, tangente.x).normalize();
+        hoja.position.copy(punto);
+        hoja.position.add(perp.clone().multiplyScalar(0.015 + Math.random() * 0.01));
+        hoja.position.y += (Math.random() - 0.5) * 0.01;
+        
+        hoja.quaternion.setFromUnitVectors(
+          new THREE.Vector3(0, 1, 0),
+          tangente.clone().normalize()
+        );
+        hoja.rotation.z += (Math.random() - 0.5) * 0.5;
+        hoja.rotation.y += (Math.random() - 0.5) * 0.5;
+        hoja.scale.set(0.5 + Math.random() * 0.5, 0.5 + Math.random() * 0.5, 1);
+        
+        hoja.userData = {
+          rotZBase: hoja.rotation.z,
+          rotYBase: hoja.rotation.y,
+          fase: Math.random() * Math.PI * 2
+        };
+        grupo.add(hoja);
+      }
+      
+      // Base/raíz en el suelo
+      const baseGeo = new THREE.SphereGeometry(0.015, 6, 6);
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0x1a5a2e, roughness: 0.9 });
+      const base = new THREE.Mesh(baseGeo, baseMat);
+      base.position.set(0, 0.01, 0);
+      base.scale.set(1, 0.3, 1);
+      grupo.add(base);
+      
+      // Flor (sprite 2D)
+      const textura = crearTexturaFlor(tipo, color);
+      const spriteMat = new THREE.SpriteMaterial({
+        map: textura,
+        transparent: true,
+        depthTest: true,
+        opacity: 0.95,
+        sizeAttenuation: true,
+        premultiplyAlpha: true,
+        depthWrite: false
+      });
+      const sprite = new THREE.Sprite(spriteMat);
+      const tamano = 0.25 + Math.random() * 0.15;
+      const puntoFinal = curva.getPoint(1);
+      sprite.position.copy(puntoFinal);
+      sprite.position.y += 0.04;
+      sprite.scale.set(tamano, tamano, 1);
+      grupo.add(sprite);
+      
+      grupo.position.copy(posicion);
+      grupo.position.y = 0;
+      
+      // Escala inicial (brote)
+      grupo.scale.set(0.01, 0.01, 0.01);
+      
+      grupo.userData = {
+        tipo: tipo,
+        color: color,
+        altura: altura,
+        sprite: sprite,
+        tallo: tallo,
+        curva: curva,
+        creciendo: true,
+        crecimiento: 0,
+        velocidadCrecimiento: 0.012 + Math.random() * 0.015,
+        anguloOrbita: Math.random() * Math.PI * 2,
+        radioOrbita: 1.2 + Math.random() * 3.5,
+        velocidadOrbita: 0.03 + Math.random() * 0.05,
+        offsetY: Math.random() * Math.PI * 2,
+        toques: 0,
+        muriendo: false,
+        tiempoMuerte: 0,
+        textura: textura,
+        puntos: puntos
+      };
+      
+      scene.add(grupo);
+      flores.push(grupo);
+      return grupo;
+    }
+
+    function animarFloresOrganicas() {
+      const time = Date.now() * 0.001;
+      
+      for (let i = flores.length - 1; i >= 0; i--) {
+        const f = flores[i];
+        const d = f.userData;
+        
+        if (d.muriendo) {
+          d.tiempoMuerte += 0.01;
+          d.sprite.material.opacity = Math.max(0, 1 - d.tiempoMuerte * 0.4);
+          d.sprite.scale.multiplyScalar(0.995);
+          
+          if (d.tiempoMuerte > 0.3) {
+            d.tallo.material.color.lerp(new THREE.Color(0x8B7355), 0.02);
+          }
+          
+          if (d.tiempoMuerte > 2.5) {
+            f.scale.multiplyScalar(0.97);
+            if (f.scale.x < 0.01) {
+              scene.remove(f);
+              flores.splice(i, 1);
+              continue;
+            }
+          }
+          continue;
+        }
+        
+        if (d.creciendo) {
+          d.crecimiento += d.velocidadCrecimiento;
+          const s = Math.min(1, d.crecimiento);
+          const eased = 1 - Math.pow(1 - s, 3);
+          f.scale.set(eased, eased, eased);
+          d.sprite.material.opacity = 0.3 + eased * 0.7;
+          
+          if (s >= 1) {
+            d.creciendo = false;
+            f.scale.set(1, 1, 1);
+            d.sprite.material.opacity = 0.95;
+          }
+        }
+        
+        d.anguloOrbita += d.velocidadOrbita * 0.01;
+        const rad = d.radioOrbita;
+        f.position.x = Math.cos(d.anguloOrbita) * rad;
+        f.position.z = Math.sin(d.anguloOrbita) * rad;
+        
+        const swayY = Math.sin(time * 0.35 + d.offsetY) * 0.015;
+        f.position.y = 0 + swayY;
+        
+        const viento = Math.sin(time * 0.4 + d.offsetY * 0.7) * 0.02;
+        const viento2 = Math.sin(time * 0.35 + d.offsetY * 0.9) * 0.02;
+        f.rotation.y = viento;
+        f.rotation.x = viento2;
+        
+        const breath = 1 + Math.sin(time * 0.5 + d.offsetY) * 0.02;
+        const baseScale = 0.25 + (d.tipo === 'resonancia' ? 0.15 : 0.1);
+        d.sprite.scale.x = baseScale * breath;
+        d.sprite.scale.y = baseScale * breath;
+      }
+    }
+
+    function eliminarFlor(flor) {
+      if (!flor || flor.userData.muriendo) return;
+      flor.userData.muriendo = true;
+      flor.userData.tiempoMuerte = 0;
+      
+      ESTADO.vida = Math.max(0, ESTADO.vida - 1);
+      ESTADO.ultimaActualizacion = Date.now();
+      actualizarCorrupcion();
+    }
+
+    function limpiarFlores() {
+      for (let i = flores.length - 1; i >= 0; i--) {
+        scene.remove(flores[i]);
+      }
+      flores.length = 0;
+    }
+
+    function sincronizarFlores() {
+      const objetivo = ESTADO.muerto ? 0 : ESTADO.vida;
+      const activas = flores.filter(f => !f.userData.muriendo);
+      
+      if (activas.length > objetivo) {
+        let sobran = activas.length - objetivo;
+        for (let i = 0; i < activas.length && sobran > 0; i++) {
+          const f = activas[i];
+          eliminarFlor(f);
+          sobran--;
+        }
+      } else if (activas.length < objetivo) {
+        let faltan = objetivo - activas.length;
+        while (faltan > 0) {
+          const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+          const tipo = TIPOS_FLOR[Math.floor(Math.random() * TIPOS_FLOR.length)];
+          const ang = Math.random() * Math.PI * 2;
+          const rad = 1.2 + Math.random() * 3.5;
+          const pos = new THREE.Vector3(Math.cos(ang) * rad, 0, Math.sin(ang) * rad);
+          const color = new THREE.Color(col.color);
+          crearFlorOrganica(tipo, color, pos);
+          faltan--;
+        }
+      }
+    }
+
+    // ============================================================
+    // PASTO DENSO
+    // ============================================================
+    const pasto = [];
+
+    function crearPasto() {
+      const grupo = new THREE.Group();
+      const numBriznas = 2000;
+      const geometry = new THREE.BufferGeometry();
+      const positions = [];
+      const colors = [];
+      const sizes = [];
+      const phases = [];
+      
+      const colores = [
+        new THREE.Color(0x1a5a2e),
+        new THREE.Color(0x2d7a3e),
+        new THREE.Color(0x3a8a4e),
+        new THREE.Color(0x4a9a5e),
+        new THREE.Color(0x5aaa6e)
+      ];
+      
+      for (let i = 0; i < numBriznas; i++) {
+        const ang = Math.random() * Math.PI * 2;
+        const rad = 0.5 + Math.random() * 6;
+        const x = Math.cos(ang) * rad;
+        const z = Math.sin(ang) * rad;
+        
+        positions.push(x, 0, z);
+        
+        const color = colores[Math.floor(Math.random() * colores.length)];
+        colors.push(color.r, color.g, color.b);
+        
+        sizes.push(0.015 + Math.random() * 0.025);
+        phases.push(Math.random() * Math.PI * 2);
+      }
+      
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+      geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+      geometry.setAttribute('phase', new THREE.Float32BufferAttribute(phases, 1));
+      
+      const material = new THREE.PointsMaterial({
+        size: 0.04,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85,
+        sizeAttenuation: true,
+        map: crearTexturaBrizna()
+      });
+      
+      const points = new THREE.Points(geometry, material);
+      points.userData = { phases: phases };
+      grupo.add(points);
+      
+      scene.add(grupo);
+      pasto.push(grupo);
+      return grupo;
+    }
+
+    function crearTexturaBrizna() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 12;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, 12, 32);
+      
+      const grad = ctx.createLinearGradient(6, 0, 6, 32);
+      grad.addColorStop(0, 'rgba(255,255,255,0)');
+      grad.addColorStop(0.2, 'rgba(200,230,180,0.9)');
+      grad.addColorStop(0.5, 'rgba(150,200,130,0.8)');
+      grad.addColorStop(0.8, 'rgba(100,160,80,0.5)');
+      grad.addColorStop(1, 'rgba(50,100,40,0)');
+      
+      ctx.beginPath();
+      ctx.moveTo(6, 0);
+      ctx.quadraticCurveTo(10, 10, 9, 24);
+      ctx.quadraticCurveTo(6, 32, 3, 24);
+      ctx.quadraticCurveTo(2, 10, 6, 0);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      
+      ctx.strokeStyle = 'rgba(100,160,80,0.2)';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(6, 4);
+      ctx.lineTo(6, 26);
+      ctx.stroke();
+      
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    function animarPasto() {
+      const time = Date.now() * 0.001;
+      
+      pasto.forEach(g => {
+        const points = g.children[0];
+        if (points && points.isPoints) {
+          const wind = Math.sin(time * 0.5) * 0.02;
+          points.material.size = 0.04 + wind * 0.01;
+        }
+      });
+    }
+
+    function limpiarPasto() {
+      pasto.forEach(g => scene.remove(g));
+      pasto.length = 0;
+    }
+
+    // ============================================================
+    // LLUVIA DE PÉTALOS
+    // ============================================================
+    let petalesLluvia = [];
+
+    function lluviaPetales() {
+      const colores = [0xff6b35, 0x4fc3f7, 0xff1744, 0x00e676, 0xffd700, 0xff69b4];
+      
+      for (let i = 0; i < 50; i++) {
+        const shape = new THREE.Shape();
+        const w = 0.015 + Math.random() * 0.015;
+        const h = 0.025 + Math.random() * 0.025;
+        shape.moveTo(0, 0);
+        shape.bezierCurveTo(w * 0.5, h * 0.4, w * 0.4, h * 0.8, 0, h);
+        shape.bezierCurveTo(-w * 0.4, h * 0.8, -w * 0.5, h * 0.4, 0, 0);
+        const geo = new THREE.ShapeGeometry(shape);
+        const mat = new THREE.MeshStandardMaterial({
+          color: colores[Math.floor(Math.random() * colores.length)],
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.8
+        });
+        const p = new THREE.Mesh(geo, mat);
+        p.position.set(
+          (Math.random() - 0.5) * 12,
+          4 + Math.random() * 4,
+          (Math.random() - 0.5) * 12
+        );
+        p.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        p.scale.set(0.8 + Math.random() * 0.6, 0.8 + Math.random() * 0.6, 1);
+        p.userData = {
+          vel: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.015,
+            -(0.015 + Math.random() * 0.03),
+            (Math.random() - 0.5) * 0.015
+          ),
+          rotVel: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.04,
+            (Math.random() - 0.5) * 0.04,
+            (Math.random() - 0.5) * 0.04
+          ),
+          vida: 0.8 + Math.random() * 0.2
+        };
+        scene.add(p);
+        petalesLluvia.push(p);
+      }
+    }
+
+    function animarLluviaPetales() {
+      for (let i = petalesLluvia.length - 1; i >= 0; i--) {
+        const p = petalesLluvia[i];
+        p.position.add(p.userData.vel);
+        p.rotation.x += p.userData.rotVel.x;
+        p.rotation.y += p.userData.rotVel.y;
+        p.rotation.z += p.userData.rotVel.z;
+        p.userData.vida -= 0.003;
+        p.material.opacity = p.userData.vida;
+        
+        if (p.position.y < -2 || p.userData.vida < 0) {
+          scene.remove(p);
+          petalesLluvia.splice(i, 1);
+        }
+      }
+    }
+
+    // ============================================================
+    // VERSOS FLOTANTES
+    // ============================================================
+    const versosFlotantes = [];
+
+    function crearVersoFlotante(texto, autor, label){
+      const canvas = document.createElement('canvas');
+      canvas.width = 512; canvas.height = 140;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillRect(0,0,512,140);
+      ctx.font = '22px "Courier New", monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(255,107,53,0.6)'; ctx.shadowBlur = 20;
+      ctx.fillStyle = '#ff6b35';
+      const palabras = texto.split(' ');
+      let lineas = [], actual = '';
+      for (const p of palabras) {
+        if ((actual + ' ' + p).length < 25) { actual += (actual ? ' ' : '') + p; }
+        else { if (actual) lineas.push(actual); actual = p; }
+      }
+      if (actual) lineas.push(actual);
+      const lh = 28, start = 70 - ((lineas.length-1)*lh)/2;
+      lineas.forEach((l,i) => ctx.fillText(l, 256, start + i*lh));
+      ctx.font = '14px "Courier New", monospace';
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#888';
+      ctx.fillText('— ' + autor, 256, 110);
+
+      const tex = new THREE.CanvasTexture(canvas);
+      const material = new THREE.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        depthTest: false,
+        opacity: 1
+      });
+      const sprite = new THREE.Sprite(material);
+      const ang = Math.random() * Math.PI * 2;
+      const rad = 2 + Math.random() * 3.5;
+      sprite.position.set(
+        Math.cos(ang) * rad,
+        1.5 + Math.random() * 2.5,
+        Math.sin(ang) * rad
+      );
+      sprite.scale.set(2.8, 0.8, 1);
+      sprite.userData = {
+        velocidad: 0.08 + Math.random() * 0.12,
+        offset: Math.random() * Math.PI * 2,
+        radio: rad,
+        alturaBase: sprite.position.y,
+        angulo: ang,
+        texto: texto,
+        autor: autor,
+        tiempoRestante: 30,
+        esVerso: true,
+        id: Date.now() + Math.random()
+      };
+      scene.add(sprite);
+      versosFlotantes.push(sprite);
+
+      const interval = setInterval(() => {
+        if (!sprite.parent) { clearInterval(interval); return; }
+        sprite.userData.tiempoRestante--;
+        const progreso = 1 - (sprite.userData.tiempoRestante / 30);
+        if (sprite.userData.tiempoRestante <= 0) {
+          evaporarVerso(sprite);
+          clearInterval(interval);
+        } else if (progreso > 0.7) {
+          const opacidad = 1 - (progreso - 0.7) / 0.3;
+          sprite.material.opacity = Math.max(0, opacidad);
+          const escala = 1 + (1 - opacidad) * 0.3;
+          sprite.scale.set(2.8 * escala, 0.8 * escala, 1);
+        }
+      }, 1000);
+
+      return sprite;
+    }
+
+    function evaporarVerso(sprite){
+      if (!sprite.parent) return;
+      const pos = sprite.position.clone();
+      const color = new THREE.Color(0xff6b35);
+      for (let i = 0; i < 20; i++) {
+        const part = new THREE.Mesh(
+          new THREE.SphereGeometry(0.02 + Math.random()*0.02, 4, 4),
+          new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8 })
+        );
+        part.position.copy(pos);
+        part.userData.v = new THREE.Vector3(
+          (Math.random()-0.5)*0.04,
+          (Math.random()-0.5)*0.04,
+          (Math.random()-0.5)*0.04
+        );
+        scene.add(part);
+        const anim = () => {
+          part.position.add(part.userData.v);
+          part.userData.v.multiplyScalar(0.98);
+          part.material.opacity *= 0.95;
+          part.scale.multiplyScalar(0.98);
+          if (part.material.opacity > 0.01) requestAnimationFrame(anim);
+          else scene.remove(part);
+        };
+        anim();
+      }
+      scene.remove(sprite);
+      const idx = versosFlotantes.indexOf(sprite);
+      if (idx > -1) versosFlotantes.splice(idx, 1);
+    }
+
+    function limpiarVersosFlotantes(){
+      versosFlotantes.forEach(s => scene.remove(s));
+      versosFlotantes.length = 0;
+    }
+
+    // ============================================================
+    // MENSAJES FLOTANTES
+    // ============================================================
+    const mensajesFlotantes = [];
+
+    function crearMensajeFlotante(texto){
+      if (mensajesRenderizados.has(texto)) return;
+      mensajesRenderizados.add(texto);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 512; canvas.height = 120;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillRect(0,0,512,120);
+      ctx.font = '20px "Courier New", monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(255,107,53,0.4)'; ctx.shadowBlur = 15;
+      ctx.fillStyle = '#ff6b35';
+      const palabras = texto.split(' ');
+      let lineas = [], actual = '';
+      for (const p of palabras) {
+        if ((actual + ' ' + p).length < 25) { actual += (actual ? ' ' : '') + p; }
+        else { if (actual) lineas.push(actual); actual = p; }
+      }
+      if (actual) lineas.push(actual);
+      const lh = 26, start = 60 - ((lineas.length-1)*lh)/2;
+      lineas.forEach((l,i) => ctx.fillText(l, 256, start + i*lh));
+      const tex = new THREE.CanvasTexture(canvas);
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        depthTest: false,
+        opacity: 0.85
+      }));
+      const ang = Math.random() * Math.PI * 2;
+      const rad = 1.5 + Math.random() * 3;
+      sprite.position.set(
+        Math.cos(ang) * rad,
+        1 + Math.random() * 3,
+        Math.sin(ang) * rad
+      );
+      sprite.scale.set(2.5, 0.65, 1);
+      sprite.userData = {
+        velocidad: 0.05 + Math.random() * 0.1,
+        offset: Math.random() * Math.PI * 2,
+        radio: rad,
+        alturaBase: sprite.position.y,
+        angulo: ang,
+        texto: texto,
+        esMensaje: true,
+        autor: 'RAYO'
+      };
+      scene.add(sprite);
+      mensajesFlotantes.push(sprite);
+      setTimeout(() => {
+        if (sprite.parent) {
+          const fade = () => {
+            sprite.material.opacity -= 0.02;
+            if (sprite.material.opacity > 0 && sprite.parent) {
+              requestAnimationFrame(fade);
+            } else {
+              scene.remove(sprite);
+              const idx = mensajesFlotantes.indexOf(sprite);
+              if (idx > -1) mensajesFlotantes.splice(idx, 1);
+              mensajesRenderizados.delete(texto);
+            }
+          };
+          fade();
+        }
+      }, 60000);
+      return sprite;
+    }
+
+    function limpiarMensajesFlotantes(){
+      mensajesFlotantes.forEach(s => scene.remove(s));
+      mensajesFlotantes.length = 0;
+      mensajesRenderizados.clear();
+    }
+
+    function actualizarMensajesFlotantes(){
+      ESTADO.mensajes.forEach(msg => {
+        if (!mensajesRenderizados.has(msg)) {
+          crearMensajeFlotante(msg);
+        }
+      });
+    }
+
+    // ============================================================
+    // REDES SOCIALES
+    // ============================================================
+    const REDES = [
+      { id:'twitter', label:'X', estilo:'background:#1DA1F2;color:#fff;' },
+      { id:'bluesky', label:'Bluesky', estilo:'background:#1185FE;color:#fff;' },
+      { id:'linkedin', label:'LinkedIn', estilo:'background:#0A66C2;color:#fff;' },
+      { id:'whatsapp', label:'WhatsApp', estilo:'background:#25D366;color:#fff;' },
+      { id:'facebook', label:'Facebook', estilo:'background:#1877F2;color:#fff;' },
+      { id:'reddit', label:'Reddit', estilo:'background:#FF4500;color:#fff;' },
+      { id:'instagram', label:'Instagram', estilo:'background:#E1306C;color:#fff;' },
+      { id:'substack', label:'Substack', estilo:'background:#FF6719;color:#fff;' }
+    ];
+
+    function avisoTemporal(msg){
+      const el = document.getElementById('aviso-temporal');
+      el.textContent = msg;
+      el.style.opacity = '1';
+      clearTimeout(el._timeout);
+      el._timeout = setTimeout(()=>{ el.style.opacity = '0'; }, 2500);
+    }
+
+    // ============================================================
+    // SEMBRAR SEMILLA
+    // ============================================================
+    async function sembrarSemilla() {
+      console.log('Sembrando semilla...');
+      
+      ESTADO.vecesCompartido += 1;
+      
+      await guardarEstado();
+      
+      actualizarUI();
+      avisoTemporal(`Semilla ${ESTADO.vecesCompartido}/5`);
+      console.log(`✅ Semilla: ${ESTADO.vecesCompartido}/5`);
+
+      if (ESTADO.vecesCompartido >= 5) {
+        console.log('✨ 5 semillas! REVIVIENDO...');
+        try {
+          await update(dbEstado, {
+            vida: 10,
+            integridad: 100,
+            corrompido: false,
+            muerto: false,
+            vecesCompartido: 0,
+            huellas: (ESTADO.huellas || 0) + 1,
+            mensajes: [],
+            ciclos: (ESTADO.ciclos || 0) + 1
+          });
+          
+          ESTADO.vida = 10;
+          ESTADO.integridad = 100;
+          ESTADO.corrompido = false;
+          ESTADO.muerto = false;
+          ESTADO.vecesCompartido = 0;
+          ESTADO.huellas++;
+          ESTADO.mensajes = [];
+          ESTADO.ciclos++;
+          mensajesRenderizados.clear();
+          
+          ocultarOverlayMuerte();
+          mostrarOverlayRenacimiento(ESTADO.ciclos);
+          lluviaPetales();
+          playRenacimiento();
+          actualizarUI();
+          avisoTemporal('✨ ¡El jardín ha renacido!');
+          console.log('✅ Renacido. Ciclo:', ESTADO.ciclos);
+        } catch (e) {
+          console.error('❌ Error:', e);
+          avisoTemporal('Error al revivir');
+        }
+      }
+    }
+
+    // ============================================================
+    // GENERAR BOTONES DE COMPARTIR
+    // ============================================================
+    function generarBotonesCompartir(texto, autor, esSemilla = true) {
+      const msg = esSemilla ? `"Sembrar una semilla en el Jardín" — ${autor}` : `"${texto}" — ${autor}`;
+      const url = window.location.href;
+      const cont = document.getElementById('botones-compartir');
+      cont.innerHTML = '';
+      REDES.forEach(r => {
+        const a = document.createElement('a');
+        a.setAttribute('style', r.estilo + 'padding:6px 12px;border-radius:20px;text-decoration:none;font-size:10px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;font-family:inherit;');
+        let href;
+        if (r.id === 'instagram' || r.id === 'substack') {
+          href = `https://www.instagram.com/39913em/`;
+        } else {
+          href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}&url=${encodeURIComponent(url)}`;
+          if (r.id === 'bluesky') href = `https://bsky.app/intent/compose?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
+          else if (r.id === 'linkedin') href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+          else if (r.id === 'whatsapp') href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
+          else if (r.id === 'facebook') href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`;
+          else if (r.id === 'reddit') href = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(msg)}`;
+        }
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = r.label;
+        a.addEventListener('click', (e) => {
+          if (r.id !== 'instagram' && r.id !== 'substack') {
+            e.preventDefault();
+            window.open(a.href, '_blank');
+          }
+          sembrarSemilla();
+        });
+        cont.appendChild(a);
+      });
+      const copiar = document.createElement('button');
+      copiar.textContent = 'Copiar';
+      copiar.setAttribute('style', 'padding:6px 12px;border-radius:20px;border:1px solid #555;background:#333;color:#fff;font-size:10px;font-weight:bold;cursor:pointer;font-family:inherit;');
+      copiar.addEventListener('click', () => {
+        navigator.clipboard.writeText(`${msg}\n\n${url}`).then(() => {
+          copiar.textContent = '✅ Copiado';
+          setTimeout(()=> copiar.textContent='Copiar', 2000);
+          sembrarSemilla();
+        });
+      });
+      cont.appendChild(copiar);
+      document.getElementById('verso-compartir-texto').textContent = esSemilla ? '"Sembrar una semilla en el Jardín"' : `"${texto}"`;
+      document.getElementById('verso-compartir-autor').textContent = `— ${autor}`;
+      document.getElementById('panel-compartir').classList.add('visible');
+    }
+
+    // ============================================================
+    // PUBLICAR HAIKU (antes POESÍA)
+    // ============================================================
+    async function accionHaiku(){
+      if (ESTADO.muerto) {
+        avisoTemporal('El jardín está muerto. Usa "SEMBRAR" para revivirlo.');
+        return;
+      }
+      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+      const h = generarHaiku(col.label);
+      crearVersoFlotante(h.texto, h.autor, col.label);
+      ESTADO.vida++;
+      ESTADO.siembras++;
+      ESTADO.ultimaActualizacion = Date.now();
+      await actualizarCorrupcion();
+      playPageTurn();
+      try {
+        await set(dbVerso, { texto: h.texto, autor: h.autor, columna: col.label, ts: Date.now() });
+      } catch(e) { console.warn('No se pudo sincronizar:', e); }
+    }
+
+    function escucharVerso(){
+      onValue(dbVerso, snap => {
+        const d = snap.val();
+        if (!d) return;
+        if (Date.now() - d.ts > 5000) return;
+        const existe = versosFlotantes.some(s => s.userData.texto === d.texto && s.userData.autor === d.autor);
+        if (!existe) {
+          crearVersoFlotante(d.texto, d.autor, d.columna);
+        }
+      });
+    }
+
+    // ============================================================
+    // COLUMNAS Y CONTENIDO — NUEVOS NOMBRES
+    // ============================================================
+    const datosColumna = [
+      { label:'SEÑAL', x:-4.5, z:-2.5, color:0xff6b35, forma:'cubos',
+        escala:[185,220,246,277,329,369], onda:'sine',
+        ensayo:{ titulo:'Señal', bloques:[
+          {tipo:'subtitulo', texto:'El dato como flujo, no como masa'},
+          {tipo:'parrafo', texto:'El bit que late, el pulso digital, la huella en el cache. Todo dato es también una promesa de movimiento.'},
+          {tipo:'parrafo', texto:'La información nunca es gratis: detrás de cada consulta hay un servidor que suda.'},
+          {tipo:'cita', texto:'"Los datos no son neutros. Son huellas de un mundo que ya no puede contenerlos."'},
+          {tipo:'parrafo', texto:'La señal viaja, se difumina, se pierde en el ruido.'}
+        ]}},
+      { label:'RESONANCIA', x:4.5, z:-2.5, color:0x4fc3f7, forma:'ondas',
+        escala:[196,220,246,293,349,392], onda:'triangle',
+        ensayo:{ titulo:'Resonancia', bloques:[
+          {tipo:'subtitulo', texto:'El espacio que vibra'},
+          {tipo:'parrafo', texto:'El silencio también construye. Cada reverberación traza una pared invisible.'},
+          {tipo:'parrafo', texto:'La arquitectura no se ve: se escucha, se recorre con el cuerpo entero.'},
+          {tipo:'cita', texto:'"El espacio sonoro es el único territorio que no se puede cercar."'},
+          {tipo:'parrafo', texto:'Una catedral de auriculares, un umbral que se escucha.'}
+        ]}},
+      { label:'FRACTURA', x:-4.5, z:3.5, color:0xff1744, forma:'rota',
+        escala:[146,164,174,220,246,261], onda:'sawtooth',
+        ensayo:{ titulo:'Fractura', bloques:[
+          {tipo:'subtitulo', texto:'El error como método'},
+          {tipo:'parrafo', texto:'La memoria digital es frágil, pero el olvido está programado.'},
+          {tipo:'parrafo', texto:'Lo que no se repite se pierde en el ruido de fondo. El archivo decide.'},
+          {tipo:'cita', texto:'"Toda base de datos es también una máquina de olvido selectivo."'},
+          {tipo:'parrafo', texto:'Cada versión corrompida es honesta: así se ve la memoria real.'}
+        ]}},
+      { label:'DERIVA', x:4.5, z:3.5, color:0x00e676, forma:'flotante',
+        escala:[220,246,293,329,392,440], onda:'sine',
+        ensayo:{ titulo:'Deriva', bloques:[
+          {tipo:'subtitulo', texto:'El flujo sin dueño'},
+          {tipo:'parrafo', texto:'La cultura se siembra, no se torrentea. Pero cuando el acceso legal cuesta más que el trabajo, algo se ha invertido.'},
+          {tipo:'parrafo', texto:'La piratería no es un crimen: es una respuesta a una estructura que hizo del acceso un privilegio.'},
+          {tipo:'cita', texto:'"Compartir una semilla no es lo mismo que despojar: la diferencia está en quién pierde."'},
+          {tipo:'parrafo', texto:'El flujo no tiene dueño. La deriva es el único destino.'}
+        ]}}
+    ];
+
+    // ============================================================
+    // BANCOS DE CORRUPCIÓN — DINÁMICA DE "USO JUSTO"
+    // ============================================================
+    const BANCO_ERROR_PARRAFO = [
+      '[ARCHIVO_PERDIDO :: este fragmento fue reclamado por el olvido programado]',
+      '[ACCESO_DENEGADO :: contenido bajo licencia irrecuperable]',
+      '[ENLACE_ROTO :: 404 en tu nombre]',
+      '[DATA_LOSS :: este párrafo ya no pertenece a nadie]',
+      '[ERROR 404 :: el texto no puede ser leído]'
+    ];
+    const BANCO_BLOQUEO_CITA = [
+      '[USO JUSTO NO APLICA AQUÍ :: según el criterio de otro algoritmo]',
+      '[ESTE FRAGMENTO NO NOS PERTENECE :: se omite por respeto a su autora]',
+      '[SOLICITUD DE RETIRO ATENDIDA :: contenido no disponible en tu región]',
+      '[LICENCIA EXPIRADA :: el permiso para citar esto ya no existe]',
+      '[MARCADO POR EL SISTEMA :: no toda cita sobrevive a la moderación]'
+    ];
+
+    function probabilidadBloqueo(integridad){
+      if (integridad>=80) return 0;
+      if (integridad>=40) return 0.3+(79-integridad)/39*0.4;
+      return 0.85;
+    }
+
+    function disolucionLibre(){
+      const todas = ['señal','resonancia','fractura','deriva'].flatMap(c=>lexicoActivo(c));
+      const n = 5+Math.floor(Math.random()*5);
+      const piezas = []; for(let i=0;i<n;i++) piezas.push(rand(todas));
+      const glifos = ['░','▒','▓','█','▄','▀'];
+      return piezas.join(' ') + ' ' + glifos[Math.floor(Math.random()*glifos.length)].repeat(1+Math.floor(Math.random()*3));
+    }
+
+    function armarEnsayoSegunEstado(ensayo, integridad, muerto){
+      const partes = [];
+      ensayo.bloques.forEach(b=>{
+        if (b.tipo==='subtitulo'){ partes.push({tipo:b.tipo, texto:b.texto}); return; }
+        if (b.tipo==='cita'){
+          const bloquear = muerto ? true : Math.random() < probabilidadBloqueo(integridad);
+          partes.push({tipo:b.tipo, texto: bloquear ? rand(BANCO_BLOQUEO_CITA) : b.texto, bloqueada:bloquear});
+          return;
+        }
+        if (muerto) partes.push({tipo:b.tipo, texto: disolucionLibre(), modo:'disuelto'});
+        else if (Math.random() < probabilidadBloqueo(integridad)) partes.push({tipo:b.tipo, texto: rand(BANCO_ERROR_PARRAFO), modo:'bloqueado'});
+        else partes.push({tipo:b.tipo, texto: b.texto, modo:'legible'});
+      });
+      return partes;
+    }
+
+    // ============================================================
+    // OVERLAYS
+    // ============================================================
+    const overlayMuerte = document.getElementById('overlay-muerte');
+    function mostrarOverlayMuerte(){ overlayMuerte.classList.add('visible'); }
+    function ocultarOverlayMuerte(){ overlayMuerte.classList.remove('visible'); }
+    document.getElementById('cerrar-overlay-muerte').addEventListener('click', ()=>overlayMuerte.classList.remove('visible'));
+    document.getElementById('btn-revivir').addEventListener('click', ()=>overlayMuerte.classList.remove('visible'));
+
+    const overlayRenacimiento = document.getElementById('overlay-renacimiento');
+    function mostrarOverlayRenacimiento(ciclo){
+      overlayRenacimiento.classList.add('visible');
+      document.getElementById('ciclo-renacido').textContent = ciclo;
+    }
+    document.getElementById('cerrar-renacimiento').addEventListener('click', ()=>overlayRenacimiento.classList.remove('visible'));
+
+    // ============================================================
+    // THREE.JS - ESCENA
+    // ============================================================
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a0a);
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
-    camera.position.set(8, 6, 12);
+    const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 100);
+    camera.position.set(8,6,12);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(innerWidth, innerHeight);
     renderer.shadowMap.enabled = true;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.minDistance = 3;
-    controls.maxDistance = 18;
-    controls.maxPolarAngle = Math.PI / 2.1;
-    controls.target.set(0, 1.5, 0);
-    controls.update();
+    controls.enableDamping = true; controls.dampingFactor=0.05;
+    controls.minDistance=3; controls.maxDistance=18; controls.maxPolarAngle=Math.PI/2.1;
+    controls.target.set(0,1.5,0); controls.update();
 
     // ===== LUCES =====
     const ambient = new THREE.AmbientLight(0x222244, 0.4); scene.add(ambient);
-    const main = new THREE.DirectionalLight(0xffffff, 1.5);
-    main.position.set(5, 12, 7); main.castShadow = true; scene.add(main);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    mainLight.position.set(5, 12, 7); mainLight.castShadow = true; scene.add(mainLight);
     const rim = new THREE.DirectionalLight(0xff6b35, 0.6);
     rim.position.set(-5, 5, -7); scene.add(rim);
     const fill = new THREE.DirectionalLight(0x4fc3f7, 0.3);
     fill.position.set(-3, 0, 8); scene.add(fill);
 
-    // ===== PERSONAJE (GUARDIAN): late como el "corazon" visible de la vida de la sala =====
+    // ===== GUARDIAN =====
     const guardian = new THREE.Group();
     const cuerpo = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.6), new THREE.MeshStandardMaterial({ color: 0x16213e, roughness: 0.3, metalness: 0.7 }));
     cuerpo.position.y = 0.6; cuerpo.castShadow = true; guardian.add(cuerpo);
@@ -432,437 +1629,291 @@
     led.position.set(0, 0.7, 0.35); led.name = 'led'; guardian.add(led);
     guardian.position.set(0, 0, 0); scene.add(guardian);
 
-
     // ===== COLUMNAS =====
     const columnas = [];
-    function crearColumna(label, color, forma) {
+
+    function crearColumna(label, color, forma){
       const group = new THREE.Group();
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 0.2, 8), new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 }));
       base.position.y = 0.1; base.receiveShadow = true; group.add(base);
       let mesh;
-      const cubos = [], anillos = [], grietas = [], fragmentos = [], piezasRota = [];
-      switch(forma) {
-        case 'cubos':
-          const g = new THREE.Group();
-          for (let i = 0; i < 25; i++) {
-            const size = 0.3 + Math.random() * 0.15;
-            const c = new THREE.Mesh(new THREE.BoxGeometry(size, 0.18, size), new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.6, emissive: color, emissiveIntensity: 0.05 + Math.random() * 0.1 }));
-            c.position.y = 0.2 + i * 0.2;
-            c.position.x = (Math.random() - 0.5) * 0.5;
-            c.position.z = (Math.random() - 0.5) * 0.5;
-            c.rotation.y = Math.random() * Math.PI;
-            c.castShadow = true;
-            g.add(c); cubos.push(c);
-          }
-          mesh = g; mesh.position.y = 2.5; break;
-        case 'ondas':
-          const og = new THREE.Group();
-          for (let i = 0; i < 12; i++) {
-            const radio = 0.4 + Math.sin(i * 0.8) * 0.2;
-            const a = new THREE.Mesh(new THREE.TorusGeometry(radio, 0.04, 8, 20), new THREE.MeshStandardMaterial({ color, roughness: 0.1, metalness: 0.9, emissive: color, emissiveIntensity: 0.1, transparent: true, opacity: 0.6 + Math.sin(i * 0.5) * 0.3 }));
-            a.position.y = 0.3 + i * 0.4;
-            a.rotation.x = Math.PI / 2 + Math.sin(i * 0.3) * 0.2;
-            a.rotation.z = Math.sin(i * 0.5) * 0.1;
-            a.castShadow = true;
-            og.add(a); anillos.push(a);
-          }
-          mesh = og; mesh.position.y = 2.5; break;
-        case 'rota':
-          const rg = new THREE.Group();
-          const inf = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 2.5, 8), new THREE.MeshStandardMaterial({ color, roughness: 0.5, metalness: 0.3, emissive: color, emissiveIntensity: 0.05 }));
-          inf.position.y = 1.3; inf.castShadow = true; rg.add(inf); piezasRota.push(inf);
-          const sup = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.5, 2.2, 8), new THREE.MeshStandardMaterial({ color, roughness: 0.6, metalness: 0.2, emissive: color, emissiveIntensity: 0.1 }));
-          sup.position.set(0.2, 3.5, 0.1); sup.rotation.z = 0.08; sup.rotation.x = 0.05; sup.castShadow = true; rg.add(sup); piezasRota.push(sup);
-          for (let i = 0; i < 12; i++) {
-            const g2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.15 + Math.random() * 0.3, 0.02), new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.2 + Math.random() * 0.3 }));
-            g2.position.set((Math.random() - 0.5) * 0.7, 1.5 + Math.random() * 3, (Math.random() - 0.5) * 0.7);
-            g2.rotation.z = (Math.random() - 0.5) * 0.3; g2.rotation.x = (Math.random() - 0.5) * 0.3;
-            rg.add(g2); grietas.push(g2);
-          }
-          mesh = rg; mesh.position.y = 0; break;
-        case 'flotante':
-          const fg = new THREE.Group();
-          for (let i = 0; i < 25; i++) {
-            const f = new THREE.Mesh(new THREE.OctahedronGeometry(0.08 + Math.random() * 0.12), new THREE.MeshStandardMaterial({ color, roughness: 0.2, metalness: 0.8, emissive: color, emissiveIntensity: 0.1, transparent: true, opacity: 0.6 + Math.random() * 0.4 }));
-            const ang = Math.random() * Math.PI * 2;
-            const rad = 0.3 + Math.random() * 0.7;
-            f.position.set(Math.cos(ang) * rad, 0.3 + Math.random() * 4.5, Math.sin(ang) * rad);
-            f.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-            f.castShadow = true;
-            f.userData = { velocidad: 0.3 + Math.random() * 0.5, offset: Math.random() * Math.PI * 2, radio: rad, alturaBase: f.position.y, angulo: ang };
-            fg.add(f); fragmentos.push(f);
-          }
-          mesh = fg; mesh.position.y = 0.5; break;
+      const cubos = [], anillos = [], grietas = [], fragmentos = [];
+
+      if (forma==='cubos'){
+        const g = new THREE.Group();
+        for(let i=0;i<25;i++){
+          const size = 0.3+Math.random()*0.15;
+          const c = new THREE.Mesh(new THREE.BoxGeometry(size,0.18,size), new THREE.MeshStandardMaterial({color, roughness:0.3, metalness:0.6, emissive:color, emissiveIntensity:0.05+Math.random()*0.1}));
+          c.position.y = 0.2+i*0.2; c.position.x=(Math.random()-.5)*0.5; c.position.z=(Math.random()-.5)*0.5;
+          c.rotation.y = Math.random()*Math.PI; c.castShadow=true;
+          g.add(c); cubos.push(c);
+        }
+        mesh = g; mesh.position.y=2.5;
+      } else if (forma==='ondas'){
+        const g = new THREE.Group();
+        for(let i=0;i<12;i++){
+          const radio = 0.4+Math.sin(i*0.8)*0.2;
+          const a = new THREE.Mesh(new THREE.TorusGeometry(radio,0.04,8,20), new THREE.MeshStandardMaterial({color, roughness:0.1, metalness:0.9, emissive:color, emissiveIntensity:0.1, transparent:true, opacity:0.6+Math.sin(i*0.5)*0.3}));
+          a.position.y = 0.3+i*0.4; a.rotation.x = Math.PI/2+Math.sin(i*0.3)*0.2; a.rotation.z = Math.sin(i*0.5)*0.1; a.castShadow=true;
+          g.add(a); anillos.push(a);
+        }
+        mesh = g; mesh.position.y=2.5;
+      } else if (forma==='rota'){
+        const g = new THREE.Group();
+        for (let i = 0; i < 45; i++) {
+          const altura = 0.3 + Math.random() * 1.8;
+          const radio = 0.015 + Math.random() * 0.025;
+          const cilindro = new THREE.Mesh(
+            new THREE.CylinderGeometry(radio, radio, altura, 4),
+            new THREE.MeshStandardMaterial({ color, roughness: 0.6, metalness: 0.2, emissive: color, emissiveIntensity: 0.1 + Math.random() * 0.3 })
+          );
+          const ang = Math.random() * Math.PI * 2;
+          const rad = 0.2 + Math.random() * 0.9;
+          cilindro.position.set(Math.cos(ang)*rad, 0.5 + Math.random() * 4.5, Math.sin(ang)*rad);
+          cilindro.rotation.x = (Math.random() - 0.5) * 0.8;
+          cilindro.rotation.z = (Math.random() - 0.5) * 0.8;
+          cilindro.castShadow = true;
+          cilindro.userData = { velocidad: 0.2 + Math.random() * 0.5, offset: Math.random() * Math.PI * 2, radio: rad, angulo: ang, alturaBase: cilindro.position.y };
+          g.add(cilindro);
+          fragmentos.push(cilindro);
+        }
+        mesh = g; mesh.position.y=0;
+      } else {
+        const g = new THREE.Group();
+        for(let i=0;i<25;i++){
+          const f = new THREE.Mesh(new THREE.OctahedronGeometry(0.08+Math.random()*0.12), new THREE.MeshStandardMaterial({color, roughness:0.2, metalness:0.8, emissive:color, emissiveIntensity:0.1, transparent:true, opacity:0.6+Math.random()*0.4}));
+          const ang = Math.random()*Math.PI*2, rad = 0.3+Math.random()*0.7;
+          f.position.set(Math.cos(ang)*rad, 0.3+Math.random()*4.5, Math.sin(ang)*rad);
+          f.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI); f.castShadow=true;
+          f.userData = {velocidad:0.3+Math.random()*0.5, offset:Math.random()*Math.PI*2, radio:rad, alturaBase:f.position.y, angulo:ang};
+          g.add(f); fragmentos.push(f);
+        }
+        mesh = g; mesh.position.y=0.5;
       }
       group.add(mesh);
-      const pos = datosColumna.find(d => d.label === label);
-      group.userData = { label, color, forma, mesh, cubos, anillos, grietas, fragmentos, piezasRota, escala: pos?.escala || [261.63, 293.66, 329.63, 392.00], onda: pos?.onda || 'sine' };
+      group.userData = {label, color, forma, mesh, cubos, anillos, grietas, fragmentos};
 
-      // BOTON DE DESCARGA (NOMBRE DE COLUMNA)
-      const canvas = document.createElement('canvas');
-      canvas.width = 512; canvas.height = 100;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillRect(0,0,512,100);
-      ctx.font = 'Bold 26px "Courier New", monospace';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.shadowColor = 'rgba(255,107,53,0.15)'; ctx.shadowBlur = 10;
-      ctx.fillStyle = '#ff6b35';
-      ctx.fillText(label, 256, 45);
-      ctx.font = '11px "Courier New", monospace';
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = '#555';
-      ctx.fillText('descargar', 256, 75);
+      const canvas = document.createElement('canvas'); canvas.width=512; canvas.height=100;
+      const ctx = canvas.getContext('2d'); ctx.fillStyle='rgba(0,0,0,0)'; ctx.fillRect(0,0,512,100);
+      ctx.font='Bold 26px "Courier New",monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.shadowColor='rgba(255,107,53,.15)'; ctx.shadowBlur=10; ctx.fillStyle='#ff6b35'; ctx.fillText(label,256,45);
+      ctx.font='11px "Courier New",monospace'; ctx.shadowBlur=0; ctx.fillStyle='#555'; ctx.fillText('descargar',256,75);
       const tex = new THREE.CanvasTexture(canvas);
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false, opacity: 0.7 }));
-      sprite.position.y = 5.8;
-      sprite.scale.set(3.2, 0.8, 1);
-      sprite.userData = { label: label, esBoton: true };
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false, opacity:0.7}));
+      sprite.position.y=5.8; sprite.scale.set(3.2,0.8,1); sprite.userData={label, esBoton:true};
       group.add(sprite);
-      group.position.set(pos.x, 0, pos.z);
+
+      const pos = datosColumna.find(d=>d.label===label);
+      group.position.set(pos.x,0,pos.z);
       return group;
     }
-    datosColumna.forEach(d => { const c = crearColumna(d.label, d.color, d.forma); scene.add(c); columnas.push(c); });
 
-    // ===== SUELO =====
-    const suelo = new THREE.Mesh(new THREE.PlaneGeometry(16, 14), new THREE.MeshStandardMaterial({ color: 0x0a0a1a, roughness: 0.9, metalness: 0.1, transparent: true, opacity: 0.6 }));
-    suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, -0.1, 0); suelo.receiveShadow = true; scene.add(suelo);
+    datosColumna.forEach(d=>{ const c = crearColumna(d.label,d.color,d.forma); scene.add(c); columnas.push(c); });
+
+    // ===== SUELO CON PASTO =====
+    const suelo = new THREE.Mesh(new THREE.PlaneGeometry(16, 14), new THREE.MeshStandardMaterial({ color: 0x0a1a0a, roughness: 0.9, metalness: 0.1, transparent: true, opacity: 0.8 }));
+    suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, -0.05, 0); suelo.receiveShadow = true; scene.add(suelo);
+    
     const circulo = new THREE.Mesh(new THREE.RingGeometry(2.2, 2.8, 32), new THREE.MeshStandardMaterial({ color: 0xff6b35, emissive: 0xff6b35, emissiveIntensity: 0.05, transparent: true, opacity: 0.15, side: THREE.DoubleSide }));
-    circulo.rotation.x = -Math.PI / 2; circulo.position.set(0, 0, 0); scene.add(circulo);
+    circulo.rotation.x = -Math.PI / 2; circulo.position.set(0, -0.02, 0); scene.add(circulo);
 
-    // ===== PARTICULAS / DOTS =====
-    const huellasParticulas = [];
+    // ============================================================
+    // SONIDO (resumido)
+    // ============================================================
+    let audioCtx=null, masterGain=null, vocesColumna=[], schedulerId=null, listenerFrame=0;
+    let ultimaProgresion = -1;
+    const TODAS_NOTAS = [0,1,2,3,4,5,6,7,8,9,10,11];
+    let ordenNotas = [...TODAS_NOTAS];
 
-    function crearHuella(label, color, tipo = 'huella') {
-      const g = new THREE.SphereGeometry(0.06 + Math.random() * 0.04, 6, 6);
-      const m = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.3 + Math.random() * 0.3, transparent: true, opacity: 0.6 + Math.random() * 0.4 });
-      const p = new THREE.Mesh(g, m);
-      const ang = Math.random() * Math.PI * 2;
-      const rad = 1 + Math.random() * 4;
-      p.position.set(Math.cos(ang) * rad, 0.5 + Math.random() * 4, Math.sin(ang) * rad);
-      p.userData = { velocidad: 0.1 + Math.random() * 0.2, offset: Math.random() * Math.PI * 2, radio: rad, alturaBase: p.position.y, angulo: ang, label, tipo, toques: 0, explotando: false };
-      scene.add(p); huellasParticulas.push(p); return p;
-    }
-
-    // ===== ELIMINAR HUELLA (1 esfera destruida = -1 hora de vida, siempre) =====
-    // El estado se corrige de inmediato; sincronizarEsferas() (dentro de actualizarUI) se encarga
-    // de que la escena siempre refleje exactamente ESTADO.vida, sin fantasmas ni sobrantes.
-    function eliminarHuella(p) {
-      if (!p || p.userData.explotando) return;
-      p.userData.explotando = true;
-
-      ESTADO.vida = Math.max(0, ESTADO.vida - 1);
-      ESTADO.ultimaActualizacion = Date.now();
-      actualizarCorrupcion(); // guarda en Firebase + reconcilia esferas/mensajes/UI
-
-      // Fade puramente visual de ESTA esfera concreta
-      const fade = () => {
-        p.material.opacity -= 0.05;
-        if (p.material.opacity > 0) requestAnimationFrame(fade);
-        else {
-          scene.remove(p);
-          const i = huellasParticulas.indexOf(p);
-          if (i > -1) huellasParticulas.splice(i, 1);
-        }
-      };
-      fade();
-    }
-
-    // Sincroniza la cantidad de esferas visibles en la escena con ESTADO.vida (o 0 si esta muerto).
-    // Es la UNICA funcion que crea o quita esferas por diferencia de estado: evita duplicados,
-    // fantasmas y sobras de un ciclo anterior, sin importar si el cambio vino de aqui o de otro dispositivo.
-    function sincronizarEsferas() {
-      const objetivo = ESTADO.muerto ? 0 : ESTADO.vida;
-      const activas = huellasParticulas.filter(p => p.userData && !p.userData.explotando);
-
-      if (activas.length > objetivo) {
-        let sobran = activas.length - objetivo;
-        for (let i = 0; i < activas.length && sobran > 0; i++) {
-          const p = activas[i];
-          scene.remove(p);
-          const idx = huellasParticulas.indexOf(p);
-          if (idx > -1) huellasParticulas.splice(idx, 1);
-          sobran--;
-        }
-      } else if (activas.length < objetivo) {
-        let faltan = objetivo - activas.length;
-        while (faltan > 0) {
-          const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-          crearHuella(col.label, col.color);
-          faltan--;
-        }
+    function shuffleArray(arr){
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
+      return arr;
     }
 
-    // ===== MENSAJES FLOTANTES =====
-    const mensajesFlotantes = [];
-    let mensajesRenderizados = 0; // cuantos mensajes de ESTADO.mensajes ya tienen su sprite creado
-    function crearMensajeFlotante(texto) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 512; canvas.height = 128;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillRect(0,0,512,128);
-      ctx.font = '22px "Courier New", monospace';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#ff6b35'; ctx.shadowColor = 'rgba(255,107,53,0.4)'; ctx.shadowBlur = 15;
-      const palabras = texto.split(' ');
-      let lineas = [], actual = '';
-      for (const p of palabras) {
-        if ((actual + ' ' + p).length < 30) { actual += (actual ? ' ' : '') + p; }
-        else { if (actual) lineas.push(actual); actual = p; }
+    function proximaProgresion(){
+      if (ultimaProgresion === -1 || ordenNotas.length < 3) {
+        ordenNotas = shuffleArray([...TODAS_NOTAS]);
+        ultimaProgresion = 0;
       }
-      if (actual) lineas.push(actual);
-      const lh = 28, start = 64 - ((lineas.length - 1) * lh) / 2;
-      lineas.forEach((l, i) => ctx.fillText(l, 256, start + i * lh));
-      const tex = new THREE.CanvasTexture(canvas);
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.8, depthTest: false }));
-      const ang = Math.random() * Math.PI * 2, rad = 1.5 + Math.random() * 3;
-      sprite.position.set(Math.cos(ang) * rad, 1 + Math.random() * 3, Math.sin(ang) * rad);
-      sprite.scale.set(2.8, 0.7, 1);
-      sprite.userData = { velocidad: 0.1 + Math.random() * 0.2, offset: Math.random() * Math.PI * 2, radio: rad, alturaBase: sprite.position.y, angulo: ang, texto };
-      scene.add(sprite); mensajesFlotantes.push(sprite); return sprite;
-    }
-    function limpiarMensajesFlotantes() {
-      mensajesFlotantes.forEach(s => scene.remove(s));
-      mensajesFlotantes.length = 0;
-      mensajesRenderizados = 0;
-    }
-
-    // Crea sprites SOLO para los mensajes de ESTADO.mensajes que aun no se han renderizado.
-    // Es idempotente (usa un cursor), asi que no importa cuantas veces se llame ni si el cambio
-    // vino de esta pestaña o de otro dispositivo: nunca duplica un mensaje.
-    function sincronizarMensajes() {
-      if (ESTADO.mensajes.length < mensajesRenderizados) {
-        // el array se acorto (ciclo nuevo / limpieza): reiniciar desde cero
-        limpiarMensajesFlotantes();
+      const num = 3 + Math.floor(Math.random() * 2);
+      const inicio = ultimaProgresion % ordenNotas.length;
+      const notas = [];
+      for (let i = 0; i < num; i++) {
+        notas.push(ordenNotas[(inicio + i) % ordenNotas.length]);
       }
-      for (let i = mensajesRenderizados; i < ESTADO.mensajes.length; i++) {
-        crearMensajeFlotante(ESTADO.mensajes[i]);
+      ultimaProgresion = (inicio + num) % ordenNotas.length;
+      if (ultimaProgresion + 3 >= ordenNotas.length) {
+        ordenNotas = shuffleArray([...TODAS_NOTAS]);
+        ultimaProgresion = 0;
       }
-      mensajesRenderizados = ESTADO.mensajes.length;
+      return notas;
     }
 
-    // ===== SONIDO =====
-    let audioCtx = null;
-    let masterGain = null;
-    let vocesColumna = [];
-    let schedulerId = null;
-    let listenerFrame = 0;
-
-    function initAudio() {
-      if (!audioCtx) {
-        try {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function initAudio(){
+      if(!audioCtx){
+        try{
+          audioCtx = new (window.AudioContext||window.webkitAudioContext)();
           masterGain = audioCtx.createGain();
           masterGain.gain.value = 0.0001;
           masterGain.connect(audioCtx.destination);
           crearVocesColumna();
-          console.log('Audio iniciado');
-        } catch (e) { console.warn('Error de audio:', e); return; }
+          console.log('🔊 Audio iniciado');
+        } catch(e){ console.warn('Error de audio:', e); return; }
       }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().then(() => { console.log('Audio reanudado'); iniciarScheduler(); }).catch(e => console.warn('Error reanudando audio:', e));
-      } else { iniciarScheduler(); }
+      if (audioCtx.state==='suspended') audioCtx.resume().then(()=>iniciarScheduler()).catch(()=>{});
+      else iniciarScheduler();
     }
     document.addEventListener('click', initAudio);
     document.addEventListener('touchstart', initAudio);
-    document.addEventListener('touchend', initAudio);
 
-    function crearVocesColumna() {
+    function crearVocesColumna(){
       if (!audioCtx) return;
-      vocesColumna = columnas.map(col => {
+      vocesColumna = columnas.map(col=>{
         const panner = audioCtx.createPanner();
-        panner.panningModel = 'HRTF';
-        panner.distanceModel = 'inverse';
-        panner.refDistance = 2.0;
-        panner.maxDistance = 18;
-        panner.rolloffFactor = 1.2;
-        panner.coneInnerAngle = 360;
-        panner.coneOuterAngle = 0;
-        panner.coneOuterGain = 0;
-        if (panner.positionX) {
-          panner.positionX.value = col.position.x;
-          panner.positionY.value = 2.5;
-          panner.positionZ.value = col.position.z;
-        } else if (panner.setPosition) {
-          panner.setPosition(col.position.x, 2.5, col.position.z);
-        }
-        const voiceGain = audioCtx.createGain();
-        voiceGain.gain.value = 1;
-        panner.connect(voiceGain);
-        voiceGain.connect(masterGain);
-        return { col, panner, voiceGain, proximoTiempo: audioCtx.currentTime + Math.random() * 2 };
+        panner.panningModel='HRTF'; panner.distanceModel='inverse';
+        panner.refDistance=2.0; panner.maxDistance=18; panner.rolloffFactor=1.2;
+        panner.coneInnerAngle=360; panner.coneOuterAngle=0; panner.coneOuterGain=0;
+        if (panner.positionX){ panner.positionX.value=col.position.x; panner.positionY.value=2.5; panner.positionZ.value=col.position.z; }
+        else if (panner.setPosition){ panner.setPosition(col.position.x, 2.5, col.position.z); }
+        const voiceGain = audioCtx.createGain(); voiceGain.gain.value=1;
+        panner.connect(voiceGain); voiceGain.connect(masterGain);
+        return {col, panner, voiceGain, proximoTiempo:audioCtx.currentTime + Math.random()*2};
       });
     }
 
-    function actualizarListener() {
-      if (!audioCtx) return;
-      const l = audioCtx.listener;
-      const p = camera.position;
-      const dir = new THREE.Vector3();
-      camera.getWorldDirection(dir);
-      try {
-        if (l.setPosition) {
-          l.setPosition(p.x, p.y, p.z);
-          l.setOrientation(dir.x, dir.y, dir.z, 0, 1, 0);
-        } else if (l.positionX) {
-          const t = audioCtx.currentTime;
-          l.positionX.setValueAtTime(p.x, t);
-          l.positionY.setValueAtTime(p.y, t);
-          l.positionZ.setValueAtTime(p.z, t);
-          l.forwardX.setValueAtTime(dir.x, t);
-          l.forwardY.setValueAtTime(dir.y, t);
-          l.forwardZ.setValueAtTime(dir.z, t);
-          l.upX.setValueAtTime(0, t); l.upY.setValueAtTime(1, t); l.upZ.setValueAtTime(0, t);
-        }
-      } catch(e) {}
-    }
+    function factorSalud(){ if(ESTADO.muerto) return 0; return Math.max(0.12, Math.min(1, ESTADO.integridad/100)); }
+    function evolucionLenta(){ if(!audioCtx) return 0.5; return (Math.sin(audioCtx.currentTime*0.0075)+1)/2; }
 
-    function factorSalud() {
-      if (ESTADO.muerto) return 0;
-      return Math.max(0.12, Math.min(1, ESTADO.integridad / 100));
-    }
-
-    // Variacion lenta y segura (no toca la arquitectura del motor): un LFO de ciclo largo
-    // (~12-15 minutos) que hace que el paisaje "respire" en vez de sonar siempre igual.
-    function evolucionLenta() {
-      if (!audioCtx) return 0.5;
-      return (Math.sin(audioCtx.currentTime * 0.0075) + 1) / 2; // 0..1, ciclo ~14 min
-    }
-
-    function tocarNotaColumna(voz, tiempo) {
-      if (!audioCtx) return;
+    function tocarNotaColumna(voz, tiempo){
       const d = voz.col.userData;
-      const escala = d.escala;
+      const escala = d.escala || [220, 246, 293, 329, 392, 440];
       const salud = factorSalud();
       const evo = evolucionLenta();
-      // La probabilidad de octava alta y la duracion respiran lentamente con evo,
-      // en vez de quedarse fijas todo el tiempo.
-      const probOctava = 0.08 + evo * 0.22;
-      const freq = escala[Math.floor(Math.random() * escala.length)] * (Math.random() < probOctava ? 2 : 1);
+      const notas = proximaProgresion();
+      const notaBase = notas[Math.floor(Math.random() * notas.length)];
+      const baseFreq = escala[notaBase % escala.length] || 220;
+      const intervalo = [0, 2, 4, 7, 9, 12][Math.floor(Math.random() * 6)];
+      const freq = baseFreq * Math.pow(2, intervalo / 12) * (Math.random() < 0.2 ? 2 : 1);
       const dur = 1.3 + evo * 1.8 + Math.random() * 1.2;
-      const vol = 0.05 + salud * 0.09;
+      const vol = 0.08 + salud * 0.12;
+
       const osc = audioCtx.createOscillator();
-      osc.type = d.onda;
+      osc.type = d.onda || 'sine';
       osc.frequency.setValueAtTime(freq, tiempo);
-      const noteGain = audioCtx.createGain();
-      noteGain.gain.setValueAtTime(0.0001, tiempo);
-      noteGain.gain.exponentialRampToValueAtTime(vol, tiempo + 0.25);
-      noteGain.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur);
-      osc.connect(noteGain);
-      noteGain.connect(voz.panner);
+      const ng = audioCtx.createGain();
+      ng.gain.setValueAtTime(0.0001, tiempo);
+      ng.gain.exponentialRampToValueAtTime(vol, tiempo + 0.25);
+      ng.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur);
+      osc.connect(ng);
+      ng.connect(voz.panner);
       osc.start(tiempo);
       osc.stop(tiempo + dur + 0.1);
-      if (salud > 0.7 && Math.random() < (0.25 + evo * 0.3)) {
-        const freq2 = escala[Math.floor(Math.random() * escala.length)];
+
+      if (salud > 0.4 && Math.random() < (0.3 + evo * 0.3)) {
+        const freq2 = freq * (1 + (Math.random() * 0.05 + 0.03));
         const osc2 = audioCtx.createOscillator();
-        osc2.type = d.onda;
+        osc2.type = d.onda || 'sine';
         osc2.frequency.setValueAtTime(freq2, tiempo + 0.1);
         const g2 = audioCtx.createGain();
         g2.gain.setValueAtTime(0.0001, tiempo + 0.1);
-        g2.gain.exponentialRampToValueAtTime(vol * 0.6, tiempo + 0.4);
+        g2.gain.exponentialRampToValueAtTime(vol * 0.5, tiempo + 0.4);
         g2.gain.exponentialRampToValueAtTime(0.0001, tiempo + dur);
-        osc2.connect(g2); g2.connect(voz.panner);
-        osc2.start(tiempo + 0.1); osc2.stop(tiempo + dur + 0.2);
+        osc2.connect(g2);
+        g2.connect(voz.panner);
+        osc2.start(tiempo + 0.1);
+        osc2.stop(tiempo + dur + 0.2);
       }
     }
 
     const LOOKAHEAD = 0.22;
-    function scheduleTick() {
-      if (!audioCtx || ESTADO.muerto) return;
-      const salud = factorSalud();
-      const evo = evolucionLenta();
+    function scheduleTick(){
+      if(!audioCtx || ESTADO.muerto) return;
       const ahora = audioCtx.currentTime;
       vocesColumna.forEach(voz => {
         if (voz.proximoTiempo < ahora + LOOKAHEAD) {
-          // De vez en cuando se salta una nota (silencio breve): evita que suene como un loop fijo
-          const saltar = Math.random() < 0.08 + (1 - evo) * 0.1;
-          if (!saltar) tocarNotaColumna(voz, Math.max(voz.proximoTiempo, ahora + 0.02));
+          tocarNotaColumna(voz, Math.max(voz.proximoTiempo, ahora + 0.02));
+          const salud = factorSalud();
+          const evo = evolucionLenta();
           const base = 3.2 / (0.4 + salud);
-          const variacion = 0.6 + Math.random() * 0.8 + evo * 0.5; // el tempo tambien respira
-          voz.proximoTiempo += base * variacion;
+          voz.proximoTiempo += base * (0.6 + Math.random() * 0.8 + evo * 0.5);
         }
       });
     }
 
-    function iniciarScheduler() {
-      if (schedulerId) return;
-      schedulerId = setInterval(scheduleTick, 120);
-      actualizarMasterGain();
-    }
-
-    function actualizarMasterGain() {
-      if (!audioCtx || !masterGain) return;
-      const t = audioCtx.currentTime;
-      const objetivo = ESTADO.muerto ? 0.0001 : 0.15 + factorSalud() * 0.25;
+    function iniciarScheduler(){ if(schedulerId) return; schedulerId=setInterval(scheduleTick, 120); actualizarMasterGain(); }
+    function actualizarMasterGain(){
+      if(!audioCtx||!masterGain) return;
+      const t=audioCtx.currentTime;
+      const objetivo = ESTADO.muerto ? 0.0001 : 0.35 + factorSalud() * 0.35;
       masterGain.gain.cancelScheduledValues(t);
       masterGain.gain.setValueAtTime(masterGain.gain.value, t);
-      masterGain.gain.linearRampToValueAtTime(objetivo, t + 1.5);
-      if (ESTADO.muerto) { if (schedulerId) { clearInterval(schedulerId); schedulerId = null; } }
-      else if (!schedulerId) { iniciarScheduler(); }
+      masterGain.gain.linearRampToValueAtTime(objetivo, t+1.5);
+      if (ESTADO.muerto){ if(schedulerId){clearInterval(schedulerId); schedulerId=null;} }
+      else if (!schedulerId) iniciarScheduler();
     }
 
-    function playSound(freqs, dur = 0.3, vol = 0.04) {
-      if (!audioCtx || audioCtx.state === 'closed' || !masterGain) return;
+    function playSound(freqs, dur=0.3, vol=0.06){
+      if(!audioCtx || audioCtx.state==='closed' || !masterGain) return;
       const emitir = () => {
-        if (!audioCtx || audioCtx.state !== 'running' || !masterGain) return;
-        let nivel = ESTADO.muerto ? vol * 0.1 : vol;
-        try {
+        if(!audioCtx || audioCtx.state!=='running' || !masterGain) return;
+        const nivel = ESTADO.muerto ? vol*0.1 : vol;
+        try{
           const ahora = audioCtx.currentTime;
-          freqs.forEach((f, i) => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(f * (1 + i * 0.01), ahora);
-            gain.gain.setValueAtTime(Math.max(0.0001, nivel / freqs.length), ahora);
-            gain.gain.exponentialRampToValueAtTime(0.001, ahora + dur);
-            osc.connect(gain);
-            gain.connect(masterGain);
-            osc.start(ahora);
-            osc.stop(ahora + dur);
+          freqs.forEach((f,i)=>{
+            const osc=audioCtx.createOscillator();
+            const g=audioCtx.createGain();
+            osc.type='sine';
+            osc.frequency.setValueAtTime(f*(1+i*0.01), ahora);
+            g.gain.setValueAtTime(Math.max(0.0001, nivel/freqs.length), ahora);
+            g.gain.exponentialRampToValueAtTime(0.001, ahora+dur);
+            osc.connect(g); g.connect(masterGain);
+            osc.start(ahora); osc.stop(ahora+dur);
           });
-        } catch(e) {}
+        } catch(e){}
       };
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().then(() => { actualizarMasterGain(); emitir(); }).catch(() => {});
-      } else { emitir(); }
+      if (audioCtx.state==='suspended') audioCtx.resume().then(()=>{ actualizarMasterGain(); emitir(); }).catch(()=>{});
+      else emitir();
     }
 
-    function playPop() { playSound([800, 1000], 0.15, 0.05); }
-    function playPageTurn() { playSound([400, 500], 0.2, 0.03); }
-    function playRenacimiento() { playSound([300, 500, 700, 900], 1.5, 0.06); }
+    function playPageTurn(){ playSound([400,500],0.2,0.04); }
+    function playPop(){ playSound([800,1000],0.15,0.06); }
+    function playRenacimiento(){ playSound([300,500,700,900],1.5,0.08); }
 
-    // ===== INTERACCIONES =====
+    function actualizarListener(){
+      if(!audioCtx) return;
+      const l=audioCtx.listener;
+      const p=camera.position;
+      const dir=new THREE.Vector3();
+      camera.getWorldDirection(dir);
+      try{
+        if (l.setPosition){
+          l.setPosition(p.x,p.y,p.z);
+          l.setOrientation(dir.x,dir.y,dir.z,0,1,0);
+        } else if (l.positionX){
+          const t=audioCtx.currentTime;
+          l.positionX.setValueAtTime(p.x,t);
+          l.positionY.setValueAtTime(p.y,t);
+          l.positionZ.setValueAtTime(p.z,t);
+          l.forwardX.setValueAtTime(dir.x,t);
+          l.forwardY.setValueAtTime(dir.y,t);
+          l.forwardZ.setValueAtTime(dir.z,t);
+          l.upX.setValueAtTime(0,t);
+          l.upY.setValueAtTime(1,t);
+          l.upZ.setValueAtTime(0,t);
+        }
+      } catch(e){}
+    }
+
+    // ============================================================
+    // INTERACCIONES
+    // ============================================================
     const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
-    renderer.domElement.addEventListener('pointermove', e => {
-      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    });
 
-    function corromperTexto(texto, nivel = 0.3) {
-      if (!texto) return texto;
-      if (ESTADO.muerto) {
-        return texto.split('').map(() => { const chars = ['\u2591', '\u2592', '\u2593', '\u2588', '\u2584', '\u2580', '\u25A0', '\u25A1', '\u25AA', '\u25AB', '\u25CA']; return chars[Math.floor(Math.random() * chars.length)]; }).join('');
-      }
-      const chars = texto.split('');
-      const resultado = [];
-      const rotos = ['\u2591', '\u2592', '\u2593', '\u2588', '\u2584', '\u2580', '\u25A0', '\u25A1', '\u25AA', '\u25AB', '\u25CA'];
-      const vocales = ['A','E','I','O','U','a','e','i','o','u','@','#','$','%','&','*','+','='];
-      for (let i = 0; i < chars.length; i++) {
-        if (Math.random() < nivel) {
-          if (Math.random() < 0.5) { resultado.push(rotos[Math.floor(Math.random() * rotos.length)]); }
-          else if ('AEIOUaeiou'.includes(chars[i])) { resultado.push(vocales[Math.floor(Math.random() * vocales.length)]); }
-          else { resultado.push(chars[i]); }
-        } else { resultado.push(chars[i]); }
-      }
-      return resultado.join('');
-    }
-
-    // ===== CLIC EN NOMBRE DE COLUMNA (DESCARGA) =====
     renderer.domElement.addEventListener('click', async e => {
-      if (!audioCtx) initAudio();
-      // Ya NO relanzamos el overlay de muerte en cada clic: eso impedia recorrer la ruina.
-      // El overlay solo aparece una vez, al morir, y el usuario decide cuando cerrarlo.
+      if(!audioCtx) initAudio();
       const rect = renderer.domElement.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
@@ -870,72 +1921,71 @@
       );
       raycaster.setFromCamera(mouse, camera);
       const sprites = [];
-      columnas.forEach(col => {
-        col.children.forEach(child => {
-          if (child.isSprite && child.userData && child.userData.esBoton) { sprites.push(child); }
-        });
-      });
+      columnas.forEach(col => col.children.forEach(c => { if(c.isSprite && c.userData && c.userData.esBoton) sprites.push(c); }));
       const hits = raycaster.intersectObjects(sprites);
-      if (hits.length > 0) {
-        const sprite = hits[0].object;
-        const label = sprite.userData.label;
-        const data = TEXTOS_COMPLETOS[label];
-        if (!data) return;
-        let contenido = data.cuerpo || 'Contenido no disponible.';
-        if (ESTADO.muerto) { contenido = 'EL ARCHIVO HA MUERTO.\nNo hay texto disponible.'; }
-        else if (ESTADO.integridad < 100) {
-          if (ESTADO.integridad < 40) { contenido = corromperTexto(contenido, 0.7); }
-          else if (ESTADO.integridad < 70) { contenido = corromperTexto(contenido, 0.4); }
-          else { contenido = corromperTexto(contenido, 0.1); }
-        }
-        const element = document.createElement('div');
-        element.style.padding = '30px';
-        element.style.fontFamily = 'Georgia, serif';
-        element.style.color = '#1a1a1a';
-        element.style.background = '#fafafa';
-        element.style.maxWidth = '700px';
-        element.style.margin = '0 auto';
-        let htmlContent = `
-          <div style="text-align:center; border-bottom:2px solid #ff6b35; padding-bottom:15px; margin-bottom:15px;">
-            <h1 style="font-size:24px; margin:0; color:#0a0a0a;">MONUMENTO SONORO</h1>
-            <p style="font-size:11px; color:#666; letter-spacing:1px; text-transform:uppercase;">Archivo de Señal · 39913EM</p>
-          </div>
-          <div style="margin-bottom:15px;">
-            <h2 style="font-size:20px; margin:0 0 4px;">${data.titulo}</h2>
-            ${data.subtitulo ? `<p style="font-size:14px; color:#555; font-style:italic; margin:0 0 8px;">${data.subtitulo}</p>` : ''}
-            <p style="font-size:11px; color:#999;">${label} · ${ESTADO.muerto ? 'MUERTO' : ESTADO.corrompido ? 'CORRUPTO' : 'ORIGINAL'}</p>
-          </div>
-          <div style="font-size:13px; line-height:1.7; white-space:pre-wrap;">${contenido}</div>
-          <div style="margin-top:25px; border-top:1px solid #ddd; padding-top:12px; text-align:center; font-size:10px; color:#999;">
-            Archivo de Señal · ${new Date().toLocaleDateString()} · ${window.location.origin}/archivo-de-senal/
-          </div>
-        `;
-        element.innerHTML = htmlContent;
-        document.body.appendChild(element);
-        try {
-          await html2pdf().set({
-            margin: 10,
-            filename: `${label.toLowerCase().replace(/\s+/g, '_')}_${ESTADO.muerto ? 'muerto' : ESTADO.corrompido ? 'corrupto' : 'original'}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-          }).from(element).save();
-        } catch (err) { console.error('Error generando PDF:', err); }
-        document.body.removeChild(element);
-        if (!ESTADO.muerto) {
-          // No creamos la esfera aqui: sincronizarEsferas() la agrega sola al llamar actualizarCorrupcion()
-          ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
-          ESTADO.siembras++; // historico general
-          ESTADO.ultimaActualizacion = Date.now();
-          actualizarCorrupcion(); // guarda + reconcilia
-          playPageTurn();
-        } else {
-          avisoTemporal('Archivo muerto: contenido ilegible. Comparte 5 semillas para revivirlo.');
-        }
+      if (!hits.length) return;
+
+      const label = hits[0].object.userData.label;
+      const colData = datosColumna.find(d=>d.label===label);
+      const partes = armarEnsayoSegunEstado(colData.ensayo, ESTADO.integridad, ESTADO.muerto);
+      const sufijoEstado = ESTADO.muerto ? 'muerto' : (ESTADO.corrompido ? 'corrupto' : 'original');
+
+      const element = document.createElement('div');
+      element.style.cssText = 'padding:30px;font-family:Georgia,serif;color:#1a1a1a;background:#fafafa;max-width:700px;margin:0 auto';
+      let html = `<div style="text-align:center;border-bottom:2px solid #ff6b35;padding-bottom:15px;margin-bottom:15px">
+        <h1 style="font-size:24px;margin:0;color:#0a0a0a">JARDÍN DEL ORÁCULO</h1>
+        <p style="font-size:11px;color:#666;letter-spacing:1px;text-transform:uppercase">Archivo de Señal</p></div>`;
+      html += `<div style="margin-bottom:15px">
+        <h2 style="font-size:20px;margin:0 0 4px">${colData.ensayo.titulo}</h2>
+        <p style="font-size:11px;color:#999">${label} · ${sufijoEstado.toUpperCase()}</p></div>`;
+      partes.forEach(b=>{
+        if (b.tipo==='subtitulo') html += `<p style="font-size:14px;color:#555;font-style:italic;margin:0 0 10px">${b.texto}</p>`;
+        else if (b.tipo==='cita') html += `<p style="font-size:13px;color:${b.bloqueada?'#999':'#333'};border-left:3px solid #ff6b35;padding-left:10px;margin:10px 0;${b.bloqueada?'font-style:italic':''}">${b.texto}</p>`;
+        else html += `<p style="font-size:13px;line-height:1.7;margin:0 0 10px;${b.modo==='disuelto'?'color:#900':(b.modo==='bloqueado'?'color:#666;font-style:italic':'')}">${b.texto}</p>`;
+      });
+      html += `<div style="margin-top:25px;border-top:1px solid #ddd;padding-top:12px;text-align:center;font-size:10px;color:#999">Archivo de Señal · ${new Date().toLocaleDateString()}</div>`;
+      element.innerHTML = html;
+      document.body.appendChild(element);
+      try{
+        await html2pdf().set({
+          margin:10,
+          filename: `${label.toLowerCase().replace(/\s+/g,'_')}_${sufijoEstado}.pdf`,
+          image:{type:'jpeg',quality:0.98},
+          html2canvas:{scale:2,useCORS:true},
+          jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+        }).from(element).save();
+      } catch(err){ console.error('Error PDF:', err); }
+      document.body.removeChild(element);
+
+      if (!ESTADO.muerto){
+        ESTADO.vida++;
+        ESTADO.siembras++;
+        ESTADO.ultimaActualizacion = Date.now();
+        await actualizarCorrupcion();
+        playPageTurn();
       }
     });
 
-    // ===== DESTRUIR ESFERA (DOS TOQUES) =====
+    renderer.domElement.addEventListener('dblclick', async e => {
+      const rect = renderer.domElement.getBoundingClientRect();
+      const mouse = new THREE.Vector2(
+        ((e.clientX - rect.left) / rect.width) * 2 - 1,
+        -((e.clientY - rect.top) / rect.height) * 2 + 1
+      );
+      raycaster.setFromCamera(mouse, camera);
+
+      const todos = [...versosFlotantes, ...mensajesFlotantes];
+      if (!todos.length) return;
+      const hits = raycaster.intersectObjects(todos);
+      if (hits.length) {
+        const sprite = hits[0].object;
+        const texto = sprite.userData.texto || 'sin texto';
+        const autor = sprite.userData.autor || 'ORÁCULO';
+        generarBotonesCompartir(texto, autor, true);
+        return;
+      }
+    });
+
     renderer.domElement.addEventListener('pointerdown', (e) => {
       if (ESTADO.muerto) return;
       const rect = renderer.domElement.getBoundingClientRect();
@@ -944,345 +1994,162 @@
         -((e.clientY - rect.top) / rect.height) * 2 + 1
       );
       raycaster.setFromCamera(mouse, camera);
-      const hits = raycaster.intersectObjects(huellasParticulas, false);
+      const hits = raycaster.intersectObjects(flores, true);
       if (!hits.length) return;
-      const p = hits[0].object;
-      if (!p.userData || p.userData.explotando) return;
-      p.userData.toques = (p.userData.toques || 0) + 1;
-      if (p.userData.toques === 1) {
+      
+      let flor = hits[0].object;
+      while (flor.parent && !flores.includes(flor)) {
+        flor = flor.parent;
+      }
+      if (!flores.includes(flor)) return;
+      
+      const d = flor.userData;
+      if (d.muriendo) return;
+      
+      d.toques = (d.toques || 0) + 1;
+      if (d.toques === 1) {
         playSound([520, 780], 0.16, 0.035);
-        p.scale.setScalar(1.8);
-        setTimeout(() => { if (p.parent) p.scale.setScalar(1); }, 140);
+        flor.scale.setScalar(1.1);
+        setTimeout(() => { if (flor.parent) flor.scale.setScalar(1); }, 140);
         return;
       }
-      // Segundo toque: EXPLOSION (eliminarHuella se encarga de marcar explotando=true,
-      // restar la hora de vida y quitar la esfera de la escena)
-      const pos = p.position.clone();
-      const col = new THREE.Color(p.material.color.getHex());
-      const explosion = new THREE.Group();
-      explosion.position.copy(pos);
-      scene.add(explosion);
-      for (let i = 0; i < 12; i++) {
-        const frag = new THREE.Mesh(
-          new THREE.SphereGeometry(0.025 + Math.random() * 0.025, 5, 5),
-          new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.95 })
-        );
-        frag.userData.v = new THREE.Vector3((Math.random()-0.5)*0.09, (Math.random()-0.5)*0.09, (Math.random()-0.5)*0.09);
-        explosion.add(frag);
-      }
+      
+      eliminarFlor(flor);
       playSound([180, 120, 70], 0.35, 0.08);
-      eliminarHuella(p);
-      let frames = 0;
-      const animExplosion = () => {
-        frames++;
-        explosion.children.forEach(f => {
-          f.position.add(f.userData.v);
-          f.userData.v.multiplyScalar(0.94);
-          f.scale.multiplyScalar(0.96);
-          f.material.opacity *= 0.93;
-        });
-        if (frames < 28) requestAnimationFrame(animExplosion);
-        else scene.remove(explosion);
-      };
-      requestAnimationFrame(animExplosion);
-      e.stopPropagation();
     });
 
-    // ===== PANEL DE CITA Y COMPARTIR =====
-    const panelCita = document.getElementById('panel-cita');
-    const citaTexto = document.getElementById('cita-texto');
-    const citaAutor = document.getElementById('cita-autor');
-    const botonesCompartir = document.getElementById('botones-compartir');
-    const btnSembrar = document.getElementById('btn-sembrar');
-    const cerrarCita = document.getElementById('cerrar-cita');
-
-    function generarCita() {
-      const c = CITAS[Math.floor(Math.random() * CITAS.length)];
-      citaTexto.textContent = `"${c.texto}"`;
-      citaAutor.textContent = `— ${c.autor}`;
-      return c;
-    }
-
-    function registrarCompartido() {
-      if (!ESTADO.muerto) {
-        // El archivo YA esta vivo: cada comparticion individual suma vida de inmediato.
-        // Nada de esperar a juntar otras 5 ni de mostrar overlay de "renacio" (nunca murio).
-        ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
-        ESTADO.siembras++; // historico general
-        ESTADO.ultimaActualizacion = Date.now();
-        actualizarCorrupcion(); // guarda + reconcilia esferas/UI
-        playPageTurn();
-        return;
-      }
-      // El archivo esta muerto: el UNICO camino para revivirlo sigue siendo juntar 5 comparticiones.
-      get(dbRef).then(snap => {
-        if (!snap.exists()) return;
-        let v = (snap.val().vecesCompartido || 0) + 1;
-        if (v >= 5) {
-          update(dbRef, {
-            vida: 10, integridad: 100, corrompido: false,
-            muerto: false, vecesCompartido: 0, ultimaVisita: Date.now(),
-            huellas: (ESTADO.huellas || 0) + 1,   // +1 ciclo completo de muerte/renacimiento
-            mensajes: []                            // ciclo de mensajes: reinicia sin flotantes
-          }).then(() => {
-            ESTADO.vida = 10; ESTADO.integridad = 100;
-            ESTADO.corrompido = false; ESTADO.muerto = false;
-            ESTADO.vecesCompartido = 0; ESTADO.ultimaActualizacion = Date.now();
-            ESTADO.huellas++;
-            ESTADO.mensajes = [];
-            ocultarOverlayMuerte();
-            mostrarOverlayRenacimiento();
-            playRenacimiento();
-            // No creamos esferas a mano aqui: actualizarUI() -> sincronizarEsferas() se encarga de
-            // quitar cualquier sobra del ciclo anterior Y de crear las 10 nuevas, en un solo paso.
-            actualizarUI();
-          });
-        } else {
-          update(dbRef, { vecesCompartido: v, ultimaVisita: Date.now() });
-          ESTADO.vecesCompartido = v;
-          actualizarUI();
-        }
-      });
-    }
-
-    async function generarBotonesCompartir(texto, autor) {
-      const msg = `"${texto}" — ${autor}`;
-      const url = window.location.href;
-      const blog = 'https://39913em.github.io/archivo-de-senal/';
-      botonesCompartir.innerHTML = '';
-      REDES.forEach(r => {
-        const a = document.createElement('a');
-        a.className = r.clase;
-        a.href = r.id === 'instagram' || r.id === 'substack' ? r.url(msg, blog) : r.url(msg, url);
-        a.target = '_blank'; a.rel = 'noopener noreferrer';
-        a.textContent = r.label;
-        a.addEventListener('click', () => registrarCompartido());
-        botonesCompartir.appendChild(a);
-      });
-      const copiar = document.createElement('a');
-      copiar.className = 'btn-copiar';
-      copiar.textContent = 'Copiar';
-      copiar.href = '#';
-      copiar.addEventListener('click', e => {
-        e.preventDefault();
-        const full = `${msg}\n\nExplora: ${url}\n\nArchivo de Señal: ${blog}`;
-        navigator.clipboard.writeText(full).then(() => {
-          copiar.textContent = 'Copiado';
-          setTimeout(() => copiar.textContent = 'Copiar', 2000);
-          registrarCompartido();
-        });
-      });
-      botonesCompartir.appendChild(copiar);
-      get(dbRef).then(snap => {
-        if (snap.exists()) document.getElementById('veces-compartido-panel').textContent = snap.val().vecesCompartido || 0;
-      });
-    }
-
-    btnSembrar.addEventListener('click', async () => {
-      const c = generarCita();
-      await generarBotonesCompartir(c.texto, c.autor);
-      panelCita.classList.add('visible');
-      if (!ESTADO.muerto) {
-        // Sembrar solo regala una esfera si el archivo esta vivo.
-        // Estando muerto, SEMBRAR sigue disponible unicamente como el camino de revivir (5 comparticiones).
-        // No creamos la esfera aqui: sincronizarEsferas() la agrega sola.
-        ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
-        ESTADO.siembras++; // historico general
-        ESTADO.ultimaActualizacion = Date.now();
-        actualizarCorrupcion(); // guarda + reconcilia
-        playPageTurn();
-      }
-    });
-
-    cerrarCita.addEventListener('click', () => panelCita.classList.remove('visible'));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') panelCita.classList.remove('visible'); });
-
-    // ===== RAYAR =====
-    const inputRayar = document.getElementById('input-rayar');
-    const btnRayar = document.getElementById('btn-rayar');
-    const cerrarRayar = document.getElementById('cerrar-rayar');
-    const enviarRayar = document.getElementById('enviar-rayar');
-    const mensajeRayar = document.getElementById('mensaje-rayar');
-
-    btnRayar.addEventListener('click', () => {
-      if (ESTADO.muerto) { avisoTemporal('Archivo muerto: no se pueden dejar mensajes. Comparte 5 semillas para revivirlo.'); return; }
-      inputRayar.classList.toggle('visible');
-      if (inputRayar.classList.contains('visible')) mensajeRayar.focus();
-    });
-    cerrarRayar.addEventListener('click', () => inputRayar.classList.remove('visible'));
-    enviarRayar.addEventListener('click', async () => {
-      const t = mensajeRayar.value.trim();
-      if (!t) return;
-      // Un solo lote de cambios de estado: actualizarCorrupcion() ya guarda en Firebase y reconcilia
-      // esferas/mensajes de forma idempotente (no importa si el eco de Firebase llega antes o despues).
-      ESTADO.mensajes = [...ESTADO.mensajes, t];
-      ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
-      ESTADO.siembras++; // historico general
-      ESTADO.ultimaActualizacion = Date.now();
-      actualizarCorrupcion();
-      mensajeRayar.value = '';
-      inputRayar.classList.remove('visible');
-      playPageTurn();
-    });
-    mensajeRayar.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarRayar.click(); }
-    });
-
-    // ===== MENSAJE FLOTANTE DESDE CITA =====
-    const msgCita = document.getElementById('mensaje-cita');
-    const msgCitaTexto = document.getElementById('mensaje-cita-texto');
-    const msgCitaAutor = document.getElementById('mensaje-cita-autor');
-    const cerrarMsg = document.getElementById('cerrar-mensaje-cita');
-    function mostrarMsgCita(texto, autor) {
-      msgCitaTexto.textContent = `"${texto}"`;
-      msgCitaAutor.textContent = `— ${autor}`;
-      msgCita.classList.add('visible');
-    }
-    cerrarMsg.addEventListener('click', () => msgCita.classList.remove('visible'));
-    const params = new URLSearchParams(window.location.search);
-    const citaParam = params.get('cita');
-    if (citaParam) {
-      const dec = decodeURIComponent(citaParam);
-      const found = CITAS.find(c => c.texto === dec);
-      if (found) mostrarMsgCita(found.texto, found.autor);
-      else mostrarMsgCita(dec, 'Archivo de Señal');
-    }
-
-    // ===== INSTRUCCIONES =====
-    const panelInst = document.getElementById('panel-instrucciones');
-    const cerrarInst = document.getElementById('cerrar-instrucciones');
-    const btnInst = document.getElementById('btn-instrucciones');
-    if (!localStorage.getItem('instrucciones_vistas')) {
-      panelInst.classList.remove('oculto');
-      localStorage.setItem('instrucciones_vistas', 'true');
-    } else panelInst.classList.add('oculto');
-    cerrarInst.addEventListener('click', () => panelInst.classList.add('oculto'));
-    btnInst.addEventListener('click', () => panelInst.classList.remove('oculto'));
-
-    // ===== UI =====
-    function actualizarUI() {
-      const p = particulasActivas(); // = ESTADO.vida = horas de vida = esferas activas
-      document.getElementById('huellas').textContent = ESTADO.huellas;     // ciclos de muerte/renacimiento
-      document.getElementById('siembras').textContent = ESTADO.siembras;   // interacciones totales historicas
-      document.getElementById('particulas').textContent = p;
-      document.getElementById('tiempo-restante').textContent = p + 'h';
-      document.getElementById('integridad').textContent = Math.round(ESTADO.integridad) + '%';
-      document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
-      document.getElementById('veces-compartido-panel').textContent = ESTADO.vecesCompartido;
+    // ============================================================
+    // UI
+    // ============================================================
+    function actualizarUI(){
+      const p = particulasActivas();
+      document.getElementById('vida').textContent = p;
+      document.getElementById('integridad').textContent = Math.round(ESTADO.integridad)+'%';
+      document.getElementById('flores').textContent = p;
+      document.getElementById('siembras').textContent = ESTADO.siembras;
       document.getElementById('contador-mensajes').textContent = ESTADO.mensajes.length;
-      if (ESTADO.muerto) {
-        document.getElementById('estado-muerto').style.display = 'block';
-        document.getElementById('alerta-corrupcion').style.display = 'none';
-        document.getElementById('integridad').style.color = '#ff1744';
-      } else if (ESTADO.corrompido || ESTADO.integridad < 80) {
-        document.getElementById('alerta-corrupcion').style.display = 'block';
-        document.getElementById('estado-muerto').style.display = 'none';
-        document.getElementById('integridad').style.color = '#ff1744';
-      } else {
-        document.getElementById('alerta-corrupcion').style.display = 'none';
-        document.getElementById('estado-muerto').style.display = 'none';
-        document.getElementById('integridad').style.color = '#00e676';
-      }
-      document.getElementById('btn-sembrar').style.display = 'block';
+      document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
+      document.getElementById('ciclos').textContent = ESTADO.ciclos;
+      document.getElementById('alerta').style.display = (!ESTADO.muerto && ESTADO.integridad<80) ? 'block':'none';
+      document.getElementById('muerto').style.display = ESTADO.muerto ? 'block':'none';
       if (audioCtx) actualizarMasterGain();
-
-      // Un solo punto de reconciliacion: la escena SIEMPRE termina reflejando el ESTADO real,
-      // sin importar si el cambio vino de una accion local o de otro dispositivo (Firebase).
-      sincronizarEsferas();
-      sincronizarMensajes();
-    }
-
-    // ===== DEBUG =====
-    const btnDebug = document.getElementById('btn-debug');
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('debug') === 'true') {
-      btnDebug.style.display = 'block';
-      btnDebug.addEventListener('click', () => {
-        if (confirm('Forzar muerte del archivo?')) {
-          ESTADO.vida = 0;
-          ESTADO.ultimaActualizacion = Date.now() - 25 * 60 * 60 * 1000;
-          guardarEstado();
-          actualizarCorrupcion();
-          actualizarUI();
+      sincronizarFlores();
+      animarPasto();
+      actualizarMensajesFlotantes();
+      
+      const colores = [0x333333, 0x2d8a4e, 0xffd700, 0xff6b35];
+      let idx = Math.min(Math.floor(p / 3), 3);
+      const colorMon = colores[idx] || 0xff6b35;
+      guardian.children.forEach(child => {
+        if (child.material) {
+          child.material.color.lerp(new THREE.Color(colorMon), 0.02);
         }
       });
     }
 
-    // ===== ANIMACION =====
-    let time = 0, lastTick = Date.now();
+    // ============================================================
+    // BOTONES
+    // ============================================================
+    document.getElementById('btn-sembrar').addEventListener('click', () => {
+      generarBotonesCompartir('', 'ORÁCULO', true);
+    });
 
-    function animate() {
+    document.getElementById('btn-poesia').addEventListener('click', accionHaiku);
+
+    document.getElementById('btn-rayar').addEventListener('click', ()=>{
+      if (ESTADO.muerto){ avisoTemporal('El jardín está muerto.'); return; }
+      document.getElementById('input-rayar').classList.toggle('visible');
+    });
+    document.getElementById('cerrar-rayar').addEventListener('click', ()=>document.getElementById('input-rayar').classList.remove('visible'));
+    document.getElementById('enviar-rayar').addEventListener('click', async ()=>{
+      const t = document.getElementById('mensaje-rayar').value.trim();
+      if(!t) return;
+      const cat = ['señal','resonancia','fractura','deriva'][Math.floor(Math.random()*4)];
+      await guardarLexicoAprobado(cat, t);
+      ESTADO.mensajes = [...ESTADO.mensajes, t];
+      ESTADO.vida++; ESTADO.siembras++; ESTADO.ultimaActualizacion=Date.now();
+      await actualizarCorrupcion();
+      crearMensajeFlotante(t);
+      document.getElementById('mensaje-rayar').value='';
+      document.getElementById('input-rayar').classList.remove('visible');
+      playPageTurn();
+      avisoTemporal('Palabra añadida al oráculo');
+    });
+
+    document.getElementById('btn-instrucciones').addEventListener('click', ()=>document.getElementById('panel-instrucciones').classList.add('visible'));
+
+    // ============================================================
+    // ANIMACIÓN
+    // ============================================================
+    let time=0, lastTick=Date.now();
+
+    function animate(){
       requestAnimationFrame(animate);
       time += 0.01;
 
-      // Decaimiento natural (revisar cada 10 segundos)
-      if (Date.now() - lastTick > 10000) {
+      if (Math.floor(time) % 60 === 0) {
+        actualizarHoraDia();
+      }
+
+      if (Date.now()-lastTick > 10000 && datosCargados){
         lastTick = Date.now();
         decaimientoNatural();
-        if (datosCargados) { actualizarCorrupcion(); }
+        actualizarCorrupcion();
       }
 
-      // Listener 3D
       listenerFrame++;
-      if (audioCtx && listenerFrame % 3 === 0) actualizarListener();
+      if (audioCtx && listenerFrame%3===0) actualizarListener();
 
-      guardian.rotation.y = Math.sin(time * 0.3) * 0.1;
+      guardian.rotation.y = Math.sin(time*0.3)*0.1;
+      const vidaFrac = Math.max(0, Math.min(1, ESTADO.vida/10));
+      const bpm = ESTADO.muerto ? 0.4 : 1.0+vidaFrac*2.2;
+      const latido = Math.pow(Math.max(0,Math.sin(time*bpm*3)),6);
+      const colorLed = ESTADO.muerto ? 0x552222 : (ESTADO.corrompido ? 0xff8a30 : 0x00e676);
+      led.material.color.setHex(colorLed);
+      led.material.emissive.setHex(colorLed);
+      led.material.emissiveIntensity = ESTADO.muerto ? 0.08+latido*0.1 : 0.3+latido*0.9;
+      led.scale.set(1+latido*(ESTADO.muerto?0.1:0.5),1+latido*(ESTADO.muerto?0.1:0.5),1+latido*(ESTADO.muerto?0.1:0.5));
 
-      // El LED del guardian late como un corazon: mas vida = late rapido y verde;
-      // se corrompe = laten naranja/rojo mas erratico; muerto = casi apagado, latido lento y tenue.
-      {
-        const vidaFrac = Math.max(0, Math.min(1, ESTADO.vida / 10));
-        const bpm = ESTADO.muerto ? 0.4 : 1.0 + vidaFrac * 2.2; // late mas rapido con mas vida
-        const latido = Math.pow(Math.max(0, Math.sin(time * bpm * 3)), 6); // pulso corto tipo "lub-dub"
-        const colorLed = ESTADO.muerto ? 0x552222 : (ESTADO.corrompido ? 0xff8a30 : 0x00e676);
-        led.material.color.setHex(colorLed);
-        led.material.emissive.setHex(colorLed);
-        led.material.emissiveIntensity = ESTADO.muerto ? 0.08 + latido * 0.1 : 0.3 + latido * 0.9;
-        const escalaLed = 1 + latido * (ESTADO.muerto ? 0.1 : 0.5);
-        led.scale.set(escalaLed, escalaLed, escalaLed);
-      }
+      animarFloresOrganicas();
+      animarLluviaPetales();
+      animarPasto();
 
-      huellasParticulas.forEach((p, i) => {
-        const d = p.userData;
-        if (d && !d.explotando) {
-          const na = d.angulo + time * d.velocidad * 0.02;
-          const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.2;
-          p.position.x = Math.cos(na) * d.radio;
-          p.position.z = Math.sin(na) * d.radio;
-          p.position.y = alt;
-          p.material.opacity = 0.5 + Math.sin(time + i) * 0.3;
+      versosFlotantes.forEach(s => {
+        const d = s.userData;
+        if (d && !s.userData._evaporando){
+          const na = d.angulo + time * d.velocidad;
+          const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.5;
+          s.position.x = Math.cos(na) * d.radio;
+          s.position.z = Math.sin(na) * d.radio;
+          s.position.y = alt;
         }
-        // si esta explotando, no la tocamos: eliminarHuella() ya controla su fade hasta desaparecer
       });
 
-      mensajesFlotantes.forEach((s, i) => {
+      mensajesFlotantes.forEach((s,i)=>{
         const d = s.userData;
-        if (d) {
-          const na = d.angulo + time * d.velocidad * 0.01;
+        if (d){
+          const na = d.angulo + time * d.velocidad;
           const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
           s.position.x = Math.cos(na) * d.radio;
           s.position.z = Math.sin(na) * d.radio;
           s.position.y = alt;
-          s.material.opacity = 0.6 + Math.sin(time + i) * 0.2;
         }
       });
 
-      const corrupto = ESTADO.corrompido || ESTADO.integridad < 80;
+      const corrupto = ESTADO.corrompido || ESTADO.integridad<80;
       const muerto = ESTADO.muerto;
-      const nivel = muerto ? 1 : Math.max(0, 1 - ESTADO.integridad / 100);
+      const nivel = muerto ? 1 : Math.max(0, 1-ESTADO.integridad/100);
 
-      columnas.forEach((col, i) => {
-        const off = i * 0.5;
+      columnas.forEach((col,i)=>{
+        const off = i*0.5;
         const forma = col.userData.forma;
-        col.position.y = muerto ? -0.15 : Math.sin(time * 0.5 + off) * 0.04;
+        col.position.y = muerto ? -0.15 : Math.sin(time*0.5+off)*0.04;
 
         if (forma === 'cubos' && col.userData.cubos) {
           col.userData.cubos.forEach(c => {
             if (muerto) {
               c.material.color.setHex(0x333333);
               c.material.emissiveIntensity = 0;
-              c.position.x += (Math.random() - 0.5) * 0.02;
-              c.position.z += (Math.random() - 0.5) * 0.02;
             } else if (corrupto) {
               const vib = 0.02 + nivel * 0.05;
               c.position.x += (Math.random() - 0.5) * vib;
@@ -1319,82 +2186,50 @@
           });
         }
 
-        if (col.userData.grietas) {
-          col.userData.grietas.forEach((g, idx) => {
-            if (muerto) {
-              g.scale.y = 4 + Math.sin(time + idx) * 0.5;
-              g.material.emissiveIntensity = 0.05;
-              g.material.color.setHex(0x220000);
-            } else if (corrupto) {
-              const crec = 1 + Math.sin(time * 1.5 + idx) * (0.3 + nivel * 1.5);
-              g.scale.y = crec;
-              g.material.emissiveIntensity = 0.2 + Math.sin(time * 2 + idx) * 0.3 + nivel * 0.5;
-              g.material.color.setHex(Math.sin(time * 4 + idx) > 0.7 ? 0xff0000 : 0xff4444);
-            } else {
-              g.scale.y = 1;
-              g.material.emissiveIntensity = 0.15;
-              g.material.color.setHex(0xff2222);
-            }
-          });
-        }
-
-        // Cuerpo principal de MEMORIA ROTA (los 2 cilindros del pilar quebrado):
-        // sin esto, la columna nunca se veia afectada por la muerte/corrupcion.
-        if (forma === 'rota' && col.userData.piezasRota) {
-          col.userData.piezasRota.forEach((m, idx) => {
-            if (muerto) {
-              m.material.color.setHex(0x2a2a2a);
-              m.material.emissiveIntensity = 0;
-              m.rotation.z += (Math.random() - 0.5) * 0.002; // se sigue desmoronando
-            } else if (corrupto) {
-              m.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.6).getHex());
-              m.material.emissiveIntensity = 0.05 + nivel * 0.35;
-              m.position.x += (Math.random() - 0.5) * 0.005 * nivel;
-            } else {
-              m.material.color.setHex(col.userData.color);
-              m.material.emissiveIntensity = idx === 0 ? 0.05 : 0.1;
-            }
-          });
-        }
-
-        if (forma === 'flotante' && col.userData.fragmentos) {
-          col.userData.fragmentos.forEach((f, idx) => {
+        if (forma === 'rota' && col.userData.fragmentos){
+          col.userData.fragmentos.forEach((f,idx)=>{
             const d = f.userData;
-            if (d) {
-              if (muerto) {
-                f.position.y = 0.1;
-                f.material.opacity = 0.05;
-                f.material.emissiveIntensity = 0;
-                f.material.color.setHex(0x333333);
-              } else if (corrupto) {
-                const alt = d.alturaBase * (1 - nivel * 0.7) + Math.sin(time * d.velocidad + d.offset) * 0.2 * (1 - nivel);
-                f.position.y = Math.max(0.1, alt);
-                f.rotation.x += 0.02; f.rotation.z += 0.01;
-                f.material.opacity = 0.3 + Math.sin(time * 2 + idx) * 0.2;
-                f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.5).getHex());
-                f.material.emissiveIntensity = 0.05 + nivel * 0.2;
-              } else {
-                const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
-                f.position.y = alt;
-                f.rotation.x += 0.01; f.rotation.z += 0.005;
-                f.material.opacity = 0.6 + Math.sin(idx * 0.5) * 0.3;
-                f.material.color.setHex(col.userData.color);
-                f.material.emissiveIntensity = 0.1;
-              }
+            if (muerto){
+              f.position.y = 0.1 + Math.sin(time + idx) * 0.05;
+              f.material.color.setHex(0x333333);
+              f.material.emissiveIntensity = 0;
+              f.material.opacity = 0.2;
+            } else if (corrupto){
+              const alt = d.alturaBase * (1 - nivel * 0.5) + Math.sin(time * d.velocidad + d.offset) * 0.2 * (1 - nivel);
+              f.position.y = Math.max(0.1, alt);
+              f.rotation.x += 0.02; f.rotation.z += 0.02;
+              f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.4).getHex());
+              f.material.emissiveIntensity = 0.05 + nivel * 0.3;
+              f.material.opacity = 0.4 + Math.sin(time * 2 + idx) * 0.2;
+            } else {
+              const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
+              f.position.y = alt;
+              f.rotation.x += 0.01; f.rotation.z += 0.01;
+              f.material.color.setHex(col.userData.color);
+              f.material.emissiveIntensity = 0.1;
+              f.material.opacity = 0.7 + Math.sin(idx * 0.5) * 0.2;
             }
           });
         }
-
-        if (muerto && Math.random() < 0.005) {
-          const flash = new THREE.Mesh(new THREE.SphereGeometry(0.3, 4, 4), new THREE.MeshBasicMaterial({ color: 0x220000, transparent: true, opacity: 0.15 }));
-          flash.position.set(0, 2.5 + Math.random() * 3, 0);
-          col.add(flash);
-          setTimeout(() => col.remove(flash), 200);
-        } else if (corrupto && !muerto && Math.random() < 0.01) {
-          const flash = new THREE.Mesh(new THREE.SphereGeometry(0.4 + nivel * 0.3, 4, 4), new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.1 + nivel * 0.2 }));
-          flash.position.set(0, 2.5 + Math.random() * 3, 0);
-          col.add(flash);
-          setTimeout(() => col.remove(flash), 100);
+        if (forma === 'flotante' && col.userData.fragmentos){
+          col.userData.fragmentos.forEach((f,idx)=>{
+            const d = f.userData;
+            if (muerto){
+              f.position.y=0.1; f.material.opacity=0.05; f.material.emissiveIntensity=0; f.material.color.setHex(0x333333);
+            } else if (corrupto){
+              const alt = d.alturaBase*(1-nivel*0.7)+Math.sin(time*d.velocidad+d.offset)*0.2*(1-nivel);
+              f.position.y = Math.max(0.1,alt); f.rotation.x+=0.02; f.rotation.z+=0.01;
+              f.material.opacity=0.3+Math.sin(time*2+idx)*0.2;
+              f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1-nivel*0.5).getHex());
+              f.material.emissiveIntensity=0.05+nivel*0.2;
+            } else {
+              const alt = d.alturaBase+Math.sin(time*d.velocidad+d.offset)*0.3;
+              f.position.y=alt; f.rotation.x+=0.01; f.rotation.z+=0.005;
+              f.material.opacity=0.6+Math.sin(idx*0.5)*0.3;
+              f.material.color.setHex(col.userData.color);
+              f.material.emissiveIntensity=0.1;
+            }
+          });
         }
       });
 
@@ -1404,17 +2239,20 @@
 
     animate();
 
-    // ===== INICIO =====
+    // ============================================================
+    // INICIO
+    // ============================================================
     initAudio();
-    await cargarTextos();
-    await cargarEstado(); // ya llama actualizarUI() al final: reconcilia esferas/mensajes existentes
-    escucharCambios();
+    await cargarLexicoAprobado();
+    await cargarEstado();
+    escucharEstado();
+    escucharVerso();
 
-    if (!citaParam) {
-      // Entrar a la sala: no creamos la esfera a mano, sincronizarEsferas() la agrega sola.
-      ESTADO.vida++; // sin tope: la interaccion sostenida puede llevar la vida mas alla de 10 horas
-      ESTADO.siembras++; // historico general (entrar tambien cuenta como interaccion)
-      ESTADO.ultimaActualizacion = Date.now();
+    // Crear pasto
+    crearPasto();
+
+    if (ESTADO.vida === 0 && !ESTADO.muerto) {
+      ESTADO.vida = 1;
       await guardarEstado();
       actualizarUI();
     }
@@ -1422,19 +2260,18 @@
     if (ESTADO.muerto) mostrarOverlayMuerte();
     if (audioCtx) actualizarMasterGain();
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+    window.addEventListener('resize', ()=>{
+      camera.aspect = innerWidth/innerHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(innerWidth, innerHeight);
     });
 
-    console.log('MONUMENTO SONORO - vida/ciclos/historial restaurados');
-    console.log('Vida (esferas activas):', ESTADO.vida);
-    console.log('Ciclos muerte/renacimiento:', ESTADO.huellas);
-    console.log('Interacciones historicas:', ESTADO.siembras);
-    console.log('Integridad:', ESTADO.integridad + '%');
+    console.log('JARDÍN DEL ORÁCULO — SEÑAL · RESONANCIA · FRACTURA · DERIVA');
+    console.log('Vida:', ESTADO.vida);
+    console.log('Integridad:', ESTADO.integridad+'%');
     console.log('Muerto:', ESTADO.muerto);
-    console.log('Semillas:', ESTADO.vecesCompartido + '/5');
+    console.log('Ciclos:', ESTADO.ciclos);
+    console.log('Semillas:', ESTADO.vecesCompartido+'/5');
   </script>
 </body>
 </html>
