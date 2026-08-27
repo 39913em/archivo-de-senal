@@ -261,10 +261,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
-    import { getDatabase, ref, get, set, update, onValue, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+  import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
+import { getDatabase, ref, get, set, update, onValue, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app-check.js';
 
     // ============================================================
     // FIREBASE
@@ -286,6 +287,15 @@ const dbVersos = ref(db, 'versos');
 const dbLexicoAprobado = ref(db, 'lexico_aprobado');
 
     console.log('Jardín conectado');
+
+    // ============================================================
+// APP CHECK
+// ============================================================
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LeFuZotAAAAAHM8Hf7U9L80pjNdmQoBeO83wcku'),
+  isTokenAutoRefreshEnabled: true
+});
+console.log('✅ App Check activado');
 
     
 
