@@ -1704,7 +1704,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
 
     const columnas = [];
     
-    // <-- MODIFICACIÓN: Referencias para animación
+    // Referencias para animación
     const columnasMovimiento = [];
 
     function crearColumna(label, color, forma){
@@ -1712,7 +1712,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 0.2, 8), new THREE.MeshStandardMaterial({ color: 0x222244, roughness: 0.7, metalness: 0.3 }));
       base.position.y = 0.1; base.receiveShadow = true; group.add(base);
       
-      // <-- MODIFICACIÓN: contenedor móvil
+      // Contenedor móvil
       const movilGroup = new THREE.Group();
       movilGroup.position.y = 0.2;
       group.add(movilGroup);
@@ -1727,7 +1727,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
           const c = new THREE.Mesh(new THREE.BoxGeometry(size,0.18,size), new THREE.MeshStandardMaterial({color, roughness:0.3, metalness:0.6, emissive:color, emissiveIntensity:0.05+Math.random()*0.1}));
           c.position.y = 0.2+i*0.2; c.position.x=(Math.random()-.5)*0.5; c.position.z=(Math.random()-.5)*0.5;
           c.rotation.y = Math.random()*Math.PI; c.castShadow=true;
-          // <-- MODIFICACIÓN: datos individuales para movimiento
           c.userData = {
             idx: i,
             faseX: Math.random() * Math.PI * 2,
@@ -1811,7 +1810,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         movilGroup.add(mesh);
       }
       
-      // <-- MODIFICACIÓN: guardar referencias
       group.userData = {
         label, 
         color, 
@@ -1822,14 +1820,12 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         grietas, 
         fragmentos,
         movilGroup: movilGroup,
-        // <-- MODIFICACIÓN: estado de interacción
         interaccion: {
           activa: false,
           tiempo: 0,
           intensidad: 0,
           duracion: 2.0
         },
-        // <-- MODIFICACIÓN: datos de sonido
         frecuenciaBase: {
           'SEÑAL': 523.25,
           'RESONANCIA': 659.25,
@@ -1864,21 +1860,88 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     circulo.rotation.x = -Math.PI / 2; circulo.position.set(0, -0.02, 0); scene.add(circulo);
 
     // ============================================================
-    // SONIDO
+    // SONIDO - SINTETIZADOR + SQUEEZE ELECTRÓNICO
     // ============================================================
     let audioCtx=null, masterGain=null, vocesColumna=[], schedulerId=null, listenerFrame=0;
     let ultimaProgresion = -1;
     const TODAS_NOTAS = [0,1,2,3,4,5,6,7,8,9,10,11];
     let ordenNotas = [...TODAS_NOTAS];
     
-    // <-- MODIFICACIÓN: estado de modulación sonora por columna
+    // Estado de modulación sonora
     const modulacionSonora = {
-      señal: { activa: false, intensidad: 0, frecuencia: 523.25 },
-      resonancia: { activa: false, intensidad: 0, frecuencia: 659.25 },
-      fractura: { activa: false, intensidad: 0, frecuencia: 783.99 },
-      deriva: { activa: false, intensidad: 0, frecuencia: 987.77 }
+      señal: { activa: false, intensidad: 0, frecuencia: 523.25, caos: 0 },
+      resonancia: { activa: false, intensidad: 0, frecuencia: 659.25, caos: 0 },
+      fractura: { activa: false, intensidad: 0, frecuencia: 783.99, caos: 0 },
+      deriva: { activa: false, intensidad: 0, frecuencia: 987.77, caos: 0 }
     };
     let modulacionTiempo = 0;
+    
+    // Nodos para el sintetizador de caos
+    let chaosOsc = null;
+    let chaosGain = null;
+    let lfoOsc = null;
+
+    function initChaosSynth() {
+      if (!audioCtx) return;
+      try {
+        // Oscilador principal para el caos (senoidal modulada)
+        chaosOsc = audioCtx.createOscillator();
+        chaosOsc.type = 'sine';
+        chaosOsc.frequency.value = 440;
+        
+        // LFO para modular el caos
+        lfoOsc = audioCtx.createOscillator();
+        lfoOsc.type = 'sine';
+        lfoOsc.frequency.value = 0.5;
+        
+        const lfoGain = audioCtx.createGain();
+        lfoGain.gain.value = 200;
+        
+        // Conectar LFO a frecuencia del caos
+        lfoOsc.connect(lfoGain);
+        lfoGain.connect(chaosOsc.frequency);
+        
+        // Gain para el caos
+        chaosGain = audioCtx.createGain();
+        chaosGain.gain.value = 0;
+        chaosOsc.connect(chaosGain);
+        chaosGain.connect(masterGain);
+        
+        // Iniciar osciladores
+        chaosOsc.start();
+        lfoOsc.start();
+        
+        console.log('🔊 Chaos synthesizer inicializado');
+      } catch(e) {
+        console.warn('Error iniciando chaos synth:', e);
+      }
+    }
+
+    function activateChaos(intensidad, frecuenciaBase) {
+      if (!audioCtx || !chaosOsc || !chaosGain) return;
+      try {
+        // Ajustar frecuencia base del caos
+        chaosOsc.frequency.setValueAtTime(frecuenciaBase * (0.5 + intensidad * 0.8), audioCtx.currentTime);
+        // Ajustar intensidad
+        const targetGain = 0.02 + intensidad * 0.08;
+        chaosGain.gain.setValueAtTime(targetGain, audioCtx.currentTime);
+        // Cambiar tipo de onda según intensidad (más caos = más agresivo)
+        const types = ['sine', 'sawtooth', 'square', 'triangle'];
+        const idx = Math.floor(intensidad * 3);
+        chaosOsc.type = types[Math.min(idx, 3)];
+        // LFO más rápido con caos
+        lfoOsc.frequency.setValueAtTime(0.5 + intensidad * 2, audioCtx.currentTime);
+      } catch(e) {}
+    }
+
+    function deactivateChaos() {
+      if (!audioCtx || !chaosGain) return;
+      try {
+        chaosGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        chaosOsc.type = 'sine';
+        lfoOsc.frequency.setValueAtTime(0.5, audioCtx.currentTime);
+      } catch(e) {}
+    }
 
     function shuffleArray(arr){
       for (let i = arr.length - 1; i > 0; i--) {
@@ -1915,6 +1978,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
           masterGain.gain.value = 0.0001;
           masterGain.connect(audioCtx.destination);
           crearVocesColumna();
+          initChaosSynth();
           console.log('🔊 Audio iniciado');
         } catch(e){ console.warn('Error de audio:', e); return; }
       }
@@ -1942,7 +2006,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     function factorSalud(){ if(ESTADO.muerto) return 0; return Math.max(0.12, Math.min(1, ESTADO.integridad/100)); }
     function evolucionLenta(){ if(!audioCtx) return 0.5; return (Math.sin(audioCtx.currentTime*0.0075)+1)/2; }
 
-    // <-- MODIFICACIÓN: tocar nota con modulación
     function tocarNotaColumna(voz, tiempo){
       const d = voz.col.userData;
       const escala = d.escala || [220, 246, 293, 329, 392, 440];
@@ -1952,16 +2015,20 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       const notaBase = notas[Math.floor(Math.random() * notas.length)];
       let baseFreq = escala[notaBase % escala.length] || 220;
       
-      // <-- MODIFICACIÓN: aplicar modulación si está activa
+      // Aplicar modulación si está activa
       const labelKey = d.label.toLowerCase();
       if (modulacionSonora[labelKey] && modulacionSonora[labelKey].activa) {
         const mod = modulacionSonora[labelKey];
-        // Desviación de frecuencia basada en intensidad
-        const desviacion = (Math.random() - 0.5) * mod.intensidad * 100;
+        // Caos: desviación extrema de frecuencia
+        const desviacion = (Math.random() - 0.5) * mod.caos * 300;
         baseFreq = baseFreq + desviacion;
-        // También puede cambiar el tipo de onda
+        // Cambiar tipo de onda aleatoriamente para más caos
         const tipos = ['sine', 'sawtooth', 'square', 'triangle'];
         d.onda = tipos[Math.floor(Math.random() * tipos.length)];
+        // Añadir distorsión de frecuencia adicional
+        if (mod.caos > 0.5) {
+          baseFreq *= (0.8 + Math.random() * 0.4);
+        }
       }
       
       const intervalo = [0, 2, 4, 7, 9, 12][Math.floor(Math.random() * 6)];
@@ -2020,7 +2087,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       masterGain.gain.cancelScheduledValues(t);
       masterGain.gain.setValueAtTime(masterGain.gain.value, t);
       masterGain.gain.linearRampToValueAtTime(objetivo, t+1.5);
-      if (ESTADO.muerto){ if(schedulerId){clearInterval(schedulerId); schedulerId=null;} }
+      if (ESTADO.muerto){ if(schedulerId){clearInterval(schedulerId); schedulerId=null;} deactivateChaos(); }
       else if (!schedulerId) iniciarScheduler();
     }
 
@@ -2077,57 +2144,56 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     // ============================================================
-    // INTERACCIONES
+    // INTERACCIONES - CAOS AL PRESIONAR
     // ============================================================
     const raycaster = new THREE.Raycaster();
 
-    // <-- MODIFICACIÓN: función para activar modulación al tocar columna
-    function activarModulacion(label) {
+    function activarCaos(label) {
       const key = label.toLowerCase();
       if (modulacionSonora[key]) {
-        // Activar modulación
+        // Activar caos intenso
         modulacionSonora[key].activa = true;
-        modulacionSonora[key].intensidad = Math.min(1, modulacionSonora[key].intensidad + 0.3);
+        modulacionSonora[key].intensidad = Math.min(1, modulacionSonora[key].intensidad + 0.5);
+        modulacionSonora[key].caos = Math.min(1, modulacionSonora[key].caos + 0.6);
         modulacionSonora[key].tiempoActivo = Date.now();
         
-        // Aviso visual
-        avisoTemporal(`🎵 ${label} modulando el paisaje sonoro`);
+        // Activar el sintetizador de caos
+        activateChaos(modulacionSonora[key].caos, modulacionSonora[key].frecuencia);
         
-        // Encontrar la columna para animación
+        avisoTemporal(`⚡ ${label} en CAOS - squeeze electrónico activado`);
+        
         const col = columnasMovimiento.find(c => c.userData.label === label);
         if (col) {
           col.userData.interaccion.activa = true;
           col.userData.interaccion.tiempo = 0;
-          col.userData.interaccion.intensidad = 0.5;
+          col.userData.interaccion.intensidad = 1.0; // Máxima intensidad
         }
         
-        // Decaimiento gradual
-        setTimeout(() => {
-          modulacionSonora[key].intensidad = Math.max(0, modulacionSonora[key].intensidad - 0.05);
-          if (modulacionSonora[key].intensidad < 0.05) {
-            modulacionSonora[key].activa = false;
-            modulacionSonora[key].intensidad = 0;
-            // Restaurar onda
-            const colData = datosColumna.find(d => d.label === label);
-            if (colData) {
-              const col = columnasMovimiento.find(c => c.userData.label === label);
-              if (col) col.userData.onda = colData.onda || 'sine';
+        // Decaimiento gradual del caos
+        let decayCount = 0;
+        const decayInterval = setInterval(() => {
+          decayCount++;
+          if (modulacionSonora[key].activa) {
+            // Decaimiento más lento para que el caos sea más perceptible
+            modulacionSonora[key].caos = Math.max(0, modulacionSonora[key].caos - 0.008);
+            modulacionSonora[key].intensidad = Math.max(0, modulacionSonora[key].intensidad - 0.005);
+            
+            if (modulacionSonora[key].caos < 0.01 && modulacionSonora[key].intensidad < 0.01) {
+              modulacionSonora[key].activa = false;
+              modulacionSonora[key].caos = 0;
+              modulacionSonora[key].intensidad = 0;
+              deactivateChaos();
+              clearInterval(decayInterval);
+              if (col) {
+                col.userData.interaccion.activa = false;
+                col.userData.interaccion.intensidad = 0;
+              }
+              avisoTemporal(`⚡ ${label} - caos disipado`);
             }
           } else {
-            // Seguir decayendo
-            const decay = setInterval(() => {
-              if (modulacionSonora[key].activa) {
-                modulacionSonora[key].intensidad = Math.max(0, modulacionSonora[key].intensidad - 0.01);
-                if (modulacionSonora[key].intensidad < 0.01) {
-                  modulacionSonora[key].activa = false;
-                  modulacionSonora[key].intensidad = 0;
-                  clearInterval(decay);
-                  if (col) col.userData.interaccion.activa = false;
-                }
-              }
-            }, 100);
+            clearInterval(decayInterval);
           }
-        }, 2000);
+        }, 100);
       }
     }
 
@@ -2147,18 +2213,10 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       const label = hits[0].object.userData.label;
       const colData = datosColumna.find(d=>d.label===label);
       
-      // <-- MODIFICACIÓN: activar modulación sonora y movimiento
-      activarModulacion(label);
+      // ACTIVAR CAOS (squeeze electrónico + pulsor + senoidal)
+      activarCaos(label);
       
-      // <-- MODIFICACIÓN: encontrar la columna para animación de interacción
-      const columnaGroup = columnasMovimiento.find(c => c.userData.label === label);
-      if (columnaGroup) {
-        columnaGroup.userData.interaccion.activa = true;
-        columnaGroup.userData.interaccion.tiempo = 0;
-        columnaGroup.userData.interaccion.intensidad = 0.8;
-      }
-      
-      // <-- La descarga sigue funcionando independientemente
+      // Descarga PDF (independiente)
       const partes = armarEnsayoSegunEstado(colData.ensayo, ESTADO.integridad, ESTADO.muerto);
       const sufijoEstado = ESTADO.muerto ? 'muerto' : (ESTADO.corrompido ? 'corrupto' : 'original');
 
@@ -2322,11 +2380,10 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     });
 
     // ============================================================
-    // ANIMACIÓN
+    // ANIMACIÓN - SEÑAL Y RESONANCIA MÁS RÁPIDOS QUE FRACTURA
     // ============================================================
     let time=0, lastTick=Date.now();
 
-    // <-- MODIFICACIÓN: animación de columnas con movimiento individual
     function animarColumnas(time) {
       columnasMovimiento.forEach((col, i) => {
         const d = col.userData;
@@ -2339,48 +2396,63 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const muerto = ESTADO.muerto;
         const interaccion = d.interaccion;
         
+        // Velocidades: FRACTURA es la más lenta (referencia)
+        const velFractura = 0.7;
+        const velSenial = 1.4;   // 2x más rápida que fractura
+        const velResonancia = 1.2; // 1.7x más rápida que fractura
+        
         // --- MOVIMIENTO BASE POR TIPO ---
         if (label === 'RESONANCIA') {
-          // RESPIRACIÓN MUY PRONUNCIADA: como déficit de oxígeno
-          const breath = 1 + Math.sin(time * 0.5 + offset) * 0.12 * (0.5 + salud * 0.5);
+          // ACORDEÓN: respiración con movimiento de anillos (aprovechando forma de ondas)
+          const breath = 1 + Math.sin(time * velResonancia * 0.8 + offset) * 0.15 * (0.5 + salud * 0.5);
           movil.scale.x = breath;
           movil.scale.z = breath;
-          // Movimiento vertical amplio
-          movil.position.y = 0.2 + Math.sin(time * 0.4 + offset) * 0.15 * (0.5 + salud * 0.5);
-          // Ligera inclinación que acompaña la respiración
-          movil.rotation.x = Math.sin(time * 0.5 + offset) * 0.04;
-          movil.rotation.z = Math.cos(time * 0.45 + offset * 0.7) * 0.04;
+          // Movimiento vertical amplio y rápido
+          movil.position.y = 0.2 + Math.sin(time * velResonancia * 0.6 + offset) * 0.18 * (0.5 + salud * 0.5);
+          // Inclinación que acompaña el acordeón
+          movil.rotation.x = Math.sin(time * velResonancia * 0.7 + offset) * 0.05;
+          movil.rotation.z = Math.cos(time * velResonancia * 0.65 + offset * 0.7) * 0.05;
+          
+          // Los anillos (torus) se comprimen y expanden individualmente como acordeón
+          if (d.anillos && d.anillos.length > 0) {
+            d.anillos.forEach((anillo, idx) => {
+              const factor = 1 + Math.sin(time * velResonancia * 0.9 + idx * 0.5 + offset) * 0.15;
+              anillo.scale.x = factor;
+              anillo.scale.z = factor;
+              anillo.position.y = anillo.userData.posYBase + 
+                Math.sin(time * velResonancia * 0.8 + idx * 0.7 + offset) * 0.05;
+            });
+          }
         } else if (label === 'SEÑAL') {
-          // CADA CUBO SE MUEVE INDIVIDUALMENTE (no todo el grupo)
+          // CADA CUBO SE MUEVE INDIVIDUALMENTE - MÁS RÁPIDO
           if (d.cubos && d.cubos.length > 0) {
             d.cubos.forEach((cubo, idx) => {
               const ud = cubo.userData;
-              // Movimiento orbital individual
-              const ang = time * 0.3 + ud.faseX;
-              const rad = 0.05 + Math.sin(time * 0.2 + ud.faseZ) * 0.03;
+              // Movimiento orbital rápido
+              const ang = time * velSenial * 0.4 + ud.faseX;
+              const rad = 0.06 + Math.sin(time * velSenial * 0.3 + ud.faseZ) * 0.04;
               cubo.position.x = ud.offsetX + Math.cos(ang) * rad;
               cubo.position.z = ud.offsetZ + Math.sin(ang) * rad;
-              // Rotación individual
-              cubo.rotation.y = ud.rotYBase + time * 0.02 + ud.faseRot;
-              cubo.rotation.x = Math.sin(time * 0.15 + ud.faseX) * 0.02;
-              // Flotación vertical sutil
-              cubo.position.y = ud.posYBase + Math.sin(time * 0.25 + ud.faseZ) * 0.02;
+              // Rotación rápida
+              cubo.rotation.y = ud.rotYBase + time * velSenial * 0.04 + ud.faseRot;
+              cubo.rotation.x = Math.sin(time * velSenial * 0.25 + ud.faseX) * 0.03;
+              // Flotación rápida
+              cubo.position.y = ud.posYBase + Math.sin(time * velSenial * 0.35 + ud.faseZ) * 0.025;
             });
           }
         } else if (label === 'FRACTURA') {
-          // Movimiento errático pero visible
-          movil.position.y = 0.2 + Math.sin(time * 0.7 + offset * 2) * 0.06;
-          movil.rotation.z = Math.sin(time * 0.5 + offset * 1.3) * 0.025;
-          movil.rotation.x = Math.sin(time * 0.6 + offset * 1.7) * 0.025;
-          // Fragmentos individuales (los que ya tienen movimiento propio)
+          // FRACTURA: más lenta (velocidad de referencia)
+          movil.position.y = 0.2 + Math.sin(time * velFractura * 0.6 + offset * 2) * 0.05;
+          movil.rotation.z = Math.sin(time * velFractura * 0.4 + offset * 1.3) * 0.02;
+          movil.rotation.x = Math.sin(time * velFractura * 0.5 + offset * 1.7) * 0.02;
         } else if (label === 'DERIVA') {
-          // Flotación suave y orgánica
-          movil.position.y = 0.2 + Math.sin(time * 0.3 + offset * 1.1) * 0.05;
-          movil.rotation.x = Math.sin(time * 0.25 + offset * 0.9) * 0.02;
-          movil.rotation.z = Math.sin(time * 0.22 + offset * 1.4) * 0.02;
+          // DERIVA: velocidad intermedia
+          movil.position.y = 0.2 + Math.sin(time * 0.35 + offset * 1.1) * 0.05;
+          movil.rotation.x = Math.sin(time * 0.3 + offset * 0.9) * 0.02;
+          movil.rotation.z = Math.sin(time * 0.28 + offset * 1.4) * 0.02;
         }
         
-        // --- INTERACCIÓN (rebote y pulso) ---
+        // --- INTERACCIÓN (CAOS al presionar) ---
         if (interaccion.activa) {
           interaccion.tiempo += 0.016;
           const progreso = interaccion.tiempo / interaccion.duracion;
@@ -2389,21 +2461,23 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             interaccion.activa = false;
             interaccion.intensidad = 0;
           } else {
-            // Efecto de rebote con decaimiento
-            const rebound = Math.sin(progreso * Math.PI * 2) * (1 - progreso) * interaccion.intensidad * 0.5;
-            // Aplicar rebote solo si no es SEÑAL (que ya tiene movimiento individual)
+            // Rebote caótico con múltiples frecuencias
+            const rebound1 = Math.sin(progreso * Math.PI * 3.7) * (1 - progreso) * interaccion.intensidad * 0.4;
+            const rebound2 = Math.cos(progreso * Math.PI * 5.2) * (1 - progreso) * interaccion.intensidad * 0.2;
+            const rebound = rebound1 + rebound2;
+            
             if (label !== 'SEÑAL') {
-              const scaleFactor = 1 + rebound;
+              const scaleFactor = 1 + rebound * 0.5;
               movil.scale.x *= scaleFactor / ((movil.scale.x + movil.scale.z) / 2 || 1);
               movil.scale.z *= scaleFactor / ((movil.scale.x + movil.scale.z) / 2 || 1);
             }
             
-            // Pulso de luz en los elementos
-            const pulseIntensity = Math.sin(progreso * Math.PI) * 0.6 + 0.2;
+            // Pulso de luz caótico
+            const pulseIntensity = Math.sin(progreso * Math.PI * 3.3) * 0.4 + 0.6;
             if (d.mesh) {
               d.mesh.children.forEach(child => {
                 if (child.material && child.material.emissiveIntensity !== undefined) {
-                  child.material.emissiveIntensity = 0.3 + pulseIntensity * 0.7;
+                  child.material.emissiveIntensity = 0.3 + pulseIntensity * 1.2;
                 }
               });
             }
@@ -2425,15 +2499,16 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       requestAnimationFrame(animate);
       time += 0.01;
       
-      // <-- MODIFICACIÓN: decaimiento de modulación sonora
+      // Decaimiento de modulación
       modulacionTiempo += 0.016;
       Object.keys(modulacionSonora).forEach(key => {
         if (modulacionSonora[key].activa) {
           // Decaimiento natural
-          modulacionSonora[key].intensidad = Math.max(0, modulacionSonora[key].intensidad - 0.001);
+          modulacionSonora[key].intensidad = Math.max(0, modulacionSonora[key].intensidad - 0.002);
           if (modulacionSonora[key].intensidad < 0.01) {
             modulacionSonora[key].activa = false;
             modulacionSonora[key].intensidad = 0;
+            deactivateChaos();
           }
         }
       });
@@ -2465,7 +2540,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       animarLluviaPetales();
       animarPasto();
       
-      // <-- MODIFICACIÓN: animar columnas
       animarColumnas(time);
 
       versosFlotantes.forEach(s => {
