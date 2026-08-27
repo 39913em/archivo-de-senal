@@ -265,6 +265,7 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
     import { getDatabase, ref, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+    import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app-check.js';
 
     // ============================================================
     // FIREBASE
@@ -279,6 +280,10 @@
       appId: "1:29695212671:web:c29715d98992d770c0d34a"
     };
     const app = initializeApp(firebaseConfig);
+    const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LeFuZotAAAAAHM8Hf7U9L80pjNdmQoBeO83wcku'),
+  isTokenAutoRefreshEnabled: true
+});
     const db = getDatabase(app);
     const dbEstado = ref(db, 'poesia');
     const dbVerso = ref(db, 'verso_actual');
