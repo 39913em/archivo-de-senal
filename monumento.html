@@ -2028,13 +2028,35 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       } catch(err){ console.error('Error PDF:', err); }
       document.body.removeChild(element);
 
-      if (!ESTADO.muerto){
-        ESTADO.vida++;
-        ESTADO.siembras++;
-        ESTADO.ultimaActualizacion = Date.now();
-        await actualizarCorrupcion();
-        playPageTurn();
+    if (!ESTADO.muerto){
+  ESTADO.vida++;
+  ESTADO.siembras++;
+  ESTADO.ultimaActualizacion = Date.now();
+  await actualizarCorrupcion();
+  playPageTurn();
+  
+  // 🔥 REACCIÓN DE LA COLUMNA
+  const columna = hits[0].object.parent; // la columna que se tocó
+  if (columna) {
+    // 1. Brillo
+    columna.children.forEach(child => {
+      if (child.material) {
+        child.material.emissiveIntensity = (child.material.emissiveIntensity || 0) + 0.5;
+        setTimeout(() => {
+          if (child.material) child.material.emissiveIntensity = Math.max(0, (child.material.emissiveIntensity || 0) - 0.5);
+        }, 300);
       }
+    });
+    
+    // 2. Temblor
+    const posOrig = columna.position.clone();
+    columna.position.x += (Math.random() - 0.5) * 0.05;
+    columna.position.z += (Math.random() - 0.5) * 0.05;
+    setTimeout(() => {
+      if (columna.parent) columna.position.copy(posOrig);
+    }, 200);
+  }
+}
     });
 
     renderer.domElement.addEventListener('dblclick', async e => {
