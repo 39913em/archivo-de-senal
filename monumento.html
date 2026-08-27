@@ -281,7 +281,7 @@
     const db = getDatabase(app);
     
     const dbEstado = ref(db, 'poesia');
-    const dbVersos = ref(db, 'versos'); // Lista de haikus
+    const dbVersos = ref(db, 'versos');
     const dbLexicoAprobado = ref(db, 'lexico_aprobado');
 
     console.log('Jardín conectado');
@@ -387,12 +387,10 @@
     // SEGURIDAD
     // ============================================================
 
-    // Sanitizar entradas
     function sanitizar(texto) {
       return texto.replace(/[<>]/g, '').slice(0, 140);
     }
 
-    // Rate limiting (protección de bots)
     function verificarRateLimit() {
       const ultimaAccion = localStorage.getItem('ultima_siembra');
       const ahora = Date.now();
@@ -1150,7 +1148,7 @@
     }
 
     // ============================================================
-    // VERSOS FLOTANTES (HAIKUS)
+    // VERSOS FLOTANTES (HAIKUS) — CORREGIDO PARA SINCRONIZAR
     // ============================================================
     const versosFlotantes = [];
 
@@ -1213,9 +1211,8 @@
         sprite.userData.tiempoRestante--;
         const progreso = 1 - (sprite.userData.tiempoRestante / 30);
         if (sprite.userData.tiempoRestante <= 0) {
-          // BORRAR DE FIREBASE
-          const dbVersosRef = ref(db, 'versos');
-          get(dbVersosRef).then(snap => {
+          // 🔥 BORRAR DE FIREBASE
+          get(dbVersos).then(snap => {
             if (snap.exists()) {
               const data = snap.val();
               const key = Object.keys(data).find(k => data[k].texto === texto && data[k].autor === autor);
@@ -1276,7 +1273,7 @@
     }
 
     // ============================================================
-    // ESCUCHAR HAIKUS EN TIEMPO REAL
+    // ESCUCHAR HAIKUS EN TIEMPO REAL (SINCRONIZACIÓN)
     // ============================================================
     function escucharVerso(){
       onValue(dbVersos, snap => {
@@ -1286,13 +1283,10 @@
         const versosLista = Object.values(data);
         versosLista.sort((a, b) => b.ts - a.ts);
         
-        // Mostrar hasta 20 haikus
         const ultimosVersos = versosLista.slice(0, 20);
         
         ultimosVersos.forEach(verso => {
-          // No mostrar haikus muy antiguos (más de 30 segundos)
           if (Date.now() - verso.ts > 30000) {
-            // Borrar de Firebase si expiró
             const key = Object.keys(data).find(k => data[k].ts === verso.ts && data[k].texto === verso.texto);
             if (key) {
               const refEliminar = ref(db, `versos/${key}`);
@@ -1327,23 +1321,19 @@
       let haiku = generarHaiku(col.label);
       let intentos = 0;
       
-      // Evitar repeticiones (hasta 50 intentos)
       while (idsVistos.has(haiku.texto) && intentos < 50) {
         haiku = generarHaiku(col.label);
         intentos++;
       }
       
-      // Si después de 50 intentos todos se repiten, reiniciar lista
       if (intentos >= 50) {
         idsVistos.clear();
         console.log('🔄 Lista de haikus vistos reiniciada');
         haiku = generarHaiku(col.label);
       }
       
-      // Crear haiku en pantalla
       crearVersoFlotante(haiku.texto, haiku.autor, col.label);
       
-      // Guardar en Firebase
       try {
         const nuevoVerso = {
           texto: haiku.texto,
@@ -1351,14 +1341,9 @@
           columna: col.label,
           ts: Date.now()
         };
-        const key = Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-        const refVerso = ref(db, `versos/${key}`);
-        await set(refVerso, nuevoVerso);
-        
-        // Registrar ID como visto
+        const refPush = push(dbVersos, nuevoVerso);
+        console.log('📝 Haiku guardado con ID:', refPush.key);
         idsVistos.add(haiku.texto);
-        console.log(`Haiku guardado (${idsVistos.size} vistos)`);
-        
       } catch(e) { console.warn('No se pudo sincronizar:', e); }
       
       ESTADO.vida++;
@@ -1523,7 +1508,7 @@
           avisoTemporal('¡El jardín ha renacido!');
           console.log('Renacido. Ciclo:', ESTADO.ciclos);
         } catch (e) {
-          console.error('❌ Error:', e);
+          console.error('Error:', e);
           avisoTemporal('Error al revivir');
         }
       }
@@ -2366,7 +2351,7 @@
       renderer.setSize(innerWidth, innerHeight);
     });
 
-    console.log('ARDÍN DEL ORÁCULO — 20 haikus sin repetición');
+    console.log('JARDÍN DEL ORÁCULO — 20 haikus sincronizados');
     console.log('Vida:', ESTADO.vida);
     console.log('Integridad:', ESTADO.integridad+'%');
     console.log('Muerto:', ESTADO.muerto);
