@@ -1780,21 +1780,17 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     // ============================================================
     // ESCALAS Y RANGOS DE NOTAS
     // ============================================================
-    // Señal: escala mayor fija (Do-Re-Mi-Fa-Sol-La-Si)
     const ESCALA_SEÑAL = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88];
-    // Resonancia: pentatónica mayor fija (Do-Re-Mi-Sol-La)
     const ESCALA_RESONANCIA = [261.63, 293.66, 329.63, 392.00, 440.00];
-    // Deriva: aleatorio entre 100-600 Hz
     const RANGO_DERIVA = { min: 100, max: 600 };
-    // Fractura: aleatorio entre 300-900 Hz
     const RANGO_FRACTURA = { min: 300, max: 900 };
 
     // Estado de elementos activos por columna (para fadeout)
     const elementosActivos = {
-      SEÑAL: { elementos: [], timer: null },
-      RESONANCIA: { elementos: [], timer: null },
-      FRACTURA: { elementos: [], timer: null },
-      DERIVA: { elementos: [], timer: null }
+      SEÑAL: { elementos: [], timer: null, ultimoToque: 0 },
+      RESONANCIA: { elementos: [], timer: null, ultimoToque: 0 },
+      FRACTURA: { elementos: [], timer: null, ultimoToque: 0 },
+      DERIVA: { elementos: [], timer: null, ultimoToque: 0 }
     };
 
     // ============================================================
@@ -1814,7 +1810,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
 
       if (forma==='cubos'){
         const g = new THREE.Group();
-        // Asignar notas fijas de la escala (una por cubo)
         const notas = ESCALA_SEÑAL;
         for(let i=0;i<25;i++){
           const size = 0.3+Math.random()*0.15;
@@ -1837,15 +1832,16 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             offsetZ: (Math.random() - 0.5) * 0.5,
             posYBase: c.position.y,
             rotYBase: c.rotation.y,
-            // Datos de sonido
             nota: notas[notaIdx],
             esFijo: true,
             columna: label,
-            // Estado de activación
+            // Estado de activación - AHORA CADA ELEMENTO INDEPENDIENTE
             activado: false,
             tiempoActivacion: 0,
             posOriginal: c.position.clone(),
-            escalaOriginal: c.scale.clone()
+            escalaOriginal: c.scale.clone(),
+            colorOriginal: c.material.color.getHex(),
+            emissiveOriginal: c.material.emissiveIntensity
           };
           g.add(c); 
           elementos.push(c);
@@ -1880,7 +1876,9 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             activado: false,
             tiempoActivacion: 0,
             posOriginal: a.position.clone(),
-            escalaOriginal: a.scale.clone()
+            escalaOriginal: a.scale.clone(),
+            colorOriginal: a.material.color.getHex(),
+            emissiveOriginal: a.material.emissiveIntensity
           };
           g.add(a); 
           elementos.push(a);
@@ -1921,7 +1919,9 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             activado: false,
             tiempoActivacion: 0,
             posOriginal: cilindro.position.clone(),
-            escalaOriginal: cilindro.scale.clone()
+            escalaOriginal: cilindro.scale.clone(),
+            colorOriginal: cilindro.material.color.getHex(),
+            emissiveOriginal: cilindro.material.emissiveIntensity
           };
           g.add(cilindro);
           elementos.push(cilindro);
@@ -1954,7 +1954,9 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             activado: false,
             tiempoActivacion: 0,
             posOriginal: f.position.clone(),
-            escalaOriginal: f.scale.clone()
+            escalaOriginal: f.scale.clone(),
+            colorOriginal: f.material.color.getHex(),
+            emissiveOriginal: f.material.emissiveIntensity
           };
           g.add(f); 
           elementos.push(f);
@@ -2152,7 +2154,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const columna = ud.columna;
         const ahora = audioCtx.currentTime;
         
-        // Diferente timbre según la columna
         let tipoOnda = 'sine';
         let duracion = 0.3;
         let volumen = 0.06;
@@ -2192,7 +2193,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         osc.start(ahora);
         osc.stop(ahora + duracion);
         
-        // Armónico suave para dar carácter
+        // Armónico
         if (Math.random() > 0.3) {
           const osc2 = audioCtx.createOscillator();
           const gain2 = audioCtx.createGain();
@@ -2206,37 +2207,21 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
           osc2.stop(ahora + duracion * 0.5);
         }
         
-        // Aviso visual en consola
-        console.log(`🔊 ${columna}: ${freq.toFixed(1)}Hz (${tipoOnda})`);
-        
       } catch(e) {
-        console.warn('Error reproduciendo sonido de elemento:', e);
+        console.warn('Error:', e);
       }
     }
 
     // ============================================================
     // ACTIVAR ELEMENTO (click → brillo + separación + sonido)
+    // AHORA: MÚLTIPLES ELEMENTOS PUEDEN ESTAR ACTIVOS SIMULTÁNEAMENTE
     // ============================================================
     function activarElemento(elemento) {
       const ud = elemento.userData;
       const columna = ud.columna;
       
-      // Desactivar elementos anteriores de esta columna
-      const activos = elementosActivos[columna];
-      activos.elementos.forEach(el => {
-        desactivarElemento(el);
-      });
-      activos.elementos = [];
-      
-      // Limpiar timer anterior
-      if (activos.timer) {
-        clearTimeout(activos.timer);
-        activos.timer = null;
-      }
-      
-      // Activar este elemento
-      ud.activado = true;
-      ud.tiempoActivacion = Date.now();
+      // NO desactivamos elementos anteriores - cada uno es independiente
+      // Solo actualizamos el timer de la columna para el fadeout
       
       // Guardar estado original si no existe
       if (!ud.posOriginal) {
@@ -2246,14 +2231,24 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         ud.emissiveOriginal = elemento.material.emissiveIntensity;
       }
       
-      // GUARDAR en elementos activos
-      activos.elementos.push(elemento);
+      // Activar este elemento (toggle)
+      ud.activado = !ud.activado;
+      ud.tiempoActivacion = Date.now();
       
-      // Reproducir sonido
-      tocarSonidoElemento(elemento);
+      // Aplicar o quitar efecto visual
+      aplicarEfectoElemento(elemento, ud.activado);
       
-      // Efecto visual inmediato: brillo + separación
-      aplicarEfectoElemento(elemento, true);
+      // Si se activó, reproducir sonido
+      if (ud.activado) {
+        tocarSonidoElemento(elemento);
+      }
+      
+      // Actualizar timer de la columna para fadeout
+      const activos = elementosActivos[columna];
+      if (activos.timer) {
+        clearTimeout(activos.timer);
+        activos.timer = null;
+      }
       
       // Iniciar timer de fadeout (3 segundos sin actividad)
       activos.timer = setTimeout(() => {
@@ -2261,16 +2256,8 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       }, 3000);
     }
 
-    function desactivarElemento(elemento) {
-      const ud = elemento.userData;
-      if (!ud.activado) return;
-      ud.activado = false;
-      aplicarEfectoElemento(elemento, false);
-    }
-
     function aplicarEfectoElemento(elemento, activado) {
       const ud = elemento.userData;
-      const columna = ud.columna;
       
       if (activado) {
         // BRILLO: aumentar emisivo
@@ -2292,31 +2279,41 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
 
     function fadeoutColumna(columna) {
       const activos = elementosActivos[columna];
-      if (activos.elementos.length === 0) return;
+      // Buscar todos los elementos activos de esta columna
+      const elementosActivosCol = columnasMovimiento
+        .find(col => col.userData.label === columna)
+        ?.userData.elementos
+        ?.filter(el => el.userData.activado) || [];
+      
+      if (elementosActivosCol.length === 0) return;
       
       // Fadeout: desactivar elementos gradualmente
-      const elementos = activos.elementos;
       let fadeStep = 0;
       const fadeInterval = setInterval(() => {
         fadeStep += 0.05;
         const opacity = 1 - fadeStep;
         
-        elementos.forEach(el => {
-          el.material.opacity = Math.max(0, opacity);
-          el.material.transparent = true;
-          // Reducir emisivo gradualmente
-          el.material.emissiveIntensity = Math.max(0, 1.5 * opacity);
+        elementosActivosCol.forEach(el => {
+          if (el.userData.activado) {
+            el.material.opacity = Math.max(0, opacity);
+            el.material.transparent = true;
+            el.material.emissiveIntensity = Math.max(0, 1.5 * opacity);
+          }
         });
         
         if (fadeStep >= 1) {
           clearInterval(fadeInterval);
           // Desactivar completamente
-          elementos.forEach(el => {
-            desactivarElemento(el);
-            el.material.opacity = 0.6 + Math.random() * 0.4;
-            el.material.transparent = true;
+          elementosActivosCol.forEach(el => {
+            if (el.userData.activado) {
+              el.userData.activado = false;
+              el.material.emissiveIntensity = el.userData.emissiveOriginal || 0.1;
+              el.position.copy(el.userData.posOriginal);
+              el.scale.copy(el.userData.escalaOriginal);
+              el.material.opacity = 0.6 + Math.random() * 0.4;
+              el.material.transparent = true;
+            }
           });
-          activos.elementos = [];
           activos.timer = null;
           console.log(`🔇 Fadeout completo para ${columna}`);
         }
@@ -2380,7 +2377,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     // ============================================================
     const raycaster = new THREE.Raycaster();
 
-    // Función para obtener todos los elementos clickeables de todas las columnas
     function obtenerTodosLosElementos() {
       const todos = [];
       columnasMovimiento.forEach(col => {
@@ -2406,7 +2402,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       );
       raycaster.setFromCamera(mouse, camera);
       
-      // Verificar primero si se hizo click en la etiqueta "descargar"
+      // Verificar etiqueta "descargar"
       const sprites = [];
       columnas.forEach(col => col.children.forEach(c => { if(c.isSprite && c.userData && c.userData.esBoton) sprites.push(c); }));
       const hitsSprite = raycaster.intersectObjects(sprites);
@@ -2414,7 +2410,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const label = hitsSprite[0].object.userData.label;
         const colData = datosColumna.find(d=>d.label===label);
         
-        // Descarga PDF (funcionalidad original)
         const partes = armarEnsayoSegunEstado(colData.ensayo, ESTADO.integridad, ESTADO.muerto);
         const sufijoEstado = ESTADO.muerto ? 'muerto' : (ESTADO.corrompido ? 'corrupto' : 'original');
 
@@ -2455,21 +2450,13 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         return;
       }
       
-      // Si no es la etiqueta, buscar elementos individuales
+      // Buscar elementos individuales
       const todosLosElementos = obtenerTodosLosElementos();
       const hits = raycaster.intersectObjects(todosLosElementos);
       if (hits.length) {
         const elemento = hits[0].object;
-        const ud = elemento.userData;
-        
-        // No activar si ya está activo
-        if (ud.activado) return;
-        
-        // Activar el elemento
+        // Activar el elemento (toggle)
         activarElemento(elemento);
-        
-        // Pequeño aviso visual
-        avisoTemporal(`🎵 ${ud.columna} - elemento ${ud.idx + 1}`);
       }
     });
 
@@ -2616,7 +2603,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const velSenial = 1.4;
         const velResonancia = 1.2;
         
-        // --- MOVIMIENTO NATURAL (elementos que no están activados) ---
         if (label === 'RESONANCIA') {
           const breath = 1 + Math.sin(time * velResonancia * 0.8 + offset) * 0.15 * (0.5 + salud * 0.5);
           movil.scale.x = breath;
@@ -2625,8 +2611,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
           movil.rotation.x = Math.sin(time * velResonancia * 0.7 + offset) * 0.05;
           movil.rotation.z = Math.cos(time * velResonancia * 0.65 + offset * 0.7) * 0.05;
           
-          // Los elementos individuales (aros) se mueven naturalmente
-          // pero si están activados, su movimiento se maneja en aplicarEfectoElemento
           if (d.elementos && d.elementos.length > 0) {
             d.elementos.forEach((el, idx) => {
               if (!el.userData.activado) {
@@ -2885,12 +2869,10 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       renderer.setSize(innerWidth, innerHeight);
     });
 
-    console.log('JARDÍN DEL ORÁCULO');
-    console.log('🎹 Click en elementos individuales para tocar notas');
-    console.log('📋 Señal: escala mayor fija');
-    console.log('🌀 Resonancia: pentatónica fija');
-    console.log('💥 Fractura: notas aleatorias (300-900Hz)');
-    console.log('🌊 Deriva: notas aleatorias (100-600Hz)');
+    console.log('🎹 JARDÍN DEL ORÁCULO - Piano de elementos');
+    console.log('📋 Click en cualquier elemento para tocar su nota');
+    console.log('🔄 Cada elemento es independiente - puedes tocar varios a la vez');
+    console.log('⏱️ 3 segundos sin actividad en una columna = fadeout');
   </script>
 </body>
 </html>
