@@ -6,10 +6,9 @@
 <title>Archivo de Señal</title>
 <meta name="description" content="Arte, tecnología experimental y pensamiento crítico. Exploramos las fracturas, los errores y las derivas creativas en la cultura digital.">
 
-<!-- Seguridad (sin Firebase) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' https://unpkg.com https://www.gstatic.com https://*.firebaseio.com; style-src 'unsafe-inline';"> 
+<!-- Seguridad (CSP corregida) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://www.gstatic.com https://*.firebaseio.com https://39913em.github.io; style-src 'unsafe-inline' https://39913em.github.io; connect-src 'self' https://*.firebaseio.com;"> 
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
 <!-- Favicon -->
