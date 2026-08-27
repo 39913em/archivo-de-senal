@@ -372,6 +372,15 @@
         LEXICO_APROBADO[categoria].push(palabra);
       } catch(e){ console.warn('No se pudo guardar palabra en léxico:', e); }
     }
+   
+    // ============================================================
+// SEGURIDAD
+// ============================================================
+
+// Sanitizar entradas
+function sanitizar(texto) {
+  return texto.replace(/[<>]/g, '').slice(0, 140);
+}
 
     // ============================================================
     // GRAMÁTICA GENERATIVA — HAIKU 5-7-5
