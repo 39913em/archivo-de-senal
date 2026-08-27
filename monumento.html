@@ -2046,13 +2046,13 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       const todos = [...versosFlotantes, ...mensajesFlotantes];
       if (!todos.length) return;
       const hits = raycaster.intersectObjects(todos);
-      if (hits.length) {
-        const sprite = hits[0].object;
-        const texto = sprite.userData.texto || 'sin texto';
-        const autor = sprite.userData.autor || 'ORÁCULO';
-        generarBotonesCompartir(texto, autor, true);
-        return;
-      }
+     if (hits.length) {
+  const sprite = hits[0].object;
+  const texto = sprite.userData.texto || 'sin texto';
+  const autor = sprite.userData.autor || 'ORÁCULO';
+  generarBotonesCompartir(texto, autor, false);
+  return;
+}
     });
 
     renderer.domElement.addEventListener('pointerdown', (e) => {
