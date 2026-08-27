@@ -1991,8 +1991,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         }
       } catch(e){}
     }
-
-    // ============================================================
+// ============================================================
     // INTERACCIONES
     // ============================================================
     const raycaster = new THREE.Raycaster();
@@ -2066,7 +2065,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const sprite = hits[0].object;
         const texto = sprite.userData.texto || 'sin texto';
         const autor = sprite.userData.autor || 'ORÁCULO';
-        generarBotonesCompartir(texto, autor, true);
+        generarBotonesCompartir(texto, autor, false);
         return;
       }
     });
