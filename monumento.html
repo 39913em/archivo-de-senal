@@ -1520,9 +1520,11 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const a = document.createElement('a');
         a.setAttribute('style', r.estilo + 'padding:6px 12px;border-radius:20px;text-decoration:none;font-size:10px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;font-family:inherit;');
         let href;
-        if (r.id === 'instagram' || r.id === 'substack') {
-          href = `https://www.instagram.com/39913em/`;
-        } else {
+       if (r.id === 'instagram') {
+  href = `https://www.instagram.com/39913em/`;
+} else if (r.id === 'substack') {
+  href = `https://substack.com/`;
+} else {
           href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}&url=${encodeURIComponent(url)}`;
           if (r.id === 'bluesky') href = `https://bsky.app/intent/compose?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
           else if (r.id === 'linkedin') href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
