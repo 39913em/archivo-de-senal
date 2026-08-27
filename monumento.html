@@ -2186,162 +2186,190 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     // ANIMACIÓN
     // ============================================================
     let time=0, lastTick=Date.now();
+function animate(){
+  requestAnimationFrame(animate);
+  time += 0.01;
 
-    function animate(){
-      requestAnimationFrame(animate);
-      time += 0.01;
+  if (Math.floor(time) % 60 === 0) {
+    actualizarHoraDia();
+  }
 
-      if (Math.floor(time) % 60 === 0) {
-        actualizarHoraDia();
-      }
+  if (Date.now()-lastTick > 10000 && datosCargados){
+    lastTick = Date.now();
+    decaimientoNatural();
+    actualizarCorrupcion();
+  }
 
-      if (Date.now()-lastTick > 10000 && datosCargados){
-        lastTick = Date.now();
-        decaimientoNatural();
-        actualizarCorrupcion();
-      }
+  listenerFrame++;
+  if (audioCtx && listenerFrame%3===0) actualizarListener();
 
-      listenerFrame++;
-      if (audioCtx && listenerFrame%3===0) actualizarListener();
+  guardian.rotation.y = Math.sin(time*0.3)*0.1;
+  const vidaFrac = Math.max(0, Math.min(1, ESTADO.vida/10));
+  const bpm = ESTADO.muerto ? 0.4 : 1.0+vidaFrac*2.2;
+  const latido = Math.pow(Math.max(0,Math.sin(time*bpm*3)),6);
+  const colorLed = ESTADO.muerto ? 0x552222 : (ESTADO.corrompido ? 0xff8a30 : 0x00e676);
+  led.material.color.setHex(colorLed);
+  led.material.emissive.setHex(colorLed);
+  led.material.emissiveIntensity = ESTADO.muerto ? 0.08+latido*0.1 : 0.3+latido*0.9;
+  led.scale.set(1+latido*(ESTADO.muerto?0.1:0.5),1+latido*(ESTADO.muerto?0.1:0.5),1+latido*(ESTADO.muerto?0.1:0.5));
 
-      guardian.rotation.y = Math.sin(time*0.3)*0.1;
-      const vidaFrac = Math.max(0, Math.min(1, ESTADO.vida/10));
-      const bpm = ESTADO.muerto ? 0.4 : 1.0+vidaFrac*2.2;
-      const latido = Math.pow(Math.max(0,Math.sin(time*bpm*3)),6);
-      const colorLed = ESTADO.muerto ? 0x552222 : (ESTADO.corrompido ? 0xff8a30 : 0x00e676);
-      led.material.color.setHex(colorLed);
-      led.material.emissive.setHex(colorLed);
-      led.material.emissiveIntensity = ESTADO.muerto ? 0.08+latido*0.1 : 0.3+latido*0.9;
-      led.scale.set(1+latido*(ESTADO.muerto?0.1:0.5),1+latido*(ESTADO.muerto?0.1:0.5),1+latido*(ESTADO.muerto?0.1:0.5));
+  animarFloresOrganicas();
+  animarLluviaPetales();
+  animarPasto();
 
-      animarFloresOrganicas();
-      animarLluviaPetales();
-      animarPasto();
+  versosFlotantes.forEach(s => {
+    const d = s.userData;
+    if (d && !s.userData._evaporando){
+      const na = d.angulo + time * d.velocidad;
+      const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.5;
+      s.position.x = Math.cos(na) * d.radio;
+      s.position.z = Math.sin(na) * d.radio;
+      s.position.y = alt;
+    }
+  });
 
-      versosFlotantes.forEach(s => {
-        const d = s.userData;
-        if (d && !s.userData._evaporando){
-          const na = d.angulo + time * d.velocidad;
-          const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.5;
-          s.position.x = Math.cos(na) * d.radio;
-          s.position.z = Math.sin(na) * d.radio;
-          s.position.y = alt;
-        }
-      });
+  mensajesFlotantes.forEach((s,i)=>{
+    const d = s.userData;
+    if (d){
+      const na = d.angulo + time * d.velocidad;
+      const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
+      s.position.x = Math.cos(na) * d.radio;
+      s.position.z = Math.sin(na) * d.radio;
+      s.position.y = alt;
+    }
+  });
 
-      mensajesFlotantes.forEach((s,i)=>{
-        const d = s.userData;
-        if (d){
-          const na = d.angulo + time * d.velocidad;
-          const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
-          s.position.x = Math.cos(na) * d.radio;
-          s.position.z = Math.sin(na) * d.radio;
-          s.position.y = alt;
-        }
-      });
+  const corrupto = ESTADO.corrompido || ESTADO.integridad<80;
+  const muerto = ESTADO.muerto;
+  const nivel = muerto ? 1 : Math.max(0, 1-ESTADO.integridad/100);
 
-      const corrupto = ESTADO.corrompido || ESTADO.integridad<80;
-      const muerto = ESTADO.muerto;
-      const nivel = muerto ? 1 : Math.max(0, 1-ESTADO.integridad/100);
-
-      columnas.forEach((col,i)=>{
-        const off = i*0.5;
-        const forma = col.userData.forma;
-        col.position.y = muerto ? -0.15 : Math.sin(time*0.5+off)*0.04;
-
-        if (forma === 'cubos' && col.userData.cubos) {
-          col.userData.cubos.forEach(c => {
-            if (muerto) {
-              c.material.color.setHex(0x333333);
-              c.material.emissiveIntensity = 0;
-            } else if (corrupto) {
-              const vib = 0.02 + nivel * 0.05;
-              c.position.x += (Math.random() - 0.5) * vib;
-              c.position.z += (Math.random() - 0.5) * vib;
-              c.material.emissiveIntensity = 0.1 + nivel * 0.5;
-              c.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.5).getHex());
-            } else {
-              c.material.color.setHex(col.userData.color);
-              c.material.emissiveIntensity = 0.05 + Math.sin(time + (c.userData?.idx || 0)) * 0.05;
-            }
-          });
-        }
-
-        if (forma === 'ondas' && col.userData.anillos) {
-          col.userData.anillos.forEach((a, idx) => {
-            if (muerto) {
-              a.scale.x = 0.3; a.scale.z = 0.3;
-              a.material.opacity = 0.05;
-              a.material.color.setHex(0x444444);
-              a.material.emissiveIntensity = 0;
-            } else if (corrupto) {
-              const dist = 1 + Math.sin(time * 2 + idx * 0.5) * (0.2 + nivel * 0.5);
-              a.scale.x = dist; a.scale.z = dist;
-              a.material.opacity = 0.2 + Math.sin(time * 3 + idx) * 0.2;
-              a.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.3).getHex());
-              a.material.emissiveIntensity = 0.1 + nivel * 0.3;
-            } else {
-              const esc = 1 + Math.sin(time * 0.5 + idx) * 0.05;
-              a.scale.x = esc; a.scale.z = esc;
-              a.material.opacity = 0.6 + Math.sin(idx * 0.5) * 0.3;
-              a.material.color.setHex(col.userData.color);
-              a.material.emissiveIntensity = 0.1;
-            }
-          });
-        }
-
-        if (forma === 'rota' && col.userData.fragmentos){
-          col.userData.fragmentos.forEach((f,idx)=>{
-            const d = f.userData;
-            if (muerto){
-              f.position.y = 0.1 + Math.sin(time + idx) * 0.05;
-              f.material.color.setHex(0x333333);
-              f.material.emissiveIntensity = 0;
-              f.material.opacity = 0.2;
-            } else if (corrupto){
-              const alt = d.alturaBase * (1 - nivel * 0.5) + Math.sin(time * d.velocidad + d.offset) * 0.2 * (1 - nivel);
-              f.position.y = Math.max(0.1, alt);
-              f.rotation.x += 0.02; f.rotation.z += 0.02;
-              f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.4).getHex());
-              f.material.emissiveIntensity = 0.05 + nivel * 0.3;
-              f.material.opacity = 0.4 + Math.sin(time * 2 + idx) * 0.2;
-            } else {
-              const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
-              f.position.y = alt;
-              f.rotation.x += 0.01; f.rotation.z += 0.01;
-              f.material.color.setHex(col.userData.color);
-              f.material.emissiveIntensity = 0.1;
-              f.material.opacity = 0.7 + Math.sin(idx * 0.5) * 0.2;
-            }
-          });
-        }
-        if (forma === 'flotante' && col.userData.fragmentos){
-          col.userData.fragmentos.forEach((f,idx)=>{
-            const d = f.userData;
-            if (muerto){
-              f.position.y=0.1; f.material.opacity=0.05; f.material.emissiveIntensity=0; f.material.color.setHex(0x333333);
-            } else if (corrupto){
-              const alt = d.alturaBase*(1-nivel*0.7)+Math.sin(time*d.velocidad+d.offset)*0.2*(1-nivel);
-              f.position.y = Math.max(0.1,alt); f.rotation.x+=0.02; f.rotation.z+=0.01;
-              f.material.opacity=0.3+Math.sin(time*2+idx)*0.2;
-              f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1-nivel*0.5).getHex());
-              f.material.emissiveIntensity=0.05+nivel*0.2;
-            } else {
-              const alt = d.alturaBase+Math.sin(time*d.velocidad+d.offset)*0.3;
-              f.position.y=alt; f.rotation.x+=0.01; f.rotation.z+=0.005;
-              f.material.opacity=0.6+Math.sin(idx*0.5)*0.3;
-              f.material.color.setHex(col.userData.color);
-              f.material.emissiveIntensity=0.1;
-            }
-          });
-        }
-      });
-
-      controls.update();
-      renderer.render(scene, camera);
+  // ============================================================
+  // COLUMNAS — MOVIMIENTO COMPLETO CORREGIDO
+  // ============================================================
+  columnas.forEach((col, i) => {
+    const off = i * 0.5;
+    const forma = col.userData.forma;
+    
+    // Movimiento de la columna completa (TODAS las formas)
+    if (muerto) {
+      col.position.y = -0.15 + Math.sin(time * 0.2 + off) * 0.02;
+      col.position.x += Math.sin(time * 0.15 + off) * 0.005;
+      col.position.z += Math.cos(time * 0.15 + off) * 0.005;
+    } else {
+      col.position.y = Math.sin(time * 0.4 + off) * 0.06;
+      col.position.x = Math.sin(time * 0.3 + off * 1.2) * 0.04;
+      col.position.z = Math.cos(time * 0.35 + off * 0.8) * 0.04;
     }
 
-    animate();
+    // CUBOS
+    if (forma === 'cubos' && col.userData.cubos) {
+      col.userData.cubos.forEach(c => {
+        if (muerto) {
+          c.material.color.setHex(0x333333);
+          c.material.emissiveIntensity = 0;
+          c.position.x += (Math.random() - 0.5) * 0.01;
+          c.position.z += (Math.random() - 0.5) * 0.01;
+        } else if (corrupto) {
+          const vib = 0.02 + nivel * 0.08;
+          c.position.x += (Math.random() - 0.5) * vib;
+          c.position.z += (Math.random() - 0.5) * vib;
+          c.material.emissiveIntensity = 0.1 + nivel * 0.5;
+          c.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.5).getHex());
+        } else {
+          c.material.color.setHex(col.userData.color);
+          c.material.emissiveIntensity = 0.05 + Math.sin(time + (c.userData?.idx || 0)) * 0.05;
+          c.position.x += Math.sin(time * 0.5 + (c.userData?.idx || 0)) * 0.002;
+          c.position.z += Math.cos(time * 0.5 + (c.userData?.idx || 0)) * 0.002;
+        }
+      });
+    }
+
+    // ONDAS
+    if (forma === 'ondas' && col.userData.anillos) {
+      col.userData.anillos.forEach((a, idx) => {
+        if (muerto) {
+          a.scale.x = 0.3; a.scale.z = 0.3;
+          a.material.opacity = 0.05;
+          a.material.color.setHex(0x444444);
+          a.material.emissiveIntensity = 0;
+        } else if (corrupto) {
+          const dist = 1 + Math.sin(time * 2 + idx * 0.5) * (0.2 + nivel * 0.5);
+          a.scale.x = dist; a.scale.z = dist;
+          a.material.opacity = 0.2 + Math.sin(time * 3 + idx) * 0.2;
+          a.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.3).getHex());
+          a.material.emissiveIntensity = 0.1 + nivel * 0.3;
+        } else {
+          const esc = 1 + Math.sin(time * 0.5 + idx) * 0.05;
+          a.scale.x = esc; a.scale.z = esc;
+          a.material.opacity = 0.6 + Math.sin(idx * 0.5) * 0.3;
+          a.material.color.setHex(col.userData.color);
+          a.material.emissiveIntensity = 0.1;
+        }
+      });
+    }
+
+    // ROTA
+    if (forma === 'rota' && col.userData.fragmentos) {
+      col.userData.fragmentos.forEach((f, idx) => {
+        const d = f.userData;
+        if (muerto) {
+          f.position.y = 0.1 + Math.sin(time + idx) * 0.05;
+          f.material.color.setHex(0x333333);
+          f.material.emissiveIntensity = 0;
+          f.material.opacity = 0.2;
+        } else if (corrupto) {
+          const alt = d.alturaBase * (1 - nivel * 0.5) + Math.sin(time * d.velocidad + d.offset) * 0.2 * (1 - nivel);
+          f.position.y = Math.max(0.1, alt);
+          f.rotation.x += 0.02;
+          f.rotation.z += 0.02;
+          f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.4).getHex());
+          f.material.emissiveIntensity = 0.05 + nivel * 0.3;
+          f.material.opacity = 0.4 + Math.sin(time * 2 + idx) * 0.2;
+        } else {
+          const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
+          f.position.y = alt;
+          f.rotation.x += 0.01;
+          f.rotation.z += 0.01;
+          f.material.color.setHex(col.userData.color);
+          f.material.emissiveIntensity = 0.1;
+          f.material.opacity = 0.7 + Math.sin(idx * 0.5) * 0.2;
+        }
+      });
+    }
+
+    // FLOTANTE
+    if (forma === 'flotante' && col.userData.fragmentos) {
+      col.userData.fragmentos.forEach((f, idx) => {
+        const d = f.userData;
+        if (muerto) {
+          f.position.y = 0.1;
+          f.material.opacity = 0.05;
+          f.material.emissiveIntensity = 0;
+          f.material.color.setHex(0x333333);
+        } else if (corrupto) {
+          const alt = d.alturaBase * (1 - nivel * 0.7) + Math.sin(time * d.velocidad + d.offset) * 0.2 * (1 - nivel);
+          f.position.y = Math.max(0.1, alt);
+          f.rotation.x += 0.02;
+          f.rotation.z += 0.01;
+          f.material.opacity = 0.3 + Math.sin(time * 2 + idx) * 0.2;
+          f.material.color.setHex(new THREE.Color(col.userData.color).multiplyScalar(1 - nivel * 0.5).getHex());
+          f.material.emissiveIntensity = 0.05 + nivel * 0.2;
+        } else {
+          const alt = d.alturaBase + Math.sin(time * d.velocidad + d.offset) * 0.3;
+          f.position.y = alt;
+          f.rotation.x += 0.01;
+          f.rotation.z += 0.005;
+          f.material.opacity = 0.6 + Math.sin(idx * 0.5) * 0.3;
+          f.material.color.setHex(col.userData.color);
+          f.material.emissiveIntensity = 0.1;
+        }
+      });
+    }
+  });
+
+  controls.update();
+  renderer.render(scene, camera);
+}
 
     // ============================================================
     // INICIO
