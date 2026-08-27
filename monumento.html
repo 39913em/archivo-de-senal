@@ -2062,8 +2062,7 @@
     });
     document.getElementById('cerrar-rayar').addEventListener('click', ()=>document.getElementById('input-rayar').classList.remove('visible'));
     document.getElementById('enviar-rayar').addEventListener('click', async ()=>{
-      const t = document.getElementById('mensaje-rayar').value.trim();
-      if(!t) return;
+      const t = sanitizar(document.getElementById('mensaje-rayar').value.trim());      if(!t) return;
       const cat = ['señal','resonancia','fractura','deriva'][Math.floor(Math.random()*4)];
       await guardarLexicoAprobado(cat, t);
       ESTADO.mensajes = [...ESTADO.mensajes, t];
