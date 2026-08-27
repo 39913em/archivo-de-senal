@@ -261,11 +261,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <script type="module">
-  import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
-import { getDatabase, ref, get, set, update, onValue, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app-check.js';
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
+    import { getDatabase, ref, get, set, update, onValue, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
     // ============================================================
     // FIREBASE
@@ -287,15 +286,6 @@ const dbVersos = ref(db, 'versos');
 const dbLexicoAprobado = ref(db, 'lexico_aprobado');
 
     console.log('Jardín conectado');
-
-    // ============================================================
-// APP CHECK
-// ============================================================
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LeFuZotAAAAAHM8Hf7U9L80pjNdmQoBeO83wcku'),
-  isTokenAutoRefreshEnabled: true
-});
-console.log('✅ App Check activado');
 
     
 
@@ -536,35 +526,29 @@ console.log('✅ App Check activado');
       } catch(e){ console.error('Error guardando estado:', e); }
     }
 
-   function escucharEstado(){
-  onValue(dbEstado, snap => {
-    const d = snap.val();
-    if (!d || !datosCargados) return;
-    
-    // 🔥 NUEVO: Si Firebase dice muerto pero el jardín está vivo, IGNORAR
-    if (d.muerto && !ESTADO.muerto && ESTADO.vida > 0) {
-      console.log('⚠️ Firebase dice muerto, pero local está vivo. Ignorando...');
-      return;
+    function escucharEstado(){
+      onValue(dbEstado, snap => {
+        const d = snap.val();
+        if (d && datosCargados){
+          const eraMuerto = ESTADO.muerto;
+          ESTADO.vida = d.vida || 0;
+          ESTADO.huellas = d.huellas || 0;
+          ESTADO.siembras = d.siembras || 0;
+          ESTADO.integridad = d.integridad || 100;
+          ESTADO.corrompido = d.corrompido || false;
+          ESTADO.muerto = d.muerto || false;
+          ESTADO.vecesCompartido = d.vecesCompartido || 0;
+          ESTADO.mensajes = d.mensajes || [];
+          ESTADO.ciclos = d.ciclos || 0;
+          actualizarUI();
+          if (d.muerto && !eraMuerto) { mostrarOverlayMuerte(); limpiarVersosFlotantes(); }
+          if (!d.muerto && eraMuerto) { 
+            mostrarOverlayRenacimiento(ESTADO.ciclos);
+            lluviaPetales();
+          }
+        }
+      });
     }
-    
-    const eraMuerto = ESTADO.muerto;
-    ESTADO.vida = d.vida || 0;
-    ESTADO.huellas = d.huellas || 0;
-    ESTADO.siembras = d.siembras || 0;
-    ESTADO.integridad = d.integridad || 100;
-    ESTADO.corrompido = d.corrompido || false;
-    ESTADO.muerto = d.muerto || false;
-    ESTADO.vecesCompartido = d.vecesCompartido || 0;
-    ESTADO.mensajes = d.mensajes || [];
-    ESTADO.ciclos = d.ciclos || 0;
-    actualizarUI();
-    if (d.muerto && !eraMuerto) { mostrarOverlayMuerte(); limpiarVersosFlotantes(); }
-    if (!d.muerto && eraMuerto) { 
-      mostrarOverlayRenacimiento(ESTADO.ciclos);
-      lluviaPetales();
-    }
-  });
-}
 
     function particulasActivas(){ return ESTADO.vida; }
 
@@ -1991,116 +1975,8 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         }
       } catch(e){}
     }
-// ============================================================
-    // INTERACCIONES
+
     // ============================================================
-    const raycaster = new THREE.Raycaster();
-
-    renderer.domElement.addEventListener('click', async e => {
-      if(!audioCtx) initAudio();
-      const rect = renderer.domElement.getBoundingClientRect();
-      const mouse = new THREE.Vector2(
-        ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        -((e.clientY - rect.top) / rect.height) * 2 + 1
-      );
-      raycaster.setFromCamera(mouse, camera);
-      const sprites = [];
-      columnas.forEach(col => col.children.forEach(c => { if(c.isSprite && c.userData && c.userData.esBoton) sprites.push(c); }));
-      const hits = raycaster.intersectObjects(sprites);
-      if (!hits.length) return;
-
-      const label = hits[0].object.userData.label;
-      const colData = datosColumna.find(d=>d.label===label);
-      const partes = armarEnsayoSegunEstado(colData.ensayo, ESTADO.integridad, ESTADO.muerto);
-      const sufijoEstado = ESTADO.muerto ? 'muerto' : (ESTADO.corrompido ? 'corrupto' : 'original');
-
-      const element = document.createElement('div');
-      element.style.cssText = 'padding:30px;font-family:Georgia,serif;color:#1a1a1a;background:#fafafa;max-width:700px;margin:0 auto';
-      let html = `<div style="text-align:center;border-bottom:2px solid #ff6b35;padding-bottom:15px;margin-bottom:15px">
-        <h1 style="font-size:24px;margin:0;color:#0a0a0a">JARDÍN DEL ORÁCULO</h1>
-        <p style="font-size:11px;color:#666;letter-spacing:1px;text-transform:uppercase">Archivo de Señal</p></div>`;
-      html += `<div style="margin-bottom:15px">
-        <h2 style="font-size:20px;margin:0 0 4px">${colData.ensayo.titulo}</h2>
-        <p style="font-size:11px;color:#999">${label} · ${sufijoEstado.toUpperCase()}</p></div>`;
-      partes.forEach(b=>{
-        if (b.tipo==='subtitulo') html += `<p style="font-size:14px;color:#555;font-style:italic;margin:0 0 10px">${b.texto}</p>`;
-        else if (b.tipo==='cita') html += `<p style="font-size:13px;color:${b.bloqueada?'#999':'#333'};border-left:3px solid #ff6b35;padding-left:10px;margin:10px 0;${b.bloqueada?'font-style:italic':''}">${b.texto}</p>`;
-        else html += `<p style="font-size:13px;line-height:1.7;margin:0 0 10px;${b.modo==='disuelto'?'color:#900':(b.modo==='bloqueado'?'color:#666;font-style:italic':'')}">${b.texto}</p>`;
-      });
-      html += `<div style="margin-top:25px;border-top:1px solid #ddd;padding-top:12px;text-align:center;font-size:10px;color:#999">Archivo de Señal · ${new Date().toLocaleDateString()}</div>`;
-      element.innerHTML = html;
-      document.body.appendChild(element);
-      try{
-        await html2pdf().set({
-          margin:10,
-          filename: `${label.toLowerCase().replace(/\s+/g,'_')}_${sufijoEstado}.pdf`,
-          image:{type:'jpeg',quality:0.98},
-          html2canvas:{scale:2,useCORS:true},
-          jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-        }).from(element).save();
-      } catch(err){ console.error('Error PDF:', err); }
-      document.body.removeChild(element);
-
-      if (!ESTADO.muerto){
-        ESTADO.vida++;
-        ESTADO.siembras++;
-        ESTADO.ultimaActualizacion = Date.now();
-        await actualizarCorrupcion();
-        playPageTurn();
-      }
-    });
-
-    renderer.domElement.addEventListener('dblclick', async e => {
-      const rect = renderer.domElement.getBoundingClientRect();
-      const mouse = new THREE.Vector2(
-        ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        -((e.clientY - rect.top) / rect.height) * 2 + 1
-      );
-      raycaster.setFromCamera(mouse, camera);
-
-      const todos = [...versosFlotantes, ...mensajesFlotantes];
-      if (!todos.length) return;
-      const hits = raycaster.intersectObjects(todos);
-      if (hits.length) {
-        const sprite = hits[0].object;
-        const texto = sprite.userData.texto || 'sin texto';
-        const autor = sprite.userData.autor || 'ORÁCULO';
-        generarBotonesCompartir(texto, autor, false);
-        return;
-      }
-    });
-
-    renderer.domElement.addEventListener('pointerdown', (e) => {
-      if (ESTADO.muerto) return;
-      const rect = renderer.domElement.getBoundingClientRect();
-      const mouse = new THREE.Vector2(
-        ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        -((e.clientY - rect.top) / rect.height) * 2 + 1
-      );
-      raycaster.setFromCamera(mouse, camera);
-      const hits = raycaster.intersectObjects(flores, true);
-      if (!hits.length) return;
-      
-      let flor = hits[0].object;
-      while (flor.parent && !flores.includes(flor)) {
-        flor = flor.parent;
-      }
-      if (!flores.includes(flor)) return;
-      
-      const d = flor.userData;
-      if (d.muriendo) return;
-      
-      d.toques = (d.toques || 0) + 1;
-      if (d.toques === 1) {
-        playSound([520, 780], 0.16, 0.035);
-        flor.scale.setScalar(1.1);
-        setTimeout(() => { if (flor.parent) flor.scale.setScalar(1); }, 140);
-        return;
-      }
-      
-      eliminarFlor(flor);
-      playSound([180, 120, 70], 0.35, 0.08);
-   // ============================================================
     // INTERACCIONES
     // ============================================================
     const raycaster = new THREE.Raycaster();
@@ -2209,6 +2085,77 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       
       eliminarFlor(flor);
       playSound([180, 120, 70], 0.35, 0.08);
+    });
+
+    // ============================================================
+    // UI
+    // ============================================================
+    function actualizarUI(){
+      const p = particulasActivas();
+      document.getElementById('vida').textContent = p;
+      document.getElementById('integridad').textContent = Math.round(ESTADO.integridad)+'%';
+      document.getElementById('flores').textContent = p;
+      document.getElementById('siembras').textContent = ESTADO.siembras;
+      document.getElementById('contador-mensajes').textContent = ESTADO.mensajes.length;
+      document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
+      document.getElementById('ciclos').textContent = ESTADO.ciclos;
+      document.getElementById('alerta').style.display = (!ESTADO.muerto && ESTADO.integridad<80) ? 'block':'none';
+      document.getElementById('muerto').style.display = ESTADO.muerto ? 'block':'none';
+      if (audioCtx) actualizarMasterGain();
+      sincronizarFlores();
+      animarPasto();
+      actualizarMensajesFlotantes();
+      
+      const colores = [0x333333, 0x2d8a4e, 0xffd700, 0xff6b35];
+      let idx = Math.min(Math.floor(p / 3), 3);
+      const colorMon = colores[idx] || 0xff6b35;
+      guardian.children.forEach(child => {
+        if (child.material) {
+          child.material.color.lerp(new THREE.Color(colorMon), 0.02);
+        }
+      });
+    }
+
+    // ============================================================
+    // BOTONES
+    // ============================================================
+    document.getElementById('btn-sembrar').addEventListener('click', () => {
+      generarBotonesCompartir('', 'ORÁCULO', true);
+    });
+
+    document.getElementById('btn-poesia').addEventListener('click', accionHaiku);
+
+    document.getElementById('btn-rayar').addEventListener('click', () => {
+      if (ESTADO.muerto) {
+        avisoTemporal('El jardín está muerto.');
+        return;
+      }
+      document.getElementById('input-rayar').classList.toggle('visible');
+    });
+
+    document.getElementById('cerrar-rayar').addEventListener('click', () => {
+      document.getElementById('input-rayar').classList.remove('visible');
+    });
+
+    document.getElementById('enviar-rayar').addEventListener('click', async () => {
+      const t = sanitizar(document.getElementById('mensaje-rayar').value.trim());
+      if (!t) return;
+      const cat = ['señal', 'resonancia', 'fractura', 'deriva'][Math.floor(Math.random() * 4)];
+      await guardarLexicoAprobado(cat, t);
+      ESTADO.mensajes = [...ESTADO.mensajes, t];
+      ESTADO.vida++;
+      ESTADO.siembras++;
+      ESTADO.ultimaActualizacion = Date.now();
+      await actualizarCorrupcion();
+      crearMensajeFlotante(t);
+      document.getElementById('mensaje-rayar').value = '';
+      document.getElementById('input-rayar').classList.remove('visible');
+      playPageTurn();
+      avisoTemporal('Palabra añadida al oráculo');
+    });
+
+    document.getElementById('btn-instrucciones').addEventListener('click', () => {
+      document.getElementById('panel-instrucciones').classList.add('visible');
     });
 
     // ============================================================
