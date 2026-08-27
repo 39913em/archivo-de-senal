@@ -3,31 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sobre el Archivo de Señal — Jardín del Oráculo</title>
-
-<!-- Seguridad -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' https://unpkg.com https://www.gstatic.com https://*.firebaseio.com; style-src 'unsafe-inline';"> 
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<title>Sobre el Archivo de Señal</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="assets/img/logo.png">
 
 <!-- Open Graph / Social Media -->
-<meta property="og:title" content="Sobre el Archivo de Señal — Jardín del Oráculo">
+<meta property="og:title" content="sobre el archivo de señal">
 <meta property="og:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
 <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
 <meta property="og:url" content="https://39913em.github.io/archivo-de-senal/about.html">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sobre el Archivo de Señal — Jardín del Oráculo">
+<meta name="twitter:title" content="Sobre el Archivo de Señal">
 <meta name="twitter:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
 <meta name="twitter:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
-
-<!-- Firebase (para App Check) -->
-<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-check-compat.js"></script>
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -96,38 +86,7 @@
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
 
 <script>
-// Forzar HTTPS
-if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-  location.href = 'https://' + location.hostname + location.pathname + location.search;
-}
-
-// ============================================================
-// FIREBASE — APP CHECK
-// ============================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyC42arLXTaQs_mdXEUyc58ge2SdZVKtm4A",
-  authDomain: "archivo-senal-poesia-test.firebaseapp.com",
-  databaseURL: "https://archivo-senal-poesia-test-default-rtdb.firebaseio.com",
-  projectId: "archivo-senal-poesia-test",
-  storageBucket: "archivo-senal-poesia-test.firebasestorage.app",
-  messagingSenderId: "29695212671",
-  appId: "1:29695212671:web:c29715d98992d770c0d34a"
-};
-
-const app = firebase.initializeApp(firebaseConfig);
-
-// App Check
-const appCheck = firebase.appCheck();
-appCheck.activate(
-  '6LeFuZotAAAAAHM8Hf7U9L80pjNdmQoBeO83wcku',
-  true // isTokenAutoRefreshEnabled
-);
-
-console.log('🔥 App Check activado en about.html');
-
-// ============================================================
-// INTERFACE
-// ============================================================
+// Inicializar toggle de tema
 document.addEventListener('DOMContentLoaded', function() {
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
@@ -145,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
   
+  // Easter egg: click en la imagen del footer → index.html (regresa)
   const footerImg = document.getElementById('footer-easter-egg-about');
   if (footerImg) {
     footerImg.addEventListener('click', function() {
@@ -152,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Back to top
   const btn = document.getElementById('back-to-top');
   if (btn) {
     window.addEventListener('scroll', function() {
