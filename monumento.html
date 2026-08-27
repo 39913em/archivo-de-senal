@@ -494,7 +494,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
           ESTADO.ciclos = d.ciclos || 0;
         } else {
           await set(dbEstado, {
-            vida: 10,
+            vida: 30,
             huellas: 0,
             siembras: 0,
             integridad: 100,
@@ -504,7 +504,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
             mensajes: [],
             ciclos: 0
           });
-          ESTADO.vida = 10;
+          ESTADO.vida = 30;
         }
         if (ESTADO.vida === 0) {
           ESTADO.muerto = true;
@@ -563,8 +563,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
     async function actualizarCorrupcion(){
       if(!datosCargados) return;
       const p = particulasActivas();
-      ESTADO.integridad = Math.min(100, p * 10);
-      if (p === 0){
+ESTADO.integridad = Math.min(100, p * 5 + 50);      if (p === 0){
         if (!ESTADO.muerto){
           ESTADO.muerto = true;
           ESTADO.corrompido = true;
@@ -587,8 +586,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
     function decaimientoNatural(){
       if (ESTADO.muerto) return;
       const ahora = Date.now();
-      if (ahora - ultimoDecaimiento > 3600000){
-        if (ESTADO.vida > 0){
+if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
           ESTADO.vida--;
           ESTADO.ultimaActualizacion = ahora;
           actualizarCorrupcion();
@@ -1484,7 +1482,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
         console.log('5 semillas! REVIVIENDO...');
         try {
           await update(dbEstado, {
-            vida: 10,
+            vida: 30,
             integridad: 100,
             corrompido: false,
             muerto: false,
@@ -1494,7 +1492,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
             ciclos: (ESTADO.ciclos || 0) + 1
           });
           
-          ESTADO.vida = 10;
+          ESTADO.vida = 30;
           ESTADO.integridad = 100;
           ESTADO.corrompido = false;
           ESTADO.muerto = false;
