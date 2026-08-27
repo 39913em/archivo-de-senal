@@ -1364,7 +1364,7 @@
       avisoTemporal(`Semilla ${ESTADO.vecesCompartido}/5`);
       console.log(`✅ Semilla: ${ESTADO.vecesCompartido}/5`);
 
-      if (ESTADO.vecesCompartido >= 5) {
+      if (ESTADO.muerto && ESTADO.vecesCompartido >= 5) {
         console.log('✨ 5 semillas! REVIVIENDO...');
         try {
           await update(dbEstado, {
@@ -2052,32 +2052,22 @@
     // ============================================================
     // BOTONES
     // ============================================================
-    document.getElementById('btn-sembrar').addEventListener('click', () => {
-      generarBotonesCompartir('', 'ORÁCULO', true);
-    });
-
-    document.getElementById('btn-poesia').addEventListener('click', accionHaiku);
-
-    document.getElementById('btn-rayar').addEventListener('click', ()=>{
-      if (ESTADO.muerto){ avisoTemporal('El jardín está muerto.'); return; }
-      document.getElementById('input-rayar').classList.toggle('visible');
-    });
-    document.getElementById('cerrar-rayar').addEventListener('click', ()=>document.getElementById('input-rayar').classList.remove('visible'));
     document.getElementById('enviar-rayar').addEventListener('click', async ()=>{
-      const t = sanitizar(document.getElementById('mensaje-rayar').value.trim());      if(!t) return;
-      const cat = ['señal','resonancia','fractura','deriva'][Math.floor(Math.random()*4)];
-      await guardarLexicoAprobado(cat, t);
-      ESTADO.mensajes = [...ESTADO.mensajes, t];
-      ESTADO.vida++; ESTADO.siembras++; ESTADO.ultimaActualizacion=Date.now();
-      await actualizarCorrupcion();
-      crearMensajeFlotante(t);
-      document.getElementById('mensaje-rayar').value='';
-      document.getElementById('input-rayar').classList.remove('visible');
-      playPageTurn();
-      avisoTemporal('Palabra añadida al oráculo');
-    });
-
-    document.getElementById('btn-instrucciones').addEventListener('click', ()=>document.getElementById('panel-instrucciones').classList.add('visible'));
+  const t = sanitizar(document.getElementById('mensaje-rayar').value.trim());
+  if (!t) return;
+  const cat = ['señal','resonancia','fractura','deriva'][Math.floor(Math.random()*4)];
+  await guardarLexicoAprobado(cat, t);
+  ESTADO.mensajes = [...ESTADO.mensajes, t];
+  ESTADO.vida++;
+  ESTADO.siembras++;
+  ESTADO.ultimaActualizacion = Date.now();
+  await actualizarCorrupcion();
+  crearMensajeFlotante(t);
+  document.getElementById('mensaje-rayar').value = '';
+  document.getElementById('input-rayar').classList.remove('visible');
+  playPageTurn();
+  avisoTemporal('Palabra añadida al oráculo');
+});
 
     // ============================================================
     // ANIMACIÓN
