@@ -526,29 +526,35 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
       } catch(e){ console.error('Error guardando estado:', e); }
     }
 
-    function escucharEstado(){
-      onValue(dbEstado, snap => {
-        const d = snap.val();
-        if (d && datosCargados){
-          const eraMuerto = ESTADO.muerto;
-          ESTADO.vida = d.vida || 0;
-          ESTADO.huellas = d.huellas || 0;
-          ESTADO.siembras = d.siembras || 0;
-          ESTADO.integridad = d.integridad || 100;
-          ESTADO.corrompido = d.corrompido || false;
-          ESTADO.muerto = d.muerto || false;
-          ESTADO.vecesCompartido = d.vecesCompartido || 0;
-          ESTADO.mensajes = d.mensajes || [];
-          ESTADO.ciclos = d.ciclos || 0;
-          actualizarUI();
-          if (d.muerto && !eraMuerto) { mostrarOverlayMuerte(); limpiarVersosFlotantes(); }
-          if (!d.muerto && eraMuerto) { 
-            mostrarOverlayRenacimiento(ESTADO.ciclos);
-            lluviaPetales();
-          }
-        }
-      });
+   function escucharEstado(){
+  onValue(dbEstado, snap => {
+    const d = snap.val();
+    if (!d || !datosCargados) return;
+    
+    // 🔥 NUEVO: Si Firebase dice muerto pero el jardín está vivo, IGNORAR
+    if (d.muerto && !ESTADO.muerto && ESTADO.vida > 0) {
+      console.log('⚠️ Firebase dice muerto, pero local está vivo. Ignorando...');
+      return;
     }
+    
+    const eraMuerto = ESTADO.muerto;
+    ESTADO.vida = d.vida || 0;
+    ESTADO.huellas = d.huellas || 0;
+    ESTADO.siembras = d.siembras || 0;
+    ESTADO.integridad = d.integridad || 100;
+    ESTADO.corrompido = d.corrompido || false;
+    ESTADO.muerto = d.muerto || false;
+    ESTADO.vecesCompartido = d.vecesCompartido || 0;
+    ESTADO.mensajes = d.mensajes || [];
+    ESTADO.ciclos = d.ciclos || 0;
+    actualizarUI();
+    if (d.muerto && !eraMuerto) { mostrarOverlayMuerte(); limpiarVersosFlotantes(); }
+    if (!d.muerto && eraMuerto) { 
+      mostrarOverlayRenacimiento(ESTADO.ciclos);
+      lluviaPetales();
+    }
+  });
+}
 
     function particulasActivas(){ return ESTADO.vida; }
 
