@@ -6,6 +6,12 @@
 <title>Archivo de Señal</title>
 <meta name="description" content="Arte, tecnología experimental y pensamiento crítico. Exploramos las fracturas, los errores y las derivas creativas en la cultura digital.">
 
+<!-- Seguridad -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' https://unpkg.com https://www.gstatic.com https://*.firebaseio.com; style-src 'unsafe-inline';"> 
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="assets/img/logo.png">
 
@@ -22,6 +28,10 @@
 
 <!-- D3.js para el mapa conceptual -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!-- Firebase (para App Check) -->
+<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-check-compat.js"></script>
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -63,7 +73,7 @@ style="stroke-dasharray: 6 4;" />
   </div>
 </section>
 
-  <!-- ENLACE AL MONUMENTO SONORO -->
+  <!-- ENLACE AL JARDÍN DEL ORÁCULO -->
 <div style="text-align:center; margin: 3rem 0; padding: 1.5rem; border-top: 1px solid #333; border-bottom: 1px solid #333;">
   <a href="monumento.html" 
      style="color: #ff6b35; text-decoration: none; font-family: 'Courier New', monospace; 
@@ -72,7 +82,7 @@ style="stroke-dasharray: 6 4;" />
             transition: all 0.3s ease;"
      onmouseover="this.style.background='#ff6b35'; this.style.color='#0a0a0a';"
      onmouseout="this.style.background='transparent'; this.style.color='#ff6b35';">
-    ⚡MONUMENTO SONORO⚡
+    🌿 JARDÍN DEL ORÁCULO 🌿
   </a>
   <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem; font-family: 'Courier New', monospace;">
     (experiencia interactiva)
@@ -176,6 +186,37 @@ style="stroke-dasharray: 6 4;" />
 </footer>
 
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
+
+<script>
+// Forzar HTTPS
+if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+  location.href = 'https://' + location.hostname + location.pathname + location.search;
+}
+
+// ============================================================
+// FIREBASE — APP CHECK
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyC42arLXTaQs_mdXEUyc58ge2SdZVKtm4A",
+  authDomain: "archivo-senal-poesia-test.firebaseapp.com",
+  databaseURL: "https://archivo-senal-poesia-test-default-rtdb.firebaseio.com",
+  projectId: "archivo-senal-poesia-test",
+  storageBucket: "archivo-senal-poesia-test.firebasestorage.app",
+  messagingSenderId: "29695212671",
+  appId: "1:29695212671:web:c29715d98992d770c0d34a"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+
+// App Check
+const appCheck = firebase.appCheck();
+appCheck.activate(
+  '6LeFuZotAAAAAHM8Hf7U9L80pjNdmQoBeO83wcku',
+  true // isTokenAutoRefreshEnabled
+);
+
+console.log('🔥 App Check activado en index.html');
+</script>
 
 <script>
 // Easter egg: click en la imagen del footer → about.html
