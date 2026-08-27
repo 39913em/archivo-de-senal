@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+<link rel="apple-touch-icon" href="favicon.png" />
   <title>JARDÍN DEL ORÁCULO</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -281,8 +283,8 @@
     const db = getDatabase(app);
     
     const dbEstado = ref(db, 'poesia');
-    const dbVersos = ref(db, 'versos');
-    const dbLexicoAprobado = ref(db, 'lexico_aprobado');
+const dbVersos = ref(db, 'versos');
+const dbLexicoAprobado = ref(db, 'lexico_aprobado');
 
     console.log('Jardín conectado');
 
@@ -1275,83 +1277,85 @@
     // ============================================================
     // ESCUCHAR HAIKUS EN TIEMPO REAL (SINCRONIZACIÓN)
     // ============================================================
-    function escucharVerso(){
-      onValue(dbVersos, snap => {
-        const data = snap.val();
-        if (!data) return;
-        
-        const versosLista = Object.values(data);
-        versosLista.sort((a, b) => b.ts - a.ts);
-        
-        const ultimosVersos = versosLista.slice(0, 20);
-        
-        ultimosVersos.forEach(verso => {
-          if (Date.now() - verso.ts > 30000) {
-            const key = Object.keys(data).find(k => data[k].ts === verso.ts && data[k].texto === verso.texto);
-            if (key) {
-              const refEliminar = ref(db, `versos/${key}`);
-              set(refEliminar, null);
-              console.log('Haiku expirado eliminado:', verso.texto);
-            }
-            return;
-          }
-          
-          const existe = versosFlotantes.some(s => 
-            s.userData.texto === verso.texto && 
-            s.userData.autor === verso.autor
-          );
-          if (!existe) {
-            console.log('Nuevo haiku recibido:', verso.texto);
-            crearVersoFlotante(verso.texto, verso.autor, verso.columna);
-          }
-        });
-      });
-    }
-
+   function escucharVerso(){
+  onValue(dbVersos, snap => {
+    const data = snap.val();
+    if (!data) return;
+    
+    console.log('Haikus en Firebase:', Object.keys(data).length);
+    
+    const versosLista = Object.values(data);
+    versosLista.sort((a, b) => b.ts - a.ts);
+    
+    const ultimosVersos = versosLista.slice(0, 20);
+    
+    ultimosVersos.forEach(verso => {
+      // No mostrar haikus muy antiguos (más de 30 segundos)
+      if (Date.now() - verso.ts > 30000) {
+        const key = Object.keys(data).find(k => data[k].ts === verso.ts && data[k].texto === verso.texto);
+        if (key) {
+          const refEliminar = ref(db, `versos/${key}`);
+          set(refEliminar, null);
+          console.log('Haiku expirado eliminado:', verso.texto);
+        }
+        return;
+      }
+      
+      const existe = versosFlotantes.some(s => 
+        s.userData.texto === verso.texto && 
+        s.userData.autor === verso.autor
+      );
+      if (!existe) {
+        console.log('Nuevo haiku recibido:', verso.texto);
+        crearVersoFlotante(verso.texto, verso.autor, verso.columna);
+      }
+    });
+  });
+}
     // ============================================================
     // ACCIÓN HAIKU (SIN REPETICIÓN)
     // ============================================================
     async function accionHaiku(){
-      if (ESTADO.muerto) {
-        avisoTemporal('El jardín está muerto. Usa "SEMBRAR" para revivirlo.');
-        return;
-      }
-      
-      const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
-      let haiku = generarHaiku(col.label);
-      let intentos = 0;
-      
-      while (idsVistos.has(haiku.texto) && intentos < 50) {
-        haiku = generarHaiku(col.label);
-        intentos++;
-      }
-      
-      if (intentos >= 50) {
-        idsVistos.clear();
-        console.log('🔄 Lista de haikus vistos reiniciada');
-        haiku = generarHaiku(col.label);
-      }
-      
-      crearVersoFlotante(haiku.texto, haiku.autor, col.label);
-      
-      try {
-        const nuevoVerso = {
-          texto: haiku.texto,
-          autor: haiku.autor,
-          columna: col.label,
-          ts: Date.now()
-        };
-        const refPush = push(dbVersos, nuevoVerso);
-        console.log('📝 Haiku guardado con ID:', refPush.key);
-        idsVistos.add(haiku.texto);
-      } catch(e) { console.warn('No se pudo sincronizar:', e); }
-      
-      ESTADO.vida++;
-      ESTADO.siembras++;
-      ESTADO.ultimaActualizacion = Date.now();
-      await actualizarCorrupcion();
-      playPageTurn();
-    }
+  if (ESTADO.muerto) {
+    avisoTemporal('El jardín está muerto. Usa "SEMBRAR" para revivirlo.');
+    return;
+  }
+  
+  const col = datosColumna[Math.floor(Math.random() * datosColumna.length)];
+  let haiku = generarHaiku(col.label);
+  let intentos = 0;
+  
+  while (idsVistos.has(haiku.texto) && intentos < 50) {
+    haiku = generarHaiku(col.label);
+    intentos++;
+  }
+  
+  if (intentos >= 50) {
+    idsVistos.clear();
+    console.log('🔄 Lista de haikus vistos reiniciada');
+    haiku = generarHaiku(col.label);
+  }
+  
+  crearVersoFlotante(haiku.texto, haiku.autor, col.label);
+  
+  try {
+    const nuevoVerso = {
+      texto: haiku.texto,
+      autor: haiku.autor,
+      columna: col.label,
+      ts: Date.now()
+    };
+    const refPush = push(dbVersos, nuevoVerso);
+    console.log('📝 Haiku guardado con ID:', refPush.key);
+    idsVistos.add(haiku.texto);
+  } catch(e) { console.warn('No se pudo sincronizar:', e); }
+  
+  ESTADO.vida++;
+  ESTADO.siembras++;
+  ESTADO.ultimaActualizacion = Date.now();
+  await actualizarCorrupcion();
+  playPageTurn();
+}
 
     // ============================================================
     // MENSAJES FLOTANTES
