@@ -6,7 +6,7 @@
 <title>Archivo de Señal</title>
 <meta name="description" content="Arte, tecnología experimental y pensamiento crítico. Exploramos las fracturas, los errores y las derivas creativas en la cultura digital.">
 
-<!-- Seguridad -->
+<!-- Seguridad (sin Firebase) -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' https://unpkg.com https://www.gstatic.com https://*.firebaseio.com; style-src 'unsafe-inline';"> 
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -28,10 +28,6 @@
 
 <!-- D3.js para el mapa conceptual -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
-
-<!-- Firebase (para App Check) -->
-<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-check-compat.js"></script>
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -193,32 +189,6 @@ if (location.protocol !== 'https:' && location.hostname !== 'localhost' && locat
   location.href = 'https://' + location.hostname + location.pathname + location.search;
 }
 
-// ============================================================
-// FIREBASE — APP CHECK
-// ============================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyC42arLXTaQs_mdXEUyc58ge2SdZVKtm4A",
-  authDomain: "archivo-senal-poesia-test.firebaseapp.com",
-  databaseURL: "https://archivo-senal-poesia-test-default-rtdb.firebaseio.com",
-  projectId: "archivo-senal-poesia-test",
-  storageBucket: "archivo-senal-poesia-test.firebasestorage.app",
-  messagingSenderId: "29695212671",
-  appId: "1:29695212671:web:c29715d98992d770c0d34a"
-};
-
-const app = firebase.initializeApp(firebaseConfig);
-
-// App Check
-const appCheck = firebase.appCheck();
-appCheck.activate(
-  '6LeFuZotAAAAAHM8Hf7U9L80pjNdmQoBeO83wcku',
-  true // isTokenAutoRefreshEnabled
-);
-
-console.log('🔥 App Check activado en index.html');
-</script>
-
-<script>
 // Easter egg: click en la imagen del footer → about.html
 document.addEventListener('DOMContentLoaded', function() {
   const footerImg = document.getElementById('footer-easter-egg');
