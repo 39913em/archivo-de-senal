@@ -2561,11 +2561,16 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
       playSound([180, 120, 70], 0.35, 0.08);
     });
 
+   
     // ============================================================
     // 29. HORA DEL DÍA
     // ============================================================
     function getHoraDia() {
-      const h = new Date().getHours();
+      // Forzar hora de Ciudad de México (UTC-6)
+      const ahora = new Date();
+      const horaLocal = new Date(ahora.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+      const h = horaLocal.getHours();
+      
       if (h >= 6 && h < 12) return { nombre: 'AMANECER', color: '#ff9966', luz: new THREE.Color(0xff9966), brillo: 0.7, neblina: true };
       if (h >= 12 && h < 18) return { nombre: 'DÍA', color: '#ffffff', luz: new THREE.Color(0xffffff), brillo: 1.0, neblina: false };
       if (h >= 18 && h < 21) return { nombre: 'ATARDECER', color: '#ff6633', luz: new THREE.Color(0xff6633), brillo: 0.8, neblina: false };
