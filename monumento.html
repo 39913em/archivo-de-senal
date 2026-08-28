@@ -1975,15 +1975,49 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       };
 
       // Etiqueta "descargar"
-      const canvas = document.createElement('canvas'); canvas.width=512; canvas.height=100;
-      const ctx = canvas.getContext('2d'); ctx.fillStyle='rgba(0,0,0,0)'; ctx.fillRect(0,0,512,100);
-      ctx.font='Bold 26px "Courier New",monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.shadowColor='rgba(255,107,53,.15)'; ctx.shadowBlur=10; ctx.fillStyle='#ff6b35'; ctx.fillText(label,256,45);
-      ctx.font='11px "Courier New",monospace'; ctx.shadowBlur=0; ctx.fillStyle='#555'; ctx.fillText('descargar',256,75);
-      const tex = new THREE.CanvasTexture(canvas);
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false, opacity:0.7}));
-      sprite.position.y=5.8; sprite.scale.set(3.2,0.8,1); sprite.userData={label, esBoton:true};
-      group.add(sprite);
+     // Etiqueta "descargar"
+const canvas = document.createElement('canvas'); 
+canvas.width = 1024;
+canvas.height = 200;
+const ctx = canvas.getContext('2d'); 
+ctx.fillStyle = 'rgba(0,0,0,0)'; 
+ctx.fillRect(0, 0, 1024, 200);  // <--- CAMBIADO A 1024,200
+ctx.font = 'Bold 52px "Courier New", monospace'; 
+ctx.textAlign = 'center'; 
+ctx.textBaseline = 'middle';
+ctx.shadowColor = 'rgba(255,107,53,.15)'; 
+ctx.shadowBlur = 10; 
+ctx.fillStyle = '#ff6b35'; 
+ctx.fillText(label, 512, 90);  // <--- CAMBIADO A 512,90
+ctx.font = '22px "Courier New", monospace';  // <--- CAMBIADO A 22px
+ctx.shadowBlur = 0; 
+ctx.fillStyle = '#555'; 
+ctx.fillText('descargar', 512, 150);  // <--- CAMBIADO A 512,150
+const tex = new THREE.CanvasTexture(canvas);
+// En lugar de Sprite, usamos un Mesh con plano rotado para que quede en el piso
+const materialPlano = new THREE.MeshStandardMaterial({
+  map: tex,
+  transparent: true,
+  opacity: 0.7,
+  side: THREE.DoubleSide,
+  emissive: new THREE.Color(0xff6b35),
+  emissiveIntensity: 0.15
+});
+const plano = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 0.45), materialPlano);
+plano.rotation.x = -Math.PI / 2;   // Acostado en el piso
+plano.rotation.z = 0; 
+      plano.rotation.y = Math.PI;// Sin rotación adicional
+plano.position.y = 0.015;          // Justo encima del suelo
+plano.position.x = 0;              // Centrado en el pilar
+plano.position.z = 0;              // Centrado en el pilar
+plano.userData = { label, esBoton: true };
+group.add(plano);
+});
+const plano = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 0.45), materialPlano);
+plano.rotation.x = -Math.PI / 2;  // Acostado en el piso
+plano.position.y = 0.02;  // Justo encima del suelo
+plano.userData = { label, esBoton: true };
+group.add(plano);
 
       const pos = datosColumna.find(d=>d.label===label);
       group.position.set(pos.x,0,pos.z);
@@ -2253,7 +2287,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       // Iniciar timer de fadeout (3 segundos sin actividad)
       activos.timer = setTimeout(() => {
         fadeoutColumna(columna);
-      }, 3000);
+      }, 1000);
     }
 
     function aplicarEfectoElemento(elemento, activado) {
