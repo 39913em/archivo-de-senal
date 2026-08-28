@@ -1835,7 +1835,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             nota: notas[notaIdx],
             esFijo: true,
             columna: label,
-            // Estado de activación - AHORA CADA ELEMENTO INDEPENDIENTE
             activado: false,
             tiempoActivacion: 0,
             posOriginal: c.position.clone(),
@@ -1974,16 +1973,45 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         movilGroup: movilGroup
       };
 
-      // Etiqueta "descargar"
-      const canvas = document.createElement('canvas'); canvas.width=512; canvas.height=100;
-      const ctx = canvas.getContext('2d'); ctx.fillStyle='rgba(0,0,0,0)'; ctx.fillRect(0,0,512,100);
-      ctx.font='Bold 26px "Courier New",monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.shadowColor='rgba(255,107,53,.15)'; ctx.shadowBlur=10; ctx.fillStyle='#ff6b35'; ctx.fillText(label,256,45);
-      ctx.font='11px "Courier New",monospace'; ctx.shadowBlur=0; ctx.fillStyle='#555'; ctx.fillText('descargar',256,75);
+      // ============================================================
+      // ETIQUETA "descargar" EN EL PISO (inscripción)
+      // ============================================================
+      const canvas = document.createElement('canvas'); 
+      canvas.width = 1024;
+      canvas.height = 200;
+      const ctx = canvas.getContext('2d'); 
+      ctx.fillStyle = 'rgba(0,0,0,0)'; 
+      ctx.fillRect(0, 0, 1024, 200);
+      ctx.font = 'Bold 52px "Courier New", monospace'; 
+      ctx.textAlign = 'center'; 
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(255,107,53,.15)'; 
+      ctx.shadowBlur = 10; 
+      ctx.fillStyle = '#ff6b35'; 
+      ctx.fillText(label, 512, 90);
+      ctx.font = '22px "Courier New", monospace';
+      ctx.shadowBlur = 0; 
+      ctx.fillStyle = '#555'; 
+      ctx.fillText('descargar', 512, 150);
       const tex = new THREE.CanvasTexture(canvas);
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false, opacity:0.7}));
-      sprite.position.y=5.8; sprite.scale.set(3.2,0.8,1); sprite.userData={label, esBoton:true};
-      group.add(sprite);
+      
+      const materialPlano = new THREE.MeshStandardMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.7,
+        side: THREE.DoubleSide,
+        emissive: new THREE.Color(0xff6b35),
+        emissiveIntensity: 0.15
+      });
+      const plano = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 0.5), materialPlano);
+      plano.rotation.x = -Math.PI / 2;
+      plano.rotation.z = 0;
+      plano.rotation.y = Math.PI;
+      plano.position.y = 0.015;
+      plano.position.x = 0;
+      plano.position.z = 0;
+      plano.userData = { label, esBoton: true };
+      group.add(plano);
 
       const pos = datosColumna.find(d=>d.label===label);
       group.position.set(pos.x,0,pos.z);
@@ -2213,17 +2241,12 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     // ============================================================
-    // ACTIVAR ELEMENTO (click → brillo + separación + sonido)
-    // AHORA: MÚLTIPLES ELEMENTOS PUEDEN ESTAR ACTIVOS SIMULTÁNEAMENTE
+    // ACTIVAR ELEMENTO - FADEOUT DE 1 SEGUNDO (como piano)
     // ============================================================
     function activarElemento(elemento) {
       const ud = elemento.userData;
       const columna = ud.columna;
       
-      // NO desactivamos elementos anteriores - cada uno es independiente
-      // Solo actualizamos el timer de la columna para el fadeout
-      
-      // Guardar estado original si no existe
       if (!ud.posOriginal) {
         ud.posOriginal = elemento.position.clone();
         ud.escalaOriginal = elemento.scale.clone();
@@ -2231,46 +2254,38 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         ud.emissiveOriginal = elemento.material.emissiveIntensity;
       }
       
-      // Activar este elemento (toggle)
       ud.activado = !ud.activado;
       ud.tiempoActivacion = Date.now();
       
-      // Aplicar o quitar efecto visual
       aplicarEfectoElemento(elemento, ud.activado);
       
-      // Si se activó, reproducir sonido
       if (ud.activado) {
         tocarSonidoElemento(elemento);
       }
       
-      // Actualizar timer de la columna para fadeout
       const activos = elementosActivos[columna];
       if (activos.timer) {
         clearTimeout(activos.timer);
         activos.timer = null;
       }
       
-      // Iniciar timer de fadeout (3 segundos sin actividad)
+      // FADEOUT DE 1 SEGUNDO (en lugar de 3)
       activos.timer = setTimeout(() => {
         fadeoutColumna(columna);
-      }, 3000);
+      }, 1000);  // <--- CAMBIADO DE 3000 A 1000
     }
 
     function aplicarEfectoElemento(elemento, activado) {
       const ud = elemento.userData;
       
       if (activado) {
-        // BRILLO: aumentar emisivo
         elemento.material.emissiveIntensity = 1.5;
-        // SEPARACIÓN: moverse en la dirección que mira (hacia afuera)
         const dir = elemento.position.clone().normalize();
         const separacion = 0.25;
         elemento.position.x = ud.posOriginal.x + dir.x * separacion;
         elemento.position.z = ud.posOriginal.z + dir.z * separacion;
-        // Aumentar tamaño ligeramente
         elemento.scale.multiplyScalar(1.15);
       } else {
-        // Volver a estado original
         elemento.material.emissiveIntensity = ud.emissiveOriginal || 0.1;
         elemento.position.copy(ud.posOriginal);
         elemento.scale.copy(ud.escalaOriginal);
@@ -2279,7 +2294,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
 
     function fadeoutColumna(columna) {
       const activos = elementosActivos[columna];
-      // Buscar todos los elementos activos de esta columna
       const elementosActivosCol = columnasMovimiento
         .find(col => col.userData.label === columna)
         ?.userData.elementos
@@ -2287,7 +2301,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       
       if (elementosActivosCol.length === 0) return;
       
-      // Fadeout: desactivar elementos gradualmente
       let fadeStep = 0;
       const fadeInterval = setInterval(() => {
         fadeStep += 0.05;
@@ -2303,7 +2316,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         
         if (fadeStep >= 1) {
           clearInterval(fadeInterval);
-          // Desactivar completamente
           elementosActivosCol.forEach(el => {
             if (el.userData.activado) {
               el.userData.activado = false;
@@ -2402,10 +2414,10 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       );
       raycaster.setFromCamera(mouse, camera);
       
-      // Verificar etiqueta "descargar"
-      const sprites = [];
-      columnas.forEach(col => col.children.forEach(c => { if(c.isSprite && c.userData && c.userData.esBoton) sprites.push(c); }));
-      const hitsSprite = raycaster.intersectObjects(sprites);
+      // Verificar etiqueta "descargar" (ahora en el piso)
+      const planos = [];
+      columnas.forEach(col => col.children.forEach(c => { if(c.isMesh && c.userData && c.userData.esBoton) planos.push(c); }));
+      const hitsSprite = raycaster.intersectObjects(planos);
       if (hitsSprite.length) {
         const label = hitsSprite[0].object.userData.label;
         const colData = datosColumna.find(d=>d.label===label);
@@ -2455,7 +2467,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       const hits = raycaster.intersectObjects(todosLosElementos);
       if (hits.length) {
         const elemento = hits[0].object;
-        // Activar el elemento (toggle)
         activarElemento(elemento);
       }
     });
@@ -2872,7 +2883,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     console.log('🎹 JARDÍN DEL ORÁCULO - Piano de elementos');
     console.log('📋 Click en cualquier elemento para tocar su nota');
     console.log('🔄 Cada elemento es independiente - puedes tocar varios a la vez');
-    console.log('⏱️ 3 segundos sin actividad en una columna = fadeout');
+    console.log('⏱️ 1 segundo sin actividad en una columna = fadeout');
   </script>
 </body>
 </html>
