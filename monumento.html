@@ -195,7 +195,7 @@
     <div class="ciclos">CICLOS: <span id="ciclos" class="valor">0</span></div>
     <div id="alerta" style="display:none;color:#ff1744">⚠️ CORRUPCIÓN</div>
     <div id="muerto" style="display:none;color:#ff1744">💀 MUERTO</div>
-    <div class="contador-compartido">SEMILLAS: <span id="veces-compartido">0</span>/5</div>
+    <div class="contador-compartido">SEMILLAS: <span id="veces-compartido">0</span>/1</div>
     <div style="color:#888;font-size:9px;margin-top:4px">VERSOS: <span id="contador-mensajes">0</span></div>
   </div>
 
@@ -217,7 +217,7 @@
   <div id="panel-instrucciones">
     <button onclick="document.getElementById('panel-instrucciones').classList.remove('visible')" style="position:absolute;top:10px;right:14px;border:none;background:none;color:#666;font-size:16px;cursor:pointer">✕</button>
     <h4>JARDÍN DEL ORÁCULO</h4>
-    <p>SEMBRAR → comparte y siembra una semilla (5 reviven el jardín).<br>HAIKU → genera un haiku flotante (sin repeticiones).<br>RAYAR → deja un mensaje en la sala.<br>Doble clic en cualquier verso o mensaje → compartir.<br>Cada interacción hace germinar una flor.<br>La vida baja con el tiempo.<br>Si llega a 0, el jardín muere.</p>
+    <p>SEMBRAR → comparte y siembra una semilla (1 revive el jardín).<br>HAIKU → genera un haiku flotante y da vida al jardín.<br>RAYAR → deja un mensaje en la sala.<br>Doble clic en cualquier verso o mensaje → compartir.<br>El jardín solo muere si eliminas todas sus flores.<br>La integridad refleja el equilibrio entre vida y acción.</p>
   </div>
 
   <div id="overlay-muerte">
@@ -225,7 +225,7 @@
     <div class="contenido">
       <div class="simbolo">💀</div>
       <div class="titulo">EL JARDÍN HA MUERTO</div>
-      <div class="texto">El silencio lo ha cubierto todo.<br>Usa "SEMBRAR" para revivirlo (5 semillas).</div>
+      <div class="texto">El silencio lo ha cubierto todo.<br>Usa "SEMBRAR" para revivirlo (1 semilla).<br>O genera 5 haikus para traerlo de vuelta.</div>
       <button id="btn-revivir">ENTRAR A LA RUINA</button>
     </div>
   </div>
@@ -285,7 +285,7 @@
 const dbVersos = ref(db, 'versos');
 const dbLexicoAprobado = ref(db, 'lexico_aprobado');
 
-    console.log('Jardín conectado');
+    console.log('🌱 Jardín del Oráculo conectado');
 
     
 
@@ -464,10 +464,10 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
       vida: 0, huellas: 0, siembras: 0, integridad: 100,
       vecesCompartido: 0, corrompido: false, muerto: false,
       ultimaActualizacion: Date.now(), mensajes: [],
-      ciclos: 0
+      ciclos: 0,
+      haikusParaRevivir: 0
     };
     let datosCargados = false;
-    let ultimoDecaimiento = Date.now();
     let mensajesRenderizados = new Set();
 
     async function cargarEstado(){
@@ -486,7 +486,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
           ESTADO.ciclos = d.ciclos || 0;
         } else {
           await set(dbEstado, {
-            vida: 30,
+            vida: 5,
             huellas: 0,
             siembras: 0,
             integridad: 100,
@@ -496,7 +496,7 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
             mensajes: [],
             ciclos: 0
           });
-          ESTADO.vida = 30;
+          ESTADO.vida = 5;
         }
         if (ESTADO.vida === 0) {
           ESTADO.muerto = true;
@@ -541,10 +541,23 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
           ESTADO.mensajes = d.mensajes || [];
           ESTADO.ciclos = d.ciclos || 0;
           actualizarUI();
-          if (d.muerto && !eraMuerto) { mostrarOverlayMuerte(); limpiarVersosFlotantes(); }
+          if (d.muerto && !eraMuerto) { 
+            mostrarOverlayMuerte(); 
+            limpiarVersosFlotantes();
+            // Poner los pilares en estado de ruina
+            columnasMovimiento.forEach(col => {
+              col.userData.enRuina = true;
+            });
+          }
           if (!d.muerto && eraMuerto) { 
             mostrarOverlayRenacimiento(ESTADO.ciclos);
             lluviaPetales();
+            // Restaurar los pilares
+            columnasMovimiento.forEach(col => {
+              col.userData.enRuina = false;
+              col.rotation.x = 0;
+              col.rotation.z = 0;
+            });
           }
         }
       });
@@ -552,10 +565,18 @@ const dbLexicoAprobado = ref(db, 'lexico_aprobado');
 
     function particulasActivas(){ return ESTADO.vida; }
 
+    // ============================================================
+    // CORRUPCIÓN Y MUERTE
+    // ============================================================
     async function actualizarCorrupcion(){
       if(!datosCargados) return;
       const p = particulasActivas();
-ESTADO.integridad = Math.min(100, p * 5 + 50);      if (p === 0){
+      
+      ESTADO.integridad = Math.min(100, Math.max(0, p * 3 + 10));
+      ESTADO.corrompido = p < 3 && p > 0;
+      
+      // MUERTE: solo cuando NO hay flores
+      if (p === 0){
         if (!ESTADO.muerto){
           ESTADO.muerto = true;
           ESTADO.corrompido = true;
@@ -567,24 +588,17 @@ ESTADO.integridad = Math.min(100, p * 5 + 50);      if (p === 0){
           limpiarVersosFlotantes();
           limpiarMensajesFlotantes();
           limpiarFlores();
+          
+          // Poner pilares en ruina
+          columnasMovimiento.forEach(col => {
+            col.userData.enRuina = true;
+          });
         }
       } else {
-        ESTADO.corrompido = p < 8;
+        ESTADO.muerto = false;
         await guardarEstado();
       }
       actualizarUI();
-    }
-
-    function decaimientoNatural(){
-      if (ESTADO.muerto) return;
-      const ahora = Date.now();
-if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
-          ESTADO.vida--;
-          ESTADO.ultimaActualizacion = ahora;
-          actualizarCorrupcion();
-        }
-        ultimoDecaimiento = ahora;
-      }
     }
 
     // ============================================================
@@ -1381,11 +1395,17 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     // ============================================================
-    // ACCIÓN HAIKU
+    // ACCIÓN HAIKU - SOLO HAIKUS GENERAN FLORES
     // ============================================================
     async function accionHaiku(){
+      // Si está muerto, no genera flores pero cuenta para revivir
       if (ESTADO.muerto) {
-        avisoTemporal('El jardín está muerto. Usa "SEMBRAR" para revivirlo.');
+        ESTADO.haikusParaRevivir = (ESTADO.haikusParaRevivir || 0) + 1;
+        if (ESTADO.haikusParaRevivir >= 5) {
+          await revivirOráculo('haikus');
+        } else {
+          avisoTemporal(`💀 5 haikus reviven el jardín (${ESTADO.haikusParaRevivir}/5)`);
+        }
         return;
       }
       
@@ -1416,11 +1436,64 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         idsVistos.add(haiku.texto);
       } catch(e) { console.warn('No se pudo sincronizar:', e); }
       
+      // SOLO HAIKUS GENERAN FLORES (vida)
       ESTADO.vida++;
       ESTADO.siembras++;
       ESTADO.ultimaActualizacion = Date.now();
       await actualizarCorrupcion();
       playPageTurn();
+    }
+
+    // ============================================================
+    // REVIVIR ORÁCULO (con 1 semilla o 5 haikus)
+    // ============================================================
+    async function revivirOráculo(origen = 'semilla') {
+      try {
+        await update(dbEstado, {
+          vida: 5,
+          integridad: 100,
+          corrompido: false,
+          muerto: false,
+          vecesCompartido: 0,
+          huellas: (ESTADO.huellas || 0) + 1,
+          mensajes: [],
+          ciclos: (ESTADO.ciclos || 0) + 1
+        });
+        
+        ESTADO.vida = 5;
+        ESTADO.integridad = 100;
+        ESTADO.corrompido = false;
+        ESTADO.muerto = false;
+        ESTADO.vecesCompartido = 0;
+        ESTADO.huellas++;
+        ESTADO.mensajes = [];
+        ESTADO.ciclos++;
+        ESTADO.haikusParaRevivir = 0;
+        mensajesRenderizados.clear();
+        
+        ocultarOverlayMuerte();
+        mostrarOverlayRenacimiento(ESTADO.ciclos);
+        lluviaPetales();
+        playRenacimiento();
+        actualizarUI();
+        
+        // Restaurar pilares
+        columnasMovimiento.forEach(col => {
+          col.userData.enRuina = false;
+          col.rotation.x = 0;
+          col.rotation.z = 0;
+        });
+        
+        if (origen === 'semilla') {
+          avisoTemporal('🌸 ¡El jardín ha renacido con una semilla!');
+        } else {
+          avisoTemporal('🌸 ¡El jardín ha renacido con 5 haikus!');
+        }
+        console.log('🌱 Renacido. Ciclo:', ESTADO.ciclos);
+      } catch (e) {
+        console.error('Error al revivir:', e);
+        avisoTemporal('Error al revivir');
+      }
     }
 
     // ============================================================
@@ -1532,50 +1605,20 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     // ============================================================
-    // SEMBRAR SEMILLA
+    // SEMBRAR SEMILLA - REVIVE CON 1 SOLA SEMILLA
     // ============================================================
     async function sembrarSemilla() {
       if (!verificarRateLimit()) return;
       
+      if (ESTADO.muerto) {
+        await revivirOráculo('semilla');
+        return;
+      }
+      
       ESTADO.vecesCompartido += 1;
       await guardarEstado();
       actualizarUI();
-      avisoTemporal(`Semilla ${ESTADO.vecesCompartido}/5`);
-
-      if (ESTADO.muerto && ESTADO.vecesCompartido >= 5) {
-        try {
-          await update(dbEstado, {
-            vida: 30,
-            integridad: 100,
-            corrompido: false,
-            muerto: false,
-            vecesCompartido: 0,
-            huellas: (ESTADO.huellas || 0) + 1,
-            mensajes: [],
-            ciclos: (ESTADO.ciclos || 0) + 1
-          });
-          
-          ESTADO.vida = 30;
-          ESTADO.integridad = 100;
-          ESTADO.corrompido = false;
-          ESTADO.muerto = false;
-          ESTADO.vecesCompartido = 0;
-          ESTADO.huellas++;
-          ESTADO.mensajes = [];
-          ESTADO.ciclos++;
-          mensajesRenderizados.clear();
-          
-          ocultarOverlayMuerte();
-          mostrarOverlayRenacimiento(ESTADO.ciclos);
-          lluviaPetales();
-          playRenacimiento();
-          actualizarUI();
-          avisoTemporal('¡El jardín ha renacido!');
-        } catch (e) {
-          console.error('Error:', e);
-          avisoTemporal('Error al revivir');
-        }
-      }
+      avisoTemporal(`🌱 Semilla sembrada (${ESTADO.vecesCompartido})`);
     }
 
     // ============================================================
@@ -1970,7 +2013,8 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         forma, 
         mesh, 
         elementos: elementos,
-        movilGroup: movilGroup
+        movilGroup: movilGroup,
+        enRuina: false  // Flag para saber si está en estado de ruina
       };
 
       // ============================================================
@@ -2172,7 +2216,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     // ============================================================
-    // SONIDO DE ELEMENTO INDIVIDUAL (click en elemento)
+    // SONIDO DE ELEMENTO INDIVIDUAL (click en elemento) - DISPARO ÚNICO
     // ============================================================
     function tocarSonidoElemento(elemento) {
       if (!audioCtx || audioCtx.state === 'closed' || !masterGain) return;
@@ -2209,7 +2253,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             break;
         }
         
-        // Sonido principal
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = tipoOnda;
@@ -2221,7 +2264,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         osc.start(ahora);
         osc.stop(ahora + duracion);
         
-        // Armónico
         if (Math.random() > 0.3) {
           const osc2 = audioCtx.createOscillator();
           const gain2 = audioCtx.createGain();
@@ -2241,7 +2283,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     // ============================================================
-    // ACTIVAR ELEMENTO - FADEOUT DE 1 SEGUNDO (como piano)
+    // ACTIVAR ELEMENTO - DISPARO ÚNICO + FADEOUT 1s
     // ============================================================
     function activarElemento(elemento) {
       const ud = elemento.userData;
@@ -2254,14 +2296,11 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         ud.emissiveOriginal = elemento.material.emissiveIntensity;
       }
       
-      ud.activado = !ud.activado;
+      ud.activado = true;
       ud.tiempoActivacion = Date.now();
       
-      aplicarEfectoElemento(elemento, ud.activado);
-      
-      if (ud.activado) {
-        tocarSonidoElemento(elemento);
-      }
+      aplicarEfectoElemento(elemento, true);
+      tocarSonidoElemento(elemento);
       
       const activos = elementosActivos[columna];
       if (activos.timer) {
@@ -2269,10 +2308,9 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         activos.timer = null;
       }
       
-      // FADEOUT DE 1 SEGUNDO (en lugar de 3)
       activos.timer = setTimeout(() => {
         fadeoutColumna(columna);
-      }, 1000);  // <--- CAMBIADO DE 3000 A 1000
+      }, 1000);
     }
 
     function aplicarEfectoElemento(elemento, activado) {
@@ -2293,7 +2331,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     }
 
     function fadeoutColumna(columna) {
-      const activos = elementosActivos[columna];
       const elementosActivosCol = columnasMovimiento
         .find(col => col.userData.label === columna)
         ?.userData.elementos
@@ -2326,8 +2363,8 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
               el.material.transparent = true;
             }
           });
+          const activos = elementosActivos[columna];
           activos.timer = null;
-          console.log(`🔇 Fadeout completo para ${columna}`);
         }
       }, 50);
     }
@@ -2392,6 +2429,8 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     function obtenerTodosLosElementos() {
       const todos = [];
       columnasMovimiento.forEach(col => {
+        // Si está en ruina, NO devolver elementos clickeables
+        if (col.userData.enRuina) return;
         const d = col.userData;
         if (d.elementos && d.elementos.length > 0) {
           d.elementos.forEach(el => {
@@ -2414,7 +2453,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       );
       raycaster.setFromCamera(mouse, camera);
       
-      // Verificar etiqueta "descargar" (ahora en el piso)
+      // Verificar etiqueta "descargar" (siempre funciona, incluso en ruina)
       const planos = [];
       columnas.forEach(col => col.children.forEach(c => { if(c.isMesh && c.userData && c.userData.esBoton) planos.push(c); }));
       const hitsSprite = raycaster.intersectObjects(planos);
@@ -2453,7 +2492,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         document.body.removeChild(element);
 
         if (!ESTADO.muerto){
-          ESTADO.vida++;
           ESTADO.siembras++;
           ESTADO.ultimaActualizacion = Date.now();
           await actualizarCorrupcion();
@@ -2462,7 +2500,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         return;
       }
       
-      // Buscar elementos individuales
+      // Buscar elementos individuales (solo si NO está en ruina)
       const todosLosElementos = obtenerTodosLosElementos();
       const hits = raycaster.intersectObjects(todosLosElementos);
       if (hits.length) {
@@ -2535,7 +2573,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       document.getElementById('contador-mensajes').textContent = ESTADO.mensajes.length;
       document.getElementById('veces-compartido').textContent = ESTADO.vecesCompartido;
       document.getElementById('ciclos').textContent = ESTADO.ciclos;
-      document.getElementById('alerta').style.display = (!ESTADO.muerto && ESTADO.integridad<80) ? 'block':'none';
+      document.getElementById('alerta').style.display = (!ESTADO.muerto && ESTADO.integridad<30) ? 'block':'none';
       document.getElementById('muerto').style.display = ESTADO.muerto ? 'block':'none';
       if (audioCtx) actualizarMasterGain();
       sincronizarFlores();
@@ -2579,8 +2617,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       const cat = ['señal', 'resonancia', 'fractura', 'deriva'][Math.floor(Math.random() * 4)];
       await guardarLexicoAprobado(cat, t);
       ESTADO.mensajes = [...ESTADO.mensajes, t];
-      ESTADO.vida++;
-      ESTADO.siembras++;
       ESTADO.ultimaActualizacion = Date.now();
       await actualizarCorrupcion();
       crearMensajeFlotante(t);
@@ -2597,7 +2633,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
     // ============================================================
     // ANIMACIÓN
     // ============================================================
-    let time=0, lastTick=Date.now();
+    let time=0;
 
     function animarColumnas(time) {
       columnasMovimiento.forEach((col, i) => {
@@ -2606,13 +2642,29 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         const movil = d.movilGroup;
         if (!movil) return;
         
+        // ============================================================
+        // SI ESTÁ EN RUINA: pilar tumbado y congelado
+        // ============================================================
+        if (d.enRuina || ESTADO.muerto) {
+          col.rotation.x = -Math.PI / 2;  // Tumbado en el suelo
+          col.rotation.z = 0;
+          // No mover nada más
+          return;
+        }
+        
+        // ============================================================
+        // MOVIMIENTO NORMAL (vivo)
+        // ============================================================
         const offset = i * 0.8;
         const salud = factorSalud();
-        const muerto = ESTADO.muerto;
         
         const velFractura = 0.7;
         const velSenial = 1.4;
         const velResonancia = 1.2;
+        
+        // Asegurar que el pilar esté derecho
+        col.rotation.x = 0;
+        col.rotation.z = 0;
         
         if (label === 'RESONANCIA') {
           const breath = 1 + Math.sin(time * velResonancia * 0.8 + offset) * 0.15 * (0.5 + salud * 0.5);
@@ -2681,10 +2733,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
             });
           }
         }
-        
-        if (muerto) {
-          movil.position.y = 0.2;
-        }
       });
     }
 
@@ -2694,12 +2742,6 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
 
       if (Math.floor(time) % 60 === 0) {
         actualizarHoraDia();
-      }
-
-      if (Date.now()-lastTick > 10000 && datosCargados){
-        lastTick = Date.now();
-        decaimientoNatural();
-        actualizarCorrupcion();
       }
 
       listenerFrame++;
@@ -2743,7 +2785,7 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
         }
       });
 
-      const corrupto = ESTADO.corrompido || ESTADO.integridad<80;
+      const corrupto = ESTADO.corrompido || ESTADO.integridad<30;
       const muerto = ESTADO.muerto;
       const nivel = muerto ? 1 : Math.max(0, 1-ESTADO.integridad/100);
 
@@ -2880,10 +2922,15 @@ if (ahora - ultimoDecaimiento > 7200000){        if (ESTADO.vida > 0){
       renderer.setSize(innerWidth, innerHeight);
     });
 
-    console.log('🎹 JARDÍN DEL ORÁCULO - Piano de elementos');
-    console.log('📋 Click en cualquier elemento para tocar su nota');
-    console.log('🔄 Cada elemento es independiente - puedes tocar varios a la vez');
-    console.log('⏱️ 1 segundo sin actividad en una columna = fadeout');
+    console.log('🌱 JARDÍN DEL ORÁCULO');
+    console.log('📋 Sistema de vida actualizado:');
+    console.log('   - Nace con 5 flores');
+    console.log('   - Solo muere si NO hay flores');
+    console.log('   - No muere por tiempo');
+    console.log('   - Revive con 1 semilla o 5 haikus');
+    console.log('   - Solo haikus generan flores');
+    console.log('🏛️  Ruina: pilares caídos y congelados');
+    console.log('🎹 Piano: disparo único + fadeout 1s');
   </script>
 </body>
 </html>
