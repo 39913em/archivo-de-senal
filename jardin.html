@@ -16,16 +16,6 @@
       font-family:'Courier New', monospace; cursor:crosshair;
       user-select:none;
     }
-    #btn-regreso {
-      position:fixed; top:20px; left:20px; z-index:1000;
-      background:rgba(10,10,10,0.85); color:#ff6b35;
-      border:1px solid #ff6b35; padding:6px 14px;
-      border-radius:20px; font-size:11px; text-decoration:none;
-      backdrop-filter:blur(10px); display:flex; align-items:center; gap:6px;
-      transition:all 0.3s ease;
-    }
-    #btn-regreso:hover { background:#ff6b35; color:#0a0a0a; box-shadow:0 0 20px rgba(255,107,53,0.3); }
-    #btn-regreso span { font-size:14px; }
 
     #estado {
       position:fixed; top:20px; right:20px; z-index:100;
@@ -40,7 +30,6 @@
     #estado .muerto { color:#ff1744; font-size:12px; animation:parpadeo 1s infinite; }
     .contador-compartido { color:#ff6b35; font-size:12px; margin-top:3px; }
     .ciclos { color:#4fc3f7; font-size:12px; margin-top:2px; }
-    .hora-dia { color:#ffd700; font-size:10px; margin-top:2px; }
     @keyframes parpadeo { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
     .btn-accion {
@@ -177,7 +166,6 @@
 
     @media (max-width:768px) {
       #estado { font-size:9px; padding:8px 10px; min-width:100px; top:60px; right:8px; }
-      #btn-regreso { font-size:10px; padding:5px 12px; top:10px; left:10px; }
       #grupo-botones { bottom:20px; left:20px; padding:8px 12px; gap:8px; }
       #grupo-botones .btn-accion { font-size:8px; padding:3px 10px; }
       #input-rayar { bottom:110px; max-width:90%; }
@@ -191,8 +179,6 @@
   <!-- ============================================================
        HTML - ELEMENTOS DE LA INTERFAZ
        ============================================================ -->
-  <a id="btn-regreso" href="index.html"><span>&larr;</span> VOLVER</a>
-
   <div id="estado">
     <div><span class="valor">JARDÍN DEL ORÁCULO</span></div>
     <div>VIDA: <span id="vida" class="valor">0</span>h &nbsp; INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
@@ -2560,8 +2546,7 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
       playSound([180, 120, 70], 0.35, 0.08);
     });
 
-   
-   
+
     // ============================================================
     // 29. ANIMACIÓN PRINCIPAL
     // ============================================================
@@ -2660,10 +2645,6 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     function animate() {
       requestAnimationFrame(animate);
       time += 0.01;
-
-      if (Math.floor(time) % 60 === 0) {
-        actualizarHoraDia();
-      }
 
       listenerFrame++;
       if (audioCtx && listenerFrame % 3 === 0) actualizarListener();
