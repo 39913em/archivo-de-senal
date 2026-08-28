@@ -2460,8 +2460,7 @@
         const colData = datosColumna.find(d => d.label === label);
 
         const partes = armarEnsayoSegunEstado(colData.ensayo, ESTADO.integridad, ESTADO.muerto);
-        const sufijoEstado = ESTADO.muerto ? 'muerto' : (ESTADO.corrompido ? 'corrupto' : 'original');
-
+const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interferencia' : 'senal');
         const element = document.createElement('div');
         element.style.cssText = 'padding:30px;font-family:Georgia,serif;color:#1a1a1a;background:#fafafa;max-width:700px;margin:0 auto';
         let html = `<div style="text-align:center;border-bottom:2px solid #ff6b35;padding-bottom:15px;margin-bottom:15px">
@@ -2567,8 +2566,8 @@
     // ============================================================
     function getHoraDia() {
       const h = new Date().getHours();
-      if (h >= 6 && h < 9) return { nombre: 'AMANECER', color: '#ff9966', luz: new THREE.Color(0xff9966), brillo: 0.7, neblina: true };
-      if (h >= 9 && h < 18) return { nombre: 'DÍA', color: '#ffffff', luz: new THREE.Color(0xffffff), brillo: 1.0, neblina: false };
+      if (h >= 6 && h < 12) return { nombre: 'AMANECER', color: '#ff9966', luz: new THREE.Color(0xff9966), brillo: 0.7, neblina: true };
+      if (h >= 12 && h < 18) return { nombre: 'DÍA', color: '#ffffff', luz: new THREE.Color(0xffffff), brillo: 1.0, neblina: false };
       if (h >= 18 && h < 21) return { nombre: 'ATARDECER', color: '#ff6633', luz: new THREE.Color(0xff6633), brillo: 0.8, neblina: false };
       return { nombre: 'NOCHE', color: '#2233aa', luz: new THREE.Color(0x2233aa), brillo: 0.4, neblina: false };
     }
