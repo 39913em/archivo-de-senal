@@ -2562,13 +2562,14 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     });
 
    
-    // ============================================================
+   // ============================================================
     // 29. HORA DEL DÍA
     // ============================================================
     function getHoraDia() {
-      // Forzar hora de Ciudad de México (UTC-6)
+      // Obtener hora local ajustada manualmente (CDMX UTC-6)
       const ahora = new Date();
-      const horaLocal = new Date(ahora.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+      const offsetCDMX = -360; // UTC-6 en minutos
+      const horaLocal = new Date(ahora.getTime() + (ahora.getTimezoneOffset() - offsetCDMX) * 60000);
       const h = horaLocal.getHours();
       
       if (h >= 6 && h < 12) return { nombre: 'AMANECER', color: '#ff9966', luz: new THREE.Color(0xff9966), brillo: 0.7, neblina: true };
