@@ -197,7 +197,6 @@
     <div><span class="valor">JARDÍN DEL ORÁCULO</span></div>
     <div>VIDA: <span id="vida" class="valor">0</span>h &nbsp; INTEGRIDAD: <span id="integridad" class="valor">100%</span></div>
     <div>FLORES: <span id="flores" class="valor">0</span> &nbsp; SIEMBRAS: <span id="siembras" class="valor">0</span></div>
-    <div class="hora-dia" id="hora-dia">AMANECER</div>
     <div class="ciclos">CICLOS: <span id="ciclos" class="valor">0</span></div>
     <div id="alerta" style="display:none;color:#ff1744">⚠️ CORRUPCIÓN</div>
     <div id="muerto" style="display:none;color:#ff1744">💀 MUERTO</div>
@@ -682,11 +681,11 @@
         actualizarUI();
 
         if (origen === 'semilla') {
-          avisoTemporal('🌸 ¡El jardín ha renacido con una semilla!');
+          avisoTemporal('¡El jardín ha renacido con una semilla!');
         } else {
-          avisoTemporal('🌸 ¡El jardín ha renacido con 5 haikus!');
+          avisoTemporal('¡El jardín ha renacido con 5 haikus!');
         }
-        console.log('🌱 Renacido. Ciclo:', ESTADO.ciclos);
+        console.log('Renacido. Ciclo:', ESTADO.ciclos);
       } catch (e) {
         console.error('Error al revivir:', e);
         avisoTemporal('Error al revivir');
@@ -1654,7 +1653,7 @@
       ESTADO.vecesCompartido += 1;
       await guardarEstado();
       actualizarUI();
-      avisoTemporal(`🌱 Semilla sembrada (${ESTADO.vecesCompartido})`);
+      avisoTemporal(`Semilla sembrada (${ESTADO.vecesCompartido})`);
     }
 
     // ============================================================
@@ -2562,48 +2561,9 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     });
 
    
-   // ============================================================
-    // 29. HORA DEL DÍA
+   
     // ============================================================
-    function getHoraDia() {
-      // Obtener hora local ajustada manualmente (CDMX UTC-6)
-      const ahora = new Date();
-      const offsetCDMX = -360; // UTC-6 en minutos
-      const horaLocal = new Date(ahora.getTime() + (ahora.getTimezoneOffset() - offsetCDMX) * 60000);
-      const h = horaLocal.getHours();
-      
-      if (h >= 6 && h < 12) return { nombre: 'AMANECER', color: '#ff9966', luz: new THREE.Color(0xff9966), brillo: 0.7, neblina: true };
-      if (h >= 12 && h < 18) return { nombre: 'DÍA', color: '#ffffff', luz: new THREE.Color(0xffffff), brillo: 1.0, neblina: false };
-      if (h >= 18 && h < 21) return { nombre: 'ATARDECER', color: '#ff6633', luz: new THREE.Color(0xff6633), brillo: 0.8, neblina: false };
-      return { nombre: 'NOCHE', color: '#2233aa', luz: new THREE.Color(0x2233aa), brillo: 0.4, neblina: false };
-    }
-
-    let horaActual = getHoraDia();
-
-    function actualizarHoraDia() {
-      const nueva = getHoraDia();
-      if (nueva.nombre !== horaActual.nombre) {
-        horaActual = nueva;
-        document.getElementById('hora-dia').textContent = nueva.nombre;
-        actualizarLuces();
-      }
-    }
-
-    function actualizarLuces() {
-      const c = horaActual.luz;
-      mainLight.color.lerp(c, 0.1);
-      mainLight.intensity = horaActual.brillo * 1.5;
-      scene.background.lerp(new THREE.Color(horaActual.color), 0.05);
-
-      if (horaActual.neblina) {
-        scene.fog = new THREE.FogExp2(0x886644, 0.015);
-      } else {
-        scene.fog = null;
-      }
-    }
-
-    // ============================================================
-    // 30. ANIMACIÓN PRINCIPAL
+    // 29. ANIMACIÓN PRINCIPAL
     // ============================================================
     let time = 0;
 
@@ -2869,7 +2829,7 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     }
 
     // ============================================================
-    // 31. INICIO
+    // 30. INICIO
     // ============================================================
     initAudio();
     await cargarLexicoAprobado();
@@ -2900,7 +2860,7 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     animate();
 
     // ============================================================
-    // 32. BOTONES UI
+    // 31. BOTONES UI
     // ============================================================
     document.getElementById('btn-sembrar').addEventListener('click', () => {
       generarBotonesCompartir('', 'ORÁCULO', true);
@@ -2941,18 +2901,18 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     });
 
     // ============================================================
-    // LOG
+    // 32.LOG
     // ============================================================
-    console.log('🌱 JARDÍN DEL ORÁCULO');
-    console.log('📋 Sistema de vida:');
+    console.log('JARDÍN DEL ORÁCULO');
+    console.log('Sistema de vida:');
     console.log('   - Nace con ' + CONFIG.VIDAS_INICIALES + ' flores');
     console.log('   - Solo muere si NO hay flores');
     console.log('   - No muere por tiempo');
     console.log('   - Revive con 1 semilla o ' + CONFIG.HAUKUS_PARA_REVIVIR + ' haikus');
     console.log('   - Solo haikus generan flores');
-    console.log('🏛️  Ruina: pilares caídos y congelados');
-    console.log('🎹 Piano: disparo único + fadeout ' + CONFIG.FADEOUT_ELEMENTO + 'ms');
-    console.log('✅ Código refactorizado y organizado por jerarquías');
+    console.log('Ruina: pilares caídos y congelados');
+    console.log('Piano: disparo único + fadeout ' + CONFIG.FADEOUT_ELEMENTO + 'ms');
+    console.log('Código refactorizado y organizado por jerarquías');
   </script>
 </body>
 </html>
