@@ -172,127 +172,63 @@
       #panel-compartir { padding:20px; max-width:95%; }
       #panel-compartir .texto { font-size:15px; }
     }
-    /* ============================================================
-   FOOTER Y BOTÓN VOLVER (estilo Archivo de Señal)
+  /* ============================================================
+   FICHA TÉCNICA (ultraminimalista)
    ============================================================ */
-
-/* Contenedor del botón */
-.btn-volver-wrapper {
-  text-align: center;
-  margin: 2rem auto 1.5rem;
-  max-width: 700px;
-  padding: 0 1rem;
-  position: relative;
-  z-index: 10;
-}
-
-.btn-volver {
-  display: inline-block;
-  padding: 0.6rem 1.8rem;
-  border: 1px solid #ff6b35; /* usamos tu color coral/naranja para consistencia */
-  border-radius: 8px;
+.ficha-tecnica {
+  position: fixed;
+  bottom: 12px;
+  right: 16px;
+  z-index: 100;
   font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
-  color: #ff6b35;
-  background: rgba(10, 10, 10, 0.5);
-  backdrop-filter: blur(4px);
+  font-size: 0.6rem;
+  color: #444;
+  text-align: right;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  pointer-events: auto;
+  background: rgba(10, 10, 10, 0.3);
+  padding: 4px 10px;
+  border-radius: 4px;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.ficha-tecnica a {
+  color: #555;
   text-decoration: none;
-  transition: all 0.25s ease;
+  transition: color 0.2s ease;
 }
-.btn-volver:hover {
-  background: #ff6b35;
-  color: #0a0a0a;
-  border-color: #ff6b35;
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-
-/* Footer Archivo de Señal  */
-.site-footer-jardin {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 1.5rem;
-  border-top: 1px solid #1a1a2e;
-  background: rgba(10, 10, 10, 0.4);
-  backdrop-filter: blur(8px);
-  border-radius: 12px 12px 0 0;
-  position: relative;
-  z-index: 10;
-}
-
-.footer-contenido-jardin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  width: 100%;
-}
-
-.footer-texto-jardin {
-  text-align: center;
-}
-.footer-texto-jardin p {
-  font-family: 'Courier New', monospace;
-  font-size: 0.75rem;
-  color: #aaa;
-  margin: 0.3rem 0;
-}
-.footer-texto-jardin a {
+.ficha-tecnica a:hover {
   color: #ff6b35;
   text-decoration: none;
 }
-.footer-texto-jardin a:hover {
-  text-decoration: underline;
+.ficha-tecnica .sep {
+  color: #333;
+  margin: 0 2px;
 }
 
-.social-footer-jardin {
-  display: flex;
-  gap: 1.2rem;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 0.8rem 0;
-  border-top: 1px solid #1a1a2e;
-  border-bottom: 1px solid #1a1a2e;
-}
-.social-footer-jardin .social-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+/* Botón volver (minimalista, esquina inferior izquierda) */
+.btn-volver-mini {
+  position: fixed;
+  bottom: 12px;
+  left: 16px;
+  z-index: 100;
   font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #ccc;
-  background: rgba(20, 20, 30, 0.4);
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 0.4rem 1rem;
+  font-size: 0.7rem;
+  color: #444;
+  background: rgba(10, 10, 10, 0.3);
+  padding: 4px 10px;
+  border-radius: 4px;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   text-decoration: none;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
-.social-footer-jardin .social-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+.btn-volver-mini:hover {
+  color: #ff6b35;
+  border-color: rgba(255, 107, 53, 0.2);
+  text-decoration: none;
 }
-.social-footer-jardin .social-btn.instagram:hover {
-  background: #E4405F;
-  color: #fff;
-  border-color: #E4405F;
-}
-.social-footer-jardin .social-btn.tiktok:hover {
-  background: #000000;
-  color: #fff;
-  border-color: #000000;
-}
-.social-footer-jardin .social-btn.demoreel:hover {
-  background: #ff6b35;
-  color: #0a0a0a;
-  border-color: #ff6b35;
-}
-  </style>
-</head>
-<body>
 
   <!-- ============================================================
        HTML - ELEMENTOS DE LA INTERFAZ
@@ -3014,39 +2950,23 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     console.log('Código refactorizado y organizado por jerarquías');
   </script>
 </body>
-
-  <!-- ============================================================
-     FOOTER Y BOTÓN VOLVER (estilo Archivo de Señal)
+<!-- ============================================================
+     FICHA TÉCNICA MINIMALISTA
      ============================================================ -->
-<div class="btn-volver-wrapper">
-  <a href="index.html" class="btn-volver">← Volver al inicio</a>
+
+<!-- Botón volver (esquina inferior izquierda) -->
+<a href="index.html" class="btn-volver-mini" title="Volver al inicio">←</a>
+
+<!-- Ficha técnica (esquina inferior derecha) -->
+<div class="ficha-tecnica">
+  39913
+  <span class="sep">·</span>
+  <a href="privacidad.html">Privacidad</a>
+  <span class="sep">·</span>
+  <a href="terminos.html">Términos</a>
+  <span class="sep">·</span>
+  <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
 </div>
-
-<footer class="site-footer-jardin">
-  <div class="footer-contenido-jardin">
-    <div class="footer-texto-jardin">
-      <p>Eduardo Manuel Gutierrez Orduña</p>
-      <p>Sitio Autónomo · de consulta abierta</p>
-      <p>
-        <a href="privacidad.html">Política de Privacidad</a> · 
-        <a href="terminos.html">Términos y Condiciones</a> · 
-        <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
-      </p>
-    </div>
-
-    <div class="social-footer-jardin">
-      <a href="https://www.instagram.com/39913em/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
-        📷 Instagram
-      </a>
-      <a href="https://www.tiktok.com/@39913em" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
-        🎵 TikTok
-      </a>
-      <a href="https://sites.google.com/view/39913/home" target="_blank" rel="noopener noreferrer" class="social-btn demoreel">
-        🎬 Demo
-      </a>
-    </div>
-  </div>
-</footer>
 
   <!-- Banner de Cookies -->
 <div id="cookie-banner" style="position:fixed; bottom:0; left:0; right:0; background:var(--bg-elevated); color:var(--text); padding:15px 20px; z-index:9999; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-top:2px solid var(--teal); font-family:var(--sans); font-size:0.9rem; box-shadow:0 -4px 20px var(--shadow);">
