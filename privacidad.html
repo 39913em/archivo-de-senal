@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Política de Privacidad · Archivo de Señal</title>
+    <meta name="description" content="Política de privacidad del Archivo de Señal. No recopilamos datos personales." />
+    
+    <!-- CSP que ya añadiste -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://d3js.org 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self';">
+
+    <!-- Open Graph y favicon (igual que tu about) -->
+    <meta property="og:title" content="Política de Privacidad · Archivo de Señal" />
+    <meta property="og:description" content="No recopilamos datos personales. Sitio estático alojado en GitHub Pages." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://39913em.github.io/archivo-de-senal/privacidad.html" />
+    <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ---- TU MISMO ESTILO (copia de about.html) ---- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Inter", serif;
+            background: #121212;
+            color: #e0d6c8;
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a { color: #d4a373; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        header {
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        .logo h1 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            color: #f0e8dc;
+        }
+        nav {
+            display: flex;
+            gap: 1.8rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        nav a {
+            color: #b0a898;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #d4a373;
+            text-decoration: none;
+        }
+        main {
+            flex: 1;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            color: #f0e8dc;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #d4a373;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #d4a373;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        p, li {
+            color: #c8bfb0;
+            margin-bottom: 0.8rem;
+        }
+        ul {
+            padding-left: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .fecha {
+            color: #7a7268;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 1.5rem;
+        }
+        footer {
+            margin-top: 3rem;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #7a7268;
+            text-align: center;
+        }
+        footer a {
+            color: #7a7268;
+        }
+        footer a:hover {
+            color: #d4a373;
+        }
+        @media (max-width: 600px) {
+            body { padding: 1.2rem; }
+            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            nav { gap: 1rem; flex-wrap: wrap; }
+            .logo h1 { font-size: 1.3rem; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="assets/img/logo.png" alt="Logotipo de Archivo de Señal" />
+            <h1>Archivo de Señal</h1>
+        </div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="jardin.html">Jardín</a>
+            <a href="about.html">Acerca de</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Política de Privacidad</h2>
+        
+        <p>En <strong>Archivo de Señal</strong> nos tomamos muy en serio tu privacidad. Este sitio es completamente estático y está alojado en GitHub Pages.</p>
+        
+        <h3>¿Qué datos recogemos?</h3>
+        <p><strong>Ninguno.</strong> No recopilamos, almacenamos ni procesamos ningún dato personal. No tenemos formularios de contacto, ni suscripciones, ni comentarios, ni cookies propias.</p>
+        
+        <h3>Recursos de terceros</h3>
+        <p>Para ofrecer una mejor experiencia, cargamos los siguientes recursos externos:</p>
+        <ul>
+            <li><strong>Google Fonts</strong> (fuentes tipográficas) – pueden establecer cookies según su propia política. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Consulta su política aquí</a>.</li>
+            <li><strong>D3.js</strong> (biblioteca para gráficos) – se carga desde un CDN. No recoge datos personales.</li>
+        </ul>
+        <p>No compartimos ninguna información con terceros porque sencillamente no tenemos información que compartir.</p>
+        
+        <h3>Enlaces externos</h3>
+        <p>Algunas páginas pueden contener enlaces a otros sitios. No nos hacemos responsables de sus políticas de privacidad.</p>
+        
+        <h3>Cambios en esta política</h3>
+        <p>Si en el futuro añadimos analíticas o formularios, actualizaremos esta página y lo comunicaremos claramente.</p>
+        
+        <p class="fecha">Última actualización: Agosto 2026</p>
+    </main>
+
+    <footer>
+        <p>
+            <a href="privacidad.html">Política de Privacidad</a> · 
+            <a href="eddmatography@protonmail.ch">Contacto</a> · 
+            <a href="index.html">Inicio</a>
+        </p>
+        <p style="margin-top:0.5rem;">&copy; 2026 Archivo de Señal</p>
+    </footer>
+
+    <!-- BANNER DE COOKIES (lo añadiremos en el paso 5) -->
+    <!-- Por ahora solo la página de privacidad -->
+
+</body>
+</html>
