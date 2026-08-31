@@ -172,6 +172,7 @@
       #panel-compartir { padding:20px; max-width:95%; }
       #panel-compartir .texto { font-size:15px; }
     }
+
   /* ============================================================
    FICHA TÉCNICA (ultraminimalista)
    ============================================================ */
@@ -229,6 +230,9 @@
   border-color: rgba(255, 107, 53, 0.2);
   text-decoration: none;
 }
+  </style>
+</head>
+<body>
 
   <!-- ============================================================
        HTML - ELEMENTOS DE LA INTERFAZ
@@ -2950,6 +2954,7 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     console.log('Código refactorizado y organizado por jerarquías');
   </script>
 </body>
+
 <!-- ============================================================
      FICHA TÉCNICA MINIMALISTA
      ============================================================ -->
@@ -2968,7 +2973,7 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
   <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
 </div>
 
-  <!-- Banner de Cookies -->
+<!-- Banner de Cookies -->
 <div id="cookie-banner" style="position:fixed; bottom:0; left:0; right:0; background:var(--bg-elevated); color:var(--text); padding:15px 20px; z-index:9999; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-top:2px solid var(--teal); font-family:var(--sans); font-size:0.9rem; box-shadow:0 -4px 20px var(--shadow);">
   <span style="margin-right:15px; flex:1;">Este sitio usa recursos externos (Google Fonts, D3.js). No usamos cookies propias. Al continuar navegando, aceptas su uso.</span>
   <button onclick="aceptarCookies()" style="background:var(--teal); border:none; color:var(--bg); padding:8px 24px; border-radius:6px; cursor:pointer; font-weight:bold; font-family:var(--sans); transition:all 0.2s ease;">Aceptar</button>
@@ -2982,5 +2987,5 @@ const sufijoEstado = ESTADO.muerto ? 'silencio' : (ESTADO.corrompido ? 'interfer
     document.getElementById('cookie-banner').style.display = 'none';
   }
 </script>
-  
+
 </html>
