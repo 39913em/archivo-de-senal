@@ -172,6 +172,124 @@
       #panel-compartir { padding:20px; max-width:95%; }
       #panel-compartir .texto { font-size:15px; }
     }
+    /* ============================================================
+   FOOTER Y BOTÓN VOLVER (estilo Archivo de Señal)
+   ============================================================ */
+
+/* Contenedor del botón */
+.btn-volver-wrapper {
+  text-align: center;
+  margin: 2rem auto 1.5rem;
+  max-width: 700px;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.btn-volver {
+  display: inline-block;
+  padding: 0.6rem 1.8rem;
+  border: 1px solid #ff6b35; /* usamos tu color coral/naranja para consistencia */
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #ff6b35;
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(4px);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.btn-volver:hover {
+  background: #ff6b35;
+  color: #0a0a0a;
+  border-color: #ff6b35;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Footer Archivo de Señal  */
+.site-footer-jardin {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1.5rem;
+  border-top: 1px solid #1a1a2e;
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-contenido-jardin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.footer-texto-jardin {
+  text-align: center;
+}
+.footer-texto-jardin p {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin: 0.3rem 0;
+}
+.footer-texto-jardin a {
+  color: #ff6b35;
+  text-decoration: none;
+}
+.footer-texto-jardin a:hover {
+  text-decoration: underline;
+}
+
+.social-footer-jardin {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0.8rem 0;
+  border-top: 1px solid #1a1a2e;
+  border-bottom: 1px solid #1a1a2e;
+}
+.social-footer-jardin .social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ccc;
+  background: rgba(20, 20, 30, 0.4);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.social-footer-jardin .social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.social-footer-jardin .social-btn.instagram:hover {
+  background: #E4405F;
+  color: #fff;
+  border-color: #E4405F;
+}
+.social-footer-jardin .social-btn.tiktok:hover {
+  background: #000000;
+  color: #fff;
+  border-color: #000000;
+}
+.social-footer-jardin .social-btn.demoreel:hover {
+  background: #ff6b35;
+  color: #0a0a0a;
+  border-color: #ff6b35;
+}
   </style>
 </head>
 <body>
