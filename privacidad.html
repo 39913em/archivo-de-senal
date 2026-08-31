@@ -1,189 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Política de Privacidad · Archivo de Señal</title>
-    <meta name="description" content="Política de privacidad del Archivo de Señal. No recopilamos datos personales." />
-    
-    <!-- CSP que ya añadiste -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://d3js.org 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self';">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://d3js.org 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad · Archivo de Señal</title>
+<meta name="description" content="Política de privacidad de Archivo de Señal. No recopilamos datos personales.">
 
-    <!-- Open Graph y favicon (igual que tu about) -->
-    <meta property="og:title" content="Política de Privacidad · Archivo de Señal" />
-    <meta property="og:description" content="No recopilamos datos personales. Sitio estático alojado en GitHub Pages." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://39913em.github.io/archivo-de-senal/privacidad.html" />
-    <meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/img/logo.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
+<!-- Open Graph / Social Media -->
+<meta property="og:title" content="Política de Privacidad · Archivo de Señal">
+<meta property="og:description" content="No recopilamos datos personales. Sitio estático alojado en GitHub Pages.">
+<meta property="og:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
+<meta property="og:url" content="https://39913em.github.io/archivo-de-senal/privacidad.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Política de Privacidad · Archivo de Señal">
+<meta name="twitter:description" content="No recopilamos datos personales. Sitio estático alojado en GitHub Pages.">
+<meta name="twitter:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
 
-    <style>
-        /* ---- TU MISMO ESTILO (copia de about.html) ---- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: "Inter", serif;
-            background: #121212;
-            color: #e0d6c8;
-            line-height: 1.7;
-            padding: 2rem 1.5rem;
-            max-width: 900px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        a { color: #d4a373; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        header {
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
-        .logo h1 {
-            font-size: 1.6rem;
-            font-weight: 400;
-            letter-spacing: -0.5px;
-            color: #f0e8dc;
-        }
-        nav {
-            display: flex;
-            gap: 1.8rem;
-            font-size: 0.95rem;
-            font-weight: 400;
-        }
-        nav a {
-            color: #b0a898;
-            transition: color 0.2s;
-        }
-        nav a:hover {
-            color: #d4a373;
-            text-decoration: none;
-        }
-        main {
-            flex: 1;
-        }
-        h2 {
-            font-size: 2rem;
-            font-weight: 400;
-            letter-spacing: -0.5px;
-            color: #f0e8dc;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid #d4a373;
-            padding-left: 1rem;
-        }
-        h3 {
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: #d4a373;
-            margin-top: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        p, li {
-            color: #c8bfb0;
-            margin-bottom: 0.8rem;
-        }
-        ul {
-            padding-left: 1.8rem;
-            margin-bottom: 1.5rem;
-        }
-        .fecha {
-            color: #7a7268;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            border-top: 1px solid #2a2a2a;
-            padding-top: 1.5rem;
-        }
-        footer {
-            margin-top: 3rem;
-            border-top: 1px solid #2a2a2a;
-            padding-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #7a7268;
-            text-align: center;
-        }
-        footer a {
-            color: #7a7268;
-        }
-        footer a:hover {
-            color: #d4a373;
-        }
-        @media (max-width: 600px) {
-            body { padding: 1.2rem; }
-            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            nav { gap: 1rem; flex-wrap: wrap; }
-            .logo h1 { font-size: 1.3rem; }
-            h2 { font-size: 1.5rem; }
-        }
-    </style>
+<!-- Enlazamos tu CSS global -->
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="assets/img/logo.png" alt="Logotipo de Archivo de Señal" />
-            <h1>Archivo de Señal</h1>
-        </div>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="jardin.html">Jardín</a>
-            <a href="about.html">Acerca de</a>
-        </nav>
-    </header>
+<div class="backdrop" aria-hidden="true"></div>
 
-    <main>
-        <h2>Política de Privacidad</h2>
-        
-        <p>En <strong>Archivo de Señal</strong> nos tomamos muy en serio tu privacidad. Este sitio es completamente estático y está alojado en GitHub Pages.</p>
-        
-        <h3>¿Qué datos recogemos?</h3>
-        <p><strong>Ninguno.</strong> No recopilamos, almacenamos ni procesamos ningún dato personal. No tenemos formularios de contacto, ni suscripciones, ni comentarios, ni cookies propias.</p>
-        
-        <h3>Recursos de terceros</h3>
-        <p>Para ofrecer una mejor experiencia, cargamos los siguientes recursos externos:</p>
-        <ul>
-            <li><strong>Google Fonts</strong> (fuentes tipográficas) – pueden establecer cookies según su propia política. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Consulta su política aquí</a>.</li>
-            <li><strong>D3.js</strong> (biblioteca para gráficos) – se carga desde un CDN. No recoge datos personales.</li>
-        </ul>
-        <p>No compartimos ninguna información con terceros porque sencillamente no tenemos información que compartir.</p>
-        
-        <h3>Enlaces externos</h3>
-        <p>Algunas páginas pueden contener enlaces a otros sitios. No nos hacemos responsables de sus políticas de privacidad.</p>
-        
-        <h3>Cambios en esta política</h3>
-        <p>Si en el futuro añadimos analíticas o formularios, actualizaremos esta página y lo comunicaremos claramente.</p>
-        
-        <p class="fecha">Última actualización: Agosto 2026</p>
-    </main>
+<svg class="waveform" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+<path d="M0,60 L20,60 L25,30 L30,90 L35,15 L40,100 L45,45 L50,60 L70,60
+L75,40 L80,75 L85,20 L90,95 L95,55 L100,60 L120,60
+L125,35 L130,80 L135,10 L140,105 L145,50 L150,60 L1440,60"
+fill="none" stroke="#0EA5A4" stroke-width="1"
+style="stroke-dasharray: 6 4;" />
+</svg>
 
-    <footer>
-        <p>
-            <a href="privacidad.html">Política de Privacidad</a> · 
-            <a href="eddmatography@protonmail.ch">Contacto</a> · 
-            <a href="index.html">Inicio</a>
-        </p>
-        <p style="margin-top:0.5rem;">&copy; 2026 Archivo de Señal</p>
-    </footer>
+<header class="site-header">
+  <div class="brand">
+    <a href="index.html" class="brand-logo" aria-label="Página de inicio">
+      <img src="assets/img/logo.png"
+           srcset="assets/img/logo.png 1x, assets/img/logo@2x.png 2x"
+           alt="Logotipo de Archivo de Señal"
+           width="40" height="40">
+    </a>
+    <span class="brand-name">Archivo de Señal</span>
+  </div>
+  <div class="header-controls">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+  </div>
+</header>
 
-    <!-- BANNER DE COOKIES (lo añadiremos en el paso 5) -->
-    <!-- Por ahora solo la página de privacidad -->
+<!-- Contenido principal: Política de Privacidad -->
+<main class="about-page">
+  <div class="about-contenido">
+    <h1>Política de Privacidad</h1>
+
+    <p>En <strong>Archivo de Señal</strong> nos tomamos muy en serio tu privacidad. Este sitio es completamente estático y está alojado en GitHub Pages.</p>
+
+    <p><strong>¿Qué datos recogemos?</strong><br>
+    Ninguno. No recopilamos, almacenamos ni procesamos ningún dato personal. No tenemos formularios de contacto, ni suscripciones, ni comentarios, ni cookies propias.</p>
+
+    <p><strong>Recursos de terceros</strong><br>
+    Para ofrecer una mejor experiencia, cargamos los siguientes recursos externos:</p>
+    <ul style="color: var(--text-dim); padding-left: 1.8rem;">
+      <li><strong>Google Fonts</strong> (fuentes tipográficas) – pueden establecer cookies según su propia política. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Consulta su política aquí</a>.</li>
+      <li><strong>D3.js</strong> (biblioteca para gráficos) – se carga desde un CDN. No recoge datos personales.</li>
+    </ul>
+
+    <p>No compartimos ninguna información con terceros porque sencillamente no tenemos información que compartir.</p>
+
+    <p><strong>Enlaces externos</strong><br>
+    Algunas páginas pueden contener enlaces a otros sitios. No nos hacemos responsables de sus políticas de privacidad.</p>
+
+    <p><strong>Cambios en esta política</strong><br>
+    Si en el futuro añadimos analíticas o formularios, actualizaremos esta página y lo comunicaremos claramente.</p>
+
+    <p style="color: var(--text-faint); font-family: var(--mono); font-size: 0.8rem; margin-top: 2rem;">
+      Última actualización: Agosto 2026
+    </p>
+
+    <div class="about-footer">
+      <a href="index.html" class="btn-volver">← Volver al inicio</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-contenido">
+    <div class="footer-texto">
+      <p>Eduardo Manuel Gutierrez Orduña</p>
+      <p>Sitio Autónomo · de consulta abierta</p>
+      <p>
+        <a href="privacidad.html">Política de Privacidad</a> · 
+        <a href="eddmatography@protonmail.ch">Contacto</a>
+      </p>
+    </div>
+
+    <div class="social-footer">
+      <a href="https://www.instagram.com/39913em/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
+        📷 Instagram
+      </a>
+      <a href="https://www.tiktok.com/@39913em" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
+        🎵 TikTok
+      </a>
+      <a href="https://sites.google.com/view/39913/home" target="_blank" rel="noopener noreferrer" class="social-btn demoreel">
+        🎬 Demo
+      </a>
+    </div>
+
+    <div class="footer-imagen" id="footer-easter-egg">
+      <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Volver arriba">↑</button>
+
+<script>
+// Copia del script de about.html para el easter egg
+document.addEventListener('DOMContentLoaded', function() {
+  const footerImg = document.getElementById('footer-easter-egg');
+  if (footerImg) {
+    footerImg.addEventListener('click', function() {
+      window.location.href = 'about.html';
+    });
+  }
+});
+
+// Toggle de tema (igual que en tu index)
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+  const body = document.body;
+  const current = localStorage.getItem('theme') || 'dark';
+  if (current === 'light') {
+    body.classList.add('light-mode');
+    toggle.textContent = '☀️';
+  }
+  toggle.addEventListener('click', function() {
+    body.classList.toggle('light-mode');
+    const isLight = body.classList.contains('light-mode');
+    toggle.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+});
+</script>
 
 </body>
 </html>
