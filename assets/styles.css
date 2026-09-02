@@ -1,9 +1,7 @@
-/* ============================================================
-ARCHIVO DE SEÑAL --- sistema de tokens
-============================================================ */
+
 
 :root {
-  /* Color - Modo oscuro (default) */
+  /* Color - Modo oscuro */
   --bg: #0B1320;
   --bg-elevated: #121C2E;
   --bg-panel: #162132;
@@ -66,7 +64,7 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-/* -------- Ambient backdrop -------- */
+/* Ambient backdrop */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -105,7 +103,7 @@ button:focus-visible {
   pointer-events: none;
 }
 
-/* -------- Header -------- */
+/* Header */
 .site-header {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -190,7 +188,7 @@ button:focus-visible {
   letter-spacing: 0.02em;
 }
 
-/* -------- Index page -------- */
+/* Index page */
 .intro {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -472,7 +470,7 @@ button:focus-visible {
   font-size: 0.9rem;
 }
 
-/* -------- Skeleton screens -------- */
+/* Skeleton screens */
 .skeleton {
   animation: pulse 1.5s ease-in-out infinite;
   background: var(--bg-panel);
@@ -570,7 +568,7 @@ button:focus-visible {
   margin-bottom: 30px;
 }
 
-/* -------- Reading page -------- */
+/* Reading page */
 #contenido {
   max-width: var(--col-read);
   margin: 0 auto;
@@ -579,7 +577,7 @@ button:focus-visible {
   line-height: 1.75;
 }
 
-/* 🔥 Imagen de portada SIN CORTAR y CENTRADA */
+/* Portada */
 #contenido .portada {
   width: 100%;
   height: auto;
@@ -664,7 +662,7 @@ button:focus-visible {
   transition: border-color 0.3s ease;
 }
 
-/* -------- Sección Transmedial -------- */
+/* Sección Transmedial */
 .transmedia-section {
   margin-top: 3rem;
   padding-top: 2rem;
@@ -882,7 +880,7 @@ button:focus-visible {
   text-decoration: underline;
 }
 
-/* -------- Compartir en redes sociales -------- */
+/* Redes sociales */
 .share-section {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
@@ -970,7 +968,7 @@ button:focus-visible {
   border-color: #FF6719;
 }
 
-/* -------- Redes sociales del autor (footer) -------- */
+/* Redes sociales footer */
 .social-footer {
   display: flex;
   gap: 1.2rem;
@@ -1025,7 +1023,7 @@ button:focus-visible {
   border-color: var(--teal);
 }
 
-/* -------- Imágenes dentro de los ensayos -------- */
+/* Imágenes dentro de ensayos */
 .imagen-ensayo {
   margin: 2.5rem 0;
   text-align: center;
@@ -1049,7 +1047,7 @@ button:focus-visible {
   transition: color 0.3s ease;
 }
 
-/* -------- Footer -------- */
+/*  Footer */
 .site-footer {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -1105,7 +1103,7 @@ button:focus-visible {
   opacity: 1;
 }
 
-/* -------- Back to top button -------- */
+/* Volver arriba*/
 #back-to-top {
   position: fixed;
   bottom: 2rem;
@@ -1135,7 +1133,7 @@ button:focus-visible {
   background: var(--teal-dim);
 }
 
-/* -------- Enlaces tipo Wikipedia -------- */
+/* Enlaces tipo Wikipedia */
 .wikilink {
   color: var(--teal);
   text-decoration: none;
@@ -1149,7 +1147,7 @@ button:focus-visible {
   text-decoration: none;
 }
 
-/* -------- Bloque destacado -------- */
+/* Bloque destacado */
 .destacado {
   font-family: var(--serif);
   font-size: 1.2rem;
@@ -1165,7 +1163,7 @@ button:focus-visible {
   transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
-/* -------- Mapa conceptual -------- */
+/* Mapa conceptual */
 .mapa-conceptual {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -1248,7 +1246,7 @@ button:focus-visible {
   font-weight: 700;
 }
 
-/* Links (conexiones) */
+/* Links */
 .link {
   stroke: var(--line);
   stroke-opacity: 0.3;
@@ -1326,7 +1324,7 @@ button:focus-visible {
   font-size: 2rem;
 }
 
-/* -------- About Page -------- */
+/* About Page */
 .about-page {
   max-width: var(--col-read);
   margin: 0 auto;
@@ -1383,7 +1381,7 @@ button:focus-visible {
   transform: translateY(-2px);
 }
 
-/* -------- Responsive -------- */
+/* Responsive */
 @media (max-width: 640px) {
   .entry-row {
     grid-template-columns: 1fr;

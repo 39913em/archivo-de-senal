@@ -1,75 +1,75 @@
-// src/main.js
-import { db } from './firebase-config.js';
+
+import { CONFIG, LEXICO_INICIAL, datosColumna, BANCO_ERROR_PARRAFO, BANCO_BLOQUEO_CITA } from './datos.js';
+import { firebaseConfig } from './firebase-config.js';
+import { rand, sanitizar, verificarRateLimit, contarSilabas, ajustarSilabas, probabilidadBloqueo } from './utils.js';
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
+import { getDatabase, ref, get, set, update, onValue, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 import { 
-  ESTADO,
-  cargarEstado,
+  iniciarEstado, 
+  ESTADO, 
+  actualizarUI, 
+  cambiarVida, 
+  revivirOráculo, 
+  avisoTemporal,
   guardarEstado,
   escucharEstado,
-  cambiarVida,
-  revivirOráculo,
-  crearFlorOrganica,
-  eliminarFlor,
-  limpiarFlores,
-  sincronizarFlores,
-  animarFloresOrganicas,
-  activarRuina,
-  desactivarRuina,
-  mostrarOverlayMuerte,
-  ocultarOverlayMuerte,
-  mostrarOverlayRenacimiento,
-  ocultarOverlayRenacimiento,
-  avisoTemporal,
-  actualizarUI,
-  lluviaPetales,
-  // Si tienes otras funciones que necesites, agrégalas
+  cargarEstado
 } from './estado-jardin.js';
 
 import { 
-  initScene, 
-  animate 
+  scene, camera, renderer, controls, 
+  guardian, led, columnas, columnasMovimiento, flores, pasto,
+  sincronizarFlores, limpiarFlores, animarFloresOrganicas,
+  animarPastoDenso, lluviaPetales, petalesLluvia,
+  versosFlotantes, crearVersoFlotante, limpiarVersosFlotantes,
+  mensajesFlotantes, crearMensajeFlotante, limpiarMensajesFlotantes,
+  actualizarMensajesFlotantes,
+  activarRuina, desactivarRuina,
+  animarEscena
 } from './escena-3d.js';
 
-import { 
-  initAudio, 
-  playPageTurn, 
-  playPop, 
-  playRenacimiento 
-} from './sonido.js';
+import { initAudio, playSound, playPageTurn, playPop, playRenacimiento, actualizarMasterGain } from './sonido.js';
 
-import { inicializarUI } from './ui-botones.js';
+import { configurarBotones } from './ui-botones.js';
 
-// ============================================================
-// FUNCIÓN PRINCIPAL DE INICIO
-// ============================================================
-async function iniciarAplicacion() {
-  console.log('🚀 Iniciando Jardín del Oráculo...');
 
-  // 1. Iniciar audio
-  initAudio();
+const cambiarVidaOriginal = cambiarVida;
 
-  // 2. Cargar estado desde Firebase
-  await cargarEstado();
-  
-  // 3. Escuchar cambios en tiempo real
-  escucharEstado();
-
-  // 4. Iniciar escena 3D (Three.js)
-  initScene();
-
-  // 5. Configurar los botones de la UI
-  inicializarUI();
-
-  // 6. Arrancar el loop de animación
-  animate();
-
-  // 7. Si el jardín estaba muerto, activar ruina y mostrar overlay
-  if (ESTADO.muerto) {
-    activarRuina();
-    mostrarOverlayMuerte();
-  }
-
-  console.log('✅ Jardín listo');
+export function cambiarVidaConEscena(cantidad) {
+  cambiarVidaOriginal(cantidad);
+  sincronizarFlores();
+  actualizarUI();
 }
 
-// ¡Ejecutar!
-iniciarAplicacion();
+export { cambiarVidaConEscena as cambiarVida };
+
+async function iniciarTodo() {
+  console.log('🚀 Iniciando Jardín del Oráculo...');
+  
+  await cargarEstado();
+  console.log('✅ Estado cargado, vida:', ESTADO.vida);
+  
+  sincronizarFlores();
+  
+  escucharEstado();
+  
+  initAudio();
+  
+   configurarBotones();
+  
+  console.log('🌿 Jardín listo y funcionando.');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  iniciarTodo().catch(err => {
+    console.error('❌ Error al iniciar el jardín:', err);
+    avisoTemporal('Error al cargar el jardín. Revisa la consola.');
+  });
+});
+
+export { db, app };

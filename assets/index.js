@@ -1,7 +1,6 @@
-// ============================================================
-// ARCHIVO DE SEÑAL --- render del índice
-// Lee entradas.json y construye el listado. No requiere backend.
-// ============================================================
+
+// Render del índice - No Backend
+
 
 async function cargarDatos() {
   const res = await fetch("entradas.json");
@@ -28,10 +27,10 @@ function crearFilaEntrada(entrada) {
   a.className = "entry-row";
   a.href = `lectura.html?id=${encodeURIComponent(entrada.id || "")}`;
   
-  // --- Guardar tags como atributo para filtrado exacto ---
+  // Guardar tags como atributo para filtrado exacto 
   const tagsList = (entrada.tags || []);
   a.dataset.tags = tagsList.join('|').toLowerCase();
-  // --------------------------------------------------------
+  
   
   const tagsHtml = tagsList
     .slice(0, 4)
@@ -54,7 +53,7 @@ function crearFilaEntrada(entrada) {
   return a;
 }
 
-// --- Toggle tema oscuro/claro ---
+// Toggle - oscuro/claro 
 function initThemeToggle() {
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
@@ -73,7 +72,7 @@ function initThemeToggle() {
   });
 }
 
-// --- Búsqueda en tiempo real (MEJORADA) ---
+// Búsqueda en tiempo real
 function initSearch() {
   const searchInput = document.getElementById('search-input');
   if (!searchInput) return;
@@ -91,7 +90,7 @@ function initSearch() {
       if (query === '') {
         found = true;
       } else {
-        // Buscar en texto completo (título, extracto, etc.)
+        // Buscar en texto completo 
         const text = row.textContent.toLowerCase();
         if (text.includes(query)) {
           found = true;
@@ -127,7 +126,8 @@ function initSearch() {
   });
 }
 
-// --- Tags clickeables (MEJORADO) ---
+// Tags clickeables 
+
 function initTagFilter() {
   document.addEventListener('click', function(e) {
     const tag = e.target.closest('.tag');
@@ -173,7 +173,7 @@ function initTagFilter() {
   });
 }
 
-// --- Vista grid / lista ---
+// Vista grid / lista 
 function initViewToggle() {
   const toggle = document.getElementById('view-toggle');
   const archive = document.querySelector('.archive');
@@ -193,7 +193,7 @@ function initViewToggle() {
   });
 }
 
-// --- Volver arriba ---
+// Volver arriba 
 function initBackToTop() {
   const btn = document.getElementById('back-to-top');
   if (!btn) return;
@@ -211,16 +211,15 @@ function initBackToTop() {
   });
 }
 
-// ============================================================
-// MAPA CONCEPTUAL - Force-Directed Graph con D3.js
-// CON DISCRIMINACIÓN INTELIGENTE DE NODOS
-// ============================================================
+
+// MAPA CONCEPTUAL 
+
 
 function generarMapaConceptual(entradas) {
   const container = document.getElementById('mapa-container');
   if (!container) return;
   
-  // --- 1. Procesar tags con criterios inteligentes ---
+  // Procesar tags 
   const tagCount = {};
   const tagEntries = {};
   const tagConnections = {};
@@ -247,7 +246,7 @@ function generarMapaConceptual(entradas) {
     }
   });
   
-  // --- 2. Filtrar nodos con criterios ---
+  // Filtrar nodos
   const tagsFiltrados = Object.keys(tagCount).filter(tag => {
     const frecuencia = tagCount[tag] || 0;
     const conexiones = tagConnections[tag] ? tagConnections[tag].size : 0;
@@ -265,7 +264,7 @@ function generarMapaConceptual(entradas) {
     return;
   }
   
-  // --- 3. Crear nodos ---
+  // Crear nodos 
   const maxCount = Math.max(...tagsFiltrados.map(t => tagCount[t]));
   
   const nodes = tagsFiltrados.map(tag => ({
@@ -276,7 +275,7 @@ function generarMapaConceptual(entradas) {
     entries: tagEntries[tag] || []
   }));
   
-  // --- 4. Crear conexiones ---
+  // Crear conexiones 
   const links = [];
   const linkSet = new Set();
   const tagsSet = new Set(tagsFiltrados);
@@ -303,7 +302,7 @@ function generarMapaConceptual(entradas) {
     }
   });
   
-  // --- 5. Configurar D3 ---
+  // Configurar D3 
   const width = container.clientWidth || 800;
   const height = container.clientHeight || 500;
   
@@ -456,7 +455,7 @@ function generarMapaConceptual(entradas) {
     tooltip.classList.remove('visible');
   });
   
-  // --- CLICK EN NODO DEL MAPA (MEJORADO) ---
+  // CLICK EN NODO DEL MAPA 
   node.on('click', function(event, d) {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -536,7 +535,7 @@ function generarMapaConceptual(entradas) {
   resizeObserver.observe(container);
 }
 
-// --- Inicialización principal ---
+// Inicialización principal 
 async function init() {
   const archive = document.getElementById('archive-list');
   
@@ -574,7 +573,7 @@ async function init() {
       count.textContent = String(entradas.length).padStart(2, "0");
     }
     
-    // --- Generar mapa conceptual ---
+    // Mapa conceptual 
     generarMapaConceptual(entradas);
     
   } catch (err) {

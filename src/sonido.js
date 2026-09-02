@@ -1,17 +1,19 @@
-import * as THREE from 'three';
-import { db } from './firebase-config.js';
-import { ref, get, set, update, onValue, push } from 'firebase/database';
-import { ESTADO, CONFIG, cambiarVida, guardarEstado, actualizarUI } from './estado-jardin.js';
-import { columnas, columnasMovimiento, ESCALA_SEÑAL, ESCALA_RESONANCIA, RANGO_DERIVA, RANGO_FRACTURA } from './escena-3d.js';
 
+// IMPORTS //
+import { ESTADO } from './estado-jardin.js';
+import { columnas, columnasMovimiento, camera } from './escena-3d.js';
 
-// SISTEMA PRINCIPAL
-
-let audioCtx = null, masterGain = null, vocesColumna = [], schedulerId = null, listenerFrame = 0;
+// VARIABLES GLOBALES DE AUDIO //
+let audioCtx = null;
+let masterGain = null;
+let vocesColumna = [];
+let schedulerId = null;
+let listenerFrame = 0;
 let ultimaProgresion = -1;
 const TODAS_NOTAS = [0,1,2,3,4,5,6,7,8,9,10,11];
 let ordenNotas = [...TODAS_NOTAS];
 
+// FUNCIONES AUXILIARES DEL SISTEMA MUSICAL //
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -39,7 +41,19 @@ function proximaProgresion() {
   return notas;
 }
 
-function initAudio() {
+// FACTOR DE SALUD //
+function factorSalud() {
+  if (ESTADO.muerto) return 0;
+  return Math.max(0.12, Math.min(1, ESTADO.integridad / 100));
+}
+
+function evolucionLenta() {
+  if (!audioCtx) return 0.5;
+  return (Math.sin(audioCtx.currentTime * 0.0075) + 1) / 2;
+}
+
+// INICIALIZAR AUDIO //
+export function initAudio() {
   if (!audioCtx) {
     try {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -50,10 +64,14 @@ function initAudio() {
       console.log('🔊 Audio iniciado');
     } catch(e) { console.warn('Error de audio:', e); return; }
   }
-  if (audioCtx.state === 'suspended') audioCtx.resume().then(() => iniciarScheduler()).catch(() => {});
-  else iniciarScheduler();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume().then(() => iniciarScheduler()).catch(() => {});
+  } else {
+    iniciarScheduler();
+  }
 }
 
+// VOCES CADA COLUMNA //
 function crearVocesColumna() {
   if (!audioCtx) return;
   vocesColumna = columnas.map(col => {
@@ -81,16 +99,7 @@ function crearVocesColumna() {
   });
 }
 
-function factorSalud() {
-  if (ESTADO.muerto) return 0;
-  return Math.max(0.12, Math.min(1, ESTADO.integridad / 100));
-}
-
-function evolucionLenta() {
-  if (!audioCtx) return 0.5;
-  return (Math.sin(audioCtx.currentTime * 0.0075) + 1) / 2;
-}
-
+// TOCAR NOTA COLUMNA //
 function tocarNotaColumna(voz, tiempo) {
   const d = voz.col.userData;
   const escala = d.escala || [220, 246, 293, 329, 392, 440];
@@ -155,7 +164,8 @@ function iniciarScheduler() {
   actualizarMasterGain();
 }
 
-function actualizarMasterGain() {
+// VOLUMEN GENERAL //
+export function actualizarMasterGain() {
   if (!audioCtx || !masterGain) return;
   const t = audioCtx.currentTime;
   const objetivo = ESTADO.muerto ? 0.0001 : 0.35 + factorSalud() * 0.35;
@@ -167,9 +177,8 @@ function actualizarMasterGain() {
   } else if (!schedulerId) iniciarScheduler();
 }
 
-// ELEMENTOS INDIVIDUALES
-
-function tocarSonidoElemento(elemento) {
+// SONIDO ELEMENTOS INDIVIDUALES //
+export function tocarSonidoElemento(elemento) {
   if (!audioCtx || audioCtx.state === 'closed' || !masterGain) return;
   try {
     const ud = elemento.userData;
@@ -184,6 +193,7 @@ function tocarSonidoElemento(elemento) {
       case 'RESONANCIA': tipoOnda = 'sawtooth'; duracion = 0.4; volumen = 0.07; break;
       case 'FRACTURA': tipoOnda = 'sine'; duracion = 0.2 + Math.random() * 0.2; volumen = 0.04 + Math.random() * 0.04; break;
       case 'DERIVA': tipoOnda = 'triangle'; duracion = 0.3 + Math.random() * 0.3; volumen = 0.05 + Math.random() * 0.03; break;
+      default: tipoOnda = 'sine'; duracion = 0.3; volumen = 0.06;
     }
 
     const osc = audioCtx.createOscillator();
@@ -209,10 +219,11 @@ function tocarSonidoElemento(elemento) {
       osc2.start(ahora);
       osc2.stop(ahora + duracion * 0.5);
     }
-  } catch(e) { console.warn('Error:', e); }
+  } catch(e) { console.warn('Error al tocar sonido:', e); }
 }
 
-function playSound(freqs, dur = 0.3, vol = 0.06) {
+// FUNCIONES SONIDO EVENTOS //
+export function playSound(freqs, dur = 0.3, vol = 0.06) {
   if (!audioCtx || audioCtx.state === 'closed' || !masterGain) return;
   const emitir = () => {
     if (!audioCtx || audioCtx.state !== 'running' || !masterGain) return;
@@ -233,15 +244,19 @@ function playSound(freqs, dur = 0.3, vol = 0.06) {
       });
     } catch(e) {}
   };
-  if (audioCtx.state === 'suspended') audioCtx.resume().then(() => { actualizarMasterGain(); emitir(); }).catch(() => {});
-  else emitir();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume().then(() => { actualizarMasterGain(); emitir(); }).catch(() => {});
+  } else {
+    emitir();
+  }
 }
 
-function playPageTurn() { playSound([400,500], 0.2, 0.04); }
-function playPop() { playSound([800,1000], 0.15, 0.06); }
-function playRenacimiento() { playSound([300,500,700,900], 1.5, 0.08); }
+export function playPageTurn() { playSound([400,500], 0.2, 0.04); }
+export function playPop() { playSound([800,1000], 0.15, 0.06); }
+export function playRenacimiento() { playSound([300,500,700,900], 1.5, 0.08); }
 
-function actualizarListener(camera) {
+// POSICIÓN DEL OYENTE //
+export function actualizarListener() {
   if (!audioCtx) return;
   const l = audioCtx.listener;
   const p = camera.position;
@@ -266,18 +281,4 @@ function actualizarListener(camera) {
   } catch(e) {}
 }
 
-
-// EXPORTS
-
-export {
-  audioCtx,
-  masterGain,
-  initAudio,
-  actualizarMasterGain,
-  tocarSonidoElemento,
-  playSound,
-  playPageTurn,
-  playPop,
-  playRenacimiento,
-  actualizarListener
-};
+console.log('🎵 Módulo de sonido cargado');

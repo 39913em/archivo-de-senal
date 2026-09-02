@@ -1,5 +1,3 @@
-// lectura.js
-
 function escapeHtml(text) {
   if (!text) return '';
   const map = {
@@ -20,7 +18,7 @@ function procesarWikilinks(texto) {
   });
 }
 
-// --- Toggle tema oscuro/claro ---
+// Toggle tema oscuro/claro 
 function initThemeToggle() {
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
@@ -39,7 +37,7 @@ function initThemeToggle() {
   });
 }
 
-// --- Volver arriba ---
+// Volver arriba 
 function initBackToTop() {
   const btn = document.getElementById('back-to-top');
   if (!btn) return;
@@ -57,7 +55,7 @@ function initBackToTop() {
   });
 }
 
-// --- Actualizar meta tags para compartir ---
+// Tags para compartir
 function actualizarMetaTags(entrada) {
   const titulo = entrada.titulo || 'Archivo de Señal';
   const descripcion = entrada.extracto || entrada.subtitulo || 'Arte electrónico, tecnología experimental y pensamiento crítico ';
@@ -89,7 +87,7 @@ function actualizarMetaTags(entrada) {
   document.title = `${titulo} — ${sitio}`;
 }
 
-// --- Compartir en redes ---
+// Redes
 function getShareUrls(titulo, url) {
   const encodedTitle = encodeURIComponent(titulo);
   const encodedUrl = encodeURIComponent(url);
@@ -105,14 +103,14 @@ function getShareUrls(titulo, url) {
   };
 }
 
-// --- Calcular tiempo de lectura ---
+// Tiempo de lectura 
 function calcularTiempoLectura(texto) {
   const palabras = texto.split(/\s+/).filter(p => p.length > 0).length;
   const minutos = Math.ceil(palabras / 200);
   return { palabras, minutos };
 }
 
-// --- Renderizar ruta transmedial ---
+// Transmedial 
 function renderTransmedia(transmedia) {
   if (!transmedia || !transmedia.videos || transmedia.videos.length === 0) {
     return '';
@@ -121,9 +119,9 @@ function renderTransmedia(transmedia) {
   let html = `
     <div class="transmedia-section">
       <div class="transmedia-header">
-        <h3>📡</h3>
+        <h3></h3>
         <p class="transmedia-sub"></p>
-        ${transmedia.hashtag ? `<p class="transmedia-hashtag">🔗 Sigue la conversación en <strong>${transmedia.hashtag}</strong></p>` : ''}
+        ${transmedia.hashtag ? `<p class="transmedia-hashtag">Sigue la conversación en <strong>${transmedia.hashtag}</strong></p>` : ''}
       </div>
       
       <div class="transmedia-timeline">
@@ -185,7 +183,7 @@ function renderTransmedia(transmedia) {
       </div>
       
       <div class="transmedia-footer">
-        <p>💡 <strong></strong> <a href="index.html">Todos los ensayos →</a></p>
+        <p><strong></strong> <a href="index.html">Todos los ensayos →</a></p>
       </div>
     </div>
   `;
@@ -226,7 +224,7 @@ function renderEntrada(entrada) {
   
   const textoCompleto = entrada.cuerpo.map(b => b.texto || '').join(' ');
   const { palabras, minutos } = calcularTiempoLectura(textoCompleto);
-  html += `<p class="meta-lectura">📖 ${palabras} palabras · ${minutos} min de lectura</p>`;
+  html += `<p class="meta-lectura"> ${palabras} palabras · ${minutos} min de lectura</p>`;
   
   if (entrada.tags && entrada.tags.length > 0) {
     html += `<div class="tags">${entrada.tags.map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(' ')}</div>`;
@@ -255,18 +253,18 @@ function renderEntrada(entrada) {
     }
   });
   
-  // --- SECCIÓN TRANSMEDIAL ---
+  // SECCIÓN TRANSMEDIAL 
   if (entrada.transmedia) {
     html += renderTransmedia(entrada.transmedia);
   }
   
-  // --- Botones de compartir ---
+  // Botones de compartir 
   const url = window.location.href;
   const titulo = entrada.titulo || 'Archivo de Señal';
   const shares = getShareUrls(titulo, url);
   
   html += `<div class="share-section">`;
-  html += `<p class="share-label">📤 Compartir</p>`;
+  html += `<p class="share-label"> Compartir</p>`;
   html += `<div class="share-buttons">`;
   html += `<a href="${shares.twitter}" target="_blank" rel="noopener noreferrer" class="share-btn twitter">🐦 X</a>`;
   html += `<a href="${shares.bluesky}" target="_blank" rel="noopener noreferrer" class="share-btn bluesky">🦋 Bluesky</a>`;
@@ -290,7 +288,7 @@ function renderEntrada(entrada) {
   });
 }
 
-// --- Cargar entrada ---
+// Cargar entrada 
 document.addEventListener('DOMContentLoaded', function() {
   initThemeToggle();
   initBackToTop();

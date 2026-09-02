@@ -8,7 +8,7 @@
   <title>JARDÍN DEL ORÁCULO</title>
   <style>
     /* ============================================================
-       ESTILOS - NO MODIFICAR
+       ESTILOS COMPLETOS (NO MODIFICAR)
        ============================================================ */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -164,86 +164,99 @@
     }
     #panel-compartir .btn-cerrar-panel:hover { color:#ff6b35; }
 
-    /* ============================================================
-       RESPONSIVE - Ajuste para móvil
-       ============================================================ */
     @media (max-width:768px) {
       #estado { font-size:9px; padding:8px 10px; min-width:100px; top:60px; right:8px; }
-      #grupo-botones {
-        bottom: 70px; /* Subimos los botones para que no se solapen con la ficha técnica */
-        left: 20px;
-        padding:8px 12px;
-        gap:8px;
-      }
+      #grupo-botones { bottom:70px; left:20px; padding:8px 12px; gap:8px; }
       #grupo-botones .btn-accion { font-size:8px; padding:3px 10px; }
       #input-rayar { bottom:110px; max-width:90%; }
       #panel-compartir { padding:20px; max-width:95%; }
       #panel-compartir .texto { font-size:15px; }
     }
 
-  /* ============================================================
-   FICHA TÉCNICA (ultraminimalista)
-   ============================================================ */
-.ficha-tecnica {
-  position: fixed;
-  bottom: 12px;
-  right: 16px;
-  z-index: 100;
-  font-family: 'Courier New', monospace;
-  font-size: 0.6rem;
-  color: #444;
-  text-align: right;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-  pointer-events: auto;
-  background: rgba(10, 10, 10, 0.3);
-  padding: 4px 10px;
-  border-radius: 4px;
-  backdrop-filter: blur(2px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-.ficha-tecnica a {
-  color: #555;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-.ficha-tecnica a:hover {
-  color: #ff6b35;
-  text-decoration: none;
-}
-.ficha-tecnica .sep {
-  color: #333;
-  margin: 0 2px;
-}
+    /* ============================================================
+       FICHA TÉCNICA (ultraminimalista)
+       ============================================================ */
+    .ficha-tecnica {
+      position: fixed;
+      bottom: 12px;
+      right: 16px;
+      z-index: 100;
+      font-family: 'Courier New', monospace;
+      font-size: 0.6rem;
+      color: #444;
+      text-align: right;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      pointer-events: auto;
+      background: rgba(10, 10, 10, 0.3);
+      padding: 4px 10px;
+      border-radius: 4px;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .ficha-tecnica a {
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .ficha-tecnica a:hover {
+      color: #ff6b35;
+      text-decoration: none;
+    }
+    .ficha-tecnica .sep {
+      color: #333;
+      margin: 0 2px;
+    }
 
-/* Botón volver (minimalista, esquina superior izquierda) */
-.btn-volver-mini {
-  position: fixed;
-  top: 20px;
-  left: 16px;
-  z-index: 100;
-  font-family: 'Courier New', monospace;
-  font-size: 0.7rem;
-  color: #444;
-  background: rgba(10, 10, 10, 0.3);
-  padding: 4px 10px;
-  border-radius: 4px;
-  backdrop-filter: blur(2px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.btn-volver-mini:hover {
-  color: #ff6b35;
-  border-color: rgba(255, 107, 53, 0.2);
-  text-decoration: none;
-}
+    /* Botón volver (minimalista, esquina superior izquierda) */
+    .btn-volver-mini {
+      position: fixed;
+      top: 20px;
+      left: 16px;
+      z-index: 100;
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      color: #444;
+      background: rgba(10, 10, 10, 0.3);
+      padding: 4px 10px;
+      border-radius: 4px;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-volver-mini:hover {
+      color: #ff6b35;
+      border-color: rgba(255, 107, 53, 0.2);
+      text-decoration: none;
+    }
+
+    /* Banner de Cookies */
+    #cookie-banner {
+      position:fixed; bottom:0; left:0; right:0;
+      background:rgba(10,10,10,0.9);
+      color:#ccc; padding:12px 20px; z-index:9999;
+      display:flex; justify-content:space-between;
+      align-items:center; flex-wrap:wrap;
+      border-top:1px solid #ff6b35;
+      font-family:'Courier New', monospace;
+      font-size:0.8rem;
+      backdrop-filter:blur(10px);
+    }
+    #cookie-banner button {
+      background:#ff6b35; border:none; color:#0a0a0a;
+      padding:6px 18px; border-radius:20px;
+      cursor:pointer; font-weight:bold;
+      font-family:inherit;
+      transition:all 0.2s ease;
+    }
+    #cookie-banner button:hover { background:#ff8a55; transform:scale(1.05); }
   </style>
 </head>
 <body>
 
   <!-- ============================================================
-       HTML - ELEMENTOS DE LA INTERFAZ
+       INTERFAZ DE USUARIO (Siempre visible)
        ============================================================ -->
   <div id="estado">
     <div><span class="valor">JARDÍN DEL ORÁCULO</span></div>
@@ -307,7 +320,39 @@
   </div>
 
   <!-- ============================================================
-       SCRIPTS
+       FICHA TÉCNICA Y VOLVER
+       ============================================================ -->
+  <a href="index.html" class="btn-volver-mini" title="Volver al inicio">←</a>
+
+  <div class="ficha-tecnica">
+    39913
+    <span class="sep">·</span>
+    <a href="privacidad.html">Privacidad</a>
+    <span class="sep">·</span>
+    <a href="terminos.html">Términos</a>
+    <span class="sep">·</span>
+    <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
+  </div>
+
+  <!-- ============================================================
+       BANNER DE COOKIES
+       ============================================================ -->
+  <div id="cookie-banner">
+    <span style="margin-right:15px; flex:1;">Este sitio usa recursos externos (Google Fonts, D3.js). No usamos cookies propias. Al continuar navegando, aceptas su uso.</span>
+    <button onclick="aceptarCookies()">Aceptar</button>
+  </div>
+  <script>
+    if(localStorage.getItem('cookiesAceptadas') === 'true') {
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    function aceptarCookies() {
+      localStorage.setItem('cookiesAceptadas', 'true');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+
+  <!-- ============================================================
+       SCRIPTS - MÓDULOS (ya no va el código gigante aquí)
        ============================================================ -->
   <script type="importmap">
   {
@@ -320,43 +365,17 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-  <!-- ============================================================
-       MÓDULO PRINCIPAL - TODO EL CÓDIGO AHORA ESTÁ EN src/
-       ============================================================ -->
   <script type="module" src="src/main.js"></script>
-
-</body>
-<!-- ============================================================
-     FICHA TÉCNICA Y BOTÓN VOLVER
-     ============================================================ -->
-
-<!-- Botón volver (esquina superior izquierda) -->
-<a href="index.html" class="btn-volver-mini" title="Volver al inicio">←</a>
-
-<!-- Ficha técnica (esquina inferior derecha) -->
-<div class="ficha-tecnica">
-  39913
-  <span class="sep">·</span>
-  <a href="privacidad.html">Privacidad</a>
-  <span class="sep">·</span>
-  <a href="terminos.html">Términos</a>
-  <span class="sep">·</span>
-  <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
-</div>
-
-<!-- Banner de Cookies -->
-<div id="cookie-banner" style="position:fixed; bottom:0; left:0; right:0; background:var(--bg-elevated); color:var(--text); padding:15px 20px; z-index:9999; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-top:2px solid var(--teal); font-family:var(--sans); font-size:0.9rem; box-shadow:0 -4px 20px var(--shadow);">
-  <span style="margin-right:15px; flex:1;">Este sitio usa recursos externos (Google Fonts, D3.js). No usamos cookies propias. Al continuar navegando, aceptas su uso.</span>
-  <button onclick="aceptarCookies()" style="background:var(--teal); border:none; color:var(--bg); padding:8px 24px; border-radius:6px; cursor:pointer; font-weight:bold; font-family:var(--sans); transition:all 0.2s ease;">Aceptar</button>
-</div>
-<script>
-  if(localStorage.getItem('cookiesAceptadas') === 'true') {
-    document.getElementById('cookie-banner').style.display = 'none';
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
   }
-  function aceptarCookies() {
-    localStorage.setItem('cookiesAceptadas', 'true');
-    document.getElementById('cookie-banner').style.display = 'none';
-  }
+}
 </script>
 
+<!-- Este debe ser el único script que cargue tu lógica -->
+<script type="module" src="src/main.js"></script>
+</body>
 </html>
