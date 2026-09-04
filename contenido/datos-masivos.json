@@ -1,0 +1,929 @@
+{
+ 
+  "cuerpo": [
+    {
+      "tipo": "subtitulo",
+      "texto": "Introducción"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es pertinente mencionar que el proceso creativo de este ensayo se realizó bajo el confinamiento pandémico causado por el SarsCov-2, virus biológico que modificó el rumbo de la vida misma como la conocíamos hasta antes de su llegada. La relevancia que trae al tema este acontecimiento no solo es por la situación cronológica de la vivencia bajo el confinamiento, sino que vislumbra un acercamiento acelerado a la tecnología, incluso a la que se pensaba aún alejada en pleno siglo XXI."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La digitalización de las actividades diarias creció exponencialmente, y con esto el número de datos creados durante este periodo de confinamiento se vio multiplicado. Siendo que cada usuario conectado a la red comenzó a generar información dos, o hasta tres veces más que la que usualmente aportaba en sus actividades como usuarios conectados a plataformas de streaming, redes sociales, foros de discusión, y un sin fin más de actividades online que se pensaban obsoletas u olvidadas por su masivo desuso."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Distintas herramientas y espacios digitales volvieron a ser utilizadas, con el fin de crear distracciones y convivencia virtual, por la prohibición de las reuniones presenciales; y para que las personas no solo tuvieran en sus mentes la información que llegaba por los medios de comunicación sobre datos relacionados al covid19."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La mancha de información cuantificable está permitiendo sondear de manera hasta un tanto escalofriante toda actividad visible de comportamiento de los usuarios; de esta manera es posible obtener radiografías sobre los espectros sociopolíticos de las distintas sociedades alrededor del mundo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es por eso que este ensayo surge como incentivo para abordar desde las prácticas artísticas digitales los dilemas que implican ser sujetos activos dentro de una sociedad interconectada a la vida Online. Para de esta manera generar vínculos transdisciplinares con la estadística e informática, e implementar procesos creativos en los que la apropiación de las herramientas empleadas en estas áreas ajenas a las artes, sean usadas como materialidades alternativas en producciones que puedan usar como principal recurso la Big Data, ciencia y analítica de datos, entre otras; para crear producciones artísticas digitales."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "1. Datos masivos: ¿qué son? Posibilidades y problemáticas"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En una reflexión acerca del cotidiano de la actualidad, y debido al tiempo que los sujetos pasan conectados a internet, surge una inquietud pensada en la cantidad de información que se genera cada día, de manera intencional con archivos subidos por los mismos usuarios de las distintas plataformas de comunicación e interacción social digital. Información que se obtiene de manera casi automática, y que puede ser atendida en pocos segundos por algoritmos capaces de adelantarse en tiempo al usuario que requiere de su ayuda o servicios."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "De esta manera mediante la unión de la estadística descriptiva, inferencial e informática, se generaron artilugios codificados, con el fin de que un algoritmo sea capaz de predecir qué tipo de información desea buscar una persona, descifrar sus gustos, para así tener un resultado basado en la concatenación de información comercial, procedente de la catalogación de la actividad, en la cual este sujeto es potencial consumidor."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Durante el transcurso de esta investigación, y observando distintos repositorios de bases de datos que recopilan la actividad de los usuarios conectados a internet, es como surge la interrogante:"
+    },
+    {
+      "tipo": "cita",
+      "texto": "¿qué es un dato?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Cuestionamiento que se intensificó al leer términos que denominan a esta temporalidad en que se redacta el presente documento, como la aún Era de los Datos, teniendo en cuenta que se llama así desde inicios de siglo XXI; este interés en el tema surge al notar que el valor actual de los datos pasó de ser una simple unidad de lo que sea, a información, y ahí, que por su carácter personal se convirtió en uno de los componentes más valiosos de la actualidad, impulsado por la analítica y reforzado por la informática con el fin corporativo de obtener resultados de rendimiento, en lógicas comerciales que permiten atender a las necesidades de una sociedad de consumo, de manera más directa y personalizada."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La palabra Dato proviene del latín datum ('lo que se da'). Y debe entenderse como: 'un Elemento primario de información de representación simbólica dotada de atributos variables, cuantitativos o cualitativos que conforman un testimonio o documento con el fin de generar conocimiento de algo, por sí solo es irrelevante, sin un propósito o utilidad no sirve para nada'. [[Wikipedia, 2020|https://es.wikipedia.org/wiki/Dato]] Así se permite describir hechos empíricos, sucesos y entidades no solamente generados de forma humanamente posible; este fenómeno visto desde la informática plantea que un dato se entiende como: expresiones generales que describen características de entidades sobre las que operan algoritmos."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Por sí solos los datos no constituyen información; en cambio, esta surge del adecuado procesamiento de los datos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El estudio de los datos no es algo nuevo, este surge mucho tiempo antes de la creación del primer ordenador automatizado. Sin embargo, el uso de los métodos usados en tiempos anteriores a la computadora ahora nos parecen arcaicos; el almacenamiento de información en enormes gabinetes (físicos) limitaba el resguardo y almacenamiento de manera espacial en los lugares destinados a tal actividad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Tener grandes cantidades de información era sinónimo de contar con espacios que igualaran o superaran la magnitud de documentos que serían anexados en dichos archivos. Lo que significaba al mismo tiempo que se debía tener un orden claro en la organización de la información, volviendo exhaustiva la tarea de disponer de un archivo indexado totalmente eficiente e inmediato."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para entrar en contexto sobre la historia de la automatización de la información debemos remontarnos a 1884 cuando [[Herman Hollerith|https://es.wikipedia.org/wiki/Herman_Hollerith]] desarrolló el tabulador electromagnético de tarjetas perforadas, este invento marcó el comienzo de la era semiautomática de procesamiento de datos de sistemas. Dando el primer paso hacia una automatización de la información, con esto se agilizaban los tiempos en búsqueda y reducía la espaciosidad en el almacenamiento."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Pero fue hasta 1957 cuando [[Karl Steinbuch|https://en.wikipedia.org/wiki/Karl_Steinbuch]] escribe 'Informatik: Automastische Informatioverarbeitung' con lo que introduce al campo de las ciencias el término Informática. Que más adelante se convertiría en la disciplina encargada del procesamiento automático de información digital mediante la utilización de dispositivos electrónicos y sistemas computacionales."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "A los procesos de conservación, estudios de los datos y de la información se les denomina 'Bases de Datos'. Si bien hasta este punto todos los avances tecnológicos relacionados a la computación eran de carácter militar; fue hasta la década de los 60 que se facilita la adquisición de un ordenador para su uso corporativo, y es donde se da la primera generación de bases de datos en red, así como la creación de nuevos lenguajes de sistemas de información."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Pero ¿cuál es la función de las bases de datos? Para responder esta pregunta primero debemos comprender a la base de datos como: 'El conjunto de información estructurada en registros y almacenada en un soporte electrónico legible desde un ordenador. Donde cada registro constituye una unidad autónoma de información que puede estar a su vez estructurada en diferentes campos o tipos de datos que se recogen en dicha base de datos'. (Yunta, 2001)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un usuario por sí solo puede producir una amplia cantidad de datos; sin embargo, al hablarse de una masificación en las producciones de data, va implícita la idea de una colectividad en los canales actuales de comunicación digital. Siendo que a gran escala es necesaria la intervención y participación de miles de personas para lograr que estas redes sean posibles, al grado de que se vuelva humanamente imposible la cuantificación y procesamiento de estas grandes bases de datos. Como lo explica [[Juan Martín Prada|https://es.wikipedia.org/wiki/Juan_Mart%C3%ADn_Prada]] en su texto 'La web 2.0 como nuevo contexto para las prácticas artísticas':"
+    },
+    {
+      "tipo": "cita",
+      "texto": "El input de la nueva web son los propios usuarios, lo que sin embargo no quiere decir que la posesión de las bases de datos que estos generan sea abierta, si bien en su mayoría son utilizables libremente, la propiedad, sin embargo, es de la propia empresa que la gestiona, así como la potestad de qué hacer con ella en el futuro. (Prada, 2007)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El fenómeno del BIGDATA, conocido en español como datos masivos, surge de la unión de la informática por medio de sistemas computacionales y de la estadística descriptiva e inferencial, para convertirse en una disciplina que, por su aún considerada prematura aparición, tiende a confundir bastante a quienes no están tan aparentemente allegados a la terminología, dado que su relevancia radica en enormes volúmenes de bases de datos tratados por algoritmos para poder realizar complejas tareas en cortos periodos de tiempo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En el ensayo 'La Revolución de los Datos Masivos' escrito por [[Viktor Mayer-Schönberger|https://en.wikipedia.org/wiki/Viktor_Mayer-Sch%C3%B6nberger]], menciona que 'El cambio de escala ha conducido a un cambio de estado. El cambio cuantitativo a un cambio cualitativo'. (Schönberger, 2013) Esto hace referencia al proceso de encontrar la información que puede ser transformada en conocimiento entre grandes cantidades de datos recolectados y clasificados dependiendo de los criterios de la organización que los gestione para posteriormente resignificarlos acorde al ámbito en el que vayan a ser utilizados esos conjuntos de datos."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "El Big Data se aplica a toda información que no puede ser procesada por métodos tradicionales en cortos periodos de tiempo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Existen características que se emplean como base para el funcionamiento del Big Data; a estos procesos se les conoce como las '5V': Volumen, Velocidad, Veracidad, Valor y Variedad. Estos 5 conceptos son sumamente indispensables para comprender a fondo el funcionamiento del Big Data ya que de ellos depende el adecuado procesamiento y gestión de cada base de datos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Por medio del surfweb en las inmensidades de internet, se posibilitó la exploración del universo online en foros y wikis para indagar en los procesos y herramientas que se utilizan para que este fenómeno de la Big Data tome tanta potencia; con lo que noté que el alto volumen de datos generados en la actualidad permite monetizar con la actividad personal de los usuarios de plataformas y dispositivos con conexión a internet."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Se dice que cerca del 75% de la información es generada por los propios individuos, y que el 90% de esta información se obtuvo por medio de dispositivos móviles."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los datos que más recurren a ser utilizados se clasifican en 3 tipos: Estructurados, Semiestructurados y No Estructurados, y es mediante los modelos de comunicación M2M (machine to machine) donde esta automatización de la información se vuelve más cercana a usuarios comunes, gracias a la comunicación directa y en tiempo real entre dispositivos electrónicos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Dentro de estas prácticas tecnológicas y con la relevancia que han tomado todo tipo de dispositivos capaces de conectarse a internet en la web 2.0 y 3.0, surge el denominado loT, 'Internet of the Things', en español conocido como el 'internet de las cosas'. Para los datos masivos el término de 'loT' se dice que fue acuñado por [[Kevin Ashton|https://en.wikipedia.org/wiki/Kevin_Ashton]] para describir a objetos cotidianos que se vinculan a otros objetos y/o dispositivos por medio de internet, recopilando datos para perfilar de forma automática información, gracias a sensores que por medio de software permiten analizar la información recopilada por el objeto inteligente o Smart."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La capacidad de esto les permite a las cosas conectarse entre sí, interactuar creando una especie de corporalidad codificada, que trabaja por medio de redes neuronales autónomas, entrenadas por algoritmos diseñados para esta acción en específico."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esto ya no solo nos habla de un canal de comunicación sin intervención de seres humanos; ahora propone un adelanto que posibilita predecir acciones o patrones. Función que es aplicada como estrategia en el medio datero y que forma parte del área de análisis, a esta actividad se le conoce como rascado web. Y es una herramienta que permite a las compañías y organizaciones proporcionar un servicio completamente personalizado para cada individuo y así construir una especie de identidad migrada a un espacio digital, con contacto directo a la identidad física biológica del usuario."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Estos adelantos tecnológicos implementados en dispositivos inteligentes posibilitan mejoras para la vida cotidiana de las personas; en campos como el del deporte, estos artilugios tecnológicos son conocidos como Wereables, y se han aliado a los deportistas para implementar estrategias de rendimiento en sus prácticas deportivas, mejorando su eficiencia basada en la información obtenida con el escaneo que realiza el dispositivo mediante los signos vitales y de actividad física."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un ejemplo es el de [[CATAPULT PLAYR GPS Tracker|https://playr.catapult.com/]] ofrecido por la empresa CATAPULT ONE, el cual consta de un chaleco de tela de compresión para deporte y un dispositivo GPS que se monta sobre el chaleco: con esto el deportista al hacer uso de la prenda activada puede obtener un panorama sobre las métricas de su actividad deportiva, conocer sus estadísticas de entrenamiento, estado de salud, debilidades y fortalezas a lo largo de su actividad física."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La información recopilada por el sensor es vaciada en una base de datos donde el deportista puede acceder de forma personal mediante un smartphone por medio de una app. Dicha aplicación cuenta con el mapeo completo de la actividad realizada durante la sesión de ejercicio, y permite visualizar en gráficos la actividad personal, así como la de otros usuarios de PLAYR."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El uso de dispositivos de este tipo dentro del ámbito del deporte profesional y no profesional ha llegado al grado de que en algunos casos estas herramientas han logrado predecir si la persona está por sufrir un accidente o incluso adelantar un diagnóstico sobre un posible problema de salud, como el caso de infartos por exceso de actividad. La información recopilada crea una base de datos totalmente personalizada sobre la actividad física de cada usuario."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Esta cuantificación y procesamiento de información se conoce como Tracking y es generado en tiempo real y sin necesidad de acudir a grandes laboratorios o clínicas del deporte; solo requiere conectar el dispositivo a internet para ejecutar la acción que permite conocer las estadísticas de otras personas que practiquen el mismo deporte y conocer los rankings a nivel global."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La tecnología ha hecho accesible y fácil el conocer el estado de salud del deportista. Solo se requiere un dispositivo wereable. Este es solo un ejemplo de las posibilidades que se han puesto en función mediante la Big Data; sin embargo, los procesos medibles son tan amplios y se pueden implementar siempre y cuando exista algo de data que cuantificar."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En una sociedad conectada, se dice que el Big Data ha logrado que las profesiones que comienzan a posicionarse como relevantes para años futuros tengan que ver con el campo de estudio de las ciencias de datos, y no se habla de este tema como especulaciones, ya que en la mayoría de los ámbitos el uso de automatizaciones en algoritmos y sistemas de predicción de comportamiento y actividad en torno al producto o servicio, como hemos visto antes, se han visto beneficiados por la fácil recopilación de datos necesaria con el fin de generar una plusvalía de las empresas en índices de alto rendimiento económico."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Según portales relacionados al ámbito laboral, como [[Glassdoor|https://www.glassdoor.com.mx]], se dice que para 2022 el sueldo de un Data Analyst en México es de $128,000.00 aprox. por año, y un Senior Data Scientist de $52,000.00 aprox. por año. De esta manera las corporaciones u organizaciones no solo logran mayores y mejores ofertas, sino que también implementan estrategias de Neuromarketing totalmente personalizadas para eludir a las personas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Todo esto suena a ciencia ficción; ese tópico de la literatura que nos ha permitido vivir a través de diversas historias donde las tecnologías más que beneficiar la vida del ser humano plantean visiones apocalípticas, donde las personas se ven superadas por sistemas autónomos computacionales, o por androides con capacidades destructivas de escalas masivas. Pero en realidad los beneficios que otorgan todos estos objetos y sistemas autónomos sí facilitan, a cierta escala, la vida de las personas que se vuelven usuarios directos de estos aparatos, aún y cuando el pago de estos servicios sea la privacidad de la actividad personal."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El funcionamiento de estas lógicas digitales, según escribe [[Paula Sibilia|https://es.wikipedia.org/wiki/Paula_Sibilia]] en su libro 'El Hombre Postorgánico':"
+    },
+    {
+      "tipo": "cita",
+      "texto": "en la actual sociedad de la información, la fusión entre el hombre y la técnica parece profundizarse, y por eso mismo se torna más crucial y problemática. Ciertas áreas del saber constituyen piezas clave de esa transición, tales como la teleinformática y las nuevas ciencias de la vida. Esas disciplinas que parecen tan diferentes poseen una base y una ambición común, porque están hermanadas en el horizonte de digitalización universal que signa nuestra era. En este contexto surge una posibilidad inusitada: el cuerpo humano, en su anticuada configuración biológica, se estaría volviendo obsoleto. Intimidados (y seducidos) por las presiones de un medio ambiente amalgamado con el artificio, los cuerpos contemporáneos no logran esquivar las tiranías (y las delicias) del upgrade. Un nuevo imperativo es interiorizado: el deseo de lograr una total compatibilidad con el tecnocosmos digital. (Sibilia, 2005)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Si bien la lectura de Sibilia se puede tornar un tanto fascista, su postura sobre la obsolescencia del cuerpo humano en comparación al dispositivo smart parece acertar en la idea de cómo ahora el dispositivo se convirtió en una extensión más del cuerpo; una extensión que puede escalarse en el Upgrade, o actualización tecnológica, pero que al mismo tiempo responde a una lógica de consumo donde la obsolescencia está programada con el fin de que un día deje de funcionar y sea suplido por un nuevo modelo del dispositivo anterior con mejores funciones."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Si bien el cuerpo humano no puede disponer de actualizaciones o upgrades tan notables como los dispositivos, esto no significa que su composición biológica no tenga cambios; ni que pensar en alguna modificación sea innecesaria para mejorar la calidad de vida, ni que el cuerpo humano sea del todo obsoleto."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Dichas actualizaciones nos hablan de que los dispositivos le pueden funcionar al cuerpo como soportes ajenos a la biología que posibilitan mejoras en la calidad de vida. Ya que no es algo nuevo que el ser humano siempre ha requerido de herramientas para facilitar sus labores, o realizar aquellas tan complejas para la resistencia o condición física nata de la biología humana."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En una época tan apegada a la conectividad se cree que hay recopilación de datos en todo tipo de áreas; y que eso permite realizar estudios de cualquier tipo para disponer de la mayor cantidad de herramientas en un solo dispositivo con conexión en red. Pero en este contexto dataista, estos eventos también nos hablan de una interconexión que más que innovación representa una esclavitud moderna, tanto al dispositivo u objeto inteligente, así como a las decisiones subsecuentes de las determinaciones que los algoritmos imponen como ideas mediante reconocimientos de patrones y predicciones con un supuesto fin de bienestar."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Este fenómeno se enfrenta también con aspectos políticos de vulnerabilidad en temas de seguridad sobre los datos que estos sensores recogen de los usuarios, y de cierta manera deja de lado la idea de democratización de la información y sobre todo toca puntos como el de las brechas digitales, tan presentes en países de tercer mundo y gran parte de América Latina."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un ejemplo es México, donde las vías de desarrollo económico complican aún en pleno 2022 que se pueda pensar en una ciudad inteligente; la adquisición de dispositivos de este tipo son un lujo en una sociedad donde las carencias económicas son tan notables. Es cierto que a estos panoramas no solo México se enfrenta, sino que se hace presente en muchas regiones del mundo. Es así como estas lógicas de poder político se vuelven posturas que lejos de ser teorías conspirativas sobre manipulación y control de masas en el siglo XXI, son temas que se hacen presentes desde distintos panoramas de los estudios sociales con las llamadas humanidades digitales, pero también desde medios de actual impacto presentados en nuevos formatos de crítica argumentativa."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un ejemplo visto desde la industria creativa se encuentra presente en el diálogo de la cinemática introductoria del videojuego [[WatchDogs2|https://www.ubisoft.com/es-mx/game/watch-dogs/watch-dogs-2]] (Ubisoft 2016). Este referente presenta un discurso crítico de lo más cercano al panorama actual de la vida apegada al dispositivo; y es por su carácter y postura que marca relevancia al señalar aspectos que a simple vista, como usuarios finales y/o consumidores de medios digitales, muchas veces dejamos pasar por el desconocimiento en el funcionamiento interno del internet."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Se conoce bien la plataforma y se interactúa socialmente la mayor parte del día; sin embargo, el usuario promedio no se detiene a pensar cómo funciona realmente toda plataforma digital en su interior, y no es algo que le interese en la mayoría de los casos, ya que lo que requiere es que el dispositivo y las aplicaciones cumplan simplemente con su función asignada. Aunque el ejemplo del videojuego WatchDogs2 es una ficción dataista, esta historia profundiza en una sociedad donde el uso de dispositivos electrónicos conectados a internet es tan común que parece que solo en un estado online se puede interactuar con el entorno, y de no estar conectado pasarías a ser un paria de la sociedad, un olvidado en la era de la digitalización de la información."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La historia del juego funciona como una analogía a lo que pasa actualmente con los datos de la sociedad digital, en una escala menor, pero con la posibilidad de que esa ficción sea superada por la realidad debido a la enorme seducción que esta era predispone al dispositivo inteligente."
+    },
+    {
+      "tipo": "cita",
+      "texto": "Ahora millones de dispositivos conectados sirven como puntos de recogida, mapeado y grabación de nuestras rutinas diarias; creando un sistema más seguro e invasivo, pero: ¿Quién más escucha? El gran hermano ya no trabaja solo; miles de hermanitos vigilan y registran todos vuestros movimientos, para crear perfiles personales que pueden comprarse, venderse o robarse en cuestión de segundos. Los juguetes estudian a vuestros hijos e informan a los mercados sobre sus hábitos; los electrodomésticos, consolas y sistemas de seguridad de la casa son ventanas a vuestra vida privada; cualquiera puede tomar el control de vuestros vehículos y de vuestros teléfonos móviles desde lejos. Tal vez penséis que sois inmunes, o subestiméis los riesgos, pero vuestra sombra digital ya está comprometida. Las compañías de seguros monitorizan vuestras costumbres para limitaros o negaros la cobertura. Los seguros médicos determinan si conviene trataros el cáncer. Los resultados de las búsquedas se ven sesgados para influir en vuestro ánimo y voto creando revueltas sociales a gran escala. Ahora valéis menos que los datos que generáis! (Watchdogs 2, 2016)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El peso del diálogo de esta ficción presentada en modo de videojuego se centra en una ciudad inteligente donde cada individuo que habita en ese mundo está sumamente atado a dispositivos móviles con capacidad de conexión a internet. Es común navegar por el mapa y observar en las calles de ese mundo abierto cómo van personas hablando por teléfono, gente en los parques tomándose fotografías y mensajeando. El protagonista del juego es un hábil Hacktivista que lucha por los derechos de los datos personales y está en suma contra de corporaciones que abusen de la información de las personas para beneficio económico de sus empresas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los temas de ciberseguridad manejados en la historia parecen aún alejados de la realidad cuando se miran a través de la pantalla, donde puedes controlar al personaje efectuando ataques desde un celular a las cuentas bancarias de los demás personajes del juego. Sin embargo, en el tema de ciudades inteligentes y de una vida online en la realidad ya está presente."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "El que un videojuego ponga el dedo en el renglón para señalar estos cuestionamientos me parece una estrategia sumamente inteligente, tanto desde el discurso político que permite que las personas puedan desarrollar un criterio propio y comenzar a investigar más sobre estos temas por su propia cuenta, así como por la inteligencia del gran equipo que creó la historia."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Lo más loco de este fenómeno es que por medio de un avatar de un videojuego se puede conocer tanto de una persona. ¿Será que por eso los datos son tan valiosos para las empresas? Ahora los dispositivos y plataformas se han vuelto extensiones electrónico-digitales de nuestra biometría, y de esta manera la simbiosis que precede y da valor a esta anatomía son los datos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Estas cuestiones se pueden abstraer con el fin de comprender cómo la imagen interviene en los canales de comunicación y hace que sea posible que la traducción de datos a información pueda volver comprensibles los mensajes y transformarlos en objetos visuales que representen de forma clara la información para lograr un impacto en los medios. Por lo que para comprender qué es la traducción, utilizaré a una de las figuras más importantes de la semiótica: [[Iuri M. Lotman|https://es.wikipedia.org/wiki/Yuri_Lotman]], quien menciona que para comprender el concepto de traducción lo debemos entender como: 'una concepción del intercambio comunicativo codificado, como un proceso de decodificación'. (Lotman, 2004)"
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Lo importante que hay que mencionar hasta ahora es que como usuarios cotidianos de estas tecnologías debemos ser conscientes y responsables para que cada usuario tenga control de sus propios datos personales generados mediante dispositivos de loT."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "A partir de este momento utilizaré como referencia del fenómeno del Big Data su nombre utilizado en países de habla hispana: 'Datos Masivos'."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "2. Tecnologías digitales y su relación con las artes"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La experimentación creativa en el arte actual encontró una sociedad en constante revolución mental, política y social, acompañada por rebeldía y disidencia desde su aparición, lo que permitió a los artistas crear y proponer discursos cada vez más críticos hacia los cánones del Arte en las disciplinas tradicionales; de esta manera se comienzan a moldear circuitos del quehacer artístico que funcionan sin la necesidad de la validación de la institución, mediante lógicas que responden a ideales de resistencia en pie de lucha."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Fue así como cada experimentación y propuesta vanguardista propició a cimentar lo que ahora con apoyo en la tecnología electrónica/digital emerge dentro de un mundo cada día más apegado a la digitalización."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es así como en medio de una época esclavizada por dispositivos electrónicos se van rompiendo paradigmas en los modos de pensar el arte, aprovechando su estado intangible o digital para fortalecer una ideología crítica donde el valor de las producciones no se reconoce en su materialidad física ni por sus dotes técnicos o estéticos en su totalidad; incluso deja de lado la idea de exposición dentro de un espacio habitable en muchos de los casos, para dar pie a lógicas que radican en el estudio de los contextos y en un impacto con un carácter más ontológico."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Las tecnologías digitales para la modernidad representaron una idealización de la mejora de la vida; pensar en el futuro predisponía una idea utópica de bienestar y solvencia. Pasar de un artefacto analógico a uno digital no solo marca estatus social, sino que habla de cómo los sujetos otorgan demasiada importancia a los objetos, simplificando sus actividades, volviendo torpes actividades tan simples y cotidianas por la acción de que ahora la persona ya no debe preocuparse por recordar un cúmulo de situaciones, sino que ahora solo debe programar un artefacto y este realizará las tareas por el sujeto."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En este sentido, se puede denominar a la tecnología como la conjunción entre la técnica, la herramienta y la ciencia para el mejoramiento de la vida."
+    },
+    {
+      "tipo": "cita",
+      "texto": "¿Pero en verdad mejora la vida?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Simplifica algunas actividades, como lo mencioné antes, pero tal y como en el homo videns, en el mayor de los casos, la tecnología seduce al usuario para esclavizarlo y volverlo dependiente del consumo de cada avance. Las herramientas de ahora son programadas con ceros y unos, y poseen pantallas que atraen de una manera hipnótica a quien hace uso de estos artilugios. El uso de técnicas computacionales, electrónicas y mecánicas dieron como resultado el nacimiento de la tecnología digital."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La aceleración en los procesos generó nuevas formas de consumo igualmente acelerado, expandiendo la ideología capitalista hasta el grado de que ya no se puede pensar en otro tipo de sociedad si no se quiere ser mal visto o etiquetado de disidente o paria ante los demás entes que componen el sistema."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Pero estas ideas para los artistas resultan demasiado atrayentes: el ir en contra de la corriente es algo que siempre ha caracterizado a estos seres tan llenos de curiosidad. Leer entre líneas los párrafos que están escritos en la historia de la humanidad ha permitido a quien se dedica a la práctica artística formar cuestiones tan politizadas como las expuestas en esta redacción, pieza clave en el desarrollo de producciones de carácter artístico."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los tiempos actuales manejados por tecnologías digitales no se iban a dejar pasar inadvertidos ante la vista del artista curioso con deseo de experimentar en las entrañas del funcionamiento de dichas herramientas para obtener lecturas que nutran y aporten algo a la cultura y sociedad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es así como artistas como [[Arcángel Constantini|https://arcangelconstantini.com/]] (México, 1970) juega con aparatos análogos y electrónicos para generar propuestas artísticas que vinculan a la herramienta con la naturaleza, al mundo físico y al binario, aportando no solo discursos estéticos que puedan apreciarse con la observación de sus extraños objetos, sino también propone discursos ideológicos en favor de la reutilización del objeto obsoleto que fue desechado por la actualización y mejoramiento de una nueva versión del mismo objeto, pero 'mejorado'."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Romper las reglas que establece el fabricante para hacer demanda de las garantías en caso de fallo, y hackear los aparatos para mejorarlos uno mismo o llevarlos a un técnico no autorizado por la compañía fabricante del producto, son temas que no solo se hacen por rebeldía, más en países de tercer mundo donde reparar un objeto en lugar de comprar uno nuevo son cuestiones que van más allá del consumismo mismo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "De esta manera Constantini propone el repáralo tú mismo o hazlo tú mismo, frase conocida por el punk como 'Do it your self' (DIY). Y que parte del señalamiento de un artista cargando un mensaje tan potente hacia las personas que no se dedican al arte, pero que en ocasiones no tienen la posibilidad de suplir sus aparatos deteriorados o viejos con los más recientes salidos al mercado. Este es solo un caso en el que el arte tiene relación con la tecnología y el fin se puede ver en forma de mensaje dentro de una sociedad que no tiene una relación tan directa con el arte."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Sin embargo, en su proyecto [[Nanodrizas|https://arcangelconstantini.com/nanodrizas/]] de 2009, Constantini hace uso de las tecnologías digitales para dar un mensaje mucho más fuerte para combatir problemas de carácter ambiental. El proyecto consiste en una pequeña embarcación con forma de platillo volador que es puesto sobre lagos para extraer muestras del agua y así poder controlar a los agentes contaminantes. Esto funciona gracias a sensores conectados de forma inalámbrica a sistemas centralizados que se encargan de visualizar los datos obtenidos de las muestras para crear lecturas que después serán interpretadas para posteriormente determinar el tipo de contaminante y cómo debe ser atendido por la misma nave acuática. La nave liberará enzimas o bacterias dentro del agua y al mismo tiempo determinará las condiciones del lugar con expresiones sonoras basadas en los datos."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La visualización de datos en tiempo real marca la diferencia en el cómo se ejecuta esta pieza de arte y tecnología. Y es un claro ejemplo de que la transdisciplina deja atrás el objeto ornamentado digno de colgarse en una sala, y que la herramienta no solo es un artefacto que se utiliza para reparar o mantener algo; en esta unión se ejemplifica un discurso estético, cultural, medioambientalista y tecnológico que parte desde una idea creativa engendrada por un artista."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La curiosidad del artista es parte fundamental en el desarrollo creativo de una pieza, a tal grado que su exploración con diferentes materiales, contextos y entornos expande la visión en la percepción de la forma y en cómo estos entes creativos sienten al mundo. El atreverse a salir de la zona de confort proveída por las prácticas artísticas y adentrarse en otras disciplinas ha permitido que se pueda pensar en la transdisciplina, vinculando áreas ajenas a la creación artística para conformar hibridaciones que dan como resultados otras alternativas de producción que salen de los soportes tradicionales de las bellas artes."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los avances en tecnociencia y la globalización encontraron la manera de 'facilitar' la vida por medio del dispositivo electrónico. Cosa que significa que para los ojos del curioso todo esto se vuelve algo nuevo por investigar para conocer su funcionamiento y apropiarlo, para que algo que no se pensó desde su creación en ser una herramienta con fines de producción artística ahora sea integrada en lógicas alternativas que reinterpreten sus fines y formas de utilidad, expandiendo su uso para que los resultados finales sean ahora apreciados desde otros contextos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es así como una investigación científica se puede fusionar con el arte para ayudarse mutuamente en el entendimiento de los campos. De esta manera la fuerza que surge de la observación de un fenómeno desde distintos campos nutre la finalidad de la investigación, lo que ocasiona que las relaciones entre los individuos que participan en dichos proyectos puedan abstraer la información obtenida y difundirla a cada uno de sus campos correspondientes."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los resultados como hemos visto en el caso de Constantini provienen desde la investigación medioambiental y se fusionan con la experimentación creativa del artista para proponer una visión que ayude en la mejora y conservación de mantos acuíferos de la región donde la pieza sea montada; sin embargo, este vínculo requirió que personas antes que Arcángel se pudieran reunir para concretar otra fusión."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En la rigurosidad de la práctica informática, las personas encargadas de desarrollar los procesos que terminarían conformando la visualización de datos se vieron con la limitante de que los resultados que obtenían visualmente seguían siendo difíciles de ver, comprender e interpretar. Por lo que recurrieron a profesionales de la cultura visual para apoyarse de ellos para lograr crear formas más dirigibles de leer la cantidad monumental de información que recibían por parte de sus algoritmos y bases de datos. De esta manera se optó por la utilización de la infografía como forma de representación de datos; una vez más la imagen estaba presente para servir como apoyo en la comprensión de un mensaje, con la utilización de ilustraciones que traducen elementos cuantificables en esquemas y gráficos que simplifican la comunicación mediante el diseño gráfico."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Si bien la tecnología digital se compone mayormente por ceros y unos, en la práctica artística no necesariamente sucede lo mismo. El caso del londinense [[David McCandless|https://informationisbeautiful.net/]] es una muestra relevante de la unión de la técnica de la tecnología digital y las artes. Al dedicar todo un libro que ilustra visualización de datos de distintos tipos, creando imágenes y patrones llenos de formas y colores que estéticamente son bastante atrayentes para la mirada. McCandless describe en su libro [[Information is Beautiful|https://informationisbeautiful.net/]] su gusto por la data como:"
+    },
+    {
+      "tipo": "cita",
+      "texto": "A visual guide to the way the world really works. Every day, every hour, every minute we are bombarded by information - from television, from newspapers, from the internet, we're steeped in it, maybe even lost in it. We need a new way to relate to it, to discover the beauty and the fun of information for information's sake. No dry facts, theories or statistics. Instead, Information is Beautiful contains visually stunning displays of information that blend the facts with their connections, their context and their relationships - making information meaningful, entertaining and beautiful. This is information like you have never seen it before - keeping text to a minimum and using unique visuals that offer a blueprint of modern life - a map of beautiful colour illustrations that are tactile to hold and easy to flick through but intriguing and engaging enough to study for hours. (McCandless, 2013)"
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Esta propuesta de planos de la vida es una visión muy personal del artista sobre una globalización datificada; el apropiarse de los datos para procesarlos y crear diseños donde el sentido estético tiene el mayor peso en el discurso del manejo de la información es solo una muestra de las múltiples posibilidades que la transdisciplina aplicada en las artes puede proponer."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Las visiones tan naturales que se encuentran abstraídas en todo ese cúmulo de información son solo una radiografía que el artista interesado en este tipo de práctica debe utilizar para enriquecer su conocimiento y producciones."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "2.1 Prácticas Artísticas Digitales"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para la práctica artística, estudiar la visualidad parte de la convicción de que la visión es un constructo social más que un sentido físico y no existe una pureza fenoménica, al igual que como sucede con el lenguaje. La importancia de estos actos de ver y de la visualidad, así, se debe considerar como práctica notable política y culturalmente, dependiente de la fuerza performativa."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Así es como desde el campo del análisis teórico, la visión pone en conflicto la relación de los estudios visuales con la historia del arte, pensando que son cosas totalmente diferentes, lo que permite tener diferentes posturas de profesionales de ambas ramas que limitan la idea de pensar en que ambos pensamientos son complementarios. En el sentido estético de los estudios visuales se ve como el estudio de la percepción y la sensación. Por el lado de la historia del arte, las imágenes y las formas visuales."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[W. J. T. Mitchell|https://en.wikipedia.org/wiki/W._J._T._Mitchell]] menciona en su texto 'Mostrando el ver: una crítica de la cultura visual':"
+    },
+    {
+      "tipo": "cita",
+      "texto": "Por otro lado no precisamente se refiere a la historia del arte y la estética, sino a la imagen técnica y científica, la televisión y los medios digitales, además de todas aquellas investigaciones filosóficas en torno a la fenomenología de la visión, los estudios semióticos de las imágenes y los signos visuales, la investigación psicoanalítica de la conducción escópica, los estudios cognitivos, fisiológicos y fenomenológicos del proceso visual, los estudios sociológicos de la representación y la recepción, la antropología visual, la óptica física y la visión animal, etc. (Mitchell, 2003)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En otras palabras, se habla de un tópico que puede adecuarse a formas generales o delimitarse. Partiendo de esta idea, el papel del artista como crítico cultural a partir del siglo XX se ve influenciado por los estigmas que nacen de la industrialización de las sociedades y tiende a cuestionar el papel que los individuos comienzan a tomar en esta forma de vida capitalizada, donde el poder recae en unos pocos entes acaudalados que controlan el aspecto económico, político e industrial de la sociedad, con lo que al cuestionar a estos entes o instituciones, el artista se da a la tarea de señalar los fallos que esclavizan y desdignifican la vida misma por poner en primer plano el interés monetario antes que otro."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Los artistas deben resistirse a entrar en estas lógicas de producción donde la masificación del producto tiene más relevancia que el ingenio creativo mismo; para esto una de las formas de resistir y no caer en la lógica corporativa y luchar por el bien de la cultura de las artes se debe encaminar a un nivel más autogestivo, en el que no se depende de la institución para poder hacer uso de la capacidad de abstracción, que solo encamina la cultura en un sentido más de espectáculo de alto consumo, y no en una memoria cultural donde la práctica artística misma sea apreciada por su capacidad de impacto no mediático."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En un acto de resistencia y disidencia, el artista del siglo XXI se puede replantear su papel como sujeto activo en la sociedad digitalizada y observar los fenómenos geográficos y socioculturales desde el procesamiento de información, para de esta manera generar producciones artísticas que se basan en el alto consumo e impacto mediático de las mismas personas usuarios de internet."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Así, al utilizar esa información solo parte de un conjunto que conformará el total de la obra, se puede proponer hacer uso de recursos institucionales y/o corporativos de gestión de datos masivos para utilizar la información como nueva materialidad, siempre y cuando los datos no expongan contenido sumamente sensible y personal, ya que esto ocasionaría pasar por encima de los derechos y puede afectar de forma directa a los usuarios."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Podemos entender que un dato personal es: cualquier información concerniente a cualquier persona física identificada o identificable, donde su identidad puede ser verificada mediante cualquier información, donde los datos se asocian a la persona."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En prácticas de actual relevancia sobre el tratamiento de datos en pro de los derechos de los usuarios, se habla mucho de temas relacionados a la ciberseguridad donde la privacidad de las personas en el espacio virtual ha generado que en muchos gobiernos se abogue por crear leyes de protección de datos, enfocando su mayor peso en el ámbito privado. Para México esto se puede conocer mediante la [[Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados|https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf]] (CONGRESO GENERAL DE LOS ESTADOS UNIDOS MEXICANOS, 2017). Es de suma importancia conocer este tipo de documentos y leyes para hacer un uso adecuado de la información de una dependencia o entidad, ya que de usarse en prácticas maliciosas evidentemente se estaría infringiendo la ley."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "El interés de la práctica artística en torno a tomar posición a partir de la mirada de datos o información para poder traducirlas en contenidos nos permite hablar del movimiento entre el presente y el futuro, desde los recuerdos y la memoria; contemplar una temporalidad basada en la información obtenida por grupos de personas nos permite averiguar de forma más directa los contextos, contemplar la línea de tiempo de una forma esquematizada y generar un archivo más homogéneo sobre la vida misma."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Ya que al hacer uso de estos recursos podemos realizar una crítica fundamentada en datos, teniendo en cuenta la responsabilidad y consecuencias que implica el posicionarnos ante algo visto desde la práctica artística. La utilización de un material cuantificable, o que exponga información sobre los participantes o usuarios, significa que la información está ahí, pero para reinterpretar el contenido de la información y adecuarlo al contexto artístico aterrizado en una obra de arte, debemos comprender todo esto en función de una imagen, y hace falta saber que para que la visión ocular, sonora, etc. interactúe con el objeto y despliegue un diálogo, la imagen se debe contemplar; de esta manera sabremos más sobre la propuesta, podremos comprender que la naturaleza fenoménica de lo visual en realidad es otorgada por el contexto que rodea a la imagen."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Hablamos de la búsqueda de nuevas materialidades, o de la expansión misma en el uso de la herramienta, con base en la experimentación y con la finalidad de crear discursos, obras de arte, producciones y conocimiento por medio de la investigación del fenómeno de interés del artista. Es así como en la práctica artística contemporánea, el resultado de una investigación se vislumbra de forma estética donde el pensamiento filosófico se ve influenciado por la apropiación del lenguaje, y se entrelaza mediante conceptos para la realización de objetos cargados con discursos que declaran argumentos; los cuales pueden ser comprobables o no serlo, ya que en el proceso artístico, al señalar un fenómeno, también se puede hacer uso de la ironía como resultado para visualizar y tener un acercamiento estético del objeto de estudio."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Se buscan palabras para 'decir lo indecible'. Así mismo en la era de la masificación de la información es como se puede aprovechar todo ese cúmulo de datos cuantificables para experimentar y brindarles una cualidad estética que permita comprender la información de manera más cercana a la posibilidad de conocimiento del usuario. Esto permite también que se propongan nuevas formas de ver que no solo sean mediante la visión ocular de la persona."
+    },
+    {
+      "tipo": "cita",
+      "texto": "¿Qué pasa cuando los artistas se dan cuenta de que pueden apropiarse del espacio virtual que proporciona internet, y ocupar las herramientas empleadas para efectuar el funcionamiento de la red con el fin de proponer nuevos tipos de lógicas de producción y experimentación?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Podría hablarse de 2 posibilidades:"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "1. Que una pieza de arte es meramente un objeto ornamentado que acompaña a la investigación, y resulta que la principal función de la investigación es la de generar conocimiento. En este sentido el artista puede volver transparente el fenómeno del BIGDATA, con lo que sería más fácil de digerir para quien aún no comprende qué significa esto, o no tiene la posibilidad de tener un acercamiento intelectual o afectivo a estos fenómenos natos de la tecnología. Es así como haciendo uso de la reflexividad y su relación con la forma, usos en procesos de gestión de información y demás herramientas propias del internet, el artista puede permitirse extraer ese contenido resguardado en redes, siendo que de otra manera no podría hacerse o sería demasiado tardado y complejo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "2. A todo esto, lo que le otorga un valor agregado del sentido estético. En esta función radica que mediante estos procesos se puede dejar atrás la representación para obtener una apropiación de la información y replantear su entendimiento articulando discursos que propongan un desdoblamiento en las salidas de los formatos artísticos sin necesidad de recurrir a una sola técnica que sirva como mero elemento representativo o ilustrativo; sino que cuestione el papel de sujeto en sociedad por medio de experimentaciones que tengan un impacto afectivo en la imagen, sea cual sea el tipo de imagen (sonora, visual, sensorial, etc.)."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Todo esto es una red de relaciones que comienzan a desarrollarse, donde la materialidad del objeto no es el todo de la obra; siendo así, no se limita la salida específica en tecnicismos propios del arte clásico, y su interpretación marca una transición que no va de la mano con lo simbólico, ya que parte de datos reales que pueden ser hasta obtenidos en tiempo real y directamente de las personas conectadas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La condición de unicidad ya no es nata del tiempo; se conserva su memoria en lo espacial y su reproducibilidad ya dejó atrás el pensar de la exclusividad para abrir paso a lo general: la red es global y el pensar discursos artísticos de este tipo implica que su visibilidad también es global. Siendo que en esa generalidad donde la visualización de datos toma potencia, esto puede ser posible; tal como lo marca la comunidad en [[Wikipedia|https://es.wikipedia.org/wiki/Visualizaci%C3%B3n_de_datos]] donde se dice que la visualización de datos es un 'campo de estudio interdisciplinario cuyo objeto es la representación de datos en formato gráfico. Como forma de comunicación, es particularmente eficiente cuando la cantidad de datos a representar es grande, por ejemplo, en el caso de series temporales y/o bigdata'. (Wikipedia, 2020)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Así, utilizando las herramientas de la visualización de datos como aliado de las herramientas de la práctica artística, se fusionan las disciplinas y nos permiten hacer exploraciones creativas con el fin de proponer nuevas formas de observación, interacción, apreciación o contemplación de toda esa información global que se contiene en este gran universo virtual. Estas propuestas son una manera de leer e interpretar los datos masivos desde la sensibilidad artística, y no desde la práctica estadística con fines comerciales."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En los últimos años diversos artistas alrededor del mundo han comenzado a expandir el campo del Dataart mostrando posibilidades alternativas de apreciar la actividad humana y de la naturaleza por medio de sensores y otro tipo de herramientas digitales."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La primera pieza que se tiene registrada de arte con datos remonta a una era antes de internet (1869), fue creada por [[Charles Menard|https://en.wikipedia.org/wiki/Charles_Joseph_Minard]] y no es más que un mapa figurativo que muestra la derrota y retirada de Napoleón durante la campaña rusa de 1812. Si bien esta pieza de representación visual de datos responde más a un primer plano de infografía, no deja de ser un antecedente para lo que ahora se está generando en formato digital y masificado de visualización de datos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En un panorama más actual, con un acercamiento a la idea planteada por Menard, el artista radicado en San Francisco, [[Nicholas Rougeux|https://c82.net/]], es un buen ejemplo de alguien que emplea los datos como materialidad alternativa de producciones, así aprovecha las posibilidades de las herramientas digitales para concebir creaciones de arte de este tipo donde la cotidianeidad de la actividad humana y los efectos sociales de algunos lugares son señalados desde una postura que reflexiona sobre la vida misma."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El mapear los recorridos de sistemas de transporte subterráneo a lo largo del mundo, o jugar con exploraciones de los indicadores de paletas de color que utilizan estos transportes en distintas ciudades, son un recurso que visualmente es atrayente a simple vista; sin embargo, una vez más las relaciones entre los recursos visuales y la información que entre líneas refuerza el verdadero discurso de los posters son una fotografía más pura de lo que sería un acercamiento al alma de las propias ciudades."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Las metáforas o analogías con las que Rougeux juega son un indicador de que el área de la estadística y las artes son un buen complemento, y que la digitalidad no está en lejanía de la vida offline, incluso que no se remota geográficamente a la circunferencia del planeta, como en la pieza [[Lunar Conversations|https://c82.net/work/?id=368]] (Rougeux, 2018). Donde ocupa como recurso inicial las series de conversaciones que se tuvieron durante la misión hacia la luna del Apolo 11."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La pieza consta de una línea de tiempo interactiva donde cada transmisión es registrada y resignificada en forma de icono circular que va del 16 al 24 de julio de 1969, tiempo que duró la misión. De esta manera la utilización de datos proporcionados de manera abierta en las páginas web de instituciones como la [[NASA|https://www.nasa.gov/]] y JSC pueden convertirse en fuentes primarias de información para la elaboración de obras de arte basadas en datos."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Este claro ejemplo de arte digital nos muestra cómo solo hace falta echar a andar la imaginación para concretar las salidas en el medio artístico actual."
+    },
+    {
+      "tipo": "cita",
+      "texto": "Encontrar un nuevo conjunto de datos para jugar es emocionante. Averiguar qué hacer con él es una montaña rusa de emociones que van desde el asombro y la intriga hasta la frustración y el rascado de cabeza. (Rougeux, 2018)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Si bien los datos responden a temporalidades específicas propias del momento y contexto en que se generan, esto también se limita a los soportes en los que se almacenan o distribuyen este tipo de contenidos; partiendo del pensamiento fugaz de remplazo en la vida apegada al dispositivo, se piensa que en una conectividad online es donde los dispositivos están sujetos a ser actualizados constantemente y esto implica que las cualidades del medio también deben padecer por estas mismas renovaciones, ya sean en hardware o software."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "De esta manera se especula en la mejora y avance, apostando por la eficiencia y veracidad del funcionamiento de las cosas, pero esto no siempre se juega a favor del dispositivo o de las personas, y en el caso de la práctica artística, el mantenimiento de plataformas o medios virtuales se puede volcar en contra de la producción. Tal y como es el caso de la mayoría de las piezas de Netart que funcionaban bajo el programa de edición de gráficos vectoriales de [[Adobe Flash Player|https://www.adobe.com/products/flashplayer.html]], y que en 2020 dejó de ser compatible al contenido multimedia de los navegadores de internet."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Esto no solo habla de la falta de soporte por parte de las empresas, sino que incluso para la historia de las artes significa que en cuestiones de preservación de obras de arte, las piezas de netart creadas desde 1996 hasta 2020 ahora son solo parte del recuerdo y que para futuras generaciones que estén interesadas en conocer los antecedentes a las prácticas artísticas digitales en internet, ahora solo lo podrán hacer, en la mayoría de los casos, por medio de las palabras de alguien más."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Si bien existen repositorios como la creada por [[Rhizome.org|https://rhizome.org/]], las piezas requerirán de recodificaciones en los lenguajes de programación que se ajusten al funcionamiento actual de la red, condicionando nuevamente este tipo de contenidos a estar ligados al upgrade en favor del funcionamiento y preservación de la obra. Con este suceso surge una disyuntiva sobre si las piezas deben ser rescatadas y preservadas en conjunto al dispositivo en el que se podían correr originalmente, o si al cumplir con su tiempo de vida, estos sistemas, equipos y piezas se deben dejar morir en paz para dar paso a nuevos surgimientos creativos y lógicas discursivas digitales."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La genialidad que marca la diferencia entre el arte digital de internet en diferencia a otros tipos de arte, es que no debes acudir al espacio físico geográfico donde se expone la pieza de interés; el fácil y global acceso del que se dispone en internet facilita el acceso a este tipo de creaciones y contenidos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En 2009 el compositor estadounidense [[Luke DuBois|https://www.lukedubois.com/]] presentó su proyecto [[Hard Data String Quartet and Website|https://turbulence.org/Works/harddata/]] que consiste en crear puntuaciones de información de código abierto de la guerra entre Estados Unidos e Irak, haciendo uso de estadísticas económicas, sociales, políticas y culturales de ambos países a lo largo del periodo que duró el conflicto. De esta manera los datos se sonifican en movimientos que duran 25 minutos de música."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El mapeo de datos de DuBois era presentado mediante el website [[turbulence.org|https://turbulence.org/]]; sin embargo, después del abandono al soporte de flash, el acceso ha sido limitado y al ingresar a la liga presente en el sitio web personal del artista, la única respuesta al ingreso es una ventana con la leyenda 'Adobe Flash ya no está disponible', tal y como las personas que se volvieron parte de una estadística y que convertidos en datos pasaron a ser sonificados, colocados en una escala pentatónica, interpretados y de nuevos silenciados."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Hard Data es solo un ejemplo de arte que responde de forma directa a eventos temporales que marcan la vida de toda una sociedad, y que por su materialidad y discurso están cargados de protesta creativa, pero al mismo tiempo se vuelve un objeto destinado al olvido."
+    },
+    {
+      "tipo": "cita",
+      "texto": "En este sentido ¿cómo debemos actuar ante las prácticas políticas de la obsolescencia programada, debemos adaptarnos, o respetar los tiempos de vida del medio?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Si bien la respuesta a este cuestionamiento dependerá del interés creativo de cada artista, una idea responsable sería la de resistir a las lógicas de consumo, y explotar al máximo cada recurso proporcionado por la comunidad, sin dejar toda expectativa de funcionamiento de la actividad online en manos de las grandes corporaciones que manejan y promueven sus propias lógicas. De esta manera el uso de código abierto puede ser una opción viable para combatir la exclusividad tiránica de las empresas líderes en tecnología."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "2.2 Lógicas alternativas online de difusión, exhibición y venta de arte digital"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El arte digital no solo se enfrenta a la crítica hegemónica de las artes con mayúsculas, también se enfrenta a condiciones tecnológicas que hablan sobre la obsolescencia del dispositivo utilizado para sus procesos conceptuales, creativos o de exhibición; sin embargo, en esta era donde el arte se nutre de código binario es donde al mismo tiempo surge resistencia al medio, desdoblando el espacio-tiempo, y rompiendo lógicas o creando circuitos donde parecía que no existían acuerdos, por la competencia que la industria creativa más comercial impone al hacer que se luche por una posición laboral, y no que se compagine con el otro para reforzar una idea y propiciar que el panorama del arte contemporáneo se vincule en relaciones de colegas y no por circuitos cerrados llenos de toxicidad no colaborativa."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Este tipo de industrias donde la creatividad digital es primordial para el debido funcionamiento que demanda la actual sociedad también involucra que los mismos artistas protesten y creen alternativas otras para generar ingresos y sobrevivir dignamente. Porque está bien hacer arte por amor al arte, pero el artista también tiene gastos para solventar su forma de vida, y en el caso digital, tratar de confrontar lo más cercano posible a la obsolescencia del medio (software, hardware)."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Durante el anteriormente mencionado tema de confinamiento también se generó un boom en lógicas de exhibición y exposición de arte en plataformas virtuales como [[Mozilla Hubs|https://hubs.mozilla.com/]], se codificaron galerías completas que una persona podía recorrer desde la comodidad de sus dedos, lo digo de esta manera ya que la gran mayoría de este tipo de eventos se recorrían avanzando los espacios virtuales por medio de pantallas de dispositivos móviles o hardware como ratones, teclados computacionales, donde incluso se recurrió a escenarios de videojuegos de mundo abierto donde se permitía reapropiar el espacio online para realizar exposiciones de arte, resignificando la idea de videojuego gracias a la práctica artística."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "No había que caminar para apreciar el espacio; esto en un estado de aislamiento amplió las posibilidades de exhibición para muestras de arte digital que por su misma naturaleza se adaptaban a la perfección al medio propio de internet."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En el caso de producciones de arte plástico, la naturaleza matérica de las piezas se tuvo que ver afectada por la digitalización del soporte, lo cual convertía a la obra exhibida en solamente un registro fotográfico de la obra original. En este sentido muchos de los artistas que participaban en exposiciones virtuales optaron por generar producciones partiendo de soportes multimedia para evitar en lo mínimo posible que sus piezas tuvieran que ser digitalizadas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "De esta manera la resistencia a las lógicas tradicionales de exhibición tuvo una confrontación autogestiva en la que grupos pequeños de artistas comenzaron a realizar convocatorias con el fin de crear nodos expositivos y que la actividad artística no se detuviera, y lo más importante, que no necesitara de instituciones como museos o galerías privadas para que se notara movimiento en los circuitos artísticos alrededor del mundo."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Este tipo de actividades permite que los mismos artistas revaloricen su trabajo como agentes culturales y protesten ante la demandante labor que implica ser una persona creativa no legitimizada por un espacio o circuito comercial."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Sobre todo, en el caso del arte digital, que en muchos de los casos y como se menciona antes, en gran parte de las piezas de arte digital la naturaleza misma de la pieza se encuentra en soportes binarios, no existe una materialidad física tangible; la obra de arte digital está condicionada al medio y al dispositivo para poder ser activada. Aquí surgen problemáticas sobre la venta y distribución de este tipo de piezas, y es que las personas interesadas en adquirir obras de arte están acostumbradas a adquirir objetos físicos que se pueden llevar en sus manos y decorar sus salas con cuadros o esculturas. Pero con piezas de naturaleza digital se necesita de un dispositivo con pantalla para poder colgar un gif en tu sala."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un ejemplo de resistencia comercial, y que por su prematura concepción aún causa dilemas en las lógicas que implementa, es el del fenómeno del CriptoArte, que no atiende a cuestiones estéticas conceptuales, ni se denomina una nueva disciplina dentro del arte digital, sino que se posiciona en el puro ejercicio de comercializar arte digital en un formato totalmente binario que solo existe y persiste dentro de internet o dispositivo electrónico."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esta práctica surge por ahí del 2012-2013, en un primer ejercicio para la construcción de DAPP's (Decentralized Applications) en la red que se manejaban bajo los esquemas de peer-to-peer con lo que una sola persona u organización no poseía el control total de la aplicación, dando pie a una democratización en el uso de dichas aplicaciones; de esta manera el criptoarte se apropia de herramientas del Big Data para poder implementar su función principal."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Este mercado virtual de arte se rige por Blockchain, y es monetizado por medio de transacciones de dinero virtual conocido como criptomonedas, en especial de la Ethereum, a diferencia del mercado del arte hegemónico que comercia con dinero fiduciario y donde se entrega un certificado de originalidad, autenticidad y unicidad de la pieza que cumple una función de espacialidad física."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En el caso del criptoarte y con ayuda del blockchain, se puede hablar de la certificación de originalidad de una obra digital; en la mayoría de los casos se refiere a imágenes fijas o en movimiento en formato .gif, u otro tipo de archivos tokenizables. A este tipo de piezas se les conoce como NFTs por sus siglas en inglés (Non Fungible Tokens), y representan una lógica autogestiva en los modelos de producción, venta y distribución de arte. Si bien las especulaciones sobre la prevalencia de este tipo de actividades aún están en duda, para 2021 el número de tokens en el mercado aumentó considerablemente, llegando incluso a marcar tendencia en las casas de subastas más importantes del mundo, con lo que para 2022 se pudo hacer campo en las ferias de arte más reconocidas alrededor del mundo."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Y es que la propuesta de escasez digital aún deja mucho por discutir, debido al fácil acceso que se tiene a creaciones digitales en formatos multimedia de forma gratuita, que deja una idea de que el internet es para todos y lo que hay dentro también nos pertenece a todos. Sin embargo, el jugar con el certificado de originalidad de un archivo que puede ser ampliamente manipulable y reproducible infinitamente no es algo nuevo. Lo nuevo sí es el tipo de discusiones sobre si se debe comprar o no 'eneftis'."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Al igual que en todo tipo de arte, la calidad técnica y estética de la obra es variante en muchos sentidos; para internet todo puede ser tokenizado. Un ejemplo es [[Jack Dorsey|https://twitter.com/jack]], el CEO de Twitter, que vendió la captura de pantalla del primer tweet de la historia; fue vendido en ETH 978.34953606 que tiene una equivalencia en USD de $1,500,000.00. Dorsey no es artista, su alta venta se debe a la popularidad de la red social que él dirige. Sin embargo, en el criptoarte uno de los nombres que más se menciona por ser la figura que logró recaudar $69,000,000.00 con la venta de [[Everydays: The First 5,000 Days|https://www.beeple-crap.com/]] es el estadounidense Mike Winkelmann, mejor conocido como [[Beeple|https://www.beeple-crap.com/]]. Su obra de arte en archivo digital NFT se convirtió en la primera pieza en obtener el título de la más cara de la historia del arte Criptoarte en 2021."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Winkelmann es ejemplo perfecto de cómo la visibilidad del trabajo de un artista visual en plataformas de interacción social online puede masificarse. La constancia de este personaje en sus 13 años de carrera dentro de plataformas como Instagram le permitió hacerse de un gran grupo de seguidores fieles de su trabajo; la gestión propia de sus cuentas marca un antes y después en las lógicas de venta de obras de arte."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Este ejemplo es la muestra que ahora gracias al Big Data y con ayuda del Blockchain, ser un artista activo dentro de un circuito comercial como el que propician los NFT se vuelve más abierto, o al menos así se planteó en su inicio, brindando una idea de democratizar el medio artístico para ser inclusivo y global. Pero como toda idea buena que al principio no se toma en cuenta, no es hasta que comienza a generar cantidades monetarias enormes hasta que la industria entra para intentar apoderarse del mercado y acaparar con todo fin corporativo de marcar con una 'R' o 'C' lo más que pueda dentro de lo que aún se ve en crecimiento para ser una industria como lo es el NFT."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esto deja en primer plano la labor de que el artista está en una carrera constante con la institucionalización de su labor, donde lo que se rige por la unión de unos cuantos crece y se expande hasta convertirse en una propuesta de mercado alternativo, hasta que las casas de subastas o en este caso como se menciona antes con las ferias de arte de 2022, donde las galerías ahora tenían un pabellón especial para venta de este tipo de piezas."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Y es que, si bien el valor de las criptomonedas no es tan accesible en algunos casos, la posibilidad de contar con varios tipos de ellas permite tanto a artistas como a coleccionistas hacerse de una colección totalmente personalizada, y a disposición de unos cuantos clics."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "2.3 Para una resistencia en favor del código libre y de la producción de DataArt"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La globalización y eficacia en los dispositivos electrónicos capaces de conectarse a internet nos hablan de un panorama de accesibilidad en la creación de producciones artísticas que rompe con los esquemas de privilegio de unos cuantos que se veía en el pasado por los altos costos de equipos de cómputo y otro tipo de dispositivos necesarios para la creación digital. Siendo que ahora para la práctica artística digital del siglo XXI es importante que el artista obtenga conocimientos sobre informática y computación. Para de esta manera reforzar sus aptitudes de competencia contra algoritmos, software, la obsolescencia misma del dispositivo y el uso de caras herramientas de licencia privativa que surgen como canon para la creación digital."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Siendo que, si nos encontramos en un mundo más interconectado y que se conforma en una red neural de información aportada por cada usuario conectado, es de importante relevancia retomar las ideas de colectividad y apoyarnos en la cultura del conocimiento compartido sin copyright privativo, para así generar herramientas libres de membresías y costosos cargos que lo único que han generado es que se concesione el acto de crear en lo digital."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "A lo largo de la historia de las artes mediales y/o digitales se ha visto que grupos de artistas trabajan bajo la bandera de Creative Commons teniendo como consigna la del software libre, abierto y comunitario (Free and Open Source Software FOSS). Lo que significa que si alguien crea un código para una herramienta y esta herramienta es compartida en internet, alguien más puede retomar ese código para ejecutarlo, estudiarlo, reutilizarlo e intervenirlo para su uso personal en la creación de su propia versión de su herramienta digital, esto sin pasar por alto el respectivo crédito del creador del código fuente."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es así como por la inmensidad de internet se puede acceder a repositorios donde la comunidad cuelga sus códigos con el fin de hacer frente a la privatización del software."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Como en el caso del lenguaje de programación creado por [[Ben Fry|https://benfry.com/]] y [[Casey Reas|https://reas.com/]] llamado [[Processing|https://processing.org/]], con el que promueven la alfabetización del software dentro de las artes visuales, el cual ha hecho de una gran comunidad de usuarios que van desde estudiantes, investigadores y hasta artistas profesionales que hacen uso de esta herramienta de desarrollo de proyectos diversos que van desde lo audiovisual hasta lo performático, por su fácil conexión a periféricos que pueden vincularse a sistemas más complejos como lo son prototipos de robots, todo esto de manera libre y gratuita."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Muchos de los códigos pertenecientes a proyectos de Processing pueden ser obtenidos con simples búsquedas en el navegador, dentro de foros y otros tipos de espacios que tienen como fin la democratización de conocimientos de forma libre y gratuita; pero compartir códigos no es solo una parte de la experiencia dentro del mundo del software libre."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un gran ejemplo de estas prácticas artísticas que se vinculan entre lo digital y lo plástico es el propuesto por [[Scan the World|https://www.scantheworld.com/]] en colaboración con My Factory para crear [[The Open Source Museum|https://www.myminifactory.com/scantheworld/]], el cual pretende ser un espacio virtual colaborativo que alberga obras de arte en formato 3D al que cualquier persona puede ingresar y descargar los archivos de esculturas o artefactos culturales; incluso los mismos usuarios pueden albergar ahí sus propias creaciones."
+    },
+    {
+      "tipo": "cita",
+      "texto": "Scan the World is an ambitious community-built initiative whose mission is to share 3D printable sculpture and cultural artefacts using democratised 3D scanning technologies, producing an extensive ecosystem of free to download digital cultural heritage. In making culture accessible, communities are encouraged to share their scans, stories, and creations with the goal to bring tangible heritage to the masses. (STW, 2014)"
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Es por eso que se debe pensar en que los espacios culturales deben promover la participación colaborativa y libre en producciones de carácter artístico cultural; así la importancia para este tipo de producciones radica en la participación de los usuarios, de no ser así proyectos como estos solo enmarcarían la idea arcaica de museo digitalizado, donde solo lo canónico puede ser reconfigurado para incorporarlo en la digitalidad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "De esta manera la importancia de una base radica en la unión social-colectiva y no en la acaparación de información por medio de la privatización, para que en el caso de proyectos donde la visualización de datos es el eje conductor en la creación de discursos no solo se quede en las manos de áreas como la estadística o analítica, siendo que estas solo hacen uso del recurso visual como mero elemento de acompañamiento ilustrativo de información procesada."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El artista debe ver más allá de los límites e incursionar en esas áreas de manera transdisciplinar para darle una lectura distinta a esas cuantificaciones que parten en el mayor de los casos de la actividad directa de las personas en su uso con la tecnología. Jamás se había tenido tan exacta radiografía de actividades, tanto de conductas humanas como de la naturaleza misma. El aprovechar estos recursos y volverlos materiales alternativos de creación artística permite una incipiente posibilidad de visionar cada aspecto del mundo."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Brindarles una visión creativa a los datos, fuera de la común que no pretenda solo ilustrar las cuantificaciones, nos abre diálogos de entendimiento un tanto kinestésicos en los cuales la interactividad de usuario-creador-espectador son la clave en la exploración experiencial de discursos que podrían tener más potencia sensorial en los mensajes que las propuestas por las artes clásicas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Un ejemplo de pieza que se vive a través de la experiencia y el contexto de donde se presenta, basándose en los datos que se obtienen en tiempo real dentro de la sala de exhibición es el de [[Sand Falls|https://domesticstreamers.com/projects/sand-falls/]] (2014) presentada por el equipo [[Domestic Data Streamers|https://domesticstreamers.com/]] para la Exposición Big Bang Data (CCCB) en Barcelona."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La cual consiste en 5 sensores distribuidos alrededor de la muestra de arte en piezas diferentes; los sensores cuentan el tiempo que las personas pasan frente a las otras obras, para generar una base de datos la cual se traduce en una instalación de 5 relojes de arena, donde se sincroniza el comportamiento humano dentro de la sala de manera que cada sensor mide el tiempo específico de las personas frente a la pieza, para después enviar arena a su respectivo reloj."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Si bien esta es una pieza que ejemplifica uso de datos y sensores a pequeña escala en una activación in situ, donde el mensaje de la instalación provee un impacto en el espectador más vivencial y significativo que el que tendría si ese mismo espectador viera los datos en una gráfica de barras."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es así como la visualización de datos en este ejemplo refleja que algo tan abstracto y complejo como el tiempo puede ser reinterpretado por medio de elementos estéticos para generar un discurso en el cual la información en los espectadores y el uso de la representación del contexto deja de lado la idea de gráficas clásicas de la estadística para ilustrar información en barras, círculos o cualquier otro tipo de diseño esquemático, y en cambio provee de una experiencia vivencial que interviene en la vida y actividad propia del espectador."
+    },
+    {
+      "tipo": "cita",
+      "texto": "Vemos cada día que falta más contexto en la información y en cómo la contamos; vemos representados de la misma manera las temperaturas del fin de semana en un gráfico de barras, que las muertes en Irak en los últimos 10 años... ¡de la misma manera! ¿Cómo queremos que se muestre más atención? ¿Qué se le dé la importancia y el valor que tienen estos datos, si los estamos mostrando de la misma manera, con la misma forma de representación? ¿Cómo queremos que la gente dedique el tiempo necesario, si lo estamos mostrando igual? (Garcia, 2015)"
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Es claro que la vida actual sostiene un apego a dispositivos que logran recopilar bastante información sobre cualquier aspecto de la vida, y que las formas visuales que conocemos para saber sobre cifras que impactan a la sociedad de hechos reales se visualizan de la misma manera que cantidades de dinero, convirtiendo al ser humano en un número más dentro del espectro estadístico. Es por eso que atender a la información por medio de las artes y presentarla de forma diferente, haciendo uso de la creatividad como herramienta para la representación de visualizaciones es un factor que permite dar potencia a la imagen, al acto disidente de mostrar el verdadero sentir por medio de la experiencia."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Así el artista se vuelve agente de cambio y puede decirle a los demás que los datos que creamos nos pertenecen a nosotros mismos, y no a las compañías."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "3. Sobre 3 obras de arte con datos masivos y la actividad de usuarios de internet"
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "3.1 COVID19 — Graficador de presencia de COVID en varios países (2020)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Víctor Armando Mancillas Ríos ([[NEFEMOV|https://nefemov.com/]]) es un Artista de la Ciudad de México egresado de la carrera de Comunicación Visual por la Universidad Autónoma Metropolitana, cursó el Máster en Artes Visuales en la Universidad Nacional Autónoma de México. Sus producciones parten de un interés por la vida que atraviesan el concepto de forma transversal, utilizando como herramientas de sus procesos creativos al pensamiento filosófico y científico con el fin de vincular los campos ciencia-arte en pro de la divulgación de conocimiento."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[COVID19|https://nefemov.com/covid19/]] es una pieza de Netart que en palabras de NEFEMOV la describe como 'un servidor de datos públicos con una sumatoria de casos de COVID19 que se actualiza diariamente'. Este proyecto representa una imagen viva del momento actual que acontece en el planeta. Las visualizaciones que hacen posible que esta pieza cobre vida surgen de los registros de datos masivos que varios gobiernos alrededor del mundo tuvieron que hacer públicos para que cualquier persona tuviera conocimiento de la situación de cada país."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Esto generó una ventana que permite observar el comportamiento político y mediático de cada territorio y, basado en sus números, habla de la actividad humana en un entorno donde el concepto de comunidad tuvo que ser comprendido ahora por la situación de que en los lugares donde se actuó en mayor medida para combatir al virus fue en los lugares donde se acataron órdenes gubernamentales y de carácter ético personal, al deslindarse un poco de toda actividad social que implicara el reunirse de forma presencial con más personas."
+    },
+    {
+      "tipo": "cita",
+      "texto": "¿Qué es lo que significa todo esto para la práctica artística, y cómo se puede vincular un acontecimiento de esta magnitud con el arte digital?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Obtener datos y graficaciones en el sentido del tiempo presente, pero tan presente donde cada cuantificación representa a un sujeto, Armando lo define de esta manera: 'Si los datos hacen líneas, no son solo líneas, ni se juega dibujando. Se mira la realidad y el que dibuja se vuelve un poco dios'. La reinterpretación de la información de las líneas de gráficos estadísticos se deslinda de cierta manera de su carácter cuantificable para que, a partir de ahora, no permita ser más una representación y se convierta en una especie de fotografía, ya que, aunque es en un sentido visual y abstracto de la forma, congela un momento exacto de una región con información visual de uno o varios sujetos."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "El sentido de materialidad y de la forma presente en las imágenes generadas por los datos recibidos mediante el código en constante actualización se percibe por una estética vista en la imagen pobre, término que tiene relación directa con la cultura digital y en especial de internet, ya que el impacto de dichas imágenes recae en la información del mensaje y no en lo bien visto, dicho de otra forma, en lo bonito que puede llegar a ser."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "NEFEMOV nombró a estas capturas de pantalla como Dibujos de Mal Gusto, y su finalidad es esa, la de hacer pensar al espectador, que se vuelva crítico de su tiempo y forma de vida, al mismo tiempo que está informado sobre las cifras de un acontecimiento como este. No es una pieza que fácilmente se vea colgada en una sala; la naturaleza digital de la pieza hace que el medio de difusión y distribución de la obra sea dentro de internet y para usuarios de internet, para apreciarse mediante el dispositivo. Albergar esta gran cantidad de personas reunidas convertidas en dígitos es algo que solo puede suceder en la red."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "En este sentido, Covid19 y los Dibujos de Mal Gusto se convierten en el diario personal del mundo, que gracias a Armando puede ser posible ser apreciado con un carácter estético desde una postura de un artista preocupado por la sociedad y el presente."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El reinterpretar los datos de una catástrofe en una pieza de arte hace que podamos apreciar la globalización desde otra perspectiva, y en el aspecto de creador también invita a la intervención y participación del usuario artista, ya que en su página personal NEFEMOV tiene albergados los códigos que utiliza para esta y cada una de sus piezas, lo que habla de su interés por el compartir es algo que debe estar presente en cada artista que trabaje y luche contra lógicas hegemónicas de privatización del arte por medio de normativas que hacen que no se pueda generar un circuito de compañerismo por pensar en un fin económico de competencia."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Utilizar este tipo de materialidad como motor en la construcción del discurso de obra es un recurso que no se debe dejar pasar, en esta época donde la relevancia de la datificación es contemplada para el estudio de la actividad humana en cualquier ámbito. El poder utilizar datos de diferentes partes del mundo en tiempo real amplía las herramientas que los artistas en el sentido de curiosidad experimental deben abordar para generar propuestas distintas dentro de la práctica artística digital."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "3.2 24 hrs. Of photo (2011)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[Erik Kessels|https://www.erikkessels.com/]] es artista, diseñador y curador holandés; su interés por la fotografía cotidiana como mero elemento que tiene un fin funcional de documentar es la característica que resalta el trabajo que desarrolla y presenta de manera inusual, en especial cuando se trata de la actividad de los usuarios de plataformas que permiten compartir fotografías en internet."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[24 hrs. Of photo|https://www.erikkessels.com/24-hrs-of-photos]] es un trabajo de instalación fotográfica que se exhibió en una galería de Ámsterdam en 2011. En esta presentación, el montaje y cantidad de fotografías expuestas son lo que generó el debate en el discurso de la pieza misma, que en palabras del propio Kessels describe como:"
+    },
+    {
+      "tipo": "cita",
+      "texto": "We're exposed to an overload of images nowadays. This glut is in large part the result of image-sharing sites like Flickr, networking sites like Facebook and Instagram and picture-based search engines. Their content mingles the public and private, with the very personal being openly displayed. By printing 350.000 images, uploaded in a twenty-four hours period, the feeling of drowning in representations of other peoples' experiences is visualized."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "El primer impacto al que confronta el espectador al entrar a la galería es que es recibido por una cantidad monumental de fotografías de pequeño formato (4x6 aprox.) impresas y vaciadas en el interior de la sala donde se presenta. Todas estas fotografías que registran 24 horas de actividad en la red son una forma más de visibilidad que los sujetos comparten y que vuelven posible esta intervención del espacio, que posee una colectividad indirecta."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los usuarios de [[Flickr|https://www.flickr.com/]] no fueron conscientes de que sus archivos estaban siendo descargados por un programa computacional diseñado para esa acción en específico. El fácil acceso a contenido personal de terceros es algo que en internet se ha vuelto muy común; el poder recoger del suelo la fotografía de alguien más no solo proporciona información visual sobre los aspectos contextuales de cada una de estas impresiones, sino que en primer contacto, para Kessels, esto significó que al tener el acceso a la descarga de toda esta información también pudo obtener acceso a otro tipo de datos, de carácter metadata. Este término se utiliza para describir a los datos que describen a otro tipo de datos, que no se pueden saber a simple vista, pero permanecen ocultos en alguna parte del archivo, en este caso, en la información dentro de las propiedades de la fotografía de su estado digital."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Es así como la ubicación, el nombre del usuario, aspectos técnicos del dispositivo con que se realizó la toma pueden ser parte de la información contenida y permanecer en la metadata."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Recorrer este mar de imágenes es una forma creativa con la que las personas pueden comprender la magnitud del espectro que se genera por el peso de las imágenes en una sociedad consumista, y la tiranía que la imagen fotográfica ejerce sobre las sociedades más apegadas a la exhibición de la vida en el medio virtual."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "No todas las fotografías impresas son creaciones con discursos estético-artísticos; sin embargo, la categoría se le atribuye al ser puestas dentro de la galería. La exhibición de todo este papel acumulado en pequeños montes multicolor reconfigura la función inicial del archivo y lo transgrede, a tal grado que una sola imagen se convierte en un píxel de la totalidad de la obra, hablándolo en el sentido de que la totalidad de la instalación es la gran fotografía que en última instancia conforma la huella digital de una masiva cantidad de archivos de la historia de la humanidad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Kessels pensó esta obra en el año 2011; sin embargo, si se hiciera en 2021 esas 350 mil fotografías serían duplicadas en esas mismas 24 horas de impresión. Esto nos dice que en 10 años la digitalización de la vida se expandió de manera desconsiderada, y durante el tiempo pandémico donde la mayoría de la actividad humana era mediada por la cibercultura. En síntesis, materializar al archivo binario deja un impacto que aún 10 años después se siente vigente. Y muestra que la democratización de los dispositivos capaces de capturar fotografías digitales y compartirlas se extendió a más personas."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "El fácil acceso a la red y la alta demanda del uso de plataformas que de manera gratuita permiten el resguardo de archivos que al ser publicados pueden ser observados por un sinfín de espectadores alrededor del mundo nos da un ejemplo de que, como mencionaba antes, el usuario es el producto que trabaja sin recibir sueldo para las empresas que prestan estos servicios."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "3.3 FRICKbits (2014-2017)"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[Laurie Frick|https://www.lauriefrick.com/]] es una artista de datos que hace uso del seguimiento automático recopilado de dispositivos personales como materialidad para la creación de instalaciones en formato físico. Su interés por la utilización de data se vio detonada por su dificultad que tenía para conciliar el sueño, por lo que se vio en la necesidad de utilizar dispositivos que le ayudaban a escanear dichos tiempos y otro tipo de datos biométricos."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[FRICKbits|https://www.lauriefrick.com/frickbits]] consiste en una aplicación móvil que utiliza el sistema de ubicación de los teléfonos para abstraer patrones de rastreo de los viajes de quien utilice la app. Estos recorridos son registrados en una base de datos, la cual va generando una paleta de color específica para cada usuario, creando una especie de huella digital de cada persona. Esta propuesta y su modo algorítmico de estudiar la vida es para Frick una forma alternativa de hacer retratos de las personas de diferentes lugares. Si bien la utilización del dispositivo y de la creación de programas computacionales son parte fundamental de la aplicación, también hace uso de dibujos realizados a mano con acuarelas y técnicas distintas para dar el peso visual de las formas que se pueden apreciar en los mapas."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "La visualización que propone parte de la convicción silicoliana de la llamada economía de los datos, en un afán de monetizar la vida mediante aplicaciones que utilizan la data creada por los usuarios para mercantilizar la vida y modelarlos a partir de sus intereses y decisiones."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Dentro de la aplicación para iniciar una ruta de bits, se debe marcar una posición clave que será la base fundamental para el registro y mapeo de la actividad al viajar; es así como un usuario puede iniciar el arranque de la aplicación desde su hogar, su trabajo, etc. De esta manera es como la rutina diaria puede ser conocida e interpretada de una forma creativa por medio de la visualización, lo que vuelve a esta aplicación en una herramienta de dibujo digital donde el cuerpo del usuario es el medio con el que se pinta dentro del mapa geográfico de la región donde utilice la aplicación."
+    },
+    {
+      "tipo": "cita",
+      "texto": "¿Qué necesidad tienen los sujetos para volverse dependientes de objetos que escanean y aprenden cada detalle de las personas para fines comerciales que solo favorecen a las empresas?"
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Conocer estos retratos de las personas visualmente es hermoso y perverso a la vez; saber que, si estas bases de datos son pirateadas y caen en manos equivocadas, pueden ser libros que contienen lecturas tan personales que dejan vulnerables a los usuarios ante situaciones de seguridad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para Laurie, el volverse consciente de los datos que cada persona genera es algo que siempre deja claro en cada conferencia o entrevista que da, y desde su posición como artista dice que: 'Your life, your data, turn in to art'. Así que apreciar la cotidianidad de la vida, hacer lecturas de los momentos y leer entre líneas cada situación dentro y fuera de la vida online es una invitación que Frick fomenta dentro de sus producciones."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Reaccionar a los patrones de actividad que las personas realizamos de manera inconsciente da más información que la que los mismos sujetos expresan por medio de la forma oral."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "Conclusiones"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Dentro de las prácticas artísticas digitales, el jugar con estas materialidades alternativas debe comenzar a verse presente de forma más cotidiana. En tiempos anteriores al ordenador se pintaba en lienzo de tela y otros tipos de soportes, donde el óleo, acuarela y diversas técnicas plásticas se hacían presentes, dejando un registro tangible de lo que era la obra de arte."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Lo que ocurre con estas propuestas que parten del código binario para su ejecución representa un avance no solo en los soportes y los medios, habla de la aceleración de la vida misma y de la inquietud que los artistas reflejan ante la situación tecnócrata por la que pasan las sociedades actuales."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El crear dentro de una computadora con herramientas que se deben conectar al mismo ordenador no significa que al finalizar la pieza digital se debe dejar el ordenador donde todo fue creado como registro plástico de la obra final. En este sentido, las posibilidades que se forjan con la democratización de internet han dejado claro que las lógicas conocidas de la práctica artística clásica deben cuestionarse, reformularse y actualizarse a las actividades y prácticas actuales. Es por eso que los discursos hegemónicos solo deben tomarse en cuenta como antecedentes en una línea cronológica y no como cánones vigentes en la actualidad."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Si bien pasamos ahora por una reducción del todo a datos, también debemos comprender que no porque lo haga un algoritmo todo este tipo de información será una verdad evidente. Si esto sucediera, el papel del artista para las sociedades se vería en fatal idea de la desaparición. Hay que marcar resistencia y cuestionar todo lo que se pueda cuestionar, hay que señalar y observar todas esas grietas de nuestras culturas para comprender lo que estos puntos nos dicen y jugar, experimentar y proponer todas esas inquietudes en formas creativas."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Ser visibles ante el mundo no significa que nuestra información les pertenece a todos; así como cuidamos nuestro cuerpo biológico, también lo debemos hacer con el digital."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "Bibliografía"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Barthes, R., 1982. En: Retórica de la imagen, en Lo Obvio! lo Obtuso. s.l:s.n.. p. 29."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Brea, J. L., 2009. ejercicio de poder. En: Retórica de la Resistencia: Una introducción (La Potencia de los Esmidios Críticos Frente al Triunfante Capitalismo Antihegemónico). s.l.:s.n., p. 1."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "CONGRESO GENERAL DE LOS ESTADOS UNIDOS MEXICANOS, 2017. [[Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados|https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf]]. Mexico: s.n."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Fernandez, E. P., 2017. En: Bigdata Eje estratégico en la industria audiovisual. s.l:s.n., p. 171."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Mitchell, W. J. T., 2003. En: Mostrando El Ver: Una Crítica de la Cultura Visual. s.l:s.n., p. 10."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Mitchell, W. J. T., 2003. En: Mostrando el ver: una crítica de la cultura visual. s.l:s.n., p. 20."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Moles, A., s.f. Imagen. s.l.:s.n."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Sartori, G., 1992. La sociedad teledirigida. s.1.:s.n."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Toffler, A., 1979. En: La tercera ola. s.l.:s.n."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Yunta, L. R., 2001. La Información especializada en internet. Madrid: s.n."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Garcia, P. (21 de Julio de 2015). Datos arte y nuevas formas de comprender el mundo Ted Talks."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Beeple, 2021. [[Everydays: The First 5,000 Days|https://www.beeple-crap.com/]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Constantini, A., 2009. [[Nanodrizas|https://arcangelconstantini.com/nanodrizas/]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Dorsey, J., 2021. first-ever tweet. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "DuBois, L., 2009. [[Hard Data|https://turbulence.org/Works/harddata/]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Frick, L., 2014-2017. [[FRICKbits|https://www.lauriefrick.com/frickbits]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Kessels, E., 2011. [[24 hrs of photo|https://www.erikkessels.com/24-hrs-of-photos]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "McCandless, D., 2013. [[Information is Beautiful|https://informationisbeautiful.net/]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Rougeux, N., 2018. [[Lunar Conversations|https://c82.net/work/?id=368]]. [Arte]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Kaplan, Z. (2012). [[Rhizome|https://rhizome.org/]]. Recuperado el 15 de feb de 2022."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Rios, V. A. M., 2021. [[covid19|https://nefemov.com/covid19/]]. [Online] Available at: https://nefemov.com/covid19/"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Rougeux, N., 2018. Lunar Conversations. [Online] Available at: https://c82.net/work/?id=368 [Accessed Abril 2021]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Streamers, D. D. (2014). [[Domestic Data Streamers|https://domesticstreamers.com/]]. Obtenido de CCCB: https://domesticstreamers.com/projects/sand-falls/"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "STW. (2014). [[Scan The World|https://www.scantheworld.com/]]. Recuperado el 15 de feb de 2022. de https://www.myminifactory.com/scantheworld/"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "RAE, 2020. Real Academia Española. [En línea] Available at: https://dle.rae.es/imagen?m1=form [Último acceso: 5 febrero 2020]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "UNAM Available at: https://visibilidadweb.unam.mx/visibilidad.html [Último acceso: 2021]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "WIKIPEDIA, 2020. Visibilidad. [En línea] Available at: https://es.wikipedia.org/wiki/Visibilidad [Último acceso: 8 marzo 2020]."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Wikipedia, 2020. [[Visualización de datos|https://es.wikipedia.org/wiki/Visualizaci%C3%B3n_de_datos]]. [Online] Available at: https://es.wikipedia.org/wiki/Visualizaci%C3%B3n_de_datos [Accessed 15 Dic 2020]."
+    }
+  ]
+}

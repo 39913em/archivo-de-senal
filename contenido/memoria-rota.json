@@ -1,0 +1,221 @@
+ {
+      "cuerpo": [
+        {
+          "tipo": "parrafo",
+          "texto": "La pérdida de archivos digitales rara vez responde a un accidente puntual, sino que suele estar enredada dentro de una lógica mucho más amplia, relacionada con la forma en que las plataformas y las empresas terminan decidiendo, casi siempre sin decirlo abiertamente, qué es lo que consideran digno de conservarse y qué no."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En 2019 [[MySpace|https://myspace.com]] perdió doce años de música, cerca de cincuenta millones de canciones que los propios usuarios habían subido a la plataforma entre 2003 y 2015. La empresa migró de servidores, cambió de proveedores, y en ese traslado los archivos se fueron corrompiendo poco a poco, de tal manera que nadie llegó a notar la magnitud real de lo que se estaba perdiendo sino hasta que ya era demasiado tarde para intentar recuperar algo.[1]"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "MySpace no tomó la decisión consciente de borrar este material; sin embargo, su negligencia técnica terminó generando exactamente el mismo resultado que hubiera producido una censura deliberada."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[El Mató a un Policía Motorizado|https://es.wikipedia.org/wiki/El_Mató_a_un_Policía_Motorizado]] compartió ahí sus primeras canciones. Ellos mismos lo han contado después: cuando empezaban, [[MySpace|https://myspace.com]] y [[Fotolog|https://es.wikipedia.org/wiki/Fotolog]] eran las plataformas donde se movía todo antes de que existieran las redes sociales como las conocemos hoy.[2] Esas primeras canciones y adelantos quedaron atrapados dentro de un servidor que un día simplemente dejó de funcionar como se esperaba. La empresa nunca devolvió nada, y el comunicado que sacó sonaba más a \"cosas que pasan\" que a una disculpa real."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Jacques Derrida|https://es.wikipedia.org/wiki/Jacques_Derrida]] (1995) ya había señalado algo parecido en [[Mal de archivo: una impresión freudiana|https://es.wikipedia.org/wiki/Mal_de_archivo]], donde plantea que el archivo no funciona como una simple caja de recuerdos, sino más bien como una máquina de selección que decide, constantemente, qué se guarda y qué termina por desecharse, muchas veces sin que exista detrás una decisión consciente de nadie en particular."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "En el caso de MySpace no hubo tal decisión; solamente un sistema que falló, y que en su falla se llevó consigo años enteros de trabajo creativo."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esa misma lógica, aunque bajo condiciones distintas, puede observarse también en plataformas como [[Spotify|https://www.spotify.com]]. Su algoritmo de recomendación prioriza, una y otra vez, aquello que ya ha demostrado funcionar bien entre los usuarios, de modo que todo lo que no encaja dentro de ese molde termina por no existir realmente dentro de su vitrina de contenidos. No es que Spotify decida activamente censurar cierto tipo de música; su lógica interna de archivo, sencillamente, no está pensada para todo aquello que se sale de los parámetros esperados."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El algoritmo termina construyendo, casi de manera automática, un mundo sonoro completo donde ciertas producciones jamás llegan a tener lugar. Y ahí, precisamente, está la forma más sutil que puede tomar el poder dentro de estos entornos: no en la censura abierta, sino en la indiferencia sistemática hacia lo que no resulta rentable."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Antes de que existiera MySpace, ya en los años noventa, se había ensayado un problema parecido con las prácticas del net.art. Obras como [[Jodi.org|https://jodi.org]], o [[Shredder|https://napier.brunner.at/shredder/]] de [[Mark Napier|https://napier.brunner.at]], no existían como objetos físicos, sino como experiencias puramente digitales, pensadas para funcionar dentro de navegadores y condiciones técnicas muy específicas de su época. Con el tiempo, los navegadores cambiaron, los plugins que sostenían estas obras dejaron de existir, y las resoluciones de pantalla se transformaron al grado de que hoy resulta casi imposible experimentar estas piezas en su versión original."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Rhizome|https://rhizome.org]], la plataforma dedicada a la preservación de arte digital, lleva ya varios años trabajando en la emulación de estos entornos antiguos, aunque conviene aclarar que emular no equivale a preservar: lo que se obtiene mediante la emulación es apenas una reproducción aproximada, no el original en su forma primera."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Dentro del mundo digital, la propia noción de 'original' resulta sumamente resbaladiza. ¿Se trata del código fuente? ¿De la experiencia vivida por quien interactuó con la obra en su momento? ¿O quizás de la documentación que se conservó sobre lo que se llegó a ver en pantalla?"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Sin una cadena de custodia clara, el concepto mismo de original tiende a diluirse, y Rhizome parece ser consciente de esa situación, que es justamente la razón por la que recurre a la emulación: entendiendo que se trata de un gesto de aproximación, no de restitución. Podría decirse que es una manera de afirmar 'esto se parece a lo que hubo alguna vez', aunque no sea, en estricto sentido, el original; pero en muchos casos, es lo único con lo que se cuenta hasta el día de hoy."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Adobe Flash|https://www.adobe.com/products/flashplayer.html]] no fue solamente un plugin más entre tantos otros: se convirtió en el soporte fundamental de toda una generación de creadores digitales. Entre finales de los noventa y mediados de la década del dos mil, el software desarrollado originalmente por Macromedia, y adquirido después por Adobe, permitió que cualquier persona con una computadora y conexión a internet pudiera generar animaciones, juegos y piezas de música interactiva, dando lugar a un tipo de arte que solo podía existir dentro del navegador."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Se estima que Flash llegó a estar instalado en el 99% de las computadoras de aquella época, utilizado tanto por artistas y diseñadores como por músicos, estudiantes, y personas que jamás habían tenido contacto previo con algún tipo de código de programación."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "La herramienta resultaba, en ese sentido, sumamente accesible, y su presencia era prácticamente ubicua. Buena parte del net art que se desarrolló en esos años, mucho del cual crecía en servidores personales y dominios experimentales, estaba hecho en su mayoría con Flash, no necesariamente por tratarse de la única opción disponible en el mercado, sino porque permitía hacer cosas que el HTML de la época todavía no lograba: animaciones vectoriales, sonido sincronizado, interacción en tiempo real con el usuario."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Sin embargo, Flash seguía siendo, en el fondo, un software de carácter privado. En 2017, [[Adobe|https://www.adobe.com]] anunció públicamente que dejaría de dar soporte a Flash Player a partir de finales de 2020.[5] Esto no respondió a ningún accidente técnico, sino a una decisión de negocio tomada al interior de la empresa. Como consecuencia directa, miles de obras de arte digital, muchas de las cuales no contaban con ningún otro tipo de soporte alternativo, quedaron condenadas de manera irremediable a la obsolescencia."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Para diciembre de 2020, los navegadores más utilizados ya habían bloqueado el contenido en Flash de manera predeterminada. El contenido, de un momento a otro, dejó de ser accesible para el público en general."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Obras completas, sitios enteros, experiencias interactivas que habían tomado años de trabajo, desaparecieron prácticamente de la vista de todos, no porque alguien hubiera tomado la decisión activa de eliminarlas, sino porque el ecosistema tecnológico dentro del cual existían dejó de estar disponible. El net art de aquella época quedó, en cierto sentido, huérfano de su propio soporte técnico."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Tanto el [[Internet Archive|https://archive.org]] como [[Rhizome|https://rhizome.org]] lograron rescatar una parte considerable de este legado —el Archive alcanzó a preservar miles de animaciones y juegos justo antes del cierre definitivo—, aunque lo que se perdió en el proceso resulta, hasta hoy, prácticamente incalculable.[8][9] No todas estas obras eran juegos virales o animaciones ampliamente conocidas: muchas eran experimentos silenciosos, alojados en servidores personales, sin más difusión que un enlace compartido en algún foro de internet. Ese tipo de producciones, lamentablemente, no llegaron a tiempo a ningún archivo digital."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El caso de Flash no debe entenderse como una excepción dentro de la historia del arte digital, sino como el ejemplo más claro de una regla que el propio campo prefiere, en muchas ocasiones, no mirar de frente: el soporte material siempre resulta ser, de una u otra forma, un asunto político. Depender de una tecnología de carácter privado significa, en los hechos, depender por completo de decisiones que corresponden únicamente a intereses empresariales."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "¿Qué archivos existen hoy en día dentro de nuestra región? Podemos mencionar, por ejemplo, a la [[Mediateca CENART|https://mediateca.cenart.gob.mx]] en México, a la [[UNTREF|https://www.untref.edu.ar]] en Argentina, o al [[Laboratorio de Arte Alameda|https://laboratorioalameda.inba.gob.mx]]: proyectos aislados entre sí, con financiamiento inestable, que no logran integrarse dentro de redes globales de preservación digital.[10][11][12] No existe, hasta el momento, una política regional clara al respecto, de manera que cada artista, cada colectivo y cada festival terminan resolviendo el problema del archivo como mejor pueden."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[MUTEK|https://mutek.org]], por ejemplo, ha documentado buena parte de su programación a lo largo de los años; conviene aclarar, sin embargo, que documentar no es, en ningún sentido, lo mismo que preservar.[13]"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Documentar es registrar; preservar es asegurar la supervivencia del objeto en el tiempo. La diferencia no es menor: el registro puede perderse; la preservación está diseñada para que eso no ocurra."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Tania Candiani|https://taniacandiani.com]] trabaja de manera constante con archivos de carácter sonoro, aunque sus instalaciones dependen, en gran medida, de tecnologías que cambian con bastante rapidez.[14] [[Manuel Rocha Iturbide|https://rochaiturbide.com]], por su parte, cuenta con un archivo personal sumamente extenso, aunque no existe, hasta donde se sabe, un repositorio público que albergue su obra completa.[15] El caso de [[Francisca Benítez|https://franciscabenitez.com]], en Chile, responde más bien a una documentación de tipo fragmentario, repartida entre distintas instituciones y catálogos de exposición.[16]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Además de estos casos puntuales, existen numerosas plataformas independientes dedicadas a la difusión de arte digital en la región, muchas de las cuales dependen enteramente de financiamiento externo y de la voluntad de quienes las sostienen, lo cual las vuelve especialmente frágiles frente al paso del tiempo. ¿Qué sucede con todo el material que estas plataformas alojan en el momento en que alguna de ellas se ve obligada a cerrar?"
+        },
+        {
+          "tipo": "cita",
+          "texto": "¿Qué archivos lograrán sobrevivir a los próximos veinte años: los que pertenecen a los grandes festivales de talla internacional, o los que pertenecen a los colectivos de menor escala? ¿Los que se alojan en plataformas globales, o los que se sostienen desde una postura de autonomía y autogestión?"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Viktor Mayer-Schönberger|https://en.wikipedia.org/wiki/Viktor_Mayer-Sch%C3%B6nberger]] (2009), en su libro [[Delete: The Virtue of Forgetting in the Digital Age|https://press.princeton.edu/books/hardcover/9780691138619/delete]], plantea una idea que resulta, en cierto sentido, incómoda de asimilar: que la memoria infinita no debe entenderse como una bendición, sino más bien como una especie de condena.[17] Cuando absolutamente todo se guarda, nada termina por destacarse del resto; y cuando todo se conserva sin ningún criterio, la capacidad misma de seleccionar aquello que resulta relevante se vuelve prácticamente imposible de ejercer."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Archivar, en este sentido, no debería entenderse simplemente como el acto de acumular información, sino como el ejercicio constante de decidir qué es aquello que merece sobrevivir con el paso del tiempo."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esa decisión, cabe destacarlo, es de naturaleza profundamente política. Decidir qué se archiva, y qué no, equivale directamente a decidir qué historia es la que termina contándose: ¿la de los grandes festivales de alcance global? ¿La de los artistas ya consagrados dentro del circuito? ¿O acaso la de las escenas locales, las experimentaciones marginales, y los proyectos que, aun sin financiamiento suficiente, lograron tener un impacto real dentro de sus comunidades?"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Wolfgang Ernst|https://en.wikipedia.org/wiki/Wolfgang_Ernst_(media_theorist)]] (2013), en [[Digital Memory and the Archive|https://www.upress.umn.edu/book-division/books/digital-memory-and-the-archive]], sostiene una postura todavía más radical al respecto: para él, el archivo digital no funciona como un simple depósito estático de información, sino como un sistema de procesamiento en tiempo real que se encuentra constantemente seleccionando y reordenando aquello que contiene. No se trata de un archivo que simplemente guarda, sino de un sistema que, en todo momento, está decidiendo.[18]"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El arte sonoro, en particular, presenta una problemática adicional bastante significativa: no se trata de un objeto en sentido estricto, sino de una experiencia que depende directamente de su ejecución, del espacio en el que ocurre, del cuerpo mismo de quien escucha, y de la interacción que se genera entre todos estos elementos."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Un archivo dedicado al arte sonoro, entonces, no puede limitarse únicamente a ser un archivo de audio; tendría que incluir también la documentación correspondiente, las partituras cuando estas existan, las instrucciones de montaje, las grabaciones disponibles, y hasta los testimonios de quienes tuvieron la oportunidad de estar presentes en el momento de la ejecución."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Los museos llevan ya varias décadas lidiando con esta misma pregunta. El arte de performance, el arte conceptual, y las instalaciones en general, resultan sumamente difíciles de archivar, dado que no se trata de un cuadro que simplemente puede colgarse en una pared. El arte digital y el arte sonoro heredan directamente esta problemática, y la multiplican todavía más. Si el software específico que se utilizó para montar una instalación determinada ya no existe hoy en día, ¿de qué manera sería posible volver a montarla en el futuro?"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Archivar, en conclusión, no debería entenderse jamás como un acto meramente técnico, sino como un acto profundamente político: cada archivo que se conserva representa, en el fondo, una decisión sobre aquello que consideramos que merece permanecer."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Y quizás sea precisamente la conciencia de que todo esto puede llegar a desaparecer lo que termina por otorgarle su verdadero valor y significado."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Referencias"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "1. BBC News Mundo. 'MySpace perdió toda la música subida antes de 2016'. [[bbc.com/mundo|https://www.bbc.com/mundo/noticias-47867712]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "2. Exitoina. 'El mató a un policía motorizado: el rock alternativo más vigente que nunca'. [[exitoina.perfil.com|https://exitoina.perfil.com/]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "3. Derrida, J. (1995). [[Mal de archivo: una impresión freudiana|https://es.wikipedia.org/wiki/Mal_de_archivo]]. Trotta."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "4. Rhizome. (s.f.). Digital Art Preservation. [[rhizome.org|https://rhizome.org]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "5. Adobe. Anuncio del fin de soporte de Flash Player (2017). [[adobe.com|https://www.adobe.com]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "6. Digital Trends. 'Flash dice adiós y con ello despedimos una era de Internet'. [[digitaltrends.com|https://www.digitaltrends.com/]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "7. Hyperallergic. 'RIP Adobe Flash: Five Takeaways About the Plug-in's Legacy in Net Art'. [[hyperallergic.com|https://hyperallergic.com/]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "8. El Español. 'Justo a tiempo, miles de animaciones y juegos en Flash han sido salvados antes de su muerte'. [[elespanol.com|https://www.elespanol.com/]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "9. Internet Archive. Flash collection. [[archive.org|https://archive.org]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "10. Mediateca CENART. [[mediateca.cenart.gob.mx|https://mediateca.cenart.gob.mx]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "11. UNTREF. Archivo de arte electrónico. [[untref.edu.ar|https://www.untref.edu.ar]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "12. Laboratorio de Arte Alameda. [[laboratorioalameda.inba.gob.mx|https://laboratorioalameda.inba.gob.mx]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "13. MUTEK. Archivo de programación. [[mutek.org|https://mutek.org]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "14. Candiani, T. [[taniacandiani.com|https://taniacandiani.com]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "15. Rocha Iturbide, M. [[rochaiturbide.com|https://rochaiturbide.com]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "16. Benítez, F. [[franciscabenitez.com|https://franciscabenitez.com]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "17. Mayer-Schönberger, V. (2009). [[Delete: The Virtue of Forgetting in the Digital Age|https://press.princeton.edu/books/hardcover/9780691138619/delete]]. Princeton University Press."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "18. Ernst, W. (2013). [[Digital Memory and the Archive|https://www.upress.umn.edu/book-division/books/digital-memory-and-the-archive]]. University of Minnesota Press."
+        }
+      ]
+    }
+  

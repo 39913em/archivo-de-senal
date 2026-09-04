@@ -1,0 +1,437 @@
+{
+      "cuerpo": [
+        {
+          "tipo": "parrafo",
+          "texto": "El arte sonoro ha experimentado una transformación sostenida desde las primeras experimentaciones analógicas hasta la integración de herramientas computacionales avanzadas. [[Luigi Russolo|https://www.artsy.net/artist/luigi-russolo]], con su manifiesto 'El arte de los ruidos' (1913)[1], abrió la posibilidad de considerar el ruido cotidiano como material legítimo de creación. [[Pierre Schaeffer|https://www.britannica.com/biography/Pierre-Schaeffer]] introdujo, décadas más tarde, la música concreta, cuyo principio rector —la 'escucha reducida'— invitaba a percibir el sonido en sí mismo, despojado de su fuente y su significado habitual. Desde los años sesenta, compositores como [[Karlheinz Stockhausen|https://www.stockhausen.org/]] ampliaron el lenguaje electrónico, y en las últimas décadas artistas como [[Ryoji Ikeda|https://www.ryojiikeda.com/]] y [[Carsten Nicolai|https://www.carstennicolai.de/]] han llevado esa tradición al territorio de los algoritmos y los datos en tiempo real, generando obras donde la simbiosis entre arte y tecnología computacional define tanto el proceso como la forma."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Con la llegada de internet y los dispositivos conectados, esta genealogía encontró un nuevo soporte: la digitalidad permeó la creación de espacios virtuales y llevó el arte sonoro a una dimensión inédita. Las plataformas en línea permiten construir experiencias inmersivas que transforman la relación del oyente con el espacio, ya no como receptor estático sino como habitante de un territorio acústico navegable, sin necesidad de desplazamiento físico."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esta condición —habitar el sonido en lugar de solo escucharlo— redefinió el vínculo entre cuerpo, espacio y percepción. El sonido pasó de ser un fenómeno que se recepta a convertirse en un entorno que se transita. Esa transición no es solo tecnológica; implica un reposicionamiento estético y conceptual que los festivales internacionales de arte sonoro y música electroacústica han explorado de forma sistemática."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Eventos como el [[Sonic Acts Festival|https://www.sonicacts.com/]] en Ámsterdam (fundado en 1994) y el [[ISEA —International Symposium on Electronic Art|https://isea-international.org/]] (1990)— han funcionado como laboratorios donde el pensamiento creativo en torno al sonido bifurca hacia circuitos más cercanos al espectador general. En México, el festival [[MutekMx|https://mutek.mx/]], activo desde el año 2000, ha sido un espacio central para artistas de distintas latitudes que presentan propuestas de experimentación sonora y visual por medio de conciertos, instalaciones multimedia y performances audiovisuales. En 2017, la colaboración [[Critical Constellations of the Audio Machine in México|https://www.goethe.de/ins/mx/es/kul/ver/21475525.html]], presentada en Berlín durante cuatro jornadas, reunió a artistas mexicanos que abordaron, mediante composiciones sonoras, cuestiones relacionadas con el nacionalismo, la identidad y las dinámicas sociales del siglo XX: un ejemplo de cómo el arte sonoro puede operar simultáneamente como exploración estética y como posicionamiento crítico."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Estos proyectos demuestran que la integración de entornos virtuales no es solo una expansión técnica, sino una reconfiguración de los términos en que el arte y el público se encuentran."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "En la virtualidad, el sonido no replica el espacio físico: lo reescribe con reglas propias, desafiando las leyes de la acústica convencional e invitando a formas de participación que los formatos tradicionales no contemplan. Ese potencial —y sus tensiones— constituye el núcleo del presente ensayo."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "El espacio virtual en la arquitectura sonora"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "La noción de espacio ha sido objeto de reflexión crítica en el arte y la arquitectura al menos desde que [[Rosalind Krauss|https://www.moma.org/artists/7455]] publicó 'La escultura en el campo expandido' (1979)[2]. En ese texto, Krauss argumenta que las categorías tradicionales de lo escultórico se disuelven cuando el arte empieza a abarcar relaciones espaciales y conceptuales que desbordan cualquier definición previa. Ese marco analítico resulta productivo para pensar el espacio virtual: al igual que la escultura expandida de Krauss, el entorno digital no puede reducirse a ninguna categoría heredada. Es un campo de posibilidades abierto donde el sonido asume un papel arquitectónico que antes solo correspondía a la materia."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Desde la arquitectura física, el suizo [[Peter Zumthor|https://www.peterzumthor.com/]] ofrece un polo conceptual opuesto y complementario. Para Zumthor, los espacios adquieren significado a través de la materialidad, la luz y la interacción sensorial directa con el cuerpo. Un auditorio no es solo un contenedor de sonido: es una superficie que responde, que transforma el sonido según la textura de sus paredes, la densidad de su estructura, la temperatura del aire. Esta concepción plantea una pregunta incómoda frente al espacio virtual:"
+        },
+        {
+          "tipo": "cita",
+          "texto": "¿puede un entorno sin materia generar una experiencia arquitectónica genuina?"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "La dicotomía no es simple. En el espacio virtual, las restricciones materiales desaparecen, pero no son reemplazadas por el caos: son sustituidas por elecciones de diseño."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El artista o programador decide qué leyes acústicas aplican, qué geometría rige la propagación del sonido, qué distancias existen entre emisor y oyente."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esta libertad abre posibilidades inéditas —ecos infinitos, reverberaciones imposibles, geometrías acústicas inexistentes en la naturaleza—, pero también plantea una pregunta que el texto debe sostener sin esquivar:"
+        },
+        {
+          "tipo": "cita",
+          "texto": "¿la experiencia resultante tiene una profundidad comparable a la que genera el espacio físico, o es cualitativamente distinta?"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "La respuesta más honesta es que se trata de una experiencia diferente, no inferior. La comparación con Zumthor no debe terminar en la derrota del espacio virtual, sino en la constatación de que opera con otra ontología."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El espacio físico construye significado a través de la resistencia de la materia; el virtual lo construye a través de la decisión programada. Ambos son artificios: uno emplea piedra y madera, el otro emplea código."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El caso de [[Janet Cardiff|https://www.cardiffmiller.com/]] ilustra bien este umbral. Sus instalaciones de sonido binaural —como [[The Forty Part Motet (2001)|https://www.cardiffmiller.com/artworks/motet/]]— transforman entornos cotidianos en experiencias multidimensionales. Es habitual citarlas como ejemplos de arquitectura sonora que desdibuja lo físico y lo digital; sin embargo, es preciso ser exactos: la obra de Cardiff ocurre íntegramente en el espacio físico, y su potencia depende de la acústica real de la sala donde se presenta. Las reflexiones del sonido en paredes concretas, el volumen del aire, la posición corporal del oyente: todo eso condiciona la experiencia de manera que ningún diseño virtual puede replicar de forma idéntica. Cardiff no es un ejemplo de arte sonoro virtual; es, en rigor, su contrapunto: un recordatorio de lo que el espacio físico hace que el virtual todavía no puede hacer."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esto, lejos de invalidar los entornos digitales, precisa mejor su alcance."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El espacio sonoro virtual no debería aspirar a replicar lo físico, sino a explorar lo que solo él puede hacer."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Siguiendo la lógica de Krauss, los entornos digitales constituyen un campo expandido propio: no una versión degradada del espacio físico, sino un territorio con sus propias reglas, sus propias posibilidades expresivas y sus propias limitaciones."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Plataformas como [[Mozilla Hubs|https://hubs.mozilla.com/]] (2018)[3] permiten la creación de espacios tridimensionales donde el público interactúa en tiempo real, desplazándose por un paisaje sonoro que responde a su presencia. Aplicaciones como [[Spark AR|https://spark.meta.com/]] (2018)[4] aprovechan la realidad aumentada para superponer capas de sonido sobre el entorno físico, creando experiencias híbridas. [[Spatial|https://www.spatial.io/]] (2015)[5] y [[Frame VR|https://framevr.io/]] (2015)[6] van un paso más allá al diseñar ambientes donde la espacialización sonora es tan decisiva como el diseño visual: la sensación de presencia que generan depende directamente de la precisión con que el sonido se sitúa en el espacio tridimensional."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Incluso plataformas no concebidas para el arte han sido apropiadas por artistas y comunidades con fines estéticos. En [[Minecraft|https://www.minecraft.net/]] (Mojang Studios, 2011)[7] y [[Roblox|https://www.roblox.com/]] (Roblox Corporation, 2006)[8] los usuarios han diseñado estructuras sonoras cuyo comportamiento varía según la interacción con el espacio construido, convirtiendo el sonido en extensión natural del entorno. Estas experiencias señalan algo relevante: el espacio sonoro virtual no nació como territorio del arte, pero el arte lo colonizó porque ofrecía libertades que ningún otro medio podía dar."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En el diálogo entre Krauss y Zumthor que este apartado ha intentado construir, emerge un punto de encuentro: la arquitectura sonora digital hereda de los espacios físicos la intención de crear experiencias significativas, pero se libera de sus restricciones materiales para proponer nuevos paradigmas."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "No se trata de elegir entre lo físico y lo virtual, sino de entender que ambos se enriquecen mutuamente: el espacio digital aprende de la sensorialidad concreta del espacio material; el espacio material aprende de la maleabilidad conceptual del digital. En esa tensión productiva reside buena parte del interés del arte sonoro contemporáneo."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Percepción sonora en la virtualidad"
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "La escucha expandida: de Russolo a los entornos digitales"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "La percepción sonora en entornos digitales no puede entenderse sin rastrear las ideas que la hicieron posible. Desde que [[Luigi Russolo|https://www.artsy.net/artist/luigi-russolo]] postuló el ruido cotidiano como material artístico (1913)[9], hasta las reflexiones de [[David Toop|https://www.davidtoop.com/]] en *Océano de sonido* (1995)[10] —donde el sonido aparece como un medio expansivo capaz de construir paisajes inmersivos y narrativas complejas—, hay una tradición que los entornos virtuales no inventaron, sino que heredaron y radicalizaron."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El concepto más útil para pensar la percepción sonora en lo virtual es, precisamente, el de 'escucha reducida' de [[Pierre Schaeffer|https://www.britannica.com/biography/Pierre-Schaeffer]]. Schaeffer propuso entrenar la atención para percibir el sonido en sí mismo —sus texturas, sus matices, su forma en el tiempo— sin asociarlo a su fuente ni a su significado convencional. Cuando escuchamos una grabación de lluvia, la 'escucha reducida' propone no pensar en la lluvia, sino en la cualidad del sonido: su densidad, su ritmo, su rugosidad."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En los entornos virtuales, esta forma de escucha se intensifica de manera natural. El sonido ya no tiene un origen tangible visible: un susurro puede flotar en el espacio sin una boca que lo emita, un eco puede persistir sin que haya superficies que lo reflejen. Esta condición favorece una relación más abstracta con el sonido —más atenta a sus cualidades intrínsecas que a sus causas—, lo que abre posibilidades expresivas que el espacio físico dificulta."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Sin embargo, esta misma abstracción entraña un riesgo que el discurso entusiasta sobre el arte sonoro digital suele esquivar:"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "cuando el sonido se desvincula completamente de su contexto, puede perder la carga histórica, cultural y política que lo hacía significativo."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En los espacios virtuales, donde la inmersión sensorial tiende a ser el objetivo prioritario, el peligro está en reducir el sonido a un efecto de ambiente, a un decorado auditivo sin densidad conceptual. La pregunta que el arte sonoro digital debe sostener no es solo "
+        },
+        {
+          "tipo": "cita",
+          "texto": "¿cómo suena esto? sino ¿qué dice este sonido sobre el mundo que lo produce?"
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Las limitaciones técnicas como condición expresiva"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Las limitaciones técnicas de los entornos digitales —la latencia en la transmisión de audio, la compresión que degrada la señal, la variabilidad en la calidad de reproducción según el hardware del oyente— no son simples inconvenientes que la tecnología deba eliminar. Son condiciones materiales de este medio, y como tales merecen ser pensadas críticamente."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Hito Steyerl|https://www.e-flux.com/journal/10/61356/in-defense-of-the-poor-image/]], en su ensayo 'In Defense of the Poor Image' (2009)[11], ofrece un marco para reencuadrar esta cuestión. Steyerl argumenta que las imágenes de baja resolución —degradadas por la circulación en redes, comprimidas y recomprimidas— no son simplemente versiones inferiores de imágenes de alta calidad: son objetos culturales específicos, marcados por las condiciones de su distribución, que llevan en su propia textura la huella del sistema que las produce. La misma lógica puede aplicarse al sonido digital: la latencia, la compresión y la resolución de audio no son solo fallas técnicas; son también signos de las condiciones económicas e infraestructurales bajo las que se produce y distribuye el arte sonoro en la red."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esto no equivale a celebrar la degradación técnica como virtud estética. Significa, más precisamente, que"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "las limitaciones deben integrarse en el discurso crítico del arte sonoro digital, en lugar de ser ignoradas o camufladas."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Un artista que trabaje con sonido en red debe hacerse responsable de las condiciones materiales de su obra: ¿quién puede acceder a ella? ¿Qué dispositivo se necesita para experimentarla? ¿Qué pierde el oyente que no tiene una tarjeta de sonido de calidad o una conexión de banda ancha estable? [[David Toop|https://www.davidtoop.com/]], cuando describe el sonido como un océano que se entrelaza con emociones y memorias, nos recuerda que la experiencia auditiva es irreduciblemente corporal e individual —y que ninguna plataforma digital puede garantizar que dos oyentes experimenten lo mismo."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Participación activa y sus límites"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[David Byrne|https://davidbyrne.com/]] señala en 'Cómo funciona la música' (2012)[12] que el diseño del espacio condiciona tanto la creación como la percepción musical. Un estadio produce un tipo de experiencia; una sala de cámara, otro; un auricular en el metro, otro más. Esta idea —que el espacio no es un contenedor neutral sino un agente activo en la construcción del sentido— adquiere una dimensión nueva en los entornos virtuales, donde el propio espacio puede ser programado, modificado y transitado por el oyente en tiempo real."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esta posibilidad ha sido formulada habitualmente como la transformación del oyente de receptor pasivo a participante activo. La formulación es correcta, pero insuficiente si no se interroga qué tipo de participación está en juego. En muchas plataformas de arte sonoro virtual, la interacción se reduce a navegar por un espacio prediseñado, elegir una ruta entre opciones preestablecidas o manipular parámetros dentro de rangos definidos por el programador. Se trata de una participación real, pero acotada: el oyente no crea el paisaje sonoro, sino que lo recorre según las lógicas que el diseño le ofrece."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "La pregunta crítica, entonces, no es si el oyente participa, sino en qué medida su participación modifica genuinamente la obra, y en qué medida simplemente activa opciones predeterminadas."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esta distinción no invalida las experiencias de participación —que pueden ser estéticamente ricas y conceptualmente significativas—, pero impide una celebración acrítica de la interactividad como sinónimo de emancipación."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El caso de [[Kid A Mnesia Exhibition|https://kidamnesia.com/]] (Radiohead, Namethemachine y Arbitrarily Good Productions, 2021)[13] resulta iluminador en este sentido. La exposición, concebida para conmemorar el vigésimo primer aniversario de los álbumes *Kid A* y *Amnesiac*, propone una experiencia inmersiva donde el oyente navega por paisajes sonoros que evocan la atmósfera surrealista y melancólica de esos discos. Cada movimiento activa fragmentos de música, imágenes y narrativas, generando un recorrido personal. La obra es efectiva precisamente porque no pretende ofrecer una libertad total: la dirección estética de Radiohead delimita el espacio de posibilidades, y dentro de esos límites el oyente construye una experiencia propia. Se trata de una participación estructurada, no de una improvisación abierta, y esa estructura es parte del significado."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En la misma dirección opera la propuesta de [[Jean-Michel Jarre|https://jeanmicheljarre.com/]] con su concierto [[Mixed Reality en Versailles 400 (2023)|https://jeanmicheljarre.com/actualites/jean-michel-jarre-offrira-un-concert-evenement-en-realite-mixte-au-chateau-de-versailles-2023]][14]. A diferencia de muchas experiencias que simplemente trasladan un evento físico a una transmisión en línea, esta propuesta operó simultáneamente en el espacio físico del Palacio de Versalles y en un entorno virtual que reconfiguraba ese mismo espacio con otra lógica. La superposición de realidades no fue un compromiso técnico, sino una decisión estética: el concierto físico y su versión digital no eran el mismo evento visto desde dos puntos de observación, sino dos experiencias distintas que dialogaban entre sí."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Este modelo —el de la experiencia mixta que no subordina lo virtual a lo físico ni viceversa— plantea una respuesta posible a la pregunta sobre la autenticidad que recorre este texto."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "La autenticidad de la experiencia sonora en lo virtual no depende de su parecido con la experiencia física, sino de la coherencia entre sus propios medios y sus propios fines."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Un concierto virtual que pretende ser idéntico a uno presencial siempre perderá esa comparación. Pero un entorno virtual que explota sus propias reglas —las acústicas imposibles, la geometría programable, la interactividad en tiempo real— puede generar experiencias que el concierto físico nunca podría ofrecer, y eso no es una pérdida: es una diferencia."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Perspectivas críticas: potencial, desigualdad e incertidumbre"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El arte sonoro en entornos digitales no se encuentra únicamente ante posibilidades expandidas: se encuentra también ante contradicciones estructurales que ninguna retórica del progreso tecnológico puede disolver."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Primera contradicción: el acceso desigual"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Se ha argumentado con frecuencia que las plataformas digitales democraCizan el arte al eliminar barreras geográficas y económicas: un oyente en una ciudad pequeña puede acceder a una instalación sonora presentada en Berlín o Tokio sin necesidad de desplazarse. Esto es cierto, pero parcial. La producción de entornos sonoros virtuales de calidad requiere hardware especializado, software licenciado, conocimiento técnico y tiempo de desarrollo que no están distribuidos equitativamente. Las plataformas que los alojan operan bajo lógicas comerciales que pueden transformar el arte en un producto más, subordinando las decisiones estéticas a los intereses de los desarrolladores. Y los oyentes necesitan dispositivos adecuados —auriculares de calidad, ordenadores con suficiente capacidad de procesamiento, conexiones de banda ancha estable— que siguen siendo inaccesibles para amplios sectores de la población global."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "[[Rosalind Krauss|https://www.moma.org/artists/7455]] advertía que las narrativas dominantes en el arte contemporáneo suelen celebrar las tecnologías emergentes sin un análisis riguroso de sus implicaciones socioculturales[2]. Esa advertencia sigue siendo pertinente. La integración del arte sonoro en entornos virtuales puede reproducir —y en algunos casos profundizar— las jerarquías que dice superar."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "La pregunta no es si la tecnología puede democratizar el arte; es quién controla la tecnología, quién puede producir con ella y quién puede consumirla en condiciones óptimas."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Segunda contradicción: la inteligencia artificial y la autoría fragmentada"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Los sistemas de IA generativa permiten crear paisajes sonoros que se adaptan en tiempo real a las interacciones del oyente, modificando el entorno según patrones aprendidos. Esto plantea una pregunta que el campo todavía no ha respondido de manera satisfactoria:"
+        },
+        {
+          "tipo": "cita",
+          "texto": "¿quién es el autor de una obra que un algoritmo genera en función de los movimientos de un visitante?"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "La autoría se fragmenta entre el programador, el artista que define los parámetros, el sistema que los ejecuta y el oyente que los activa. Esta fragmentación no es necesariamente problemática —la autoría siempre ha sido más colectiva de lo que los relatos individualizantes del arte moderno admitían—, pero exige nuevos marcos críticos que el campo todavía está construyendo."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Tercera contradicción: la pérdida de la dimensión somática"
+        },
+        {
+          "tipo": "destacado",
+          "texto": "la virtualidad nos enfrenta a la pregunta de qué perdemos cuando el sonido se desvincula completamente del cuerpo y del espacio físico."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "No se trata de una nostalgia por lo analógico, ni de una defensa acrítica de la presencia como condición de autenticidad. Se trata de reconocer que la experiencia sonora ha sido históricamente una experiencia corporal —el sonido se percibe no solo con los oídos, sino con la piel, con el pecho, con la postura del cuerpo en el espacio—, y que los entornos virtuales, por sofisticados que sean, todavía no han resuelto cómo mediar esa dimensión somática de la escucha."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Estas tres contradicciones no invalidan el arte sonoro digital. Lo sitúan. Un campo que no examina sus propias condiciones de producción y sus propias exclusiones corre el riesgo de reproducir, bajo el signo de la innovación, las mismas jerarquías que dice superar."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "El potencial transformador del arte sonoro en entornos virtuales es real; pero ese potencial solo puede realizarse plenamente si va acompañado de una reflexión crítica sobre sus límites, sus costos y sus ausencias."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Conclusiones"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El recorrido trazado a lo largo de este ensayo permite llegar a algunas afirmaciones que, espero, sean más precisas que las que suelen circular en los debates sobre arte sonoro y tecnología."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Primera: el espacio sonoro virtual no es una versión degradada del espacio físico, sino un territorio con su propia ontología, sus propias reglas y sus propias posibilidades expresivas."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Compararlo con el espacio físico usando los criterios de este último es un error metodológico que empobrece el análisis. La pregunta pertinente no es cuánto se parece el entorno virtual al físico, sino qué puede hacer que el físico no puede."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Segunda: la 'escucha reducida' de Schaeffer, lejos de ser un concepto histórico, encuentra en los entornos virtuales su terreno más fértil."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Cuando el sonido no tiene origen físico visible, la atención a sus cualidades intrínsecas se intensifica. Pero esa misma condición entraña el riesgo de la abstracción vacía: el sonido puede volverse decorado auditivo si el artista no se hace responsable del contenido que vehicula."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Tercera: la participación del oyente en los entornos digitales es real, pero debe distinguirse entre la participación que genuinamente modifica la obra y la que simplemente activa opciones prediseñadas."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Esa distinción no es una condena, sino una herramienta crítica que permite evaluar con más precisión el tipo de interacción que cada propuesta artística pone en juego."
+        },
+        {
+          "tipo": "destacado",
+          "texto": "Cuarta: las contradicciones del arte sonoro digital —la desigualdad en el acceso, la fragmentación de la autoría con la IA, la deuda somática con el cuerpo físico— no son problemas que la tecnología futura resolverá automáticamente."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Son condiciones estructurales que el campo debe asumir como parte de su propia práctica crítica."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El arte sonoro en entornos virtuales es un campo joven, dinámico e intelectualmente fértil. Su relevancia no radica en que haya resuelto las preguntas que hereda de la tradición del arte sonoro, sino en que las reformula de manera más urgente y más compleja. En ese reformulamiento —incómodo, provisional, sin garantías— reside su mayor virtud."
+        },
+        {
+          "tipo": "subtitulo",
+          "texto": "Bibliografía"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "1. Russolo, L. (1913). 'El arte de los ruidos'. Milán: Edizioni Futuriste di Poesia. [[Disponible en Internet Archive|https://archive.org/details/artofnoises00russ/page/n1/mode/2up]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "2. Krauss, R. (1979). 'La escultura en el campo expandido'. October, 8, pp. 30–44. [[Disponible en JSTOR|https://www.jstor.org/stable/778224]]"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "3. Mozilla (2018). [[Mozilla Hubs|https://hubs.mozilla.com/]] [Plataforma en línea]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "4. Meta Platforms (2018). [[Spark AR Studio|https://spark.meta.com/]] [Software]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "5. Spatial (2015). [[Spatial|https://www.spatial.io/]] [Plataforma de realidad virtual]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "6. FrameVR (2015). [[Frame VR|https://framevr.io/]] [Plataforma de realidad virtual]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "7. Mojang Studios (2011). [[Minecraft|https://www.minecraft.net/]] [Videojuego]. Microsoft."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "8. Roblox Corporation (2006). [[Roblox|https://www.roblox.com/]] [Videojuego y plataforma]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "9. Russolo, L. (1913). Op. cit."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "10. Toop, D. (1995). [[Océano de sonido|https://www.serpentstail.com/book/ocean-of-sound]]. Londres: Serpent's Tail."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "11. Steyerl, H. (2009). [['In Defense of the Poor Image'|https://www.e-flux.com/journal/10/61356/in-defense-of-the-poor-image/]]. e-flux journal, 10."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "12. Byrne, D. (2012). [[Cómo funciona la música|https://www.sextopiso.es/libro/como-funciona-la-musica/978-84-96867-71-6/]]. México: Sexto Piso."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "13. Namethemachine, Arbitrarily Good Productions y Radiohead (2021). [[Kid A Mnesia Exhibition|https://kidamnesia.com/]] [Experiencia interactiva]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "14. Jarre, J.-M. (2023). [[Jean-Michel Jarre|https://jeanmicheljarre.com/]] [Músico y compositor]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "15. Schaeffer, P. (s.f.). [[Pierre Schaeffer|https://www.britannica.com/biography/Pierre-Schaeffer]] — Britannica."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "16. Stockhausen, K. (s.f.). [[Karlheinz Stockhausen|https://www.stockhausen.org/]] — Sitio oficial."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "17. Ikeda, R. (s.f.). [[Ryoji Ikeda|https://www.ryojiikeda.com/]] — Sitio oficial."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "18. Nicolai, C. (s.f.). [[Carsten Nicolai|https://www.carstennicolai.de/]] — Sitio oficial."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "19. Sonic Acts (1994–presente). [[Sonic Acts Festival|https://www.sonicacts.com/]] — Ámsterdam."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "20. ISEA (1990–presente). [[International Symposium on Electronic Art|https://isea-international.org/]]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "21. MUTEK México (2000–presente). [[MutekMx|https://mutek.mx/]] [Festival]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "22. Goethe-Institut (2017). [[Critical Constellations of the Audio Machine in México|https://www.goethe.de/ins/mx/es/kul/ver/21475525.html]] — Berlín."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "23. Zumthor, P. (s.f.). [[Peter Zumthor|https://www.peterzumthor.com/]] — Sitio oficial del arquitecto."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "24. Cardiff, J. & Miller, G. (s.f.). [[Janet Cardiff & George Bures Miller|https://www.cardiffmiller.com/]] — Sitio oficial."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "25. Cardiff, J. (2001). [[The Forty Part Motet|https://www.cardiffmiller.com/artworks/motet/]] — Instalación sonora."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "26. Jarre, J.-M. (2023). [[Mixed Reality en Versailles 400|https://jeanmicheljarre.com/actualites/jean-michel-jarre-offrira-un-concert-evenement-en-realite-mixte-au-chateau-de-versailles-2023]] — Concierto de realidad mixta."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Otros referentes consultados:"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "— Groovie Science Studios (2018). VR Soundscape."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "— ISEA (1990). [[International Symposium on Electronic Art|https://isea-international.org/]]. Proceedings."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "— MUTEK México (2000–presente). [[MutekMx|https://mutek.mx/]] [Festival]."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "— [[Sonic Acts Festival|https://www.sonicacts.com/]] (1994–presente). Ámsterdam."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "— [[Critical Constellations of the Audio Machine in México|https://www.goethe.de/ins/mx/es/kul/ver/21475525.html]] (2017). Berlín."
+        }
+      ]
+    }
+
