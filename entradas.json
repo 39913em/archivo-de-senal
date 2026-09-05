@@ -8,7 +8,7 @@
     {
       "id": "cultura-no-se-torrentea",
       "archivo": "torrentear.json",
-      "portada": "assets/img/torrentear.png",
+      "portada": "assets/img/torrentear.webp",
       "pieza": "39913EM-DOC-003",
       "titulo": "Si la cultura no se torrentea, la cultura se netflixea",
       "subtitulo": "Piratería, streaming y la batalla por el acceso a la cultura",
@@ -24,7 +24,7 @@
     {
       "id": "memoria-rota",
       "archivo": "memoria-rota.json",
-      "portada": "assets/img/memoriarota.png",
+      "portada": "assets/img/memoriarota.webp",
       "pieza": "39913EM-DOC-002",
       "titulo": "Memoria rota",
       "subtitulo": "Persistencia, pérdida y archivo en sistemas digitales",
@@ -49,7 +49,7 @@
     {
       "id": "arquitectura-sonora-entornos-virtuales",
       "archivo": "arquitectura-sonora.json",
-      "portada": "assets/img/arquitectura.png",
+      "portada": "assets/img/arquitectura.webp",
       "pieza": "39913EM-DOC-001",
       "titulo": "Arquitectura sonora en entornos virtuales",
       "subtitulo": "La transformación del espacio a través de la tecnología",
@@ -74,7 +74,7 @@
     {
       "id": "datos-masivos",
       "archivo": "datos-masivos.json",
-      "portada": "assets/img/dataverso.png",
+      "portada": "assets/img/dataverso.webp",
       "pieza": "39913EM-DOC-000",
       "titulo": "DATARTVERSO",
       "subtitulo": "Practicas artisticas y la visualidad de datos masivos",
