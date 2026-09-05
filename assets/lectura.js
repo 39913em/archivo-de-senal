@@ -18,41 +18,6 @@ function procesarWikilinks(texto) {
   });
 }
 
-function initThemeToggle() {
-  const toggle = document.getElementById('theme-toggle');
-  if (!toggle) return;
-  
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-    toggle.textContent = '☀️';
-  }
-  
-  toggle.addEventListener('click', function() {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    this.textContent = isLight ? '☀️' : '🌙';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
-}
-
-function initBackToTop() {
-  const btn = document.getElementById('back-to-top');
-  if (!btn) return;
-  
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  });
-  
-  btn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
 function actualizarMetaTags(entrada) {
   const titulo = entrada.titulo || 'Archivo de Señal';
   const descripcion = entrada.extracto || entrada.subtitulo || 'Arte electrónico, tecnología experimental y pensamiento crítico ';
@@ -84,6 +49,7 @@ function actualizarMetaTags(entrada) {
   document.title = `${titulo} — ${sitio}`;
 }
 
+
 function getShareUrls(titulo, url) {
   const encodedTitle = encodeURIComponent(titulo);
   const encodedUrl = encodeURIComponent(url);
@@ -99,11 +65,13 @@ function getShareUrls(titulo, url) {
   };
 }
 
+
 function calcularTiempoLectura(texto) {
   const palabras = texto.split(/\s+/).filter(p => p.length > 0).length;
   const minutos = Math.ceil(palabras / 200);
   return { palabras, minutos };
 }
+
 
 function renderTransmedia(transmedia) {
   if (!transmedia || !transmedia.videos || transmedia.videos.length === 0) {
@@ -252,6 +220,7 @@ function renderEntrada(entrada) {
     html += renderTransmedia(entrada.transmedia);
   }
   
+
   const url = window.location.href;
   const titulo = entrada.titulo || 'Archivo de Señal';
   const shares = getShareUrls(titulo, url);
@@ -283,9 +252,6 @@ function renderEntrada(entrada) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  initThemeToggle();
-  initBackToTop();
-  
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   

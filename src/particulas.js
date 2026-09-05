@@ -39,7 +39,7 @@ export function crearParticulas() {
 
   for (let i = 0; i < cantidad; i++) {
     const angulo = Math.random() * Math.PI * 2;
-    const radio = Math.sqrt(Math.random()) * area; // sqrt para densidad uniforme
+    const radio = Math.sqrt(Math.random()) * area; 
     const x = Math.cos(angulo) * radio;
     const z = Math.sin(angulo) * radio;
     const y = CONFIG_PARTICULAS.ALTURA_MIN + Math.random() * (CONFIG_PARTICULAS.ALTURA_MAX - CONFIG_PARTICULAS.ALTURA_MIN);
@@ -72,6 +72,7 @@ export function crearParticulas() {
   ctx.fillRect(0, 0, 32, 32);
   const textura = new THREE.CanvasTexture(canvas);
 
+  // Material
   material = new THREE.PointsMaterial({
     size: CONFIG_PARTICULAS.TAMAÑO_MIN + Math.random() * (CONFIG_PARTICULAS.TAMAÑO_MAX - CONFIG_PARTICULAS.TAMAÑO_MIN),
     map: textura,

@@ -12,13 +12,13 @@ const CONFIG_PASTO = {
   RADIO_DISTRIBUCION: 8.0,           
   DENSIDAD_GLOBAL: 0.95,             
   SEGMENTOS_VERTICALES: 2,
-  INCLINACION_MAX: 0.08,
+  INCLINACION_MAX: 0.15,
 };
 
 const CONFIG_ARBUSTOS = {
   CANTIDAD: 20,
-  RADIO_MIN: 1.5,
-  RADIO_MAX: 5.5,
+  RADIO_MIN: 1.0,
+  RADIO_MAX: 4.5,
   TAMAÑO_MIN: 0.1,
   TAMAÑO_MAX: 0.25,
 };
@@ -124,7 +124,7 @@ function crearPasto() {
   });
 
   scene.add(pastoGroup);
-  console.log(`🌿 Pasto denso: ${pastoGroup.children.length} hebras`);
+  console.log(`🌿 Pasto: ${pastoGroup.children.length} hebras`);
 }
 
 
@@ -252,4 +252,4 @@ export function limpiarVegetacion() {
   }
 }
 
-console.log('');
+console.log('✅ vegetacion.js cargado');

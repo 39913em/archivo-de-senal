@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sobre el Archivo de Señal</title>
 
+
 <link rel="icon" type="image/png" href="assets/img/logo.png">
+
 
 <meta property="og:title" content="sobre el archivo de señal">
 <meta property="og:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
@@ -23,20 +25,7 @@
 
 <div class="backdrop" aria-hidden="true"></div>
 
-<header class="site-header">
-  <div class="brand">
-    <a href="index.html" class="brand-logo" aria-label="Página de inicio">
-      <img src="assets/img/logo.png"
-           srcset="assets/img/logo.png 1x, assets/img/logo@2x.png 2x"
-           alt="Logotipo de Archivo de Señal"
-           width="40" height="40">
-    </a>
-    <a href="index.html" class="brand-name" style="text-decoration:none;">Archivo de Señal</a>
-  </div>
-  <div class="header-controls">
-    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
-  </div>
-</header>
+<div id="header-placeholder"></div>
 
 <main class="about-page">
   <div class="about-contenido">
@@ -56,78 +45,11 @@
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-contenido">
-    <div class="footer-texto">
-      <p>39913</p>
-      <p>Sitio Estático · Autónomo · de consulta abierta</p>
-      <p>
-        <a href="privacidad.html">Política de Privacidad</a>
-        <a href="terminos.html">Términos y Condiciones</a> · 
-        <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
-      </p> 
-    </div>
-    
-    <div class="social-footer">
-      <a href="https://www.instagram.com/39913em/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
-        📷 Instagram
-      </a>
-      <a href="https://www.tiktok.com/@39913em" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
-        🎵 TikTok
-      </a>
-      <a href="https://sites.google.com/view/39913/home" target="_blank" rel="noopener noreferrer" class="social-btn demoreel">
-        🎬 Demo
-      </a>
-    </div>
-
-    <div class="footer-imagen" id="footer-easter-egg-about">
-      <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
-    </div>
-  </div>
-</footer>
+<div id="footer-placeholder" data-destino="index.html"></div>
 
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('theme-toggle');
-  if (!toggle) return;
-  
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-    toggle.textContent = '☀️';
-  }
-  
-  toggle.addEventListener('click', function() {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    this.textContent = isLight ? '☀️' : '🌙';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
-  
-  const footerImg = document.getElementById('footer-easter-egg-about');
-  if (footerImg) {
-    footerImg.addEventListener('click', function() {
-      window.location.href = 'index.html';
-    });
-  }
-  
-  const btn = document.getElementById('back-to-top');
-  if (btn) {
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 400) {
-        btn.classList.add('visible');
-      } else {
-        btn.classList.remove('visible');
-      }
-    });
-    btn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-});
-</script>
+<script src="assets/comun.js"></script>
 </body>
 
 <div id="cookie-banner" style="position:fixed; bottom:0; left:0; right:0; background:var(--bg-elevated); color:var(--text); padding:15px 20px; z-index:9999; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-top:2px solid var(--teal); font-family:var(--sans); font-size:0.9rem; box-shadow:0 -4px 20px var(--shadow);">

@@ -1,5 +1,7 @@
 
+
 :root {
+  /* Color - Modo oscuro */
   --bg: #0B1320;
   --bg-elevated: #121C2E;
   --bg-panel: #162132;
@@ -20,6 +22,7 @@
   --col-wide: 1080px;
 }
 
+/* Modo claro */
 body.light-mode {
   --bg: #F5F7FA;
   --bg-elevated: #EBEEF2;
@@ -61,6 +64,7 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+/* Ambient backdrop */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -99,6 +103,7 @@ button:focus-visible {
   pointer-events: none;
 }
 
+/* Header */
 .site-header {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -146,6 +151,7 @@ button:focus-visible {
   border-radius: 4px;
 }
 
+/* Header controls */
 .header-controls {
   display: flex;
   align-items: center;
@@ -182,6 +188,7 @@ button:focus-visible {
   letter-spacing: 0.02em;
 }
 
+/* Index page */
 .intro {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -310,6 +317,7 @@ button:focus-visible {
   border-color: var(--teal);
 }
 
+/* Vista grid */
 .archive.grid .entry-row {
   grid-template-columns: 1fr;
   border: 1px solid var(--line);
@@ -356,6 +364,7 @@ button:focus-visible {
 
 .entry-row:hover .entry-title { color: var(--teal); }
 
+/* Animación escalonada */
 .entry-row:nth-child(1) { animation-delay: 0.05s; }
 .entry-row:nth-child(2) { animation-delay: 0.10s; }
 .entry-row:nth-child(3) { animation-delay: 0.15s; }
@@ -461,6 +470,7 @@ button:focus-visible {
   font-size: 0.9rem;
 }
 
+/* Skeleton screens */
 .skeleton {
   animation: pulse 1.5s ease-in-out infinite;
   background: var(--bg-panel);
@@ -533,6 +543,7 @@ button:focus-visible {
   width: 60px;
 }
 
+/* Skeleton para lectura */
 .skeleton-reading {
   max-width: var(--col-read);
   margin: 0 auto;
@@ -557,6 +568,7 @@ button:focus-visible {
   margin-bottom: 30px;
 }
 
+/* Reading page */
 #contenido {
   max-width: var(--col-read);
   margin: 0 auto;
@@ -565,6 +577,7 @@ button:focus-visible {
   line-height: 1.75;
 }
 
+/* Portada */
 #contenido .portada {
   width: 100%;
   height: auto;
@@ -649,6 +662,7 @@ button:focus-visible {
   transition: border-color 0.3s ease;
 }
 
+/* Sección Transmedial */
 .transmedia-section {
   margin-top: 3rem;
   padding-top: 2rem;
@@ -866,6 +880,7 @@ button:focus-visible {
   text-decoration: underline;
 }
 
+/* Redes sociales */
 .share-section {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
@@ -953,6 +968,7 @@ button:focus-visible {
   border-color: #FF6719;
 }
 
+/* Redes sociales footer */
 .social-footer {
   display: flex;
   gap: 1.2rem;
@@ -1007,6 +1023,7 @@ button:focus-visible {
   border-color: var(--teal);
 }
 
+/* Imágenes dentro de ensayos */
 .imagen-ensayo {
   margin: 2.5rem 0;
   text-align: center;
@@ -1030,6 +1047,7 @@ button:focus-visible {
   transition: color 0.3s ease;
 }
 
+/*  Footer */
 .site-footer {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -1085,6 +1103,7 @@ button:focus-visible {
   opacity: 1;
 }
 
+/* Volver arriba*/
 #back-to-top {
   position: fixed;
   bottom: 2rem;
@@ -1114,6 +1133,7 @@ button:focus-visible {
   background: var(--teal-dim);
 }
 
+/* Enlaces tipo Wikipedia */
 .wikilink {
   color: var(--teal);
   text-decoration: none;
@@ -1127,6 +1147,7 @@ button:focus-visible {
   text-decoration: none;
 }
 
+/* Bloque destacado */
 .destacado {
   font-family: var(--serif);
   font-size: 1.2rem;
@@ -1142,6 +1163,7 @@ button:focus-visible {
   transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
+/* Mapa conceptual */
 .mapa-conceptual {
   max-width: var(--col-wide);
   margin: 0 auto;
@@ -1190,6 +1212,7 @@ button:focus-visible {
   background: transparent;
 }
 
+/* Nodos */
 .node {
   cursor: pointer;
   transition: filter 0.2s ease;
@@ -1223,6 +1246,7 @@ button:focus-visible {
   font-weight: 700;
 }
 
+/* Links */
 .link {
   stroke: var(--line);
   stroke-opacity: 0.3;
@@ -1242,6 +1266,7 @@ button:focus-visible {
   stroke-width: 3;
 }
 
+/* Tooltip del mapa */
 .mapa-tooltip {
   position: absolute;
   pointer-events: none;
@@ -1282,6 +1307,7 @@ button:focus-visible {
   font-style: italic;
 }
 
+/* Estado vacío */
 .mapa-empty {
   display: flex;
   flex-direction: column;
@@ -1298,6 +1324,7 @@ button:focus-visible {
   font-size: 2rem;
 }
 
+/* About Page */
 .about-page {
   max-width: var(--col-read);
   margin: 0 auto;
@@ -1354,6 +1381,7 @@ button:focus-visible {
   transform: translateY(-2px);
 }
 
+/* Responsive */
 @media (max-width: 640px) {
   .entry-row {
     grid-template-columns: 1fr;

@@ -1,4 +1,6 @@
 
+
+
 async function cargarDatos() {
   const res = await fetch("entradas.json");
   if (!res.ok) throw new Error("No se pudo cargar entradas.json");
@@ -24,6 +26,7 @@ function crearFilaEntrada(entrada) {
   a.className = "entry-row";
   a.href = `lectura.html?id=${encodeURIComponent(entrada.id || "")}`;
   
+
   const tagsList = (entrada.tags || []);
   a.dataset.tags = tagsList.join('|').toLowerCase();
   
@@ -49,23 +52,6 @@ function crearFilaEntrada(entrada) {
   return a;
 }
 
-function initThemeToggle() {
-  const toggle = document.getElementById('theme-toggle');
-  if (!toggle) return;
-  
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-    toggle.textContent = '☀️';
-  }
-  
-  toggle.addEventListener('click', function() {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    this.textContent = isLight ? '☀️' : '🌙';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
-}
 
 function initSearch() {
   const searchInput = document.getElementById('search-input');
@@ -84,10 +70,12 @@ function initSearch() {
       if (query === '') {
         found = true;
       } else {
+
         const text = row.textContent.toLowerCase();
         if (text.includes(query)) {
           found = true;
         }
+
         tagsArray.forEach(tag => {
           if (tag === query || tag.includes(query)) {
             found = true;
@@ -164,6 +152,7 @@ function initTagFilter() {
   });
 }
 
+
 function initViewToggle() {
   const toggle = document.getElementById('view-toggle');
   const archive = document.querySelector('.archive');
@@ -184,30 +173,12 @@ function initViewToggle() {
 }
 
 
-function initBackToTop() {
-  const btn = document.getElementById('back-to-top');
-  if (!btn) return;
-  
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  });
-  
-  btn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-
-
 
 function generarMapaConceptual(entradas) {
   const container = document.getElementById('mapa-container');
   if (!container) return;
   
+
   const tagCount = {};
   const tagEntries = {};
   const tagConnections = {};
@@ -263,6 +234,7 @@ function generarMapaConceptual(entradas) {
     entries: tagEntries[tag] || []
   }));
   
+
   const links = [];
   const linkSet = new Set();
   const tagsSet = new Set(tagsFiltrados);
@@ -289,6 +261,7 @@ function generarMapaConceptual(entradas) {
     }
   });
   
+
   const width = container.clientWidth || 800;
   const height = container.clientHeight || 500;
   
@@ -441,6 +414,7 @@ function generarMapaConceptual(entradas) {
     tooltip.classList.remove('visible');
   });
   
+
   node.on('click', function(event, d) {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -520,14 +494,13 @@ function generarMapaConceptual(entradas) {
   resizeObserver.observe(container);
 }
 
+
 async function init() {
   const archive = document.getElementById('archive-list');
   
-  initThemeToggle();
   initSearch();
   initTagFilter();
   initViewToggle();
-  initBackToTop();
   
   try {
     const data = await cargarDatos();
@@ -557,6 +530,7 @@ async function init() {
       count.textContent = String(entradas.length).padStart(2, "0");
     }
     
+
     generarMapaConceptual(entradas);
     
   } catch (err) {

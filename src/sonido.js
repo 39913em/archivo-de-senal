@@ -1,6 +1,7 @@
 
 import { ESTADO } from './estado-jardin.js';
-import { columnas, camera } from './escena-3d.js';
+import { columnas } from './columnas.js';
+import { camera } from './escena-3d.js';
 
 
 let audioCtx = null;

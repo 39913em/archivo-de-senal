@@ -16,7 +16,7 @@ import {
 import { 
   crearVerso, 
   crearMensaje
-} from './escena-3d.js';
+} from './flotantes.js';
 import { db } from './main.js';
 import { ref, get, set, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 import { playPageTurn } from './sonido.js';

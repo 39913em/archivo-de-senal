@@ -7,7 +7,9 @@
 <title>Archivo de Señal</title>
 <meta name="description" content="Arte, tecnología experimental y pensamiento crítico. Exploramos las fracturas, los errores y las derivas creativas en la cultura digital.">
 
+
 <link rel="icon" type="image/png" href="assets/img/logo.png">
+
 
 <meta property="og:title" content="Archivo de Señal">
 <meta property="og:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
@@ -18,6 +20,7 @@
 <meta name="twitter:title" content="Archivo de Señal">
 <meta name="twitter:description" content="Arte, tecnología experimental y pensamiento crítico — desde una perspectiva rizomática y disidente.">
 <meta name="twitter:image" content="https://39913em.github.io/archivo-de-senal/assets/img/logo.png">
+
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
@@ -35,20 +38,7 @@ fill="none" stroke="#0EA5A4" stroke-width="1"
 style="stroke-dasharray: 6 4;" />
 </svg>
 
-<header class="site-header">
-  <div class="brand">
-    <a href="index.html" class="brand-logo" aria-label="Página de inicio">
-      <img src="assets/img/logo.png"
-           srcset="assets/img/logo.png 1x, assets/img/logo@2x.png 2x"
-           alt="Logotipo de Archivo de Señal"
-           width="40" height="40">
-    </a>
-    <span class="brand-name">Archivo de Señal</span>
-  </div>
-  <div class="header-controls">
-    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
-  </div>
-</header>
+<div id="header-placeholder"></div>
 
 <section class="intro">
   <div>
@@ -60,6 +50,7 @@ style="stroke-dasharray: 6 4;" />
     piezas archivadas
   </div>
 </section>
+
 
 <div style="text-align:center; margin: 3rem 0; padding: 1.5rem; border-top: 1px solid #333; border-bottom: 1px solid #333;">
   <a href="jardin.html" 
@@ -76,6 +67,7 @@ style="stroke-dasharray: 6 4;" />
   </p>
 </div>
   
+
 <section class="mapa-conceptual" id="mapa-section">
   <h2></h2>
   <p class="mapa-desc"></p>
@@ -92,6 +84,7 @@ style="stroke-dasharray: 6 4;" />
     </div>
   </div>
   <div id="archive-list">
+
     <div class="skeleton-entry">
       <div class="skeleton-piece skeleton"></div>
       <div class="skeleton-main">
@@ -145,50 +138,11 @@ style="stroke-dasharray: 6 4;" />
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-contenido">
-    <div class="footer-texto">
-      <p>39913</p>
-      <p>Sitio Estático · Autónomo · de consulta abierta</p>
-      <p>
-        <a href="privacidad.html">Política de Privacidad</a>
-        <a href="terminos.html">Términos y Condiciones</a> · 
-        <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
-        
-      </p> 
-    </div>
-    
-    <div class="social-footer">
-      <a href="https://www.instagram.com/39913em/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
-        📷 Instagram
-      </a>
-      <a href="https://www.tiktok.com/@39913em" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
-        🎵 TikTok
-      </a>
-      <a href="https://sites.google.com/view/39913/home" target="_blank" rel="noopener noreferrer" class="social-btn demoreel">
-        🎬 Demo
-      </a>
-    </div>
-
-    <div class="footer-imagen" id="footer-easter-egg">
-      <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
-    </div>
-  </div>
-</footer>
+<div id="footer-placeholder" data-destino="about.html"></div>
 
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const footerImg = document.getElementById('footer-easter-egg');
-  if (footerImg) {
-    footerImg.addEventListener('click', function() {
-      window.location.href = 'about.html';
-    });
-  }
-});
-</script>
-
+<script src="assets/comun.js"></script>
 <script src="assets/index.js"></script>
 
 <div id="cookie-banner" style="position:fixed; bottom:0; left:0; right:0; background:var(--bg-elevated); color:var(--text); padding:15px 20px; z-index:9999; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-top:2px solid var(--teal); font-family:var(--sans); font-size:0.9rem; box-shadow:0 -4px 20px var(--shadow);">

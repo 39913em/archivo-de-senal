@@ -7,7 +7,9 @@
 <title>Términos y Condiciones · Archivo de Señal</title>
 <meta name="description" content="Términos y condiciones de uso del Archivo de Señal.">
 
+
 <link rel="icon" type="image/png" href="assets/img/logo.png">
+
 
 <meta property="og:title" content="Términos y Condiciones · Archivo de Señal">
 <meta property="og:description" content="Términos de uso del Archivo de Señal.">
@@ -33,20 +35,7 @@ fill="none" stroke="#0EA5A4" stroke-width="1"
 style="stroke-dasharray: 6 4;" />
 </svg>
 
-<header class="site-header">
-  <div class="brand">
-    <a href="index.html" class="brand-logo" aria-label="Página de inicio">
-      <img src="assets/img/logo.png"
-           srcset="assets/img/logo.png 1x, assets/img/logo@2x.png 2x"
-           alt="Logotipo de Archivo de Señal"
-           width="40" height="40">
-    </a>
-    <span class="brand-name">Archivo de Señal</span>
-  </div>
-  <div class="header-controls">
-    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
-  </div>
-</header>
+<div id="header-placeholder"></div>
 
 <main class="about-page">
   <div class="about-contenido">
@@ -79,65 +68,11 @@ style="stroke-dasharray: 6 4;" />
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-contenido">
-    <div class="footer-texto">
-      <p>39913</p>
-      <p>Sitio Estático · Autónomo · de consulta abierta</p>
-      <p>
-        <a href="privacidad.html">Política de Privacidad</a> · 
-        <a href="terminos.html">Términos y Condiciones</a> · 
-        <a href="mailto:eddmatography@protonmail.ch">Contacto</a>
-      </p>
-    </div>
-
-    <div class="social-footer">
-      <a href="https://www.instagram.com/39913em/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
-        📷 Instagram
-      </a>
-      <a href="https://www.tiktok.com/@39913em" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
-        🎵 TikTok
-      </a>
-      <a href="https://sites.google.com/view/39913/home" target="_blank" rel="noopener noreferrer" class="social-btn demoreel">
-        🎬 Demo
-      </a>
-    </div>
-
-    <div class="footer-imagen" id="footer-easter-egg">
-      <img src="assets/img/boton.png" alt="Imagen decorativa" loading="lazy">
-    </div>
-  </div>
-</footer>
+<div id="footer-placeholder" data-destino="about.html"></div>
 
 <button id="back-to-top" aria-label="Volver arriba">↑</button>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const footerImg = document.getElementById('footer-easter-egg');
-  if (footerImg) {
-    footerImg.addEventListener('click', function() {
-      window.location.href = 'about.html';
-    });
-  }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('theme-toggle');
-  if (!toggle) return;
-  const body = document.body;
-  const current = localStorage.getItem('theme') || 'dark';
-  if (current === 'light') {
-    body.classList.add('light-mode');
-    toggle.textContent = '☀️';
-  }
-  toggle.addEventListener('click', function() {
-    body.classList.toggle('light-mode');
-    const isLight = body.classList.contains('light-mode');
-    toggle.textContent = isLight ? '☀️' : '🌙';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
-});
-</script>
+<script src="assets/comun.js"></script>
 
 </body>
 </html>

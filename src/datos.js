@@ -1,3 +1,5 @@
+
+
 export const CONFIG = {
   MAX_VIDA: 30,
   VIDAS_INICIALES: 5,

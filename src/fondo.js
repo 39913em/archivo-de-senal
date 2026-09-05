@@ -25,11 +25,11 @@ function crearEstrellas() {
 
   for (let i = 0; i < cantidad; i++) {
     const theta = Math.random() * Math.PI * 2;
-    const phi = Math.random() * Math.PI / 2; // Solo hemisferio superior
+    const phi = Math.random() * Math.PI / 2; 
     const r = radio * (0.3 + Math.random() * 0.7);
 
     positions[i * 3] = Math.cos(theta) * Math.sin(phi) * r;
-    positions[i * 3 + 1] = Math.cos(phi) * r * 0.6 + 2; // Elevado
+    positions[i * 3 + 1] = Math.cos(phi) * r * 0.6 + 2; 
     positions[i * 3 + 2] = Math.sin(theta) * Math.sin(phi) * r;
 
     sizes[i] = 0.02 + Math.random() * 0.06;

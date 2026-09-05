@@ -18,11 +18,8 @@ import {
   setSincronizarFlores
 } from './estado-jardin.js';
 
-import {
-  sincronizarFlores,
-  escucharVerso,
-  escucharMensajes
-} from './escena-3d.js';
+import { sincronizarFlores } from './flores.js';
+import { escucharVerso, escucharMensajes } from './flotantes.js';
 
 import { initAudio } from './sonido.js';
 

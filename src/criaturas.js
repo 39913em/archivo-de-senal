@@ -1,12 +1,12 @@
 
 
 import * as THREE from 'three';
-import { scene, versosFlotantes } from './escena-3d.js';
+import { scene } from './escena-3d.js';
+import { versosFlotantes } from './flotantes.js';
 import { ESTADO } from './estado-jardin.js';
 import { ref, push, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
 console.log('🔄 Cargando criaturas.js (xilófono armónico + especies diferenciadas)...');
-
 
 var CONFIG = {
   MAX_MUSHIS: 10,
@@ -172,7 +172,6 @@ function construirCriatura(identidad) {
   const baseSize = CONFIG.TAMANO_BASE;
   const bodyScale = morphology.bodyScale * baseSize * 0.15;
 
-
   const bodyGeo = new THREE.SphereGeometry(bodyScale, 6, 6);
   bodyGeo.scale(
     1 + (morphology.asymmetry - 0.5) * 0.5,
@@ -182,7 +181,6 @@ function construirCriatura(identidad) {
   const body = new THREE.Mesh(bodyGeo, matCuerpo);
   body.castShadow = false;
   group.add(body);
-
 
   const numSegments = morphology.segments;
   for (let i = 0; i < numSegments; i++) {
@@ -199,7 +197,6 @@ function construirCriatura(identidad) {
     seg.rotation.set(Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5);
     group.add(seg);
   }
-
 
   const numLimbs = morphology.limbs;
   const limbLength = morphology.limbLength * baseSize * 0.4;
@@ -255,7 +252,6 @@ function construirCriatura(identidad) {
       currentDir.normalize();
     }
   }
-
 
   const numAppendages = morphology.appendages;
   for (let i = 0; i < numAppendages; i++) {
@@ -953,8 +949,8 @@ console.log('✅ criaturas.js cargado correctamente');
 
     const ORU = {
         criaturas: [],
-        maxCriaturas: 3,
-        intervaloGeneracion: 20000, // 20 segundos
+        maxCriaturas: 5,
+        intervaloGeneracion: 20000, 
         ultimaGeneracion: 0,
     };
 
@@ -977,8 +973,6 @@ console.log('✅ criaturas.js cargado correctamente');
             (Math.random() - 0.5) * 8
         );
 
-
-        // Núcleo (0.08 → 0.04)
         const nucleo =
             new THREE.Mesh(
                 new THREE.IcosahedronGeometry(0.04, 1),
@@ -995,7 +989,6 @@ console.log('✅ criaturas.js cargado correctamente');
 
         grupo.add(nucleo);
 
-        // Anillos (radios 0.15-0.33 → 0.075-0.165)
         const anillos = [];
 
         for (let i = 0; i < 4; i++) {
@@ -1041,7 +1034,6 @@ console.log('✅ criaturas.js cargado correctamente');
             });
         }
 
-        // Brazos (largo 0.06-0.10 → 0.03-0.05, radio 0.18-0.40 → 0.09-0.20)
         const ramas = [];
 
         for (let i = 0; i < 10; i++) {
@@ -1128,7 +1120,6 @@ console.log('✅ criaturas.js cargado correctamente');
             });
         }
 
-        // Ejes (longitud 0.7 → 0.35)
         const ejes = [];
 
         for (let i = 0; i < 3; i++) {
@@ -1159,7 +1150,6 @@ console.log('✅ criaturas.js cargado correctamente');
             ejes.push(eje);
         }
 
-        // Satélites (radio 0.4-0.52 → 0.2-0.26, tamaño 0.02 → 0.01)
         const satelites = [];
 
         for (let i = 0; i < 5; i++) {
@@ -1241,7 +1231,6 @@ console.log('✅ criaturas.js cargado correctamente');
         const tiempo =
             performance.now() * 0.001;
 
-        // MUSHI 
         if (
             typeof criaturas !== 'undefined' &&
             Array.isArray(criaturas)
@@ -1297,7 +1286,6 @@ console.log('✅ criaturas.js cargado correctamente');
             });
         }
 
-        // KAKU 
         if (
             typeof criaturas !== 'undefined' &&
             Array.isArray(criaturas)
@@ -1366,8 +1354,6 @@ console.log('✅ criaturas.js cargado correctamente');
             });
         }
 
-        
-               // ORU 
         ORU.criaturas.forEach(oru => {
 
             const data =
@@ -1379,7 +1365,6 @@ console.log('✅ criaturas.js cargado correctamente');
                 0.016 *
                 data.velocidadOrbital;
 
-            // Movimiento orbital (0.002 → 0.015)
             const amplitud = 0.015 + Math.sin(data.fase * 0.7) * 0.005;
 
             oru.position.x +=
@@ -1400,7 +1385,6 @@ console.log('✅ criaturas.js cargado correctamente');
                     data.fase * 1.4
                 ) * (amplitud * 0.9);
 
-            // Rotación (0.006 → 0.015, etc.)
             oru.rotation.x +=
                 data.velocidadRotacion *
                 0.015;
