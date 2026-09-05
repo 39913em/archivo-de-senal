@@ -267,9 +267,9 @@ export async function revivirOráculo(origen = 'semilla') {
     actualizarUI();
 
     if (origen === 'semilla') {
-      avisoTemporal('¡El jardín ha renacido con una semilla!');
+      avisoTemporal('¡El jardín ha renacido!');
     } else {
-      avisoTemporal('¡El jardín ha renacido con 5 haikus!');
+      avisoTemporal('¡El jardín ha renacido!');
     }
     console.log('Renacido. Ciclo:', ESTADO.ciclos);
   } catch (e) {
@@ -279,11 +279,11 @@ export async function revivirOráculo(origen = 'semilla') {
 }
 
 export function activarRuina() {
-  console.log('🏚️ Ruina activada (placeholder)');
+  console.log('🏚️ Ruina activada');
 }
 
 export function desactivarRuina() {
-  console.log('🌱 Ruina desactivada (placeholder)');
+  console.log('🌱 Ruina desactivada');
 }
 
 export async function iniciarEstado() {

@@ -1,12 +1,10 @@
-
-
 import * as THREE from 'three';
 import { scene } from './escena-3d.js';
 import { versosFlotantes } from './flotantes.js';
 import { ESTADO } from './estado-jardin.js';
 import { ref, push, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 
-console.log('🔄 Cargando criaturas.js (xilófono armónico + especies diferenciadas)...');
+console.log('🔄 criaturas OK');
 
 var CONFIG = {
   MAX_MUSHIS: 10,
@@ -480,7 +478,7 @@ function crearMushi() {
   }
 
   ultimoMushi = Date.now();
-  console.log(`🐛 ${cantidadReal} Mushi(s) nacido(s)`);
+  console.log(`🐛 Mushi ${cantidadReal} `);
 }
 
 function crearKaku(texto) {
@@ -538,7 +536,7 @@ function crearKaku(texto) {
     });
   }
 
-  console.log(`✍️ ${cantidadReal} Kaku(s) nacido(s) desde: "${texto}"`);
+  console.log(`✍️ ${cantidadReal} Kaku"${texto}"`);
 }
 
 export function escucharKakus() {
@@ -578,7 +576,7 @@ export function escucharKakus() {
             objetivo: grupo.position.clone(),
             tiempoCambio: 0,
           });
-          console.log('🔄 Kaku sincronizado desde Firebase');
+          console.log('🔄 Kaku sincronizado');
         }
       });
 
@@ -797,45 +795,27 @@ export function actualizarCriaturas(time) {
 
 export function iniciarCriaturas() {
   escucharKakus();
-  console.log('🦗 Sistema de criaturas iniciado (xilófono armónico + especies diferenciadas)');
+  console.log('🦗 Criaturas OK');
 }
 
-console.log('✅ criaturas.js cargado correctamente');
+console.log('✅ criaturas OK');
 
 
 (() => {
-
-
     function activarMovimientoTentacularMushi() {
-
         if (typeof criaturas === 'undefined' || !Array.isArray(criaturas)) return;
-
         criaturas.forEach((mushi, index) => {
-
             if (!mushi?.userData?.identidad) return;
             if (mushi.userData.identidad.tipo !== 'mushi') return;
             if (mushi.userData.movimientoTentacular) return;
-
             mushi.userData.movimientoTentacular = true;
-
             const tentaculos = [];
-
             mushi.traverse(obj => {
-
                 if (!obj.userData?.esExtremidad) return;
-
                 obj.userData.tentaculoMushi = true;
-
-                const fase =
-                    Math.random() * Math.PI * 2 +
-                    index * 0.73;
-
-                const amplitud =
-                    0.12 + Math.random() * 0.18;
-
-                const velocidad =
-                    0.8 + Math.random() * 1.2;
-
+                const fase = Math.random() * Math.PI * 2 + index * 0.73;
+                const amplitud = 0.12 + Math.random() * 0.18;
+                const velocidad = 0.8 + Math.random() * 1.2;
                 tentaculos.push({
                     objeto: obj,
                     fase,
@@ -844,108 +824,62 @@ console.log('✅ criaturas.js cargado correctamente');
                     eje: Math.floor(Math.random() * 3)
                 });
             });
-
             mushi.userData.tentaculosMushi = tentaculos;
         });
     }
 
-
-
     function crearEstructuraKaku() {
-
         if (typeof criaturas === 'undefined' || !Array.isArray(criaturas)) return;
-
         criaturas.forEach((kaku, index) => {
-
             if (!kaku?.userData?.identidad) return;
             if (kaku.userData.identidad.tipo !== 'kaku') return;
             if (kaku.userData.fragmentosKaku) return;
-
             kaku.userData.fragmentosKaku = true;
-
             const fragmentos = new THREE.Group();
             fragmentos.name = 'Kaku_Fragmentos';
-
             const cantidad = 7 + Math.floor(Math.random() * 4);
-
             for (let i = 0; i < cantidad; i++) {
-
-                const angulo =
-                    (i / cantidad) * Math.PI * 2;
-
-                const radio =
-                    1.05 + Math.random() * 0.65;
-
-                const altura =
-                    (Math.random() - 0.5) * 1.2;
-
-                const escala =
-                    0.12 + Math.random() * 0.16;
-
-                const geometria =
-                    new THREE.IcosahedronGeometry(
-                        escala,
-                        0
-                    );
-
-                const material =
-                    new THREE.MeshStandardMaterial({
-                        color: kaku.userData.identidad.color || 0xffffff,
-                        emissive:
-                            kaku.userData.identidad.color || 0xffffff,
-                        emissiveIntensity: 0.15,
-                        roughness: 0.8,
-                        metalness: 0.1
-                    });
-
-                const fragmento =
-                    new THREE.Mesh(
-                        geometria,
-                        material
-                    );
-
+                const angulo = (i / cantidad) * Math.PI * 2;
+                const radio = 1.05 + Math.random() * 0.65;
+                const altura = (Math.random() - 0.5) * 1.2;
+                const escala = 0.12 + Math.random() * 0.16;
+                const geometria = new THREE.IcosahedronGeometry(escala, 0);
+                const material = new THREE.MeshStandardMaterial({
+                    color: kaku.userData.identidad.color || 0xffffff,
+                    emissive: kaku.userData.identidad.color || 0xffffff,
+                    emissiveIntensity: 0.15,
+                    roughness: 0.8,
+                    metalness: 0.1
+                });
+                const fragmento = new THREE.Mesh(geometria, material);
                 fragmento.position.set(
                     Math.cos(angulo) * radio,
                     altura,
                     Math.sin(angulo) * radio
                 );
-
                 fragmento.rotation.set(
                     Math.random() * Math.PI,
                     Math.random() * Math.PI,
                     Math.random() * Math.PI
                 );
-
                 fragmento.userData.fragmentoKaku = true;
-
                 fragmentos.add(fragmento);
             }
-
             kaku.add(fragmentos);
-
             kaku.userData.fragmentosKakuData = {
                 grupo: fragmentos,
                 fase: Math.random() * Math.PI * 2,
-                velocidad:
-                    0.25 + Math.random() * 0.25,
-                fragmentos:
-                    fragmentos.children.map((obj, i) => ({
-                        objeto: obj,
-                        angulo:
-                            (i / fragmentos.children.length) *
-                            Math.PI * 2,
-                        radio:
-                            1.05 + Math.random() * 0.65,
-                        altura:
-                            (Math.random() - 0.5) * 1.2,
-                        fase:
-                            Math.random() * Math.PI * 2
-                    }))
+                velocidad: 0.25 + Math.random() * 0.25,
+                fragmentos: fragmentos.children.map((obj, i) => ({
+                    objeto: obj,
+                    angulo: (i / fragmentos.children.length) * Math.PI * 2,
+                    radio: 1.05 + Math.random() * 0.65,
+                    altura: (Math.random() - 0.5) * 1.2,
+                    fase: Math.random() * Math.PI * 2
+                }))
             };
         });
     }
-
-
 
     const ORU = {
         criaturas: [],
@@ -955,232 +889,132 @@ console.log('✅ criaturas.js cargado correctamente');
     };
 
     function crearOru() {
-
         if (ORU.criaturas.length >= ORU.maxCriaturas) return;
-
         if (ESTADO.muerto) return;
         if (ESTADO.vida < 5) return;
 
         const grupo = new THREE.Group();
-
         grupo.name = 'ORU';
-
         grupo.userData.esOru = true;
-
         grupo.position.set(
             (Math.random() - 0.5) * 8,
             1.5 + Math.random() * 4,
             (Math.random() - 0.5) * 8
         );
 
-        const nucleo =
-            new THREE.Mesh(
-                new THREE.IcosahedronGeometry(0.04, 1),
-                new THREE.MeshStandardMaterial({
-                    color: 0x9dffdb,
-                    emissive: 0x46ffc0,
-                    emissiveIntensity: 0.8,
-                    roughness: 0.5,
-                    metalness: 0.2
-                })
-            );
-
+        const nucleo = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(0.04, 1),
+            new THREE.MeshStandardMaterial({
+                color: 0x9dffdb,
+                emissive: 0x46ffc0,
+                emissiveIntensity: 0.8,
+                roughness: 0.5,
+                metalness: 0.2
+            })
+        );
         nucleo.userData.oruNucleo = true;
-
         grupo.add(nucleo);
 
         const anillos = [];
-
         for (let i = 0; i < 4; i++) {
-
             const radio = 0.075 + i * 0.03;
-
-            const tubo =
-                new THREE.TorusGeometry(
-                    radio,
-                    0.0075 + i * 0.002,
-                    6,
-                    16
-                );
-
-            const material =
-                new THREE.MeshStandardMaterial({
-                    color: 0x83e8cf,
-                    emissive: 0x3be0b4,
-                    emissiveIntensity: 0.25,
-                    roughness: 0.7,
-                    metalness: 0.25
-                });
-
-            const anillo =
-                new THREE.Mesh(
-                    tubo,
-                    material
-                );
-
-            anillo.rotation.x =
-                Math.PI / 2;
-
+            const tubo = new THREE.TorusGeometry(radio, 0.0075 + i * 0.002, 6, 16);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x83e8cf,
+                emissive: 0x3be0b4,
+                emissiveIntensity: 0.25,
+                roughness: 0.7,
+                metalness: 0.25
+            });
+            const anillo = new THREE.Mesh(tubo, material);
+            anillo.rotation.x = Math.PI / 2;
             anillo.userData.oruAnillo = true;
-
             grupo.add(anillo);
-
             anillos.push({
                 objeto: anillo,
                 radioOriginal: radio,
-                fase:
-                    i * 0.55 +
-                    Math.random() * 0.5
+                fase: i * 0.55 + Math.random() * 0.5
             });
         }
 
         const ramas = [];
-
         for (let i = 0; i < 10; i++) {
-
-            const angulo =
-                (i / 10) *
-                Math.PI * 2;
-
-            const radio =
-                0.09 + Math.random() * 0.11;
-
-            const altura =
-                (Math.random() - 0.5) * 0.175;
-
-            const largo =
-                0.03 + Math.random() * 0.05;
-
-            const ramaGrupo =
-                new THREE.Group();
-
+            const angulo = (i / 10) * Math.PI * 2;
+            const radio = 0.09 + Math.random() * 0.11;
+            const altura = (Math.random() - 0.5) * 0.175;
+            const largo = 0.03 + Math.random() * 0.05;
+            const ramaGrupo = new THREE.Group();
             ramaGrupo.position.set(
                 Math.cos(angulo) * radio,
                 altura,
                 Math.sin(angulo) * radio
             );
-
-            ramaGrupo.rotation.z =
-                (Math.random() - 0.5) * 0.9;
-
-            ramaGrupo.rotation.y =
-                angulo;
-
-            const rama =
-                new THREE.Mesh(
-                    new THREE.CylinderGeometry(
-                        0.005,
-                        0.01,
-                        largo,
-                        5
-                    ),
-                    new THREE.MeshStandardMaterial({
-                        color: 0x6bd7c0,
-                        emissive: 0x248c73,
-                        emissiveIntensity: 0.25
-                    })
-                );
-
-            rama.position.y =
-                largo / 2;
-
+            ramaGrupo.rotation.z = (Math.random() - 0.5) * 0.9;
+            ramaGrupo.rotation.y = angulo;
+            const rama = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.005, 0.01, largo, 5),
+                new THREE.MeshStandardMaterial({
+                    color: 0x6bd7c0,
+                    emissive: 0x248c73,
+                    emissiveIntensity: 0.25
+                })
+            );
+            rama.position.y = largo / 2;
             ramaGrupo.add(rama);
-
-            const polipo =
-                new THREE.Mesh(
-                    new THREE.SphereGeometry(
-                        0.0125 +
-                        Math.random() * 0.0075,
-                        6,
-                        6
-                    ),
-                    new THREE.MeshStandardMaterial({
-                        color: 0xb8ffe9,
-                        emissive: 0x55ffd0,
-                        emissiveIntensity: 0.55
-                    })
-                );
-
-            polipo.position.y =
-                largo;
-
+            const polipo = new THREE.Mesh(
+                new THREE.SphereGeometry(0.0125 + Math.random() * 0.0075, 6, 6),
+                new THREE.MeshStandardMaterial({
+                    color: 0xb8ffe9,
+                    emissive: 0x55ffd0,
+                    emissiveIntensity: 0.55
+                })
+            );
+            polipo.position.y = largo;
             ramaGrupo.add(polipo);
-
             ramaGrupo.userData.oruRama = true;
-
             grupo.add(ramaGrupo);
-
             ramas.push({
                 objeto: ramaGrupo,
-                fase:
-                    Math.random() * Math.PI * 2,
-                velocidad:
-                    0.5 + Math.random() * 0.7,
+                fase: Math.random() * Math.PI * 2,
+                velocidad: 0.5 + Math.random() * 0.7,
                 radio
             });
         }
 
         const ejes = [];
-
         for (let i = 0; i < 3; i++) {
-
-            const eje =
-                new THREE.Mesh(
-                    new THREE.CylinderGeometry(
-                        0.0025,
-                        0.0025,
-                        0.35,
-                        4
-                    ),
-                    new THREE.MeshStandardMaterial({
-                        color: 0x8fffe0,
-                        emissive: 0x39d9b2,
-                        emissiveIntensity: 0.2
-                    })
-                );
-
-            eje.rotation.z =
-                Math.PI / 2;
-
-            eje.rotation.y =
-                i * Math.PI / 3;
-
+            const eje = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.0025, 0.0025, 0.35, 4),
+                new THREE.MeshStandardMaterial({
+                    color: 0x8fffe0,
+                    emissive: 0x39d9b2,
+                    emissiveIntensity: 0.2
+                })
+            );
+            eje.rotation.z = Math.PI / 2;
+            eje.rotation.y = i * Math.PI / 3;
             grupo.add(eje);
-
             ejes.push(eje);
         }
 
         const satelites = [];
-
         for (let i = 0; i < 5; i++) {
-
-            const satelite =
-                new THREE.Mesh(
-                    new THREE.IcosahedronGeometry(
-                        0.01,
-                        0
-                    ),
-                    new THREE.MeshStandardMaterial({
-                        color: 0xd0fff1,
-                        emissive: 0x5fffd4,
-                        emissiveIntensity: 0.8
-                    })
-                );
-
+            const satelite = new THREE.Mesh(
+                new THREE.IcosahedronGeometry(0.01, 0),
+                new THREE.MeshStandardMaterial({
+                    color: 0xd0fff1,
+                    emissive: 0x5fffd4,
+                    emissiveIntensity: 0.8
+                })
+            );
             satelite.userData.oruSatelite = true;
-
             grupo.add(satelite);
-
             satelites.push({
                 objeto: satelite,
-                angulo:
-                    i / 5 * Math.PI * 2,
-                radio:
-                    0.2 + Math.random() * 0.06,
-                altura:
-                    (Math.random() - 0.5) * 0.2,
-                velocidad:
-                    0.25 + Math.random() * 0.3
+                angulo: i / 5 * Math.PI * 2,
+                radio: 0.2 + Math.random() * 0.06,
+                altura: (Math.random() - 0.5) * 0.2,
+                velocidad: 0.25 + Math.random() * 0.3
             });
         }
 
@@ -1191,25 +1025,20 @@ console.log('✅ criaturas.js cargado correctamente');
             ejes,
             satelites,
             fase: Math.random() * Math.PI * 2,
-            velocidadOrbital:
-                0.12 + Math.random() * 0.08,
-            velocidadRotacion:
-                0.3 + Math.random() * 0.35,
-            escala:
-                1
+            velocidadOrbital: 0.12 + Math.random() * 0.08,
+            velocidadRotacion: 0.3 + Math.random() * 0.35,
+            escala: 1
         };
 
         if (typeof escena !== 'undefined') {
             escena.add(grupo);
-        } else if (
-            typeof scene !== 'undefined'
-        ) {
+        } else if (typeof scene !== 'undefined') {
             scene.add(grupo);
         }
 
         ORU.criaturas.push(grupo);
         ORU.ultimaGeneracion = Date.now();
-        console.log(`🪸 ORU creada (${ORU.criaturas.length}/${ORU.maxCriaturas})`);
+        console.log(`🪸 ORU(${ORU.criaturas.length}/${ORU.maxCriaturas})`);
     }
 
     function programarOru() {
@@ -1219,375 +1048,135 @@ console.log('✅ criaturas.js cargado correctamente');
             if (ORU.criaturas.length >= ORU.maxCriaturas) return;
             if (ESTADO.muerto) return;
             if (ESTADO.vida < 5) return;
-
             crearOru();
         }, 2000);
     }
 
-
-
     function actualizarEspeciesDiferenciadas() {
+        const tiempo = performance.now() * 0.001;
 
-        const tiempo =
-            performance.now() * 0.001;
-
-        if (
-            typeof criaturas !== 'undefined' &&
-            Array.isArray(criaturas)
-        ) {
-
+        if (typeof criaturas !== 'undefined' && Array.isArray(criaturas)) {
             criaturas.forEach(mushi => {
-
-                if (
-                    !mushi?.userData?.tentaculosMushi
-                ) return;
-
+                if (!mushi?.userData?.tentaculosMushi) return;
                 mushi.userData.tentaculosMushi.forEach(t => {
-
-                    const onda =
-                        tiempo *
-                        t.velocidad +
-                        t.fase;
-
-                    const movimiento =
-                        Math.sin(onda) *
-                        t.amplitud;
-
-                    const movimiento2 =
-                        Math.cos(onda * 0.73 + t.fase) *
-                        t.amplitud *
-                        0.65;
-
+                    const onda = tiempo * t.velocidad + t.fase;
+                    const movimiento = Math.sin(onda) * t.amplitud;
+                    const movimiento2 = Math.cos(onda * 0.73 + t.fase) * t.amplitud * 0.65;
                     if (t.eje === 0) {
-
-                        t.objeto.rotation.z =
-                            movimiento;
-
-                        t.objeto.rotation.y =
-                            movimiento2;
-
+                        t.objeto.rotation.z = movimiento;
+                        t.objeto.rotation.y = movimiento2;
                     } else if (t.eje === 1) {
-
-                        t.objeto.rotation.x =
-                            movimiento;
-
-                        t.objeto.rotation.z =
-                            movimiento2;
-
+                        t.objeto.rotation.x = movimiento;
+                        t.objeto.rotation.z = movimiento2;
                     } else {
-
-                        t.objeto.rotation.y =
-                            movimiento;
-
-                        t.objeto.rotation.x =
-                            movimiento2;
+                        t.objeto.rotation.y = movimiento;
+                        t.objeto.rotation.x = movimiento2;
                     }
                 });
             });
         }
 
-        if (
-            typeof criaturas !== 'undefined' &&
-            Array.isArray(criaturas)
-        ) {
-
+        if (typeof criaturas !== 'undefined' && Array.isArray(criaturas)) {
             criaturas.forEach(kaku => {
-
-                const data =
-                    kaku?.userData?.fragmentosKakuData;
-
+                const data = kaku?.userData?.fragmentosKakuData;
                 if (!data) return;
-
-                data.fase +=
-                    data.velocidad * 0.016;
-
+                data.fase += data.velocidad * 0.016;
                 data.fragmentos.forEach((f, i) => {
-
-                    const onda =
-                        tiempo * 0.7 +
-                        f.fase;
-
-                    const pulso =
-                        Math.sin(onda) * 0.18;
-
-                    const radio =
-                        f.radio + pulso;
-
-                    const angulo =
-                        f.angulo +
-                        tiempo *
-                        0.12 +
-                        Math.sin(onda * 0.4) *
-                        0.12;
-
-                    f.objeto.position.x =
-                        Math.cos(angulo) *
-                        radio;
-
-                    f.objeto.position.z =
-                        Math.sin(angulo) *
-                        radio;
-
-                    f.objeto.position.y =
-                        f.altura +
-                        Math.sin(
-                            tiempo * 0.8 +
-                            f.fase
-                        ) * 0.16;
-
-                    f.objeto.rotation.x +=
-                        0.008;
-
-                    f.objeto.rotation.y +=
-                        0.011;
-
-                    f.objeto.rotation.z +=
-                        0.006;
+                    const onda = tiempo * 0.7 + f.fase;
+                    const pulso = Math.sin(onda) * 0.18;
+                    const radio = f.radio + pulso;
+                    const angulo = f.angulo + tiempo * 0.12 + Math.sin(onda * 0.4) * 0.12;
+                    f.objeto.position.x = Math.cos(angulo) * radio;
+                    f.objeto.position.z = Math.sin(angulo) * radio;
+                    f.objeto.position.y = f.altura + Math.sin(tiempo * 0.8 + f.fase) * 0.16;
+                    f.objeto.rotation.x += 0.008;
+                    f.objeto.rotation.y += 0.011;
+                    f.objeto.rotation.z += 0.006;
                 });
-
-                kaku.rotation.y +=
-                    0.0015;
-
-                kaku.rotation.z =
-                    Math.sin(tiempo * 0.35) *
-                    0.06;
+                kaku.rotation.y += 0.0015;
+                kaku.rotation.z = Math.sin(tiempo * 0.35) * 0.06;
             });
         }
 
         ORU.criaturas.forEach(oru => {
-
-            const data =
-                oru.userData.oru;
-
+            const data = oru.userData.oru;
             if (!data) return;
-
-            data.fase +=
-                0.016 *
-                data.velocidadOrbital;
-
+            data.fase += 0.016 * data.velocidadOrbital;
             const amplitud = 0.015 + Math.sin(data.fase * 0.7) * 0.005;
-
-            oru.position.x +=
-                Math.sin(
-                    tiempo * 0.23 +
-                    data.fase
-                ) * amplitud;
-
-            oru.position.y +=
-                Math.cos(
-                    tiempo * 0.31 +
-                    data.fase * 0.9
-                ) * (amplitud * 0.7);
-
-            oru.position.z +=
-                Math.sin(
-                    tiempo * 0.19 +
-                    data.fase * 1.4
-                ) * (amplitud * 0.9);
-
-            oru.rotation.x +=
-                data.velocidadRotacion *
-                0.015;
-
-            oru.rotation.y +=
-                data.velocidadRotacion *
-                0.012;
-
-            oru.rotation.z +=
-                data.velocidadRotacion *
-                0.020;
-
+            oru.position.x += Math.sin(tiempo * 0.23 + data.fase) * amplitud;
+            oru.position.y += Math.cos(tiempo * 0.31 + data.fase * 0.9) * (amplitud * 0.7);
+            oru.position.z += Math.sin(tiempo * 0.19 + data.fase * 1.4) * (amplitud * 0.9);
+            oru.rotation.x += data.velocidadRotacion * 0.015;
+            oru.rotation.y += data.velocidadRotacion * 0.012;
+            oru.rotation.z += data.velocidadRotacion * 0.020;
             if (Math.random() < 0.005) {
                 data.velocidadOrbital = 0.08 + Math.random() * 0.15;
                 data.velocidadRotacion = 0.2 + Math.random() * 0.4;
             }
-
-            const ciclo =
-                (
-                    Math.sin(
-                        tiempo * 0.65 +
-                        data.fase
-                    ) + 1
-                ) / 2;
-
-            const contraccion =
-                1 - ciclo * 0.52;
-
+            const ciclo = (Math.sin(tiempo * 0.65 + data.fase) + 1) / 2;
+            const contraccion = 1 - ciclo * 0.52;
             data.anillos.forEach((anillo, i) => {
-
-                const onda =
-                    Math.sin(
-                        tiempo * 0.9 -
-                        i * 0.7 +
-                        data.fase
-                    );
-
-                const escala =
-                    contraccion +
-                    onda * 0.045;
-
-                anillo.objeto.scale.set(
-                    escala,
-                    escala,
-                    escala
-                );
-
-                anillo.objeto.rotation.x =
-                    Math.PI / 2 +
-                    Math.sin(
-                        tiempo * 0.5 +
-                        anillo.fase
-                    ) * 0.35;
-
-                anillo.objeto.rotation.z =
-                    tiempo *
-                    (0.18 + i * 0.035);
+                const onda = Math.sin(tiempo * 0.9 - i * 0.7 + data.fase);
+                const escala = contraccion + onda * 0.045;
+                anillo.objeto.scale.set(escala, escala, escala);
+                anillo.objeto.rotation.x = Math.PI / 2 + Math.sin(tiempo * 0.5 + anillo.fase) * 0.35;
+                anillo.objeto.rotation.z = tiempo * (0.18 + i * 0.035);
             });
-
-            const respiracion =
-                1 +
-                Math.sin(
-                    tiempo * 1.4 +
-                    data.fase
-                ) * 0.12;
-
-            data.nucleo.scale.setScalar(
-                respiracion
-            );
-
+            const respiracion = 1 + Math.sin(tiempo * 1.4 + data.fase) * 0.12;
+            data.nucleo.scale.setScalar(respiracion);
             data.ramas.forEach(rama => {
-
-                const onda =
-                    Math.sin(
-                        tiempo *
-                        rama.velocidad +
-                        rama.fase
-                    );
-
-                rama.objeto.rotation.z =
-                    onda * 0.22;
-
-                rama.objeto.rotation.x =
-                    Math.cos(
-                        tiempo *
-                        rama.velocidad *
-                        0.8 +
-                        rama.fase
-                    ) * 0.18;
-
-                rama.objeto.position.y =
-                    Math.sin(
-                        tiempo * 0.7 +
-                        rama.fase
-                    ) * 0.08;
+                const onda = Math.sin(tiempo * rama.velocidad + rama.fase);
+                rama.objeto.rotation.z = onda * 0.22;
+                rama.objeto.rotation.x = Math.cos(tiempo * rama.velocidad * 0.8 + rama.fase) * 0.18;
+                rama.objeto.position.y = Math.sin(tiempo * 0.7 + rama.fase) * 0.08;
             });
-
             data.ejes.forEach((eje, i) => {
-
-                eje.rotation.x +=
-                    0.004 +
-                    i * 0.001;
-
-                eje.rotation.y +=
-                    0.006;
+                eje.rotation.x += 0.004 + i * 0.001;
+                eje.rotation.y += 0.006;
             });
-
             data.satelites.forEach(s => {
-
-                const angulo =
-                    s.angulo +
-                    tiempo *
-                    s.velocidad;
-
-                s.objeto.position.x =
-                    Math.cos(angulo) *
-                    s.radio;
-
-                s.objeto.position.z =
-                    Math.sin(angulo) *
-                    s.radio;
-
-                s.objeto.position.y =
-                    s.altura +
-                    Math.sin(
-                        tiempo * 0.9 +
-                        s.angulo
-                    ) * 0.18;
-
-                s.objeto.rotation.x +=
-                    0.015;
-
-                s.objeto.rotation.y +=
-                    0.02;
+                const angulo = s.angulo + tiempo * s.velocidad;
+                s.objeto.position.x = Math.cos(angulo) * s.radio;
+                s.objeto.position.z = Math.sin(angulo) * s.radio;
+                s.objeto.position.y = s.altura + Math.sin(tiempo * 0.9 + s.angulo) * 0.18;
+                s.objeto.rotation.x += 0.015;
+                s.objeto.rotation.y += 0.02;
             });
-
-            const pulsoGlobal =
-                1 +
-                Math.sin(
-                    tiempo * 0.48 +
-                    data.fase
-                ) * 0.035;
-
-            oru.scale.setScalar(
-                pulsoGlobal
-            );
+            const pulsoGlobal = 1 + Math.sin(tiempo * 0.48 + data.fase) * 0.035;
+            oru.scale.setScalar(pulsoGlobal);
         });
 
-        requestAnimationFrame(
-            actualizarEspeciesDiferenciadas
-        );
+        requestAnimationFrame(actualizarEspeciesDiferenciadas);
     }
 
-
-
     function iniciarEspeciesDiferenciadas() {
-
         activarMovimientoTentacularMushi();
-
         crearEstructuraKaku();
-
         programarOru();
-
         setTimeout(() => {
             if (!ESTADO.muerto && ESTADO.vida > 5) {
                 crearOru();
             }
         }, 1500);
-
-        requestAnimationFrame(
-            actualizarEspeciesDiferenciadas
-        );
+        requestAnimationFrame(actualizarEspeciesDiferenciadas);
     }
 
-
-
     let intentosEspecies = 0;
-
     const esperarCriaturas = setInterval(() => {
-
         intentosEspecies++;
-
-        if (
-            typeof criaturas !== 'undefined' &&
-            Array.isArray(criaturas)
-        ) {
-
+        if (typeof criaturas !== 'undefined' && Array.isArray(criaturas)) {
             activarMovimientoTentacularMushi();
             crearEstructuraKaku();
-
             if (intentosEspecies > 3) {
                 clearInterval(esperarCriaturas);
             }
         }
-
         if (intentosEspecies > 30) {
             clearInterval(esperarCriaturas);
         }
-
     }, 500);
 
     setTimeout(() => {
         iniciarEspeciesDiferenciadas();
     }, 100);
-
-})(); 
+})();

@@ -159,7 +159,7 @@ export function crearFondo() {
   auroraMesh = aurora;
 
   scene.add(fondoGroup);
-  console.log('🌌 Fondo creado (estrellas + aurora)');
+  console.log('🌌 FondoIni');
 }
 
 export function actualizarFondo(time) {
@@ -208,4 +208,4 @@ export function limpiarFondo() {
   auroraMesh = null;
 }
 
-console.log('✅ fondo.js cargado');
+console.log('✅ fondo.js OK');

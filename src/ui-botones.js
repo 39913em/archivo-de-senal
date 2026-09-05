@@ -237,5 +237,5 @@ export function configurarBotones() {
     });
   }
 
-  console.log('🖱️ Botones de UI configurados.');
+  console.log('🖱️ BotonesUI OK.');
 }

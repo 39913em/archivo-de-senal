@@ -124,7 +124,7 @@ function crearPasto() {
   });
 
   scene.add(pastoGroup);
-  console.log(`🌿 Pasto: ${pastoGroup.children.length} hebras`);
+  console.log(`🌿 Pasto OK`);
 }
 
 
@@ -171,7 +171,7 @@ function crearArbustos() {
   }
 
   scene.add(arbustosGroup);
-  console.log(`🌳 Arbustos: ${arbustosGroup.children.length}`);
+  console.log(`🌳 Arbustos OK`);
 }
 
 export function crearVegetacion() {
@@ -252,4 +252,4 @@ export function limpiarVegetacion() {
   }
 }
 
-console.log('✅ vegetacion.js cargado');
+console.log('✅ vegetacion OK');

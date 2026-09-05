@@ -87,7 +87,7 @@ export function crearParticulas() {
   scene.add(sistemaParticulas);
   inicio = Date.now();
 
-  console.log('✨ Sistema de partículas creado');
+  console.log('✨ Partículas OK');
 }
 
 export function actualizarParticulas(time) {

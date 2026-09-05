@@ -50,7 +50,7 @@ const OSTINATO = [0, 3, 5, 3, 7, 5, 3, 0];
 const INSTRUMENTOS = {
 
   SEÑAL: {
-    nombre: 'Ikeda/Nicolai',
+    nombre: 'Señal',
     oscTipo: 'square',
     interOsc: 'square',
     filtroFreq: 3.5,
@@ -63,7 +63,7 @@ const INSTRUMENTOS = {
   },
 
   RESONANCIA: {
-    nombre: 'Reznor/Ross',
+    nombre: 'Resonancia',
     oscTipo: 'sawtooth',
     interOsc: 'sawtooth',
     filtroFreq: 1.5,
@@ -76,7 +76,7 @@ const INSTRUMENTOS = {
   },
 
   FRACTURA: {
-    nombre: 'Sigur Rós/M83',
+    nombre: 'Fractura',
     oscTipo: 'sine',
     interOsc: 'sine',
     filtroFreq: 4,
@@ -89,7 +89,7 @@ const INSTRUMENTOS = {
   },
 
   DERIVA: {
-    nombre: 'Russolo/Schaeffer',
+    nombre: 'Deriva',
     oscTipo: 'triangle',
     interOsc: 'triangle',
     filtroFreq: 2,
@@ -227,7 +227,7 @@ export function initAudio() {
       crearVocesColumna();
 
       console.log(
-        '🔊 4 COMPOSITORES — ORQUESTA ESPACIAL INICIADA'
+        '🔊 ORQUESTA OK'
       );
 
     } catch (e) {
@@ -335,7 +335,7 @@ function iniciarManto() {
   mantoOsc2.connect(mantoFilter);
   mantoFilter.connect(mantoGain);
 
-  console.log('🌬️ Manto persistente iniciado');
+  console.log('🌬️ Manto OK');
 }
 
 
@@ -2291,5 +2291,5 @@ export function actualizarListener() {
 
 
 console.log(
-  '🎵 4 COMPOSITORES / 1 JARDÍN — ORQUESTA ESPACIAL CARGADA'
+  '🎵  ORQUESTA OK'
 );

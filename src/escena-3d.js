@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { LEXICO_INICIAL, datosColumna, BANCO_ERROR_PARRAFO, BANCO_BLOQUEO_CITA } from './datos.js';
@@ -76,9 +75,7 @@ guardian.add(led);
 guardian.position.set(0, 0, 0);
 scene.add(guardian);
 
-
 crearColumnas();
-
 crearTerreno();
 
 const raycaster = new THREE.Raycaster();
@@ -159,7 +156,7 @@ renderer.domElement.addEventListener('click', async e => {
         }).from(element).save();
       } else {
         console.warn('html2pdf no disponible');
-        avisoTemporal('No se pudo generar el PDF (librería no cargada)');
+        avisoTemporal('No se pudo generar el PDF');
       }
     } catch(err) { console.error('Error PDF:', err); }
     document.body.removeChild(element);
@@ -229,7 +226,4 @@ window.addEventListener('resize', () => {
 });
 
 animarEscena();
-console.log('🌿 Escena 3D cargada y animación iniciada.');
-
-animarEscena();
-console.log('🌿 Escena 3D cargada y animación iniciada.');
+console.log('🌿 Escena 3D OK');

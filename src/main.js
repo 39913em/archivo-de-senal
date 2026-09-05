@@ -42,7 +42,7 @@ async function iniciarTodo() {
   console.log('🚀 Iniciando Jardín del Oráculo...');
   
   await cargarEstado();
-  console.log('✅ Estado cargado, vida:', ESTADO.vida);
+  console.log('✅ Estado OK, vida:', ESTADO.vida);
   
   sincronizarFlores();
   setSincronizarFlores(sincronizarFlores);
@@ -64,13 +64,13 @@ async function iniciarTodo() {
 
   configurarBotones();
   
-  console.log('🌿 Jardín listo y funcionando.');
+  console.log('🌿 Jardín OK.');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   iniciarTodo().catch(err => {
     console.error('❌ Error al iniciar el jardín:', err);
-    avisoTemporal('Error al cargar el jardín. Revisa la consola.');
+    avisoTemporal('Error al cargar el jardín.');
   });
 });
 
