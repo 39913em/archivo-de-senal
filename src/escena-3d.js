@@ -7,7 +7,7 @@ import { rand, probabilidadBloqueo } from './utils.js';
 import { actualizarCriaturas } from './criaturas.js';
 import { actualizarParticulas } from './particulas.js';
 import { actualizarFondo } from './fondo.js';
-import { actualizarVegetacion } from './vegetacion.js';
+import { actualizarVegetacion, mimosas } from './vegetacion.js';  
 import { columnas, crearColumnas, activarElemento, obtenerTodosLosElementos, animarColumnas, animarCorrupcionColumnas } from './columnas.js';
 import { crearTerreno, animarPasto } from './terreno.js';
 import { animarFlores, animarLluviaPetales, iniciarInteraccionFlores } from './flores.js';
@@ -107,6 +107,18 @@ function disolucionLibre() {
   return piezas.join(' ') + ' ' + glifos[Math.floor(Math.random() * glifos.length)].repeat(1 + Math.floor(Math.random() * 3));
 }
 
+function detectarMimosa(intersect) {
+  if (!intersect || !intersect.object) return null;
+  let obj = intersect.object;
+  while (obj.parent && !obj.userData?.esMimosa) {
+    obj = obj.parent;
+  }
+  if (obj.userData && obj.userData.esMimosa && obj.userData.mimosaRef) {
+    return obj.userData.mimosaRef;
+  }
+  return null;
+}
+
 renderer.domElement.addEventListener('click', async e => {
   const rect = renderer.domElement.getBoundingClientRect();
   const mouse = new THREE.Vector2(
@@ -167,7 +179,28 @@ renderer.domElement.addEventListener('click', async e => {
       actualizarUI();
       playPageTurn();
     }
-    return;
+    return; 
+  }
+
+  if (mimosas && mimosas.length > 0) {
+    const mimosaMeshes = [];
+    mimosas.forEach(m => {
+      m.group.children.forEach(child => {
+        child.traverse(sub => {
+          if (sub.isMesh) {
+            mimosaMeshes.push(sub);
+          }
+        });
+      });
+    });
+    const hitsMimosa = raycaster.intersectObjects(mimosaMeshes);
+    if (hitsMimosa.length) {
+      const mimosaRef = detectarMimosa(hitsMimosa[0]);
+      if (mimosaRef && typeof mimosaRef.cerrar === 'function') {
+        mimosaRef.cerrar();
+        return; 
+      }
+    }
   }
 
   const todosLosElementos = obtenerTodosLosElementos();
