@@ -1,4 +1,3 @@
-
 import { rand, sanitizar, verificarRateLimit, ajustarSilabas, idsVistos, lexicoActivo } from './utils.js';
 import { 
   ESTADO, 
@@ -21,15 +20,16 @@ import { db } from './main.js';
 import { ref, get, set, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 import { playPageTurn } from './sonido.js';
 
+// 🔥 Aquí están las 8 redes exactas del pack
 const REDES = [
-  { id:'twitter', label:'X', estilo:'background:#1DA1F2;color:#fff;' },
-  { id:'bluesky', label:'Bluesky', estilo:'background:#1185FE;color:#fff;' },
-  { id:'linkedin', label:'LinkedIn', estilo:'background:#0A66C2;color:#fff;' },
-  { id:'whatsapp', label:'WhatsApp', estilo:'background:#25D366;color:#fff;' },
-  { id:'facebook', label:'Facebook', estilo:'background:#1877F2;color:#fff;' },
-  { id:'reddit', label:'Reddit', estilo:'background:#FF4500;color:#fff;' },
-  { id:'instagram', label:'Instagram', estilo:'background:#E1306C;color:#fff;' },
-  { id:'substack', label:'Substack', estilo:'background:#FF6719;color:#fff;' }
+  { id: 'twitter', label: 'X', estilo: 'background:#1DA1F2;color:#fff;' },
+  { id: 'bluesky', label: 'Bluesky', estilo: 'background:#1185FE;color:#fff;' },
+  { id: 'linkedin', label: 'LinkedIn', estilo: 'background:#0A66C2;color:#fff;' },
+  { id: 'whatsapp', label: 'WhatsApp', estilo: 'background:#25D366;color:#fff;' },
+  { id: 'facebook', label: 'Facebook', estilo: 'background:#1877F2;color:#fff;' },
+  { id: 'reddit', label: 'Reddit', estilo: 'background:#FF4500;color:#fff;' },
+  { id: 'threads', label: 'Threads', estilo: 'background:#000000;color:#fff;' },  // Añadido
+  { id: 'substack', label: 'Substack', estilo: 'background:#FF6719;color:#fff;' }
 ];
 
 let LEXICO_APROBADO = { señal:[], resonancia:[], fractura:[], deriva:[] };
@@ -58,33 +58,57 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
   REDES.forEach(r => {
     const a = document.createElement('a');
     a.setAttribute('style', r.estilo + 'padding:6px 12px;border-radius:20px;text-decoration:none;font-size:10px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;font-family:inherit;');
-    let href;
-    if (r.id === 'instagram') {
-      href = `https://www.instagram.com/39913em/`;
-    } else if (r.id === 'substack') {
-      href = `https://substack.com/`;
-    } else {
-      href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}&url=${encodeURIComponent(url)}`;
-      if (r.id === 'bluesky') href = `https://bsky.app/intent/compose?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
-      else if (r.id === 'linkedin') href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-      else if (r.id === 'whatsapp') href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
-      else if (r.id === 'facebook') href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`;
-      else if (r.id === 'reddit') href = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(msg)}`;
+    let href = '#';
+
+    // 🔥 URLs EXACTAS del pack
+    switch (r.id) {
+      case 'twitter':
+        href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}&url=${encodeURIComponent(url)}`;
+        break;
+      case 'bluesky':
+        href = `https://bsky.app/intent/compose?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
+        break;
+      case 'linkedin':
+        href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        break;
+      case 'whatsapp':
+        href = `https://wa.me/?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
+        break;
+      case 'facebook':
+        href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`;
+        break;
+      case 'reddit':
+        href = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(msg)}`;
+        break;
+      case 'threads':
+        href = `https://www.threads.net/intent/post?text=${encodeURIComponent(msg)}%20${encodeURIComponent(url)}`;
+        break;
+      case 'substack':
+        href = `https://substack.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(msg)}`;
+        break;
+      default:
+        href = '#';
     }
+
     a.href = href;
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
     a.textContent = r.label;
+
+    // 🔥 Al hacer clic, siempre ejecutamos sembrar() (excepto si el enlace es #)
     a.addEventListener('click', (e) => {
-      if (r.id !== 'instagram' && r.id !== 'substack') {
+      // Si es un enlace válido, abrimos en nueva pestaña y sembramos
+      if (href !== '#') {
         e.preventDefault();
-        window.open(a.href, '_blank');
+        window.open(href, '_blank');
       }
-      sembrar();
+      sembrar(); // Siempre se ejecuta
     });
+
     cont.appendChild(a);
   });
 
+  // Botón Copiar (igual que antes)
   const copiar = document.createElement('button');
   copiar.textContent = 'Copiar';
   copiar.setAttribute('style', 'padding:6px 12px;border-radius:20px;border:1px solid #555;background:#333;color:#fff;font-size:10px;font-weight:bold;cursor:pointer;font-family:inherit;');
@@ -97,6 +121,7 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
   });
   cont.appendChild(copiar);
 
+  // Actualizar texto y autor del panel
   const textoEl = document.getElementById('verso-compartir-texto');
   const autorEl = document.getElementById('verso-compartir-autor');
   if (textoEl) textoEl.textContent = esSemilla ? '"Sembrar una semilla en el Jardín"' : `"${texto}"`;
@@ -105,6 +130,10 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
   const panel = document.getElementById('panel-compartir');
   if (panel) panel.classList.add('visible');
 }
+
+// ... (el resto del código de ui-botones.js: guardarLexicoAprobado, haiku, configurarBotones, etc.)
+// Asegúrate de mantener todo lo que ya tenías después de esta función.
+// Pero para que sea completo, aquí está todo el resto:
 
 async function guardarLexicoAprobado(categoria, palabra) {
   try {
