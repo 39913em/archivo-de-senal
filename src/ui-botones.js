@@ -20,7 +20,6 @@ import { db } from './main.js';
 import { ref, get, set, push } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
 import { playPageTurn } from './sonido.js';
 
-// 🔥 Aquí están las 8 redes exactas del pack
 const REDES = [
   { id: 'twitter', label: 'X', estilo: 'background:#1DA1F2;color:#fff;' },
   { id: 'bluesky', label: 'Bluesky', estilo: 'background:#1185FE;color:#fff;' },
@@ -28,7 +27,7 @@ const REDES = [
   { id: 'whatsapp', label: 'WhatsApp', estilo: 'background:#25D366;color:#fff;' },
   { id: 'facebook', label: 'Facebook', estilo: 'background:#1877F2;color:#fff;' },
   { id: 'reddit', label: 'Reddit', estilo: 'background:#FF4500;color:#fff;' },
-  { id: 'threads', label: 'Threads', estilo: 'background:#000000;color:#fff;' },  // Añadido
+  { id: 'threads', label: 'Threads', estilo: 'background:#000000;color:#fff;' },
   { id: 'substack', label: 'Substack', estilo: 'background:#FF6719;color:#fff;' }
 ];
 
@@ -49,10 +48,15 @@ async function sembrar() {
 }
 
 export function generarBotonesCompartir(texto, autor, esSemilla = true) {
+  console.log('🔍 generarBotonesCompartir llamado con:', { texto, autor, esSemilla }); // ← PARA DEPURAR
+
   const msg = esSemilla ? `"Sembrar una semilla en el Jardín" — ${autor}` : `"${texto}" — ${autor}`;
   const url = window.location.href;
   const cont = document.getElementById('botones-compartir');
-  if (!cont) return;
+  if (!cont) {
+    console.warn('❌ No se encontró #botones-compartir');
+    return;
+  }
   cont.innerHTML = '';
 
   REDES.forEach(r => {
@@ -60,7 +64,6 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
     a.setAttribute('style', r.estilo + 'padding:6px 12px;border-radius:20px;text-decoration:none;font-size:10px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;font-family:inherit;');
     let href = '#';
 
-    // 🔥 URLs EXACTAS del pack
     switch (r.id) {
       case 'twitter':
         href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}&url=${encodeURIComponent(url)}`;
@@ -95,20 +98,17 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
     a.rel = 'noopener noreferrer';
     a.textContent = r.label;
 
-    // 🔥 Al hacer clic, siempre ejecutamos sembrar() (excepto si el enlace es #)
     a.addEventListener('click', (e) => {
-      // Si es un enlace válido, abrimos en nueva pestaña y sembramos
       if (href !== '#') {
         e.preventDefault();
         window.open(href, '_blank');
       }
-      sembrar(); // Siempre se ejecuta
+      sembrar();
     });
 
     cont.appendChild(a);
   });
 
-  // Botón Copiar (igual que antes)
   const copiar = document.createElement('button');
   copiar.textContent = 'Copiar';
   copiar.setAttribute('style', 'padding:6px 12px;border-radius:20px;border:1px solid #555;background:#333;color:#fff;font-size:10px;font-weight:bold;cursor:pointer;font-family:inherit;');
@@ -121,7 +121,6 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
   });
   cont.appendChild(copiar);
 
-  // Actualizar texto y autor del panel
   const textoEl = document.getElementById('verso-compartir-texto');
   const autorEl = document.getElementById('verso-compartir-autor');
   if (textoEl) textoEl.textContent = esSemilla ? '"Sembrar una semilla en el Jardín"' : `"${texto}"`;
@@ -130,10 +129,6 @@ export function generarBotonesCompartir(texto, autor, esSemilla = true) {
   const panel = document.getElementById('panel-compartir');
   if (panel) panel.classList.add('visible');
 }
-
-// ... (el resto del código de ui-botones.js: guardarLexicoAprobado, haiku, configurarBotones, etc.)
-// Asegúrate de mantener todo lo que ya tenías después de esta función.
-// Pero para que sea completo, aquí está todo el resto:
 
 async function guardarLexicoAprobado(categoria, palabra) {
   try {
