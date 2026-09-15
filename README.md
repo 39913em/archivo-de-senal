@@ -1,11 +1,10 @@
 # Archivo de Señal — sitio del proyecto
 
+
 Este es un sitio web estático: solo HTML, CSS y JavaScript. No tiene PHP,
 no tiene base de datos, no necesita servidor propio ni dominio pagado.
 Puede alojarse gratis y queda navegable para cualquiera que tenga el link,
-sin estar indexado en buscadores si así lo prefieres.
 
----
 
 ## Estructura de archivos
 sitio/
