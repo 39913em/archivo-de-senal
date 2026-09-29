@@ -1,16 +1,156 @@
 {
-  "id": "el-dedo-ya-no-hace-falta",
-  "archivo": "el-dedo-ya-no-hace-falta.json",
-  "portada": "assets/img/dedo.webp",
-  "pieza": "39913EM-DOC-004",
-  "titulo": "El dedo ya no hace falta",
-  "subtitulo": "Manipuladores, mosaicos y la neurona que quizás sepa que juega Doom",
-  "fecha": "2026-10-01",
-  "categoria": "Ensayo",
-  "extracto": "Ochenta años separan la pinza de Raymond Goertz, diseñada para manipular material radiactivo sin contacto, de las doscientas mil neuronas humanas cultivadas sobre un chip que hoy aprenden a jugar Doom. Este ensayo traza una genealogía del gesto técnico: desde el mosaico romano y el píxel hasta DishBrain y los cíborgs de autoexperimentación, para preguntar quién decide —y quién siente— cuando una máquina parece jugar. Entre McLuhan, la bioética de Metzinger y la noción de 'lo espeluznante' de Mark Fisher, el texto explora el umbral donde la mano desaparece y ya no hay certeza de si hay alguien ahí.",
-  "tags": ["manipuladores", "mosaicos", "pixel", "DOOM", "DishBrain", "neuronas", "cíborg", "transhumanismo", "McLuhan", "Cortical Labs", "bioética", "Mark Fisher", "archivo", "cuerpo", "tecnología"],
-  "transmedia": {
-    "videos": [],
-    "hashtag": ""
-  }
+  "cuerpo": [
+    {
+      "tipo": "parrafo",
+      "texto": "A finales de los años cuarenta, en el [[Argonne National Laboratory|https://www.anl.gov/]], el ingeniero [[Raymond Goertz|https://en.wikipedia.org/wiki/Raymond_Goertz]] diseñó un manipulador maestro-esclavo, una pinza que controlaba otra pinza a distancia, pensada para mover material radiactivo sin contacto directo con el cuerpo humano. [[Marshall McLuhan|https://es.wikipedia.org/wiki/Marshall_McLuhan]] describió este tipo de gesto como una constante de toda tecnología, donde cada herramienta extiende una función del cuerpo, la mano, el ojo, el sistema nervioso, y al hacerlo entumece esa misma función en su forma original. McLuhan lo llamó [[autoamputación|https://en.wikipedia.org/wiki/Understanding_Media]], la tecnología nace para que el cuerpo no tenga que exponerse."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esa misma operación, extender para no exponer, mediar en vez de tocar, esta detrás de cómo se ha construido la imagen a lo largo de la historia. Un [[mosaico romano en Pompeya|https://es.wikipedia.org/wiki/Cave_canem]] de un perro con teselas de un centímetro. De cerca, solo se aprecian cuadrados de piedra, cosa que cambia al alejarse, cuando el campo de visión se expande y con eso nos permite apreciar una figura completa. Al igual sucede cuando un [[vitral gótico|https://es.wikipedia.org/wiki/Vidriera]] corta la luz en vidrios sostenidos por plomo, ya que la luz no se pinta directamente y se requiere del distanciamiento físico para apreciar el efecto visual. Dentro de ese mismo campo de ideas podemos incluir otros ejemplos, como el [[grabado|https://es.wikipedia.org/wiki/Grabado]], que fragmentó la imagen en puntos de imprenta, o la [[televisión|https://es.wikipedia.org/wiki/Televisión]], que la fragmentó en líneas, hasta llegar a la [[computadora|https://es.wikipedia.org/wiki/Computadora]], que la fragmentó en cuadros, por medio [[pixel|https://es.wikipedia.org/wiki/Píxel]], y la contracción de picture element. Elementos digitales que por su naturaleza son intagibles."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La palabra [[digitus|https://es.wikipedia.org/wiki/Dedo]] (dedo) se hizo presente en todo esto por su origen que viene del mismo lugar que la mano que fragmenta. Contar con los dedos, después con números, después computar. \"Digital\" no nació con la pantalla. Nació con la necesidad de convertir algo continuo en unidades discretas que una mano, o un circuito, pudiera manejar."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En 1967, en la [[Universidad de Carolina del Norte en Chapel Hill|https://es.wikipedia.org/wiki/Universidad_de_Carolina_del_Norte_en_Chapel_Hill]], [[Frederick Brooks|https://es.wikipedia.org/wiki/Frederick_Brooks]] inició el [[proyecto GROPE|https://en.wikipedia.org/wiki/Project_GROPE]], un sistema de retroalimentación de fuerza pensado para simular las colisiones entre átomos dentro de un acoplamiento molecular. Sus primeras versiones usaron, según la documentación del propio proyecto, un [[Manipulador Remoto de Argonne|https://www.osti.gov/biblio/]] modificado; el mismo tipo de brazo que se había diseñado para no tocar material radiactivo y que ahora se reconvertía para simular el tacto de algo que no tenía forma física. El gesto de McLuhan funcionando al revés, ya que la herramienta que antes evitaba el contacto ahora fabrica uno que no existe."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Esa misma arquitectura de fuerza y respuesta, esa resistencia mecánica ante una colisión que solo existe como dato, reaparece después en el gatillo que vibra dentro de un videojuego. En esos mismos controles, [[DOOM|https://es.wikipedia.org/wiki/Doom_(videojuego_de_1993)]] terminó por exhibir el límite del gesto. Publicado en 1993, se volvió con el tiempo el punto de referencia extraoficial para probar si un dispositivo cualquiera tiene pantalla , puede correr software complejo. Ya se ha portado a tractores, calculadoras, pruebas de embarazo caseras y hasta pantallas hechas de cultivos de células vivas. Nació pensado para teclado y mouse, dos manos libres de la pantalla, y al portarse a dispositivos táctiles lo que cambió fue el cuerpo que tenía que operarlo. El dedo que activa el disparo termina siendo también el dedo que tapa lo que el ojo necesita ver."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En octubre de 2022, un equipo de [[Cortical Labs|https://corticallabs.com/]] publicó en la revista [[Neuron|https://www.cell.com/neuron/home]] los resultados de [[DishBrain|https://pubmed.ncbi.nlm.nih.gov/36228614/]], un cultivo de ochocientas mil neuronas humanas obtenidas a partir de fibroblastos de piel reprogramados, conectadas a un chip de electrodos y puestas a jugar Pong. El aprendizaje se basó en el [[Principio de Energía Libre|https://es.wikipedia.org/wiki/Principio_de_energía_libre]] de [[Karl Friston|https://es.wikipedia.org/wiki/Karl_Friston]], de modo que cuando la red acertaba recibía un pulso eléctrico organizado, y cuando fallaba recibía ruido eléctrico impredecible. "
+    },
+    {
+      "tipo": "cita",
+      "texto": "\"Si golpeaban la pelota, les dábamos algo predecible. Cuando fallaban, recibían algo totalmente impredecible\", explicó [[Brett Kagan|https://scholar.google.com/citations?user=]] , director científico de Cortical Labs."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es lo mismo del mosaico y el pixel, aplicado ahora a tejido vivo, ya que consiste en fragmentar una señal continua en unidades discretas que un electrodo pueda leer y un algoritmo pueda traducir a movimiento."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "¿Sentiente o consciente?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Kagan y su equipo describieron a DishBrain como \"sintiente\", es decir, capaz de percibir y responder a información sensorial de forma dinámica, pero se negaron a llamarla \"consciente\". En 2023, los bioeticistas [[Stephen Milford|https://pubmed.ncbi.nlm.nih.gov/37886344/]], [[David Shaw|https://scholar.google.com/citations?user=]] y [[Georg Starke|https://scholar.google.com/citations?user=]] publicaron en [[Science and Engineering Ethics|https://link.springer.com/journal/11948]] un análisis que toma el marco teórico de Kagan y advierte que, aunque la versión de 2022 probablemente no sea fenoménicamente consciente, versiones futuras y más refinadas podrían llegar a serlo. Se apoyan en un argumento del filósofo [[Thomas Metzinger|https://es.wikipedia.org/wiki/Thomas_Metzinger]], para quien crear deliberadamente una mente sintética capaz de sufrir, sin que exista consenso sobre cómo detectar ese sufrimiento ni cómo darle salida, exige aplicar el principio de precaución antes de escalar la tecnología."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El propio Kagan, junto con el bioeticista de Oxford [[Julian Savulescu|https://es.wikipedia.org/wiki/Julian_Savulescu]], coescribió después un marco publicado en [[Biotechnology Advances|https://www.sciencedirect.com/journal/biotechnology-advances]] para definir en qué punto un sistema así merecería consideración moral. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Mientras DishBrain fragmenta tejido vivo para convertirlo en sustrato de cómputo, en la dirección opuesta hay quienes fragmentan su propio cuerpo para insertarle máquinaria por elección propia. La antropóloga argentina [[Paula Sibilia|https://es.wikipedia.org/wiki/Paula_Sibilia]] describió este cruce en [[El hombre postorgánico|https://www.fce.com.ar/libros/el-hombre-postorganico/]] (2005), donde analiza cómo la biotecnología y la teleinformática, unidas bajo el ideal de la digitalización universal, tienden a reducir el cuerpo a un sistema de procesamiento de datos y a un banco de información genética, con la vocación de superar sus límites biológicos. Su lectura se apoya en la noción de [[biopoder|https://es.wikipedia.org/wiki/Biopoder]] de [[Foucault|https://es.wikipedia.org/wiki/Michel_Foucault]] y en la idea de [[Deleuze|https://es.wikipedia.org/wiki/Gilles_Deleuze]] del \"[[hombre endeudado|https://es.wikipedia.org/wiki/Postscriptum_sobre_las_sociedades_de_control]]\" como sucesor del \"hombre confinado\" de la modernidad. Parte de la literatura académica sobre [[transhumanismo|https://es.wikipedia.org/wiki/Transhumanismo]] sitúa la aspiración de superar los límites biológicos mediante la tecnología, dentro de una genealogía que conecta con la [[eugenesia|https://es.wikipedia.org/wiki/Eugenesia]], y por extensión con la biopolítica fascista del siglo XX, que convirtió la perfección corporal en un objetivo de Estado. Otros investigadores rechazan esa asociación por considerarla reductiva, ya que la eugenesia, antes de 1945, también fue defendida por sectores progresistas, y no es patrimonio de una sola ideología política."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Ese cruce entre cuerpo y máquina no quedó solo en la teoría. En 1998, el ingeniero [[Kevin Warwick|https://es.wikipedia.org/wiki/Kevin_Warwick]] ya se había implantado un chip RFID en el brazo como parte de lo que llamó [[Proyecto Cíborg|https://en.wikipedia.org/wiki/Project_Cyborg]], y en 2002 repitió el experimento con una interfaz conectada directamente a su sistema nervioso."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El artista australiano [[Stelarc|https://es.wikipedia.org/wiki/Stelarc]] ha insertado cámaras en su estómago y su colon, ha operado una tercera mano mecánica controlada por señales musculares, y en 2006 se hizo implantar quirúrgicamente en el antebrazo una oreja cultivada con células propias, diseñada para eventualmente conectarse a internet."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[Neil Harbisson|https://es.wikipedia.org/wiki/Neil_Harbisson]], artista británico-colombiano con [[acromatopsia|https://es.wikipedia.org/wiki/Acromatopsia]] de nacimiento, lleva desde 2004 una antena implantada en el cráneo que traduce los colores en frecuencias de sonido, en ese mismo año consiguió que el gobierno del Reino Unido aceptara la antena en la fotografía de su pasaporte, lo que lo convirtió, en la primera persona reconocida oficialmente como cíborg. Junto con la artista catalana [[Moon Ribas|https://es.wikipedia.org/wiki/Moon_Ribas]], que lleva un sensor implantado que vibra cada vez que ocurre un terremoto en cualquier parte del planeta, fundó la [[Cyborg Foundation|https://es.wikipedia.org/wiki/Cyborg_Foundation]] en Barcelona. Años antes, e"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Warwick, Stelarc, Harbisson y Ribas no se pcuestionan si una máquina puede sentir. Indagan sobre procesos en los que se experimenta bajo el paradigma de cuánta máquina puede incorporar un cuerpo humano antes de que la pregunta sobre dónde termina \"lo orgánico\" deje de tener una respuesta clara. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es el mismo umbral que ocupa a Milford, Shaw y Starke, visto desde el lado que sí sabemos, con certeza, que es consciente."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En 2026, la versión comercial del sistema de Cortical Labs, [[CL1|https://corticallabs.com/cl1/]], con doscientas mil neuronas sobre el mismo tipo de chip, fue adaptada por un investigador independiente para correr una versión simplificada de DOOM, donde un pulso en un electrodo específico corresponde a un enemigo en una posición determinada del campo visual. El experimento circuló como curiosidad viral, con el humor de  de \"si tiene electrodos, corre Doom\". Pero en el repositorio público del proyecto, el mismo investigador documentó algo que la cobertura mediática dejó fuera, y es que su capa de software de decodificación \"tiende a convertirse en la que decide\", lo cual abre la posibilidad de que el programa convencional haya aprendido a operar sin depender realmente de las neuronas. Se incluyeron modos de desactivación de las células para comprobarlo. No hay, hasta ahora una conclusión publicada. Esa incertidumbre no es un detalle técnico menor, porque es la mismo fenomeno de Milford, Shaw y Starke vista desde el otro lado."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": " Si ni siquiera se puede confirmar que las neuronas están decidiendo algo, la discusión sobre si sienten o sufren se vuelve más difícil de analizar, y no porque el problema haya desaparecido, sino porque no hay certeza sobre si hay alguien ahí para quien el problema exista. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El crítico cultural británico [[Mark Fisher|https://es.wikipedia.org/wiki/Mark_Fisher]], en [[Lo raro y lo espeluznante|https://es.wikipedia.org/wiki/Lo_raro_y_lo_espeluznante]] (2016), define eso mismo bajo el nombre de \"lo espeluznante\", una falla de presencia o de ausencia, la sensación de que hay algo presente donde debería no haber nada, o de que no hay nada donde debería haber algo. CL1 tiene exactamente esa estructura, ya que no hay certeza de si hay un agente detrás de cada disparo, o si el sistema entero opera con una ausencia justo donde se supone que debería haber una decisión."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Ochenta años separan la pinza de Goertz de las doscientas mil neuronas de CL1. La primera se diseñó para que una mano nunca tuviera que tocar lo peligroso. Las segundas son, en un sentido literal, la mano misma, o más bien lo que queda de ella después de borrarle el registro de haber sido piel, convertida ahora en el mecanismo que aprieta el gatillo en una simulacion virtual. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Hay doscientos mil fragmentos de piel, conectados, respondiendo, aprendiendo y reaccionando. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "¿Hay alguien ahí?"
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "Referencias"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Argonne National Laboratory|https://www.anl.gov/]]. Historia de los manipuladores remotos maestro-esclavo (Raymond Goertz, finales de la década de 1940). "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[McLuhan, M.|https://es.wikipedia.org/wiki/Marshall_McLuhan]] (1964). [[Understanding Media: The Extensions of Man|https://en.wikipedia.org/wiki/Understanding_Media]]. McGraw-Hill. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Brooks, F. P. Jr., Ouh-Young, M., Batter, J. J., Kilpatrick, P. J.|https://dl.acm.org/doi/10.1145/97880.97901]] (1990). \"Project GROPE: Haptic displays for scientific visualization.\" Computer Graphics, 24(4), 177–185. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Kagan, B. J. et al.|https://pubmed.ncbi.nlm.nih.gov/36228614/]] (2022). \"In vitro neurons learn and exhibit sentience when embodied in a simulated game-world.\" Neuron. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Milford, S. R., Shaw, D., Starke, G.|https://pubmed.ncbi.nlm.nih.gov/37886344/]] (2023). \"Playing Brains: The Ethical Challenges Posed by Silicon Sentience and Hybrid Intelligence in DishBrain.\" Science and Engineering Ethics, 29(6), 38. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Kagan, B. J., Savulescu, J. et al.|https://www.sciencedirect.com/science/article/pii/S0734975023001467]] Marco ético para sistemas de inteligencia biológica sintética. Biotechnology Advances. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Sibilia, P.|https://es.wikipedia.org/wiki/Paula_Sibilia]] (2005). [[El hombre postorgánico: cuerpo, subjetividad y tecnologías digitales|https://www.fce.com.ar/libros/el-hombre-postorganico/]]. Fondo de Cultura Económica. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Vaccari, A.|https://www.scielo.cl/scielo.php?pid=S1726-569X2014000200011&script=sci_arttext]] (2014). \"La posthumanidad como un bien objetivo: los peligros del futurismo en el debate sobre la optimización genética humana.\" Acta Bioethica, 20(2), 237-245. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Bibliografía académica sobre la genealogía [[eugenesia|https://es.wikipedia.org/wiki/Eugenesia]]-[[transhumanismo|https://es.wikipedia.org/wiki/Transhumanismo]] (Universidad de Palermo, Cuadernos del Centro de Estudios en Diseño y Comunicación, 2026). "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Fisher, M.|https://es.wikipedia.org/wiki/Mark_Fisher]] (2016). [[The Weird and the Eerie|https://es.wikipedia.org/wiki/Lo_raro_y_lo_espeluznante]]. Repeater Books. Trad. esp.: Lo raro y lo espeluznante (Núria Molines, trad.). Barcelona: Alpha Decay, 2018. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Cobertura periodística sobre [[Stelarc|https://es.wikipedia.org/wiki/Stelarc]] (Ear on Arm, 2006; Third Hand; inserciones corporales) — [[ArtNet News|https://news.artnet.com/]]. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Cobertura sobre [[Neil Harbisson|https://es.wikipedia.org/wiki/Neil_Harbisson]] y [[Moon Ribas|https://es.wikipedia.org/wiki/Moon_Ribas]], [[Cyborg Foundation|https://es.wikipedia.org/wiki/Cyborg_Foundation]] — [[Guernica|https://www.guernicamag.com/]], [[BBC|https://www.bbc.com/]], [[NBC News|https://www.nbcnews.com/]]. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• Cobertura sobre [[Kevin Warwick|https://es.wikipedia.org/wiki/Kevin_Warwick]], [[Proyecto Cíborg|https://en.wikipedia.org/wiki/Project_Cyborg]] (1998, 2002) — [[Guernica|https://www.guernicamag.com/]]. "
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Buntz, B.|https://www.rdworldonline.com/the-neurons-playing-doom-are-actually-testing-a-theory-of-intelligence/]] (27 de febrero de 2026). \"The neurons playing Doom are actually testing a theory of intelligence.\" R&D World."
+    }
+  ]
 }
