@@ -5,6 +5,24 @@
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
+    
+    {
+  "id": "el-dedo-ya-no-hace-falta",
+  "archivo": "el-dedo-ya-no-hace-falta.json",
+  "portada": "assets/img/dedo.webp",
+  "pieza": "39913EM-DOC-004",
+  "titulo": "El dedo ya no hace falta",
+  "subtitulo": "Manipuladores, mosaicos y la neurona que quizás sepa que juega Doom",
+  "fecha": "2026-10-01",
+  "categoria": "Ensayo",
+  "extracto": "Ochenta años separan la pinza de Raymond Goertz, diseñada para manipular material radiactivo sin contacto, de las doscientas mil neuronas humanas cultivadas sobre un chip que hoy aprenden a jugar Doom. Este ensayo traza una genealogía del gesto técnico: desde el mosaico romano y el píxel hasta DishBrain y los cíborgs de autoexperimentación, para preguntar quién decide —y quién siente— cuando una máquina parece jugar. Entre McLuhan, la bioética de Metzinger y la noción de 'lo espeluznante' de Mark Fisher, el texto explora el umbral donde la mano desaparece y ya no hay certeza de si hay alguien ahí.",
+  "tags": ["manipuladores", "mosaicos", "pixel", "DOOM", "DishBrain", "neuronas", "cíborg", "transhumanismo", "McLuhan", "Cortical Labs", "bioética", "Mark Fisher", "archivo", "cuerpo", "tecnología"],
+  "transmedia": {
+    "videos": [],
+    "hashtag": ""
+  }
+}
+
     {
       "id": "cultura-no-se-torrentea",
       "archivo": "torrentear.json",
