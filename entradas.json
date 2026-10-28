@@ -5,6 +5,19 @@
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
+
+    {
+  "id": "la-visualidad-no-se-scrollea",
+  "archivo": "visualidads.json",
+  "portada": "",
+  "pieza": "39913EM-DOC-005",
+  "titulo": "La visualidad no se scrollea",
+  "subtitulo": "El aparato estético como reparto de lo sensible",
+  "fecha": "2026-11-01",
+  "categoria": "Entrada",
+  "extracto": "El aparato estético ya no es la cámara sino la interfaz que reparte lo sensible en formato vertical. La imagen visual ha monopolizado el espectro de lo visible y el feed convierte cada milisegundo de atención en valor. Una imagen que no se scrollea es una imagen que se resiste.",
+  "tags": ["visualidad", "imagen", "interfaz", "cultura-digital", "percepcion", "saturacion"]
+},
     
     {
   "id": "el-dedo-ya-no-hace-falta",

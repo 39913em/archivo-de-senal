@@ -6,7 +6,20 @@
     <description>Cultura, arte digital y electrónico — crítica y difusión</description>
     <language>es</language>
     <lastBuildDate>Mon, 18 Aug 2026 12:00:00 GMT</lastBuildDate>
-    <atom:link href="https://39913em.github.io/archivo-de-senal/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://39913em.github.io/archivo-de-senal/feed.xml" rel="self" 
+    type="application/rss+xml"/>
+
+    <item>
+  <title>La visualidad no se scrollea</title>
+  <link>https://39913em.github.io/archivo-de-senal/lectura.html?id=la-visualidad-no-se-scrollea</link>
+  <guid>https://39913em.github.io/archivo-de-senal/lectura.html?id=la-visualidad-no-se-scrollea</guid>
+  <pubDate>Sun, 01 Nov 2026 12:00:00 GMT</pubDate>
+  <description><![CDATA[
+    <img src="https://39913em.github.io/archivo-de-senal/assets/img/visualidad.png" alt="La visualidad no se scrollea" style="max-width:100%; border-radius:8px; margin-bottom:16px;">
+    <p>El aparato estético ya no es la cámara sino la interfaz que reparte lo sensible en formato vertical. La imagen visual ha monopolizado el espectro de lo visible y el feed convierte cada milisegundo de atención en valor. Una imagen que no se scrollea es una imagen que se resiste.</p>
+  ]]></description>
+  <category>Entrada</category>
+</item>
 
 
 <item>
