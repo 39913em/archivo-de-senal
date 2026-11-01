@@ -9,7 +9,7 @@
     {
   "id": "la-visualidad-no-se-scrollea",
   "archivo": "visualidads.json",
-  "portada": "",
+  portada": "assets/img/boton.webp",
   "pieza": "39913EM-DOC-005",
   "titulo": "La visualidad no se scrollea",
   "subtitulo": "El aparato estético como reparto de lo sensible",
@@ -22,7 +22,7 @@
     {
   "id": "el-dedo-ya-no-hace-falta",
   "archivo": "el-dedo.json",
-  "portada": "",
+  "portada": "assets/img/boton.webp",
   "pieza": "39913EM-DOC-004",
   "titulo": "El dedo ya no hace falta",
   "subtitulo": "Manipuladores, mosaicos y la neurona que quizás sepa que juega Doom",
@@ -39,7 +39,7 @@
     {
       "id": "cultura-no-se-torrentea",
       "archivo": "torrentear.json",
-      "portada": "assets/img/torrentear.webp",
+      "portada": "assets/img/boton.webp",
       "pieza": "39913EM-DOC-003",
       "titulo": "Si la cultura no se torrentea, la cultura se netflixea",
       "subtitulo": "Piratería, streaming y la batalla por el acceso a la cultura",
@@ -55,7 +55,7 @@
     {
       "id": "memoria-rota",
       "archivo": "memoria-rota.json",
-      "portada": "assets/img/memoriarota.webp",
+      "portada": "assets/img/boton.webp",
       "pieza": "39913EM-DOC-002",
       "titulo": "Memoria rota",
       "subtitulo": "Persistencia, pérdida y archivo en sistemas digitales",
@@ -80,7 +80,7 @@
     {
       "id": "arquitectura-sonora-entornos-virtuales",
       "archivo": "arquitectura-sonora.json",
-      "portada": "assets/img/arquitectura.webp",
+      "portada": "assets/img/boton.webp",
       "pieza": "39913EM-DOC-001",
       "titulo": "Arquitectura sonora en entornos virtuales",
       "subtitulo": "La transformación del espacio a través de la tecnología",
@@ -105,7 +105,7 @@
     {
       "id": "datos-masivos",
       "archivo": "datos-masivos.json",
-      "portada": "assets/img/dataverso.webp",
+      "portada": "assets/img/boton.webp",
       "pieza": "39913EM-DOC-000",
       "titulo": "DATARTVERSO",
       "subtitulo": "Practicas artisticas y la visualidad de datos masivos",
