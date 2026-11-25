@@ -5,37 +5,42 @@
     "autor": "Eduardo Manuel Gutiérrez Orduña"
   },
   "entradas": [
-
     {
-  "id": "la-visualidad-no-se-scrollea",
-  "archivo": "visualidads.json",
-  "portada": "assets/img/boton.webp",
-  "pieza": "39913EM-DOC-005",
-  "titulo": "La visualidad no se scrollea",
-  "subtitulo": "El aparato estético como reparto de lo sensible",
-  "fecha": "2026-11-01",
-  "categoria": "Entrada",
-  "extracto": "El aparato estético ya no es la cámara sino la interfaz que reparte lo sensible en formato vertical. La imagen visual ha monopolizado el espectro de lo visible y el feed convierte cada milisegundo de atención en valor. Una imagen que no se scrollea es una imagen que se resiste.",
-  "tags": ["visualidad", "imagen", "interfaz", "cultura-digital", "percepcion", "saturacion"]
-},
-    
+      "id": "la-nube-tiene-cuerpo",
+      "archivo": "cuerponube.json",
+      "portada": "assets/img/boton.webp",
+      "pieza": "39913EM-DOC-006",
+      "titulo": "La nube tiene cuerpo",
+      "subtitulo": "Cables, acuíferos y decretos: el costo material de lo que llamamos nube",
+      "fecha": "2026-12-01",
+      "categoria": "Entrada",
+      "extracto": "El WiFi es el último metro de un viaje que empieza en el fondo del mar. Detrás del ícono de la nube hay cables, acuíferos, comunidades y decretos: un solo centro de datos puede usar lo mismo que una ciudad de 50.000 habitantes en un día, y casi la mitad de ese volumen se evapora en embalses que nadie ve. Este ensayo rastrea el cuerpo material de la infraestructura digital en América Latina, desde el cable que toca tierra en una playa hasta el decreto que exime a Google de evaluación de impacto ambiental en Cerrillos.",
+      "tags": ["centros-de-datos", "agua", "infraestructura", "america-latina", "opacidad", "google", "cerrillos", "nube", "inteligencia-artificial", "territorio", "cables-submarinos", "energía"]
+    },
     {
-  "id": "el-dedo-ya-no-hace-falta",
-  "archivo": "el-dedo.json",
-  "portada": "assets/img/boton.webp",
-  "pieza": "39913EM-DOC-004",
-  "titulo": "El dedo ya no hace falta",
-  "subtitulo": "Manipuladores, mosaicos y la neurona que quizás sepa que juega Doom",
-  "fecha": "2026-10-01",
-  "categoria": "Entrada",
-  "extracto": "Ochenta años separan la pinza de Raymond Goertz, diseñada para manipular material radiactivo sin contacto, de las doscientas mil neuronas humanas cultivadas sobre un chip que hoy aprenden a jugar Doom. Este ensayo traza una genealogía del gesto técnico: desde el mosaico romano y el píxel hasta DishBrain y los cíborgs de autoexperimentación, para preguntar quién decide —y quién siente— cuando una máquina parece jugar. Entre McLuhan, la bioética de Metzinger y la noción de 'lo espeluznante' de Mark Fisher, el texto explora el umbral donde la mano desaparece y ya no hay certeza de si hay alguien ahí.",
-  "tags": ["manipuladores", "mosaicos", "pixel", "DOOM", "DishBrain", "neuronas", "cíborg", "transhumanismo", "McLuhan", "Cortical Labs", "bioética", "Mark Fisher", "archivo", "cuerpo", "tecnología"],
-  "transmedia": {
-    "videos": [],
-    "hashtag": ""
-  } 
-},
-
+      "id": "la-visualidad-no-se-scrollea",
+      "archivo": "visualidads.json",
+      "portada": "assets/img/boton.webp",
+      "pieza": "39913EM-DOC-005",
+      "titulo": "La visualidad no se scrollea",
+      "subtitulo": "El aparato estético como reparto de lo sensible",
+      "fecha": "2026-11-01",
+      "categoria": "Entrada",
+      "extracto": "El aparato estético ya no es la cámara sino la interfaz que reparte lo sensible en formato vertical. La imagen visual ha monopolizado el espectro de lo visible y el feed convierte cada milisegundo de atención en valor. Una imagen que no se scrollea es una imagen que se resiste.",
+      "tags": ["visualidad", "imagen", "interfaz", "cultura-digital", "percepcion", "saturacion"]
+    },
+    {
+      "id": "el-dedo-ya-no-hace-falta",
+      "archivo": "el-dedo.json",
+      "portada": "assets/img/boton.webp",
+      "pieza": "39913EM-DOC-004",
+      "titulo": "El dedo ya no hace falta",
+      "subtitulo": "Manipuladores, mosaicos y la neurona que quizás sepa que juega Doom",
+      "fecha": "2026-10-01",
+      "categoria": "Entrada",
+      "extracto": "Ochenta años separan la pinza de Raymond Goertz, diseñada para manipular material radiactivo sin contacto, de las doscientas mil neuronas humanas cultivadas sobre un chip que hoy aprenden a jugar Doom. Este ensayo traza una genealogía del gesto técnico: desde el mosaico romano y el píxel hasta DishBrain y los cíborgs de autoexperimentación, para preguntar quién decide —y quién siente— cuando una máquina parece jugar. Entre McLuhan, la bioética de Metzinger y la noción de 'lo espeluznante' de Mark Fisher, el texto explora el umbral donde la mano desaparece y ya no hay certeza de si hay alguien ahí.",
+      "tags": ["manipuladores", "mosaicos", "pixel", "DOOM", "DishBrain", "neuronas", "cíborg", "transhumanismo", "McLuhan", "Cortical Labs", "bioética", "Mark Fisher", "archivo", "cuerpo", "tecnología"]
+    },
     {
       "id": "cultura-no-se-torrentea",
       "archivo": "torrentear.json",
@@ -46,11 +51,7 @@
       "fecha": "2026-09-01",
       "categoria": "Ensayo",
       "extracto": "El 8 de enero de 1986, la prensa de Texas salía con el titular de un adolescente arrestado por meterse donde no debía. Era la época posterior a Juegos de guerra, la película de 1983 que había fijado en la imaginación pública una idea sobre lo que hacía alguien capaz de entrar a un sistema ajeno y provocar una guerra nuclear sin querer. El Servicio Secreto y el FBI ya perseguían a grupos como Legion of Doom, tratando cada línea telefónica gratuita robada como delito federal. Loyd Blankenship, que en ese grupo se hacía llamar 'The Mentor', acababa de ser detenido. Unos días después escribió un texto breve, publicado en la revista Phrack. Lo tituló 'La conciencia de un hacker', aunque hoy se le conoce simplemente como el Manifiesto Hacker. Este documento no defiende el hackeo como travesura ni como delito con estilo. Lloyd arma su argumento sobre la premisa de los que fuimos juzgados por nuestras calificaciones, no por lo que sabíamos hacer. Exploramos un mundo que la sociedad era demasiado floja para explorar; y por eso, mi crimen es la curiosidad. El streaming prometió resolver el acceso con una tarjeta de crédito. Lo que entregó fue un sistema que paga migajas a los creadores, que financia tecnología de guerra con las ganancias, y que convierte al usuario en un inquilino perpetuo de su propia cultura. La piratería, en su esencia más pura, es una respuesta a una estructura que ha hecho del acceso un privilegio y del conocimiento un bien transable.",
-      "tags": ["piratería", "streaming", "Spotify", "acceso cultural", "América Latina", "Taringa", "Bandcamp", "boicot", "memoria digital", "preservación"],
-      "transmedia": {
-        "videos": [],
-        "hashtag": ""
-      }
+      "tags": ["piratería", "streaming", "Spotify", "acceso cultural", "América Latina", "Taringa", "Bandcamp", "boicot", "memoria digital", "preservación"]
     },
     {
       "id": "memoria-rota",
@@ -62,20 +63,7 @@
       "fecha": "2026-08-01",
       "categoria": "Ensayo",
       "extracto": "La pérdida de archivos digitales rara vez responde a un accidente puntual, sino que suele estar enredada dentro de una lógica mucho más amplia, relacionada con la forma en que las plataformas y las empresas terminan decidiendo, casi siempre sin decirlo abiertamente, qué es lo que consideran digno de conservarse y qué no. En 2019, MySpace perdió doce años de música, cerca de cincuenta millones de canciones. La empresa migró de servidores, y en ese traslado los archivos se fueron corrompiendo hasta perderse para siempre. Este ensayo examina las condiciones materiales y políticas del archivo digital, la obsolescencia programada, y la fragilidad de la memoria en la era de la datificación, explorando casos como el cierre de Adobe Flash y las prácticas de preservación en América Latina.",
-      "tags": ["archivo", "memoria digital", "preservación", "obsolescencia programada", "netart", "MySpace", "Adobe Flash", "ciberseguridad", "patrimonio cultural", "arte sonoro", "brecha digital", "América Latina"],
-      "transmedia": {
-        "videos": [
-          {
-            "semana": 1,
-            "titulo": "El archivo decide qué sobrevive",
-            "plataforma": "instagram",
-            "url": "https://www.instagram.com/p/DbpKrx0xIiL/",
-            "embed": "https://www.instagram.com/p/DbpKrx0xIiL/embed",
-            "extracto": "En 2019 desaparecieron cincuenta millones de canciones de MySpace. Derrida lo escribió en 1995: el archivo selecciona, decide qué sobrevive y qué se pierde."
-          }
-        ],
-        "hashtag": ""
-      }
+      "tags": ["archivo", "memoria digital", "preservación", "obsolescencia programada", "netart", "MySpace", "Adobe Flash", "ciberseguridad", "patrimonio cultural", "arte sonoro", "brecha digital", "América Latina"]
     },
     {
       "id": "arquitectura-sonora-entornos-virtuales",
@@ -87,20 +75,7 @@
       "fecha": "2026-07-01",
       "categoria": "Ensayo",
       "extracto": "Los espacios virtuales han transformado la creación contemporánea al ofrecer nuevas formas de explorar la relación entre el sonido, el entorno y la experiencia estética. Estas plataformas permiten diseñar entornos inmersivos que expanden los límites sensoriales mediante tecnologías como el audio tridimensional y la espacialización sonora, reconfigurando profundamente la percepción del espacio arquitectónico virtual. Sin embargo, esta transformación no es neutral: plantea tensiones técnicas, conceptuales y culturales ---sobre la autenticidad de la experiencia, la distribución desigual de los recursos tecnológicos y la posible reducción del sonido a mero decorado auditivo--- que este texto examina de manera crítica. El arte sonoro digital se consolida así como un campo en constante evolución que no solo amplía los horizontes estéticos, sino que también los interroga.",
-      "tags": ["arte sonoro", "espacios virtuales", "arquitectura sonora", "audio 3D", "espacialización sonora", "entornos inmersivos", "arte digital", "escucha reducida", "campo expandido", "percepción sensorial"],
-      "transmedia": {
-        "videos": [
-          {
-            "semana": 1,
-            "titulo": "El sonido que no necesita paredes",
-            "plataforma": "instagram",
-            "url": "https://www.instagram.com/p/DbgutAIRl69/",
-            "embed": "https://www.instagram.com/p/DbgutAIRl69/embed",
-            "extracto": "¿Un espacio que no existe puede sonar más real que uno que sí? Esto es lo que pasa cuando el sonido ya no depende de una pared."
-          }
-        ],
-        "hashtag": ""
-      }
+      "tags": ["arte sonoro", "espacios virtuales", "arquitectura sonora", "audio 3D", "espacialización sonora", "entornos inmersivos", "arte digital", "escucha reducida", "campo expandido", "percepción sensorial"]
     },
     {
       "id": "datos-masivos",
@@ -112,11 +87,7 @@
       "fecha": "2021-05-30",
       "categoria": "Ensayo",
       "extracto": "La digitalización de las actividades diarias creció exponencialmente durante el confinamiento pandémico, y con esto el número de datos creados se vio multiplicado. Este ensayo aborda desde las prácticas artísticas digitales los dilemas que implican ser sujetos activos dentro de una sociedad interconectada a la vida online, generando vínculos transdisciplinares con la estadística e informática para implementar procesos creativos donde la Big Data sea usada como materialidad alternativa en producciones artísticas. A través del análisis de obras como Covid19 (NEFEMOV), 24 hrs of photo (Erik Kessels) y FRICKbits (Laurie Frick), se exploran las posibilidades críticas y estéticas del DataArt, así como las tensiones entre vigilancia, obsolescencia y resistencia en el ecosistema digital contemporáneo.",
-      "tags": ["datos masivos", "Big Data", "arte digital", "visualización de datos", "DataArt", "NFT", "criptoarte", "netart", "vigilancia", "privacidad", "software libre", "transdisciplina", "estadística", "informática", "COVID-19"],
-      "transmedia": {
-        "videos": [],
-        "hashtag": ""
-      }
+      "tags": ["datos masivos", "Big Data", "arte digital", "visualización de datos", "DataArt", "NFT", "criptoarte", "netart", "vigilancia", "privacidad", "software libre", "transdisciplina", "estadística", "informática", "COVID-19"]
     }
   ]
 }

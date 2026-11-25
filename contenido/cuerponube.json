@@ -1,0 +1,132 @@
+{
+  "cuerpo": [
+    {
+      "tipo": "parrafo",
+      "texto": "Hay un cable de fibra óptica que sale del [[océano Pacífico|https://es.wikipedia.org/wiki/Océano_Pacífico]] y se entierra en una playa, llega desde otro continente y lo custodian operadores que negocian con el Estado y con las comunidades el derecho a que ese cable toque tierra, y [[Nicole Starosielski|https://scholar.google.com/citations?user=Nicole_Starosielski]] siguió esos recorridos en [[The Undersea Network|https://www.dukeupress.edu/the-undersea-network]] para mostrar que casi todo el tráfico transoceánico de internet pasa por ahí y que las zonas de aterrizaje son ámbitos históricos y políticos donde se negocian tecnología, cultura, política y geografía (Starosielski, 2015)."
+    },
+    {
+      "tipo": "cita",
+      "texto": "El WiFi del teléfono es el último metro de un viaje que empezó en el fondo del mar."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "La palabra [[nube|https://es.wikipedia.org/wiki/Computación_en_la_nube]] designa una operación ideológica que imagina un espacio ingrávido y sin mediación. [[Tung-Hui Hu|https://scholar.google.com/citations?user=Tung-Hui_Hu]] rastrea en [[A Prehistory of the Cloud|https://mitpress.mit.edu/9780262528483/a-prehistory-of-the-cloud/]] los miles de [[centros de datos|https://es.wikipedia.org/wiki/Centro_de_procesamiento_de_datos]] que hay detrás del icono, cualquiera de los cuales puede consumir tanta electricidad como una ciudad mediana, y sostiene que la nube creció a partir de redes anteriores como vías de tren, alcantarillas y búnkeres de la Guerra Fría reconvertidos en servidores, de modo que injerta tecnologías digitales sobre formas más antiguas de ejercer poder sobre una población (Hu, 2015). Si la nube es ingrávida nadie puede reclamarle un territorio, si es etérea no consume agua y si no tiene cuerpo no tiene responsabilidad."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El agua es el costo que menos se ve, y según un artículo de [[Fermín Koop|https://dialogue.earth/en/author/fermin-koop/]] publicado por [[FARN|https://farn.org.ar/]] un solo centro de datos puede llegar a usar 19 millones de litros por día, lo mismo que una ciudad de 50.000 habitantes en una jornada completa (Koop, 2026). En la región metropolitana de [[São Paulo|https://es.wikipedia.org/wiki/São_Paulo]] los centros de datos consumen 16,1 millones de metros cúbicos de agua al año, más de 44.000 metros cúbicos por día, y casi la mitad de ese volumen es invisible porque se evapora en los embalses de las [[hidroeléctricas|https://es.wikipedia.org/wiki/Energía_hidroeléctrica]] que generan la electricidad que alimenta los servidores, de manera que nadie la ve salir de una canilla. [[Mél Hogan|https://scholar.google.com/citations?user=Mél_Hogan]] documenta en [[Big data ecologies|https://www.ephemerajournal.org/contribution/big-data-ecologies]] que [[Big Tech|https://es.wikipedia.org/wiki/Grandes_empresas_tecnológicas]] se autodesigna como gestora responsable de los recursos naturales sobre la premisa de que mientras la naturaleza regrese a un estado de homeostasis y las empresas repongan lo que usan, el desarrollo de infraestructura de comunicaciones es una señal de progreso (Hogan, 2018). Esa premisa funciona en el balance contable, pero falla en el territorio, porque el agua se extrae de un acuífero concreto, de una comunidad concreta, en un momento concreto, y reponerla en otro lugar o en otro año no le devuelve a ese lugar lo que perdió."
+    },
+    {
+      "tipo": "cita",
+      "texto": "Con el agua, la compensación es una promesa de contabilidad y no una reparación."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En los últimos meses la conversación sobre el agua y la [[inteligencia artificial|https://es.wikipedia.org/wiki/Inteligencia_artificial]] se redujo a la cifra de los litros que gasta cada respuesta de un [[chatbot|https://es.wikipedia.org/wiki/Chatbot]], y esa cifra es real pero incompleta, porque la IA corre sobre los mismos centros de datos que ya sostenían el [[streaming|https://es.wikipedia.org/wiki/Transmisión_de_video_en_directo]], las redes sociales y la nube. Estos datos no los entregan las empresas, los reconstruyen desde afuera investigadores, consultoras y universidades que miden aplicaciones desde un teléfono, cruzan el peso de los datos con la electricidad de los servidores y aplican promedios de agua por [[kilovatio-hora|https://es.wikipedia.org/wiki/Kilovatio-hora]], de modo que cada número cambia según quien lo calcule y todos son órdenes de magnitud."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para una consulta a un asistente se estima entre 30 mililitros y cerca de medio litro ([[Jisc|https://nationalcentreforai.jiscinvolve.org/wp/2025/05/02/artificial-intelligence-and-the-environment-putting-the-numbers-into-perspective/]], 2025; [[University of Georgia Extension|https://fieldreport.caes.uga.edu/publications/B1600/how-data-centers-impact-surface-and-ground-waters/]], s. f.), mientras que una hora de streaming o de videollamada se estima entre 2 y 12 litros (Jisc, 2025), de modo que la discusión sobre cuánto gasta la IA ignora cuánto gasta todo lo demás. El [[scroll|https://es.wikipedia.org/wiki/Desplazamiento_(informática)]] está peor medido todavía, porque la cifra más citada, de [[Greenspector|https://greenspector.com/en/social-media-2021/]] en 2021 le asigna a cada minuto de feed de [[TikTok|https://es.wikipedia.org/wiki/TikTok]] 0,27 litros de agua y unos 96 megabytes de datos (Greenspector, 2021), cerca de 16 litros por hora, y otras estimaciones ubican una hora de redes sociales en 430 mililitros (Jisc, 2025), más de treinta veces menos. Esa distancia es la razon de, porque TikTok no publica cuánta electricidad usa por minuto ([[EnergyCosts.co.uk|https://www.energycosts.co.uk/articles/tiktok-energy/]], 2026) ni por video subido ni por video visto, [[Amazon|https://es.wikipedia.org/wiki/Amazon]] tampoco publica una cifra nacional de consumo de agua ([[The Network Installers|https://thenetworkinstallers.com/blog/data-center-water-usage/]], 2026). Y la opacidad tiene dos caras, hay datos que se miden y no se publican y hay datos que ni siquiera se miden. Un post en [[X|https://es.wikipedia.org/wiki/X_(red_social)]], se estima en 0,02 a 0,026 gramos de [[CO₂e|https://es.wikipedia.org/wiki/Huella_de_carbono]] ([[Envirotec|https://envirotecmagazine.com/2022/12/08/tracking-the-ecological-cost-of-a-tweet/]], 2022), que al convertirse en unos 0,06 Wh y multiplicarse por los 5 a 6 litros por kilovatio-hora que suman el agua directa y la indirecta del sector (The Network Installers, 2026) dan cerca de 0,3 mililitros, unas seis gotas según un cálculo propio, y aun multiplicadas por los 867 millones de tweets diarios (Envirotec, 2022) serían poco más del uno por ciento del agua que gasta en un día un solo centro de datos grande. Lo que pesa es el peso de los datos, y el peso de los datos es video, el 76% del tráfico móvil a fines de 2025 ([[16Best|https://16best.net/what-percent-internet-users-watch-video/]], s. f.), y un video generado por IA tiene una huella hídrica asociada a su electricidad de 4,1 litros frente a 29 mililitros de una imagen ([[UNU-INWEH|https://unu.edu/inweh/news/environmental-cost-of-AIs-Enrgy-use-carbon-water-and-land-footprints]], 2026)."
+    },
+    {
+      "tipo": "cita",
+      "texto": "El agua sigue a los bytes, y los bytes siguen al diseño."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El dedo que desliza no es el problema, porque los centros de datos de [[Estados Unidos|https://es.wikipedia.org/wiki/Estados_Unidos]] consumían en 2021 cerca del 0,14% del agua total del país (University of Georgia Extension, s. f.), y el problema sigue cuando ese uno por ciento no se reparte parejo sino que cae sobre un [[acuífero|https://es.wikipedia.org/wiki/Acuífero]], una cuenca, un barrio, y cuando el costo por kilovatio-hora cambia según quien opere el servidor, porque Amazon reporta 0,12 litros por kWh y [[Microsoft|https://es.wikipedia.org/wiki/Microsoft]] 0,30 (The Network Installers, 2026) mientras los promedios que circulan van de 0,36 ([[Earth911|https://earth911.com/home-garden/video-streaming-carbon-footprint/]], s. f.) a 1,9 (The Network Installers, 2026), una brecha de más de quince veces entre el mejor reporte y el promedio más alto. Lo que decide el gasto no es quien mira el reel sino la plataforma que diseña el scroll infinito y la empresa que elige dónde y cómo enfriar."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Saber cuántos litros cuesta un minuto de scroll no tiene hoy una respuesta honesta, porque quienes podrían darla no están obligados a hacerlo. Cada minuto de scroll tiene un precio en agua, y la información para ponerle número está en manos de quienes cobran por él."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[[América Latina|https://es.wikipedia.org/wiki/América_Latina]] entra en ese mapa por sus recursos y no por su demanda, y [[Brasil|https://es.wikipedia.org/wiki/Brasil]], [[México|https://es.wikipedia.org/wiki/México]] y [[Chile|https://es.wikipedia.org/wiki/Chile]] concentran la mayor parte de la infraestructura de centros de datos en la región, con un modelo que en todos los casos es el mismo de inversión a cambio de agua, tierra y energía. Es una lógica conocida, solo que lo que sale de la región ya no es mineral ni grano sino capacidad de cómputo alimentada con recursos locales, y los servicios digitales que resultan se consumen y se cobran en otra parte. En Brasil la comunidad indígena [[Anacé|https://es.wikipedia.org/wiki/Pueblo_anacé]], en [[Ceará|https://es.wikipedia.org/wiki/Ceará]], resiste la instalación de un centro de datos vinculado a TikTok que ocuparía una superficie equivalente a doce canchas de fútbol, en [[Perú|https://es.wikipedia.org/wiki/Perú]] especialistas hablan de una bomba social si se suma esa demanda a zonas que ya sufren estrés hídrico severo, y en [[Argentina|https://es.wikipedia.org/wiki/Argentina]] un proyecto de [[OpenAI|https://es.wikipedia.org/wiki/OpenAI]] junto con Sur Energy prevé instalarse con 500 MW de capacidad. Los casos cambian de país y de empresa, y el patrón no."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El caso de [[Cerrillos|https://es.wikipedia.org/wiki/Cerrillos_(Chile)]] en [[Santiago de Chile|https://es.wikipedia.org/wiki/Santiago_de_Chile]] condensa la disputa, porque [[Google|https://es.wikipedia.org/wiki/Google]] anunció en 2019 un centro de datos que usaría 169 litros por segundo de aguas subterráneas en una zona cuyo acuífero ya estaba al borde del agotamiento tras la peor sequía en cien años, y vecinos organizados en [[Mosacat|https://www.mosacat.cl/]] demandaron y lograron revertir la aprobación en el [[Tribunal Ambiental|https://es.wikipedia.org/wiki/Tribunal_Ambiental_de_Chile]] porque la evaluación no consideró el impacto del [[cambio climático|https://es.wikipedia.org/wiki/Cambio_climático]] en el [[Acuífero Santiago Central|https://es.wikipedia.org/wiki/Acuífero]]. Google rediseñó el proyecto con enfriamiento por aire y lo presentó de nuevo en julio de 2026, pero gracias a un cambio normativo aprobado en 2025 el nuevo data center podrá construirse sin someterse a [[evaluación de impacto ambiental|https://es.wikipedia.org/wiki/Evaluación_de_impacto_ambiental]], con casi 700 toneladas de [[diésel|https://es.wikipedia.org/wiki/Diésel]] almacenadas para grupos electrógenos de emergencia y sin medidas de mitigación por ruido, calor ni emisiones ([[CodexVerde|https://codexverde.cl/]], 2026). En este caso la comunidad ganó porque existía un instrumento de evaluación, la empresa cambió el diseño y después cambió la regla, por lo que quitar el instrumento resultó más eficaz que responder a su objeción, asi enfriar con aire resuelve el problema del agua en el discurso pero traslada el costo a la electricidad y al diésel, es decir, a lo que ya no se mide como agua. La infraestructura se materializa mientras el escrutinio ambiental se desmaterializa por decreto."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Menos de un tercio de los operadores de centros de datos monitorea el [[Water Usage Effectiveness|https://es.wikipedia.org/wiki/Eficiencia_energética_de_infraestructura]], que es la métrica básica de eficiencia hídrica del sector, y cuando publican cifras casi nunca separan cuánta agua se usa directamente para enfriar y cuánta se gasta indirectamente en generar electricidad, así que sin esos datos cualquier discusión sobre licencias o participación ciudadana arranca perdida de un inicio."
+    },
+    {
+      "tipo": "destacado",
+      "texto": "Quien no puede medir no puede comparar y mucho menos puede negociar, asi la opacidad de los datos se vuelve una ventaja de negociación para quien los tiene."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Con esto podemos decir que la nube tiene cuerpo, y ese cuerpo está hecho de cobre y fibra óptica tendidos en el fondo del mar. Construido de hormigón y servidores que evaporan agua dulce, de territorios que ceden acuíferos y energía mientras sus comunidades negocian con corporaciones transnacionales en condiciones de asimetría estructural. Las reflexiones giran entorno a si cada región alojará más infraestructura digital, porque lo hará, sino bajo qué reglas, al mismo tiempo que deben exigir, que los operadores publiquen su consumo de agua y energía desagregado entre uso directo e indirecto, por servicio y por tipo de contenido, que ninguna licencia se otorgue sin una evaluación de impacto que incluya el estado real del acuífero y el cambio climático y que no se pueda eximir de esa evaluación por decreto, y que las comunidades participen antes de que el proyecto esté decidido y no después, cuando solo les queda litigar, porque nada de esto está decidido y es una pelea política."
+    },
+    {
+      "tipo": "cita",
+      "texto": "La señal también tiene cuerpo, y ese cuerpo tiene dueño, territorio y consecuencias."
+    },
+    {
+      "tipo": "subtitulo",
+      "texto": "Referencias"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[16Best|https://16best.net/what-percent-internet-users-watch-video/]] (s. f.). Online Video Statistics 2026 (Viewing & Streaming)."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[CloudZero|https://www.cloudzero.com/blog/tech-carbon-footprint/]] (2026). Tech carbon footprint: How much does online activity contribute to emissions?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[CodexVerde|https://codexverde.cl/]] (2026, 26 de octubre). Google cambia agua por aire para enfriar data center en Chile, pero se salta evaluación de impacto ambiental. Fundación Terram."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Earth911|https://earth911.com/home-garden/video-streaming-carbon-footprint/]] (s. f.). What is the carbon footprint of video streaming?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[EnergyCosts.co.uk|https://www.energycosts.co.uk/articles/tiktok-energy/]] (2026). How much energy does TikTok use?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Envirotec|https://envirotecmagazine.com/2022/12/08/tracking-the-ecological-cost-of-a-tweet/]] (2022, 8 de diciembre). The ecological cost of a tweet [estudio de Greenly]. Envirotec Magazine."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Greenspector|https://greenspector.com/en/social-media-2021/]] (2021). What is the environmental footprint for social media applications? 2021 edition."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Hogan, M.|https://www.ephemerajournal.org/contribution/big-data-ecologies]] (2018). Big data ecologies. Ephemera, 18(3), 631."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Hu, T.-H.|https://mitpress.mit.edu/9780262528483/a-prehistory-of-the-cloud/]] (2015). A Prehistory of the Cloud. MIT Press."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Jisc National Centre for AI|https://nationalcentreforai.jiscinvolve.org/wp/2025/05/02/artificial-intelligence-and-the-environment-putting-the-numbers-into-perspective/]] (2025, 2 de mayo). Artificial intelligence and the environment: Putting the numbers into perspective."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Koop, F.|https://dialogue.earth/en/author/fermin-koop/]] (2026). Los centros de datos le están sacando agua y energía a América Latina. FARN / Dialogue Earth."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[Starosielski, N.|https://www.dukeupress.edu/the-undersea-network]] (2015). The Undersea Network. Duke University Press."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[The Network Installers|https://thenetworkinstallers.com/blog/data-center-water-usage/]] (2026). 50+ data center water usage statistics you should know (2026)."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[UNU-INWEH|https://unu.edu/inweh/news/environmental-cost-of-AIs-Enrgy-use-carbon-water-and-land-footprints]] (2026). Environmental cost of AI's energy use: Carbon, water and land footprints. United Nations University."
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "• [[University of Georgia Extension|https://fieldreport.caes.uga.edu/publications/B1600/how-data-centers-impact-surface-and-ground-waters/]] (s. f.). Understanding how data centers impact surface and ground waters."
+    }
+  ]
+}

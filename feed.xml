@@ -5,9 +5,26 @@
     <link>https://39913em.github.io/archivo-de-senal/</link>
     <description>Cultura, arte digital y electrónico — crítica y difusión</description>
     <language>es</language>
-    <lastBuildDate>Mon, 18 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 12:00:00 GMT</lastBuildDate>
     <atom:link href="https://39913em.github.io/archivo-de-senal/feed.xml" rel="self" 
     type="application/rss+xml"/>
+
+        <item>
+      <title>La nube tiene cuerpo</title>
+      <link>https://39913em.github.io/archivo-de-senal/lectura.html?id=la-nube-tiene-cuerpo</link>
+      <guid>https://39913em.github.io/archivo-de-senal/lectura.html?id=la-nube-tiene-cuerpo</guid>
+      <pubDate>Tue, 01 Dec 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[
+        <img src="https://39913em.github.io/archivo-de-senal/assets/img/boton.webp" alt="La nube tiene cuerpo" style="max-width:100%; border-radius:8px; margin-bottom:16px;">
+        <p>Hay un cable de fibra óptica que sale del océano Pacífico y se entierra en una playa. Lo custodian operadores que negocian con el Estado y con las comunidades el derecho a que ese cable toque tierra, y casi todo el tráfico transoceánico de internet pasa por ahí. El WiFi del teléfono es el último metro de un viaje que empezó en el fondo del mar.</p>
+        <p>La palabra nube designa una operación ideológica que imagina un espacio sin lugar, ingrávido, sin mediación. Pero detrás del ícono hay miles de centros de datos, cualquiera de los cuales puede consumir tanta electricidad como una ciudad mediana y usar 19 millones de litros de agua por día, lo mismo que una ciudad de 50.000 habitantes en una jornada completa. Casi la mitad de ese volumen es invisible: se evapora en los embalses de las hidroeléctricas que alimentan los servidores.</p>
+        <blockquote>Si la nube es ingrávida nadie puede reclamarle un territorio, si es etérea no consume agua y si no tiene cuerpo no tiene responsabilidad.</blockquote>
+        <p>El caso de Cerrillos en Santiago de Chile condensa la disputa: Google anunció en 2019 un centro de datos que usaría 169 litros por segundo de aguas subterráneas en una zona cuyo acuífero ya estaba al borde del agotamiento. Los vecinos de Mosacat demandaron y ganaron. Google rediseñó el proyecto con enfriamiento por aire, pero gracias a un cambio normativo de 2025 el nuevo data center podrá construirse sin evaluación de impacto ambiental. La comunidad ganó porque existía un instrumento; la empresa cambió el diseño y después cambió la regla.</p>
+        <p>La nube tiene cuerpo, y ese cuerpo está hecho de cobre y fibra óptica tendidos en el fondo del mar, de hormigón y servidores que evaporan agua dulce, de territorios que ceden acuíferos y energía mientras sus comunidades negocian con corporaciones transnacionales en condiciones de asimetría estructural.</p>
+        <p><a href="https://39913em.github.io/archivo-de-senal/lectura.html?id=la-nube-tiene-cuerpo" target="_blank">Leer el ensayo completo</a></p>
+      ]]></description>
+      <category>Entrada</category>
+    </item>
 
     <item>
   <title>La visualidad no se scrollea</title>
