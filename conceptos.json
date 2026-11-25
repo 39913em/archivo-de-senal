@@ -1,0 +1,93 @@
+{
+  "conceptos": ["cuerpo", "archivo", "memoria", "interfaz", "imagen", "sonido", "datos", "algoritmo", "opacidad", "territorio", "extractivismo", "acceso", "resistencia", "tecnologia"],
+  "matriz": {
+    "cuerpo": {
+      "la-nube-tiene-cuerpo": 8,
+      "la-visualidad-no-se-scrollea": 12,
+      "el-dedo-ya-no-hace-falta": 14,
+      "arquitectura-sonora-entornos-virtuales": 5
+    },
+    "archivo": {
+      "la-visualidad-no-se-scrollea": 6,
+      "el-dedo-ya-no-hace-falta": 4,
+      "cultura-no-se-torrentea": 6,
+      "memoria-rota": 22,
+      "datos-masivos": 4
+    },
+    "memoria": {
+      "la-visualidad-no-se-scrollea": 8,
+      "cultura-no-se-torrentea": 4,
+      "memoria-rota": 14,
+      "arquitectura-sonora-entornos-virtuales": 2,
+      "datos-masivos": 2
+    },
+    "interfaz": {
+      "la-visualidad-no-se-scrollea": 14,
+      "el-dedo-ya-no-hace-falta": 6,
+      "arquitectura-sonora-entornos-virtuales": 4
+    },
+    "imagen": {
+      "la-visualidad-no-se-scrollea": 28,
+      "el-dedo-ya-no-hace-falta": 8,
+      "cultura-no-se-torrentea": 2,
+      "datos-masivos": 3
+    },
+    "sonido": {
+      "la-visualidad-no-se-scrollea": 5,
+      "memoria-rota": 6,
+      "arquitectura-sonora-entornos-virtuales": 24
+    },
+    "datos": {
+      "la-nube-tiene-cuerpo": 10,
+      "la-visualidad-no-se-scrollea": 4,
+      "el-dedo-ya-no-hace-falta": 2,
+      "cultura-no-se-torrentea": 2,
+      "datos-masivos": 26
+    },
+    "algoritmo": {
+      "la-nube-tiene-cuerpo": 3,
+      "la-visualidad-no-se-scrollea": 10,
+      "el-dedo-ya-no-hace-falta": 3,
+      "cultura-no-se-torrentea": 4,
+      "memoria-rota": 3,
+      "datos-masivos": 8
+    },
+    "opacidad": {
+      "la-nube-tiene-cuerpo": 10,
+      "la-visualidad-no-se-scrollea": 3,
+      "memoria-rota": 2
+    },
+    "territorio": {
+      "la-nube-tiene-cuerpo": 12,
+      "arquitectura-sonora-entornos-virtuales": 2,
+      "datos-masivos": 2
+    },
+    "extractivismo": {
+      "la-nube-tiene-cuerpo": 9,
+      "la-visualidad-no-se-scrollea": 4,
+      "cultura-no-se-torrentea": 3
+    },
+    "acceso": {
+      "cultura-no-se-torrentea": 16,
+      "memoria-rota": 4,
+      "arquitectura-sonora-entornos-virtuales": 6,
+      "datos-masivos": 3
+    },
+    "resistencia": {
+      "la-nube-tiene-cuerpo": 4,
+      "la-visualidad-no-se-scrollea": 8,
+      "el-dedo-ya-no-hace-falta": 3,
+      "cultura-no-se-torrentea": 6,
+      "memoria-rota": 4,
+      "arquitectura-sonora-entornos-virtuales": 3
+    },
+    "tecnologia": {
+      "la-nube-tiene-cuerpo": 6,
+      "el-dedo-ya-no-hace-falta": 8,
+      "cultura-no-se-torrentea": 4,
+      "memoria-rota": 6,
+      "arquitectura-sonora-entornos-virtuales": 8,
+      "datos-masivos": 6
+    }
+  }
+}

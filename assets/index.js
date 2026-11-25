@@ -1,6 +1,3 @@
-
-
-
 async function cargarDatos() {
   const res = await fetch("entradas.json");
   if (!res.ok) throw new Error("No se pudo cargar entradas.json");
@@ -21,21 +18,28 @@ function escapeHtml(str = "") {
   return div.innerHTML;
 }
 
+function normalizarTag(tag = "") {
+  return tag
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
 function crearFilaEntrada(entrada) {
   const a = document.createElement("a");
   a.className = "entry-row";
   a.href = `lectura.html?id=${encodeURIComponent(entrada.id || "")}`;
-  
 
   const tagsList = (entrada.tags || []);
-  a.dataset.tags = tagsList.join('|').toLowerCase();
-  
-  
+  a.dataset.tags = tagsList.map(normalizarTag).join('|');
+
   const tagsHtml = tagsList
     .slice(0, 4)
     .map(t => `<span class="tag">#${escapeHtml(t)}</span>`)
     .join("");
-    
+
   a.innerHTML = `
     <div class="entry-piece">#${escapeHtml(entrada.pieza || "")}</div>
     <div class="entry-main">
@@ -52,37 +56,97 @@ function crearFilaEntrada(entrada) {
   return a;
 }
 
+function aplicarFiltroTag(tag) {
+  const searchInput = document.getElementById('search-input');
+  if (!searchInput) return;
+
+  const tagNorm = normalizarTag(tag);
+  searchInput.value = tag;
+
+  const rows = document.querySelectorAll('.entry-row');
+  let visibleCount = 0;
+
+  rows.forEach(row => {
+    const tagsArray = (row.dataset.tags || '').split('|').filter(Boolean);
+    const found = tagsArray.some(t => t === tagNorm);
+    if (found) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+
+  const archiveList = document.getElementById('archive-list');
+  if (archiveList) {
+    let emptyMsg = archiveList.querySelector('.search-empty');
+    if (visibleCount === 0) {
+      if (!emptyMsg) {
+        emptyMsg = document.createElement('p');
+        emptyMsg.className = 'empty-state search-empty';
+        emptyMsg.textContent = 'No se encontraron piezas con este tag.';
+        archiveList.appendChild(emptyMsg);
+      }
+    } else if (emptyMsg) {
+      emptyMsg.remove();
+    }
+  }
+
+  actualizarBotonLimpiar(true);
+
+  document.querySelector('.archive')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+function limpiarFiltro() {
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  actualizarBotonLimpiar(false);
+}
+
+function actualizarBotonLimpiar(visible) {
+  let btn = document.getElementById('limpiar-filtro');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.id = 'limpiar-filtro';
+    btn.type = 'button';
+    btn.textContent = '✕ limpiar';
+    btn.style.display = 'none';
+    btn.addEventListener('click', limpiarFiltro);
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && searchInput.parentNode) {
+      searchInput.parentNode.insertBefore(btn, searchInput.nextSibling);
+    }
+  }
+  btn.style.display = visible ? 'inline-block' : 'none';
+}
 
 function initSearch() {
   const searchInput = document.getElementById('search-input');
   if (!searchInput) return;
-  
+
   searchInput.addEventListener('input', function(e) {
-    const query = e.target.value.toLowerCase().trim();
+    const query = normalizarTag(e.target.value);
     const rows = document.querySelectorAll('.entry-row');
     let visibleCount = 0;
-    
+
     rows.forEach(row => {
-      const tagsData = row.dataset.tags || '';
-      const tagsArray = tagsData.split('|');
+      const tagsArray = (row.dataset.tags || '').split('|').filter(Boolean);
       let found = false;
-      
+
       if (query === '') {
         found = true;
       } else {
-
-        const text = row.textContent.toLowerCase();
-        if (text.includes(query)) {
-          found = true;
-        }
-
-        tagsArray.forEach(tag => {
-          if (tag === query || tag.includes(query)) {
-            found = true;
-          }
-        });
+        const text = normalizarTag(row.textContent);
+        if (text.includes(query)) found = true;
+        if (!found && tagsArray.some(tag => tag.includes(query))) found = true;
       }
-      
+
       if (found) {
         row.style.display = '';
         visibleCount++;
@@ -90,80 +154,46 @@ function initSearch() {
         row.style.display = 'none';
       }
     });
-    
+
     const archiveList = document.getElementById('archive-list');
-    let emptyMsg = archiveList.querySelector('.search-empty');
-    if (visibleCount === 0 && query !== '') {
-      if (!emptyMsg) {
-        emptyMsg = document.createElement('p');
-        emptyMsg.className = 'empty-state search-empty';
-        emptyMsg.textContent = 'No se encontraron piezas que coincidan con tu búsqueda.';
-        archiveList.appendChild(emptyMsg);
+    if (archiveList) {
+      let emptyMsg = archiveList.querySelector('.search-empty');
+      if (visibleCount === 0 && query !== '') {
+        if (!emptyMsg) {
+          emptyMsg = document.createElement('p');
+          emptyMsg.className = 'empty-state search-empty';
+          emptyMsg.textContent = 'No se encontraron piezas que coincidan con tu búsqueda.';
+          archiveList.appendChild(emptyMsg);
+        }
+      } else if (emptyMsg) {
+        emptyMsg.remove();
       }
-    } else {
-      if (emptyMsg) emptyMsg.remove();
     }
+
+    actualizarBotonLimpiar(query !== '');
   });
 }
-
 
 function initTagFilter() {
   document.addEventListener('click', function(e) {
     const tag = e.target.closest('.tag');
     if (!tag) return;
     const tagName = tag.textContent.replace('#', '').trim();
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      searchInput.value = tagName;
-
-      const rows = document.querySelectorAll('.entry-row');
-      let visibleCount = 0;
-      
-      rows.forEach(row => {
-        const tagsData = row.dataset.tags || '';
-        const tagsArray = tagsData.split('|');
-        const found = tagsArray.some(t => t === tagName.toLowerCase());
-        if (found) {
-          row.style.display = '';
-          visibleCount++;
-        } else {
-          row.style.display = 'none';
-        }
-      });
-      
-      const archiveList = document.getElementById('archive-list');
-      let emptyMsg = archiveList.querySelector('.search-empty');
-      if (visibleCount === 0) {
-        if (!emptyMsg) {
-          emptyMsg = document.createElement('p');
-          emptyMsg.className = 'empty-state search-empty';
-          emptyMsg.textContent = 'No se encontraron piezas con este tag.';
-          archiveList.appendChild(emptyMsg);
-        }
-      } else {
-        if (emptyMsg) emptyMsg.remove();
-      }
-      
-      document.querySelector('.archive')?.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    aplicarFiltroTag(tagName);
   });
 }
-
 
 function initViewToggle() {
   const toggle = document.getElementById('view-toggle');
   const archive = document.querySelector('.archive');
   if (!toggle || !archive) return;
-  
+
   const savedView = localStorage.getItem('view');
   if (savedView === 'grid') {
     archive.classList.add('grid');
     toggle.textContent = '☰';
   }
-  
+
   toggle.addEventListener('click', function() {
     archive.classList.toggle('grid');
     const isGrid = archive.classList.contains('grid');
@@ -172,354 +202,262 @@ function initViewToggle() {
   });
 }
 
-
-
-function generarMapaConceptual(entradas) {
+function generarMapaConceptual(entradas, matrizConceptos) {
   const container = document.getElementById('mapa-container');
   if (!container) return;
-  
-
-  const tagCount = {};
-  const tagEntries = {};
-  const tagConnections = {};
-  
-  entradas.forEach(entrada => {
-    (entrada.tags || []).forEach(tag => {
-      tagCount[tag] = (tagCount[tag] || 0) + 1;
-      if (!tagEntries[tag]) tagEntries[tag] = [];
-      tagEntries[tag].push(entrada.titulo || entrada.id);
-    });
-  });
-  
-  entradas.forEach(entrada => {
-    const entryTags = entrada.tags || [];
-    for (let i = 0; i < entryTags.length; i++) {
-      for (let j = i + 1; j < entryTags.length; j++) {
-        const a = entryTags[i];
-        const b = entryTags[j];
-        if (!tagConnections[a]) tagConnections[a] = new Set();
-        if (!tagConnections[b]) tagConnections[b] = new Set();
-        tagConnections[a].add(b);
-        tagConnections[b].add(a);
-      }
-    }
-  });
-  
-
-  const tagsFiltrados = Object.keys(tagCount).filter(tag => {
-    const frecuencia = tagCount[tag] || 0;
-    const conexiones = tagConnections[tag] ? tagConnections[tag].size : 0;
-    return frecuencia >= 2 && conexiones >= 1;
-  });
-  
-  if (tagsFiltrados.length < 3) {
-    container.innerHTML = `
-      <div class="mapa-empty">
-        <span>🌱</span>
-        <p>Todavía no hay suficientes conexiones entre temas.</p>
-        <p style="font-size:0.7rem; opacity:0.6;">Se necesitan al menos 3 tags que se repitan en diferentes entradas.</p>
-      </div>
-    `;
+  if (!matrizConceptos || !matrizConceptos.conceptos || !matrizConceptos.matriz) {
+    container.innerHTML = `<div class="mapa-empty"><p>Falta conceptos.json o está mal formado.</p></div>`;
     return;
   }
-  
 
-  const maxCount = Math.max(...tagsFiltrados.map(t => tagCount[t]));
-  
-  const nodes = tagsFiltrados.map(tag => ({
-    id: tag,
-    group: 1,
-    size: 10 + (tagCount[tag] / maxCount) * 30,
-    count: tagCount[tag],
-    entries: tagEntries[tag] || []
-  }));
-  
+  const CONCEPTOS = matrizConceptos.conceptos;
+  const MATRIZ = matrizConceptos.matriz;
+  const ids = entradas.map(e => e.id);
 
-  const links = [];
-  const linkSet = new Set();
-  const tagsSet = new Set(tagsFiltrados);
-  
-  entradas.forEach(entrada => {
-    const entryTags = entrada.tags || [];
-    const filteredEntryTags = entryTags.filter(t => tagsSet.has(t));
-    for (let i = 0; i < filteredEntryTags.length; i++) {
-      for (let j = i + 1; j < filteredEntryTags.length; j++) {
-        const a = filteredEntryTags[i];
-        const b = filteredEntryTags[j];
-        const key = [a, b].sort().join('|');
-        if (!linkSet.has(key)) {
-          linkSet.add(key);
-          links.push({ source: a, target: b, value: 1 });
-        } else {
-          const existing = links.find(l => 
-            (l.source === a && l.target === b) || 
-            (l.source === b && l.target === a)
-          );
-          if (existing) existing.value += 1;
-        }
-      }
-    }
+  const vectores = {};
+  CONCEPTOS.forEach(c => {
+    vectores[c] = ids.map(id => (MATRIZ[c] && MATRIZ[c][id]) || 0);
   });
-  
 
-  const width = container.clientWidth || 800;
-  const height = container.clientHeight || 500;
-  
+  function correlacion(a, b) {
+    const n = a.length;
+    const ma = a.reduce((s, v) => s + v, 0) / n;
+    const mb = b.reduce((s, v) => s + v, 0) / n;
+    let num = 0, da = 0, db = 0;
+    for (let i = 0; i < n; i++) {
+      const xa = a[i] - ma;
+      const xb = b[i] - mb;
+      num += xa * xb;
+      da += xa * xa;
+      db += xb * xb;
+    }
+    if (da === 0 || db === 0) return 0;
+    return num / Math.sqrt(da * db);
+  }
+
+  const CORRELACION_MINIMA = 0.45;
+
+  const pesoTotal = {};
+  CONCEPTOS.forEach(c => {
+    pesoTotal[c] = vectores[c].reduce((s, v) => s + v, 0);
+  });
+
+  const ejes = CONCEPTOS.filter(c => pesoTotal[c] >= 20).sort((a, b) => pesoTotal[b] - pesoTotal[a]);
+  const conexion = CONCEPTOS.filter(c => pesoTotal[c] >= 8 && pesoTotal[c] < 20).sort((a, b) => pesoTotal[b] - pesoTotal[a]);
+  const perifericos = CONCEPTOS.filter(c => pesoTotal[c] > 0 && pesoTotal[c] < 8).sort((a, b) => pesoTotal[b] - pesoTotal[a]);
+
+  if (ejes.length + conexion.length + perifericos.length === 0) {
+    container.innerHTML = `<div class="mapa-empty"><p>Todavía no hay suficientes conexiones entre temas.</p></div>`;
+    return;
+  }
+
   container.innerHTML = '';
-  
-  const tooltip = document.createElement('div');
-  tooltip.className = 'mapa-tooltip';
-  container.appendChild(tooltip);
-  
-  const svg = d3.select(container)
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .style('background', 'transparent');
-  
-  const gLinks = svg.append('g').attr('class', 'links-group');
-  const gNodes = svg.append('g').attr('class', 'nodes-group');
-  
-  const colors = [
-    '#0EA5A4', '#F2545B', '#E8EDF3', '#9BA8BC', 
-    '#5B6679', '#34D399', '#FBBF24', '#F472B6',
-    '#60A5FA', '#A78BFA', '#FB923C', '#22D3EE'
-  ];
-  
-  function getColor(index) {
-    return colors[index % colors.length];
+
+  const width = container.clientWidth || 900;
+  const height = 600;
+  const cx = width / 2;
+  const cy = height / 2;
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  svg.setAttribute("class", "neurona-svg");
+  svg.style.width = "100%";
+  svg.style.height = "auto";
+  svg.style.display = "block";
+  container.appendChild(svg);
+
+  const gDendritas = document.createElementNS(svgNS, "g");
+  gDendritas.setAttribute("class", "neurona-dendritas");
+  svg.appendChild(gDendritas);
+
+  const gLinks = document.createElementNS(svgNS, "g");
+  gLinks.setAttribute("class", "neurona-links");
+  svg.appendChild(gLinks);
+
+  const gNodes = document.createElementNS(svgNS, "g");
+  gNodes.setAttribute("class", "neurona-nodes");
+  svg.appendChild(gNodes);
+
+  const posiciones = {};
+
+  function posicionarEnAnillo(lista, radio, offsetAngulo) {
+    const n = lista.length;
+    lista.forEach((c, i) => {
+      const angulo = offsetAngulo + (i / Math.max(1, n)) * Math.PI * 2;
+      const x = cx + Math.cos(angulo) * radio;
+      const y = cy + Math.sin(angulo) * radio;
+      posiciones[c] = { x, y, angulo };
+    });
   }
-  
-  const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links)
-      .id(d => d.id)
-      .distance(d => 100 + (d.value * 15))
-    )
-    .force('charge', d3.forceManyBody()
-      .strength(d => -250 - (d.count * 15))
-    )
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collision', d3.forceCollide()
-      .radius(d => d.size + 10)
-      .iterations(2)
-    )
-    .force('x', d3.forceX(width / 2).strength(0.02))
-    .force('y', d3.forceY(height / 2).strength(0.02));
-  
-  const link = gLinks
-    .selectAll('line')
-    .data(links)
-    .enter()
-    .append('line')
-    .attr('class', 'link')
-    .attr('stroke', 'var(--line)')
-    .attr('stroke-opacity', 0.3)
-    .attr('stroke-width', d => 1 + (d.value * 0.5));
-  
-  const node = gNodes
-    .selectAll('g')
-    .data(nodes)
-    .enter()
-    .append('g')
-    .attr('class', 'node')
-    .call(d3.drag()
-      .on('start', dragstarted)
-      .on('drag', dragged)
-      .on('end', dragended)
-    );
-  
-  node.append('circle')
-    .attr('r', d => d.size)
-    .attr('fill', (d, i) => getColor(i))
-    .attr('opacity', 0.85)
-    .style('cursor', 'pointer')
-    .style('stroke', 'var(--bg)')
-    .style('stroke-width', '2px');
-  
-  node.append('text')
-    .text(d => d.id)
-    .style('font-size', d => d.size > 22 ? '11px' : '8px')
-    .style('fill', d => d.size > 24 ? '#0B1320' : 'var(--text)')
-    .style('font-weight', d => d.size > 24 ? '700' : '500')
-    .style('text-shadow', d => d.size > 24 ? 'none' : '0 1px 4px rgba(0,0,0,0.8)')
-    .style('pointer-events', 'none')
-    .style('user-select', 'none');
-  
-  node.on('mouseenter', function(event, d) {
-    d3.select(this).select('circle')
-      .transition()
-      .duration(200)
-      .attr('r', d.size * 1.2)
-      .attr('opacity', 1);
-    
-    d3.select(this).select('text')
-      .style('font-size', d.size > 22 ? '13px' : '10px')
-      .style('fill', '#fff');
-    
-    link
-      .transition()
-      .duration(200)
-      .attr('stroke-opacity', l => {
-        return (l.source.id === d.id || l.target.id === d.id) ? 0.9 : 0.1;
-      })
-      .attr('stroke-width', l => {
-        return (l.source.id === d.id || l.target.id === d.id) ? 3 : 0.5;
-      })
-      .attr('stroke', l => {
-        return (l.source.id === d.id || l.target.id === d.id) ? 'var(--teal)' : 'var(--line)';
-      });
-    
-    const entriesList = d.entries.slice(0, 5).join(', ');
-    const more = d.entries.length > 5 ? ` +${d.entries.length - 5} más` : '';
-    tooltip.innerHTML = `
-      <strong>#${d.id}</strong>
-      <span class="tooltip-count">${d.count} entrada(s)</span>
-      <span class="tooltip-entries">${entriesList}${more}</span>
-    `;
-    tooltip.classList.add('visible');
-    
-    const rect = container.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-    tooltip.style.left = Math.min(mouseX + 12, width - 200) + 'px';
-    tooltip.style.top = Math.min(mouseY - 10, height - 80) + 'px';
-  });
-  
-  node.on('mousemove', function(event) {
-    const rect = container.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-    tooltip.style.left = Math.min(mouseX + 12, width - 200) + 'px';
-    tooltip.style.top = Math.min(mouseY - 10, height - 80) + 'px';
-  });
-  
-  node.on('mouseleave', function() {
-    d3.select(this).select('circle')
-      .transition()
-      .duration(200)
-      .attr('r', d => d.size)
-      .attr('opacity', 0.85);
-    
-    d3.select(this).select('text')
-      .style('font-size', d => d.size > 22 ? '11px' : '8px')
-      .style('fill', d => d.size > 24 ? '#0B1320' : 'var(--text)');
-    
-    link
-      .transition()
-      .duration(200)
-      .attr('stroke-opacity', 0.3)
-      .attr('stroke-width', d => 1 + (d.value * 0.5))
-      .attr('stroke', 'var(--line)');
-    
-    tooltip.classList.remove('visible');
-  });
-  
 
-  node.on('click', function(event, d) {
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      searchInput.value = d.id;
+  posicionarEnAnillo(ejes, 130, -Math.PI / 2);
+  posicionarEnAnillo(conexion, 230, -Math.PI / 2 + Math.PI / Math.max(1, conexion.length));
+  posicionarEnAnillo(perifericos, 290, -Math.PI / 2 + Math.PI / Math.max(1, perifericos.length));
 
-      const rows = document.querySelectorAll('.entry-row');
-      let visibleCount = 0;
-      
-      rows.forEach(row => {
-        const tagsData = row.dataset.tags || '';
-        const tagsArray = tagsData.split('|');
-        const found = tagsArray.some(t => t === d.id.toLowerCase());
-        if (found) {
-          row.style.display = '';
-          visibleCount++;
-        } else {
-          row.style.display = 'none';
-        }
-      });
-      
-      const archiveList = document.getElementById('archive-list');
-      let emptyMsg = archiveList.querySelector('.search-empty');
-      if (visibleCount === 0) {
-        if (!emptyMsg) {
-          emptyMsg = document.createElement('p');
-          emptyMsg.className = 'empty-state search-empty';
-          emptyMsg.textContent = 'No se encontraron piezas con este tag.';
-          archiveList.appendChild(emptyMsg);
-        }
-      } else {
-        if (emptyMsg) emptyMsg.remove();
-      }
-      
-      document.querySelector('.archive')?.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+  const yaDibujado = new Set();
+  for (let i = 0; i < CONCEPTOS.length; i++) {
+    for (let j = i + 1; j < CONCEPTOS.length; j++) {
+      const a = CONCEPTOS[i], b = CONCEPTOS[j];
+      if (!posiciones[a] || !posiciones[b]) continue;
+      const key = [a, b].sort().join('|');
+      if (yaDibujado.has(key)) continue;
+      yaDibujado.add(key);
+      const corr = correlacion(vectores[a], vectores[b]);
+      if (corr < CORRELACION_MINIMA) continue;
+      const line = document.createElementNS(svgNS, "line");
+      line.setAttribute("x1", posiciones[a].x);
+      line.setAttribute("y1", posiciones[a].y);
+      line.setAttribute("x2", posiciones[b].x);
+      line.setAttribute("y2", posiciones[b].y);
+      line.setAttribute("class", "neurona-link");
+      line.setAttribute("stroke-width", 0.6 + corr * 3);
+      line.setAttribute("stroke-opacity", 0.1 + corr * 0.55);
+      line.dataset.a = a;
+      line.dataset.b = b;
+      gLinks.appendChild(line);
     }
-  });
-  
-  simulation.on('tick', () => {
-    link
-      .attr('x1', d => d.source.x)
-      .attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x)
-      .attr('y2', d => d.target.y);
-    
-    node
-      .attr('transform', d => `translate(${d.x},${d.y})`);
-  });
-  
-  function dragstarted(event, d) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
   }
-  
-  function dragged(event, d) {
-    d.fx = event.x;
-    d.fy = event.y;
-  }
-  
-  function dragended(event, d) {
-    if (!event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
-  
-  const resizeObserver = new ResizeObserver(() => {
-    const newWidth = container.clientWidth || 800;
-    const newHeight = container.clientHeight || 500;
-    svg.attr('width', newWidth).attr('height', newHeight);
-    simulation.force('center', d3.forceCenter(newWidth / 2, newHeight / 2));
-    simulation.alpha(0.3).restart();
-  });
-  
-  resizeObserver.observe(container);
-}
 
+  const soma = document.createElementNS(svgNS, "g");
+  soma.setAttribute("class", "neurona-soma");
+  const somaCircle = document.createElementNS(svgNS, "circle");
+  somaCircle.setAttribute("cx", cx);
+  somaCircle.setAttribute("cy", cy);
+  somaCircle.setAttribute("r", 40);
+  soma.appendChild(somaCircle);
+  const somaText = document.createElementNS(svgNS, "text");
+  somaText.setAttribute("x", cx);
+  somaText.setAttribute("y", cy + 4);
+  somaText.setAttribute("text-anchor", "middle");
+  somaText.setAttribute("class", "neurona-soma-text");
+  somaText.textContent = "archivo";
+  soma.appendChild(somaText);
+  gNodes.appendChild(soma);
+
+  ejes.forEach(c => {
+    if (!posiciones[c]) return;
+    const d = document.createElementNS(svgNS, "line");
+    d.setAttribute("x1", cx);
+    d.setAttribute("y1", cy);
+    d.setAttribute("x2", posiciones[c].x);
+    d.setAttribute("y2", posiciones[c].y);
+    d.setAttribute("class", "neurona-dendrita");
+    d.dataset.tag = c;
+    gDendritas.appendChild(d);
+  });
+
+  CONCEPTOS.forEach(c => {
+    const pos = posiciones[c];
+    if (!pos) return;
+    const total = pesoTotal[c];
+    const nivel = total >= 20 ? 'eje' : total >= 8 ? 'conexion' : 'periferico';
+    const radio = nivel === 'eje' ? 8 + Math.min(12, total * 0.2) : nivel === 'conexion' ? 6 + Math.min(8, total * 0.3) : 5;
+
+    const g = document.createElementNS(svgNS, "g");
+    g.setAttribute("class", `neurona-node nivel-${nivel}`);
+    g.dataset.tag = c;
+    g.setAttribute("transform", `translate(${pos.x},${pos.y})`);
+    g.style.cursor = 'pointer';
+
+    const circle = document.createElementNS(svgNS, "circle");
+    circle.setAttribute("r", radio);
+    circle.setAttribute("class", "neurona-node-circle");
+    g.appendChild(circle);
+
+    const label = document.createElementNS(svgNS, "text");
+    label.setAttribute("text-anchor", "middle");
+    label.setAttribute("y", radio + 12);
+    label.setAttribute("class", "neurona-node-label");
+    label.textContent = c;
+    g.appendChild(label);
+
+    const countText = document.createElementNS(svgNS, "text");
+    countText.setAttribute("text-anchor", "middle");
+    countText.setAttribute("y", 4);
+    countText.setAttribute("class", "neurona-node-count");
+    countText.textContent = total;
+    g.appendChild(countText);
+
+    g.addEventListener('mouseenter', () => {
+      svg.classList.add('hover-activo');
+      gNodes.querySelectorAll('.neurona-node').forEach(n => {
+        if (n.dataset.tag === c) {
+          n.classList.add('activo');
+          n.classList.remove('atenuado');
+        } else {
+          n.classList.add('atenuado');
+          n.classList.remove('activo');
+        }
+      });
+      gLinks.querySelectorAll('.neurona-link').forEach(l => {
+        if (l.dataset.a === c || l.dataset.b === c) {
+          l.classList.add('activo');
+          l.classList.remove('atenuado');
+        } else {
+          l.classList.add('atenuado');
+          l.classList.remove('activo');
+        }
+      });
+      gDendritas.querySelectorAll('.neurona-dendrita').forEach(d => {
+        if (d.dataset.tag === c) {
+          d.classList.add('activo');
+          d.classList.remove('atenuado');
+        } else {
+          d.classList.add('atenuado');
+          d.classList.remove('activo');
+        }
+      });
+    });
+
+    g.addEventListener('mouseleave', () => {
+      svg.classList.remove('hover-activo');
+      gNodes.querySelectorAll('.neurona-node').forEach(n => n.classList.remove('activo', 'atenuado'));
+      gLinks.querySelectorAll('.neurona-link').forEach(l => l.classList.remove('activo', 'atenuado'));
+      gDendritas.querySelectorAll('.neurona-dendrita').forEach(d => d.classList.remove('activo', 'atenuado'));
+    });
+
+    g.addEventListener('click', () => aplicarFiltroTag(c));
+
+    gNodes.appendChild(g);
+  });
+
+  const leyenda = document.createElement('p');
+  leyenda.className = 'mapa-leyenda';
+  container.appendChild(leyenda);
+}
 
 async function init() {
   const archive = document.getElementById('archive-list');
-  
+
   initSearch();
   initTagFilter();
   initViewToggle();
-  
+
   try {
-    const data = await cargarDatos();
+    const [data, matrizConceptos] = await Promise.all([
+      cargarDatos(),
+      fetch('conceptos.json').then(r => r.ok ? r.json() : null).catch(() => null)
+    ]);
+
     const lista = data.entradas || data;
     if (!Array.isArray(lista)) {
       throw new Error("El JSON no contiene un array válido de entradas");
     }
     const entradas = [...lista].sort((a, b) => a.fecha < b.fecha ? 1 : -1);
-    
-    const skeletons = archive.querySelectorAll('.skeleton-entry');
-    skeletons.forEach(el => el.remove());
-    
-    if (entradas.length === 0) {
-      archive.innerHTML = `<p class="empty-state">Todavía no hay piezas publicadas. Vuelve pronto.</p>`;
-      return;
+
+    if (archive) {
+      const skeletons = archive.querySelectorAll('.skeleton-entry');
+      skeletons.forEach(el => el.remove());
+
+      if (entradas.length === 0) {
+        archive.innerHTML = `<p class="empty-state">Todavía no hay piezas publicadas. Vuelve pronto.</p>`;
+      } else {
+        entradas.forEach(entrada => archive.appendChild(crearFilaEntrada(entrada)));
+      }
     }
-    
-    entradas.forEach(entrada => archive.appendChild(crearFilaEntrada(entrada)));
-    
+
     document.title = `${data.sitio?.titulo || "Archivo de Señal"} --- ${data.sitio?.subtitulo || ""}`;
     const h1 = document.getElementById("site-h1");
     if (h1 && data.sitio?.subtitulo) {
@@ -529,15 +467,16 @@ async function init() {
     if (count) {
       count.textContent = String(entradas.length).padStart(2, "0");
     }
-    
 
-    generarMapaConceptual(entradas);
-    
+    generarMapaConceptual(entradas, matrizConceptos);
+
   } catch (err) {
     console.error("ERROR REAL:", err);
-    const skeletons = archive.querySelectorAll('.skeleton-entry');
-    skeletons.forEach(el => el.remove());
-    archive.innerHTML = `<p class="empty-state">Error cargando archivo</p>`;
+    if (archive) {
+      const skeletons = archive.querySelectorAll('.skeleton-entry');
+      skeletons.forEach(el => el.remove());
+      archive.innerHTML = `<p class="empty-state">Error cargando archivo</p>`;
+    }
   }
 }
 
